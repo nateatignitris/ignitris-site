@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ignitris — Algorithmic Conversion Engine for PLG Startups</title>
+    <meta name="description" content="Stop losing 90% of your signups. Ignitris uses behavioral data to optimize free-to-paid conversion in real-time. Dynamic pricing, targeted offers, autonomous decisioning.">
+    <meta name="keywords" content="conversion optimization, PLG, product-led growth, free-to-paid conversion, dynamic pricing, SaaS, startup growth">
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ignitrisofficial.com">
+    <meta property="og:title" content="Ignitris — Algorithmic Conversion Engine">
+    <meta property="og:description" content="Stop losing 90% of your signups. Ignitris optimizes free-to-paid conversion in real-time.">
+    <meta property="og:image" content="https://ignitrisofficial.com/favicon.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ignitrisofficial.com">
+    <meta name="twitter:title" content="Ignitris — Algorithmic Conversion Engine">
+    <meta name="twitter:description" content="Stop losing 90% of your signups. Ignitris optimizes free-to-paid conversion in real-time.">
+    <meta name="twitter:image" content="https://ignitrisofficial.com/favicon.png">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://ignitrisofficial.com">
+    
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'SF Pro';
+            src: local('SF Pro Medium'), local('SFProText-Medium'), local('-apple-system');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        :root {
+            --black: #050505;
+            --black-light: #0a0a0a;
+            --black-lighter: #0f0f0f;
+            --black-border: #1a1a1a;
+            --blue: #3b82f6;
+            --blue-bright: #60a5fa;
+            --blue-dim: #1d4ed8;
+            --white: #fafafa;
+            --white-dim: #888888;
+            --white-dimmer: #555555;
+            --white-dimmest: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 500;
+            background-color: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 32px 48px;
+        }
+
+        nav .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo svg {
+            height: 22px;
+            width: auto;
+        }
+
+        .nav-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            color: var(--white-dimmer);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--blue);
+            border-radius: 50%;
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Full screen canvas */
+        #funnel-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            cursor: crosshair;
+        }
+
+        /* Content overlay */
+        .content-overlay {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 48px;
+            pointer-events: none;
+        }
+
+        .manifesto-section {
+            max-width: 480px;
+            pointer-events: auto;
+            padding-top: 40px;
+        }
+
+        .manifesto {
+            font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            line-height: 1.75;
+            letter-spacing: -0.01em;
+            color: var(--white-dim);
+            margin-bottom: 40px;
+        }
+
+        .manifesto p {
+            margin-bottom: 1.5em;
+        }
+
+        .manifesto p:last-child {
+            margin-bottom: 0;
+        }
+
+        .manifesto strong {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .manifesto em {
+            color: var(--blue);
+            font-style: italic;
+        }
+
+        /* Waitlist form */
+        .waitlist-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 380px;
+        }
+
+        .form-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .waitlist-form input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 0;
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .waitlist-form input::placeholder {
+            color: var(--white-dimmer);
+        }
+
+        .waitlist-form input:focus {
+            outline: none;
+            border-color: rgba(59, 130, 246, 0.4);
+            background: rgba(10, 10, 10, 0.9);
+        }
+
+        .waitlist-form button {
+            padding: 12px 20px;
+            background: var(--white);
+            color: var(--black);
+            border: none;
+            border-radius: 0;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .waitlist-form button:hover {
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        /* Success state */
+        .success-message {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 4px;
+        }
+
+        .success-message.show {
+            display: flex;
+        }
+
+        .success-icon {
+            color: var(--blue);
+            flex-shrink: 0;
+        }
+
+        .success-text {
+            font-size: 0.8rem;
+            color: var(--white-dim);
+        }
+
+        .form-hint {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--white-dimmest);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 12px;
+            text-align: center;
+            max-width: 380px;
+        }
+
+        .form-hint.hidden {
+            display: none;
+        }
+
+        /* Social links footer */
+        .social-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 32px 48px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .social-footer .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            color: var(--white-dimmest);
+            letter-spacing: 0.05em;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 28px;
+            pointer-events: auto;
+        }
+
+        .social-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--white-dimmer);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .content-overlay {
+                padding: 120px 32px;
+            }
+
+            nav {
+                padding: 24px 32px;
+            }
+
+            .social-footer {
+                padding: 24px 32px;
+            }
+
+            .manifesto-section {
+                max-width: 400px;
+            }
+
+            .manifesto {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .content-overlay {
+                padding: 100px 24px;
+                align-items: flex-start;
+                padding-top: 140px;
+            }
+
+            nav {
+                padding: 20px 24px;
+            }
+
+            .social-footer {
+                padding: 20px 24px;
+            }
+
+            .manifesto-section {
+                max-width: 100%;
+            }
+
+            .waitlist-form {
+                flex-direction: column;
+            }
+
+            .waitlist-form button {
+                width: 100%;
+            }
+
+            nav .nav-status {
+                display: none;
+            }
+
+            .social-links {
+                gap: 20px;
+            }
+
+            .footer-left {
+                display: none;
+            }
+
+            .social-footer .footer-inner {
+                justify-content: center;
+            }
+
+            .manifesto {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="funnel-canvas"></canvas>
+
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">
+                <svg width="1192" height="373" viewBox="0 0 1192 373" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M311.728 372.103C295.874 372.103 282.002 369.885 270.111 365.449C258.334 361.127 248.935 355.155 241.914 347.535C234.893 339.914 230.533 331.384 228.834 321.943L228.494 320.408H269.942L270.621 321.773C272.886 327.005 277.529 331.327 284.55 334.739C291.684 338.265 300.687 340.028 311.559 340.028C325.374 340.028 335.963 336.616 343.323 329.791C350.684 322.967 354.365 313.811 354.365 302.323V276.22H353.515C350.231 282.703 345.815 288.276 340.266 292.94C334.83 297.603 328.432 301.243 321.071 303.859C313.823 306.475 305.896 307.783 297.29 307.783C282.228 307.783 269.092 304.086 257.881 296.693C246.783 289.3 238.177 278.836 232.062 265.301C226.06 251.652 223.059 235.444 223.059 216.677V216.506C223.059 197.398 226.116 181.019 232.231 167.371C238.46 153.608 247.18 142.973 258.391 135.467C269.602 127.96 282.795 124.206 297.969 124.206C306.463 124.206 314.276 125.685 321.411 128.642C328.545 131.486 334.773 135.467 340.096 140.585C345.532 145.703 349.948 151.731 353.345 158.67H354.365V127.96H396.661V303.688C396.661 317.337 393.207 329.28 386.299 339.516C379.391 349.867 369.596 357.885 356.913 363.572C344.229 369.259 329.168 372.103 311.728 372.103ZM310.539 275.026C319.372 275.026 327.073 272.694 333.641 268.031C340.209 263.254 345.305 256.543 348.929 247.899C352.666 239.254 354.534 229.131 354.534 217.53V217.359C354.534 205.644 352.666 195.521 348.929 186.991C345.192 178.347 340.039 171.693 333.471 167.029C326.903 162.366 319.259 160.034 310.539 160.034C301.48 160.034 293.609 162.366 286.928 167.029C280.247 171.693 275.094 178.29 271.47 186.82C267.847 195.351 266.035 205.53 266.035 217.359V217.53C266.035 229.359 267.847 239.596 271.47 248.24C275.094 256.77 280.247 263.367 286.928 268.031C293.609 272.694 301.48 275.026 310.539 275.026Z" fill="white"/>
+                    <path d="M424.356 308.806V127.96H466.482V156.281H467.502C472.145 146.499 479.053 138.708 488.225 132.907C497.511 127.107 508.949 124.206 522.538 124.206C542.356 124.206 557.644 130.235 568.402 142.291C579.273 154.347 584.709 170.84 584.709 191.768V308.806H542.412V200.298C542.412 187.446 539.411 177.55 533.409 170.612C527.407 163.56 518.405 160.034 506.401 160.034C498.361 160.034 491.339 161.911 485.338 165.665C479.336 169.304 474.693 174.423 471.409 181.019C468.125 187.503 466.482 195.123 466.482 203.881V308.806H424.356Z" fill="white"/>
+                    <path d="M612.913 308.806V127.96H655.21V308.806H612.913ZM633.976 102.027C627.408 102.027 621.859 99.7522 617.33 95.2026C612.8 90.653 610.535 85.1935 610.535 78.8241C610.535 72.3409 612.8 66.8814 617.33 62.4455C621.859 57.8959 627.408 55.6211 633.976 55.6211C640.658 55.6211 646.263 57.8959 650.793 62.4455C655.323 66.8814 657.588 72.3409 657.588 78.8241C657.588 85.1935 655.323 90.653 650.793 95.2026C646.263 99.7522 640.658 102.027 633.976 102.027Z" fill="white"/>
+                    <path d="M751.02 312.389C732.335 312.389 718.406 308.295 709.234 300.105C700.174 291.916 695.644 278.495 695.644 259.841V160.717H670.165V127.96H695.644V82.0656H738.62V127.96H772.084V160.717H738.62V256.429C738.62 265.187 740.545 271.272 744.396 274.684C748.359 277.983 754.135 279.632 761.722 279.632C763.874 279.632 765.742 279.575 767.328 279.461C769.026 279.234 770.612 279.063 772.084 278.95V310.854C769.592 311.195 766.535 311.536 762.911 311.877C759.4 312.219 755.437 312.389 751.02 312.389Z" fill="white"/>
+                    <path d="M794.173 308.806V127.96H836.3V159.181H837.319C840.037 148.262 844.963 139.732 852.097 133.59C859.345 127.334 868.178 124.206 878.596 124.206C881.201 124.206 883.692 124.377 886.07 124.718C888.448 125.059 890.43 125.457 892.015 125.912V164.3C890.317 163.617 887.882 163.049 884.711 162.594C881.654 162.139 878.313 161.911 874.689 161.911C866.762 161.911 859.911 163.56 854.135 166.859C848.36 170.044 843.944 174.764 840.886 181.019C837.828 187.275 836.3 194.896 836.3 203.881V308.806H794.173Z" fill="white"/>
+                    <path d="M907.99 308.806V127.96H950.286V308.806H907.99ZM929.053 102.027C922.485 102.027 916.936 99.7522 912.406 95.2026C907.876 90.653 905.611 85.1935 905.611 78.8241C905.611 72.3409 907.876 66.8814 912.406 62.4455C916.936 57.8959 922.485 55.6211 929.053 55.6211C935.734 55.6211 941.34 57.8959 945.87 62.4455C950.399 66.8814 952.664 72.3409 952.664 78.8241C952.664 85.1935 950.399 90.653 945.87 95.2026C941.34 99.7522 935.734 102.027 929.053 102.027Z" fill="white"/>
+                    <path d="M1049.66 312.389C1033.92 312.389 1020.45 310.058 1009.24 305.394C998.138 300.731 989.418 294.191 983.077 285.774C976.848 277.244 973.055 267.405 971.696 256.258L971.526 254.723H1013.14L1013.48 256.258C1015.07 264.107 1018.81 270.192 1024.69 274.514C1030.7 278.836 1039.08 280.997 1049.83 280.997C1056.74 280.997 1062.63 280.144 1067.5 278.438C1072.37 276.732 1076.11 274.229 1078.71 270.931C1081.43 267.632 1082.79 263.765 1082.79 259.329V259.159C1082.79 253.813 1080.98 249.491 1077.35 246.192C1073.73 242.78 1067.22 239.994 1057.82 237.833L1027.92 231.179C1016.48 228.563 1006.91 224.98 999.214 220.43C991.513 215.881 985.738 210.251 981.888 203.54C978.037 196.716 976.112 188.811 976.112 179.825V179.655C976.112 168.622 979.113 158.954 985.115 150.651C991.117 142.348 999.554 135.865 1010.43 131.201C1021.3 126.538 1033.92 124.206 1048.31 124.206C1063.25 124.206 1076.05 126.709 1086.69 131.713C1097.34 136.718 1105.55 143.428 1111.33 151.845C1117.21 160.262 1120.38 169.702 1120.84 180.166L1121.01 182.043H1081.6L1081.43 180.678C1080.52 173.399 1077.24 167.428 1071.58 162.764C1065.91 157.987 1058.16 155.599 1048.31 155.599C1042.08 155.599 1036.64 156.508 1032 158.328C1027.47 160.148 1023.96 162.707 1021.47 166.006C1019.09 169.304 1017.9 173.171 1017.9 177.607V177.778C1017.9 181.19 1018.75 184.261 1020.45 186.991C1022.15 189.721 1024.86 192.109 1028.6 194.156C1032.34 196.09 1037.32 197.796 1043.55 199.275L1073.45 205.929C1092.13 210.137 1105.44 216.165 1113.36 224.013C1121.29 231.748 1125.25 242.155 1125.25 255.235V255.405C1125.25 266.779 1122.03 276.789 1115.57 285.433C1109.12 293.963 1100.17 300.617 1088.73 305.394C1077.41 310.058 1064.39 312.389 1049.66 312.389Z" fill="white"/>
+                    <mask id="path-2-inside-1_373_24" fill="white">
+                        <path d="M126.402 0L122.734 17.0374C150.242 22.1026 150.242 19.8003 156.202 24.8655C163.626 31.1751 160.786 46.6611 158.952 55.7171L119.525 259.245C113.106 297.004 95.6848 294.241 71.8448 297.004L68.1771 314.502H210.3L213.968 297.925C189.028 295.346 171.331 294.702 174.082 273.981L215.343 53.8752C221.303 24.405 228.639 19.3398 263.023 17.4979L266.691 0H126.402Z"/>
+                    </mask>
+                    <path d="M126.402 0L122.734 17.0374C150.242 22.1026 150.242 19.8003 156.202 24.8655C163.626 31.1751 160.786 46.6611 158.952 55.7171L119.525 259.245C113.106 297.004 95.6848 294.241 71.8448 297.004L68.1771 314.502H210.3L213.968 297.925C189.028 295.346 171.331 294.702 174.082 273.981L215.343 53.8752C221.303 24.405 228.639 19.3398 263.023 17.4979L266.691 0H126.402Z" fill="white"/>
+                    <path d="M122.734 17.0374L-13.153 -12.2153L-43.2948 127.802L97.5622 153.739L122.734 17.0374ZM126.402 0V-139H14.1403L-9.48528 -29.2527L126.402 0ZM266.691 0L402.735 28.5157L437.847 -139H266.691V0ZM263.023 17.4979L270.458 156.299L377.148 150.584L399.067 46.0137L263.023 17.4979ZM215.343 53.8752L79.1015 26.3218L78.9054 27.2916L78.7231 28.264L215.343 53.8752ZM174.082 273.981L37.4616 248.369L36.7785 252.013L36.2906 255.689L174.082 273.981ZM213.968 297.925L349.686 327.953L383.372 175.699L228.263 159.662L213.968 297.925ZM210.3 314.502V453.502H321.908L346.018 344.53L210.3 314.502ZM68.1771 314.502L-67.8665 285.986L-102.979 453.502H68.1771V314.502ZM71.8448 297.004L55.8432 158.928L-43.651 170.459L-64.1988 268.488L71.8448 297.004ZM119.525 259.245L-16.9382 232.81L-17.2419 234.377L-17.5095 235.952L119.525 259.245ZM158.952 55.7171L22.7177 28.1292L22.6012 28.7048L22.4895 29.2813L158.952 55.7171ZM156.202 24.8655L66.187 130.782L66.187 130.782L156.202 24.8655ZM122.734 17.0374L258.621 46.2902L262.289 29.2527L126.402 0L-9.48528 -29.2527L-13.153 -12.2153L122.734 17.0374ZM126.402 0V139H266.691V0V-139H126.402V0ZM266.691 0L130.647 -28.5157L126.98 -11.0178L263.023 17.4979L399.067 46.0137L402.735 28.5157L266.691 0ZM263.023 17.4979L255.588 -121.303C244.011 -120.683 190.474 -120.036 144.891 -85.6986C92.3946 -46.154 82.0764 11.6123 79.1015 26.3218L215.343 53.8752L351.585 81.4285C352.469 77.0567 351.678 83.0401 347.519 92.4103C342.308 104.149 331.689 121.638 312.158 136.35C293.934 150.078 277.046 154.45 270.819 155.774C265.464 156.913 263.547 156.669 270.458 156.299L263.023 17.4979ZM174.082 273.981L310.702 299.592L351.963 79.4863L215.343 53.8752L78.7231 28.264L37.4616 248.369L174.082 273.981ZM174.082 273.981L36.2906 255.689C33.1461 279.375 33.3695 315.933 53.9182 353.208C74.9897 391.43 106.707 411.047 129.053 420.589C149.431 429.291 168.135 432.296 176.777 433.556C185.688 434.855 196.226 435.832 199.673 436.188L213.968 297.925L228.263 159.662C223.666 159.187 222.619 159.098 219.687 158.786C217.515 158.555 216.834 158.457 216.877 158.464C216.89 158.465 218.867 158.744 222.008 159.495C225.077 160.23 230.922 161.804 238.228 164.924C253.376 171.392 279.627 186.801 297.374 218.995C314.599 250.24 313.642 278.946 311.873 292.272L174.082 273.981ZM213.968 297.925L78.2501 267.897L74.5824 284.474L210.3 314.502L346.018 344.53L349.686 327.953L213.968 297.925ZM210.3 314.502V175.502H68.1771V314.502V453.502H210.3V314.502ZM68.1771 314.502L204.221 343.018L207.888 325.52L71.8448 297.004L-64.1988 268.488L-67.8665 285.986L68.1771 314.502ZM71.8448 297.004L87.8464 435.08C88.9854 434.948 89.9271 434.864 93.592 434.517C96.4043 434.25 101.895 433.731 107.919 432.878C119.423 431.251 142.824 427.231 168.032 413.68C230.806 379.935 250.145 320.273 256.559 282.539L119.525 259.245L-17.5095 235.952C-17.4425 235.558 -17.0042 233.059 -15.7402 229.12C-14.466 225.15 -12.128 219.012 -7.99152 211.767C1.42206 195.279 16.4778 179.528 36.4038 168.817C53.4739 159.64 67.6484 157.807 68.9803 157.619C69.9184 157.486 70.0867 157.499 67.358 157.757C65.4819 157.935 60.6642 158.37 55.8432 158.928L71.8448 297.004ZM119.525 259.245L255.988 285.681L295.416 82.1528L158.952 55.7171L22.4895 29.2813L-16.9382 232.81L119.525 259.245ZM158.952 55.7171L295.187 83.3049C296.01 79.242 300.008 60.7323 300.049 39.528C300.076 25.3966 299.397 -35.8547 246.216 -81.0513L156.202 24.8655L66.187 130.782C42.4637 110.621 31.6917 86.9366 26.9575 71.261C22.414 56.2168 22.039 44.2782 22.0492 38.9948C22.0676 29.3749 23.7288 23.1361 22.7177 28.1292L158.952 55.7171ZM156.202 24.8655L246.216 -81.0512C241.375 -85.1661 228.633 -95.7943 209.783 -104.351C191.598 -112.607 175.705 -115.282 170.191 -116.192C167.167 -116.691 164.302 -117.087 162.996 -117.269C161.23 -117.515 160.158 -117.661 158.717 -117.87C156.23 -118.232 152.821 -118.759 147.906 -119.664L122.734 17.0374L97.5622 153.739C106.401 155.367 113.307 156.451 118.743 157.241C121.264 157.607 123.555 157.921 124.685 158.078C126.275 158.3 125.837 158.249 124.905 158.095C123.575 157.875 110.519 155.891 94.8692 148.787C78.5556 141.381 68.0487 132.364 66.187 130.782L156.202 24.8655Z" fill="white" mask="url(#path-2-inside-1_373_24)"/>
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-overlay">
+        <div class="manifesto-section">
+            <div class="manifesto">
+                <p>
+                    <strong>You're hemorrhaging users.</strong> 90% of signups never convert. They show up, click around, and leave. You spent real money getting them there.
+                </p>
+                <p>
+                    So you do what everyone does. Run A/B tests. Swap headlines. Try a different color button. Wait six weeks. Get a 0.3% lift if you're lucky. Repeat.
+                </p>
+                <p>
+                    Meanwhile, every person on your pricing page is doing their own math. Some are ready to pay right now. Some need a small push. Some will only convert at a lower price point. And you're showing all of them the exact same thing.
+                </p>
+                <p>
+                    <strong>We're building the fix.</strong> Ignitris watches user behavior in real time. What they click, where they hesitate, how many times they come back. It figures out who's ready and who's not.
+                </p>
+                <p>
+                    Then it adjusts. Pricing. Offers. Timing. All within limits you set. No more spraying the same pricing page at everyone and hoping for the best.
+                </p>
+            </div>
+            
+            <form class="waitlist-form" id="waitlist-form">
+                <div class="form-fields">
+                    <input type="email" placeholder="Work email" required>
+                    <input type="text" placeholder="Company name" required>
+                </div>
+                <button type="submit">Join Waitlist</button>
+            </form>
+
+            <div class="success-message" id="success-message">
+                <svg class="success-icon" width="16" height="16" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="currentColor"/>
+                </svg>
+                <span class="success-text">You're on the list.</span>
+            </div>
+        </div>
+    </div>
+
+    <footer class="social-footer">
+        <div class="footer-inner">
+            <div class="footer-left">© 2026 Ignitris</div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/company/ignitris/" target="_blank">LinkedIn</a>
+                <a href="https://www.instagram.com/ignitris/" target="_blank">Instagram</a>
+                <a href="https://x.com/ignitris" target="_blank">X</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Stick figures with personalities falling through funnel
+        class StickFigureFunnel {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.figures = [];
+                this.mouseX = null;
+                this.mouseY = null;
+                this.mouseInfluence = 80;
+                this.time = 0;
+                this.gravity = 0.012;
+                this.isFixed = false;
+                
+                this.resize();
+                this.init();
+                this.bindEvents();
+                this.animate();
+            }
+
+            resize() {
+                const dpr = window.devicePixelRatio || 1;
+                this.width = window.innerWidth;
+                this.height = window.innerHeight;
+                this.canvas.width = this.width * dpr;
+                this.canvas.height = this.height * dpr;
+                this.canvas.style.width = this.width + 'px';
+                this.canvas.style.height = this.height + 'px';
+                this.ctx.scale(dpr, dpr);
+                
+                this.funnelCenterX = this.width * 0.63;
+                this.funnelTop = this.height * 0.12;
+                this.funnelBottom = this.height * 0.85;
+                this.funnelTopWidth = this.width * 0.42;
+                this.funnelBottomWidth = this.width * 0.025;
+            }
+
+            init() {
+                for (let i = 0; i < 150; i++) {
+                    this.spawnFigure(this.funnelTop + Math.random() * (this.funnelBottom - this.funnelTop) * 0.85);
+                }
+            }
+
+            bindEvents() {
+                window.addEventListener('resize', () => this.resize());
+                
+                this.canvas.addEventListener('mousemove', (e) => {
+                    this.mouseX = e.clientX;
+                    this.mouseY = e.clientY;
+                });
+                
+                this.canvas.addEventListener('mouseleave', () => {
+                    this.mouseX = null;
+                    this.mouseY = null;
+                });
+
+                this.canvas.addEventListener('click', (e) => {
+                    for (let i = 0; i < 3; i++) {
+                        this.spawnFigureAt(
+                            e.clientX + (Math.random() - 0.5) * 20,
+                            Math.max(this.funnelTop, e.clientY - 15)
+                        );
+                    }
+                });
+            }
+            
+            fix() {
+                this.isFixed = true;
+                this.isPreviewing = false;
+                this.figures.forEach(f => {
+                    if (f.brokeOut) {
+                        f.alive = false;
+                    }
+                    f.willConvert = true;
+                    f.vx *= 0.3;
+                    f.personality = 'calm';
+                });
+            }
+            
+            preview() {
+                if (this.isFixed) return;
+                this.isPreviewing = true;
+                this.figures.forEach(f => {
+                    f.previewWillConvert = f.willConvert;
+                    f.willConvert = true;
+                });
+            }
+            
+            unpreview() {
+                if (this.isFixed) return;
+                this.isPreviewing = false;
+                this.figures.forEach(f => {
+                    if (f.previewWillConvert !== undefined) {
+                        f.willConvert = f.previewWillConvert;
+                    }
+                });
+            }
+
+            getFunnelWidth(y) {
+                if (y <= this.funnelTop) return this.funnelTopWidth;
+                if (y >= this.funnelBottom) return this.funnelBottomWidth;
+                
+                const t = (y - this.funnelTop) / (this.funnelBottom - this.funnelTop);
+                // Curved easing for organic funnel shape
+                const eased = t * t * (3 - 2 * t);
+                
+                return this.funnelTopWidth - (this.funnelTopWidth - this.funnelBottomWidth) * eased;
+            }
+
+            spawnFigure(startY = null) {
+                const y = startY !== null ? startY : this.funnelTop - 10;
+                const funnelWidth = this.getFunnelWidth(y);
+                const x = this.funnelCenterX + (Math.random() - 0.5) * funnelWidth * 0.75;
+                
+                const willConvert = this.isFixed ? true : Math.random() < 0.10;
+                const breakOutY = this.funnelTop + (0.35 + Math.random() * 0.45) * (this.funnelBottom - this.funnelTop);
+                
+                // Assign personality
+                const personalities = ['panicking', 'confused', 'giving_up', 'normal'];
+                const personality = this.isFixed ? 'calm' : personalities[Math.floor(Math.random() * personalities.length)];
+                
+                this.figures.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 0.15,
+                    vy: 0.08 + Math.random() * 0.12,
+                    size: 4 + Math.random() * 2,
+                    opacity: 0.45 + Math.random() * 0.3,
+                    rotation: 0,
+                    rotationSpeed: 0,
+                    limbPhase: Math.random() * Math.PI * 2,
+                    willConvert: willConvert,
+                    breakOutY: breakOutY,
+                    brokeOut: false,
+                    breakDirection: 0,
+                    redAmount: 0,
+                    greenAmount: 0,
+                    personality: personality,
+                    alive: true
+                });
+            }
+
+            spawnFigureAt(x, y) {
+                const personalities = ['panicking', 'confused', 'giving_up', 'normal'];
+                const personality = this.isFixed ? 'calm' : personalities[Math.floor(Math.random() * personalities.length)];
+                
+                this.figures.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 0.2,
+                    vy: 0.05,
+                    size: 4 + Math.random() * 2,
+                    opacity: 0.5 + Math.random() * 0.3,
+                    rotation: 0,
+                    rotationSpeed: 0,
+                    limbPhase: Math.random() * Math.PI * 2,
+                    willConvert: this.isFixed ? true : Math.random() < 0.12,
+                    breakOutY: y + 60 + Math.random() * 120,
+                    brokeOut: false,
+                    breakDirection: 0,
+                    redAmount: 0,
+                    greenAmount: 0,
+                    personality: personality,
+                    alive: true
+                });
+            }
+
+            updateFigures() {
+                const targetCount = 160;
+                
+                this.figures.forEach(f => {
+                    if (!f.alive) return;
+                    
+                    const funnelWidth = this.getFunnelWidth(f.y);
+                    const funnelLeft = this.funnelCenterX - funnelWidth / 2;
+                    const funnelRight = this.funnelCenterX + funnelWidth / 2;
+                    
+                    // Personality affects limb speed
+                    let limbSpeed = 0.015;
+                    if (f.personality === 'panicking') limbSpeed = 0.06;
+                    else if (f.personality === 'confused') limbSpeed = 0.025;
+                    else if (f.personality === 'giving_up') limbSpeed = 0.008;
+                    else if (f.personality === 'calm') limbSpeed = 0.012;
+                    
+                    f.limbPhase += limbSpeed;
+                    f.rotation += f.rotationSpeed;
+                    f.rotationSpeed *= 0.99;
+                    
+                    if (f.brokeOut) {
+                        f.redAmount = Math.min(1, f.redAmount + 0.015);
+                        
+                        f.vy += this.gravity * 0.6;
+                        f.vx += f.breakDirection * 0.006;
+                        f.rotationSpeed += f.breakDirection * 0.0002;
+                        f.opacity *= 0.997;
+                        
+                        f.x += f.vx;
+                        f.y += f.vy;
+                        
+                        if (f.opacity < 0.02 || f.y > this.height + 50 || f.x < -100 || f.x > this.width + 100) {
+                            f.alive = false;
+                        }
+                    } else if (this.isFixed || this.isPreviewing) {
+                        // Spiral down with refined motion
+                        f.greenAmount = Math.min(1, f.greenAmount + 0.02);
+                        f.personality = 'calm';
+                        
+                        // Smooth transition into spiral
+                        if (!f.spiralInitialized) {
+                            f.spiralInitialized = true;
+                            f.spiralPhase = f.limbPhase; // Use existing phase for offset
+                            f.spiralSpeed = 0.03 + Math.random() * 0.04; // Vary speed per figure
+                            f.targetVy = 1.0 + Math.random() * 0.4; // Vary descent speed
+                        }
+                        
+                        // Ease into target speed
+                        f.vy += (f.targetVy - f.vy) * 0.05;
+                        
+                        // Spiral radius tightens as funnel narrows
+                        const progress = (f.y - this.funnelTop) / (this.funnelBottom - this.funnelTop);
+                        const spiralRadius = funnelWidth * 0.3 * (1 - progress * 0.5);
+                        
+                        // Update spiral phase
+                        f.spiralPhase += f.spiralSpeed;
+                        
+                        // Spiral motion
+                        const targetX = this.funnelCenterX + Math.sin(f.spiralPhase) * spiralRadius;
+                        f.vx += (targetX - f.x) * 0.1;
+                        f.vx *= 0.9;
+                        
+                        // Rotate into the turn
+                        const targetRotation = Math.cos(f.spiralPhase) * 0.15;
+                        f.rotation += (targetRotation - f.rotation) * 0.1;
+                        
+                        f.x += f.vx;
+                        f.y += f.vy;
+                        
+                        // Keep within bounds
+                        if (f.x < funnelLeft + f.size) f.x = funnelLeft + f.size;
+                        if (f.x > funnelRight - f.size) f.x = funnelRight - f.size;
+                        
+                        if (f.y > this.funnelBottom + 25) {
+                            f.opacity *= 0.96;
+                            if (f.opacity < 0.03) f.alive = false;
+                        }
+                    } else {
+                        // Check if near bottom - start turning green if converting
+                        if (f.willConvert && f.y > this.funnelBottom - 100) {
+                            f.greenAmount = Math.min(1, f.greenAmount + 0.01);
+                        }
+                        
+                        f.vy += this.gravity;
+                        f.vy = Math.min(f.vy, 1.0);
+                        
+                        if (this.mouseX !== null && this.mouseY !== null) {
+                            const dx = f.x - this.mouseX;
+                            const dy = f.y - this.mouseY;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            
+                            if (dist < this.mouseInfluence && dist > 0) {
+                                const force = Math.pow(1 - dist / this.mouseInfluence, 2) * 0.5;
+                                f.vx += (dx / dist) * force;
+                                f.vy += (dy / dist) * force * 0.15;
+                            }
+                        }
+                        
+                        f.vx *= 0.997;
+                        f.x += f.vx;
+                        f.y += f.vy;
+                        
+                        const hitLeft = f.x <= funnelLeft + f.size;
+                        const hitRight = f.x >= funnelRight - f.size;
+                        
+                        if (hitLeft || hitRight) {
+                            const wallDirection = hitLeft ? -1 : 1;
+                            
+                            if (!f.willConvert && f.y >= f.breakOutY) {
+                                f.brokeOut = true;
+                                f.breakDirection = wallDirection;
+                                f.vx = wallDirection * (0.2 + Math.random() * 0.2);
+                                f.rotationSpeed = wallDirection * (0.003 + Math.random() * 0.006);
+                            } else {
+                                f.vx = -f.vx * 0.25 + (-wallDirection * 0.1);
+                                f.x = hitLeft ? funnelLeft + f.size + 1 : funnelRight - f.size - 1;
+                                f.rotationSpeed += wallDirection * 0.0008;
+                            }
+                        }
+                        
+                        if (f.y > this.funnelBottom + 25) {
+                            f.opacity *= 0.98;
+                            if (f.opacity < 0.03) f.alive = false;
+                        }
+                    }
+                });
+                
+                this.figures = this.figures.filter(f => f.alive);
+                
+                if (this.figures.length < targetCount && Math.random() > 0.15) {
+                    this.spawnFigure();
+                }
+            }
+
+            drawStickFigure(x, y, size, rotation, limbPhase, opacity, brokeOut, redAmount, greenAmount, personality) {
+                const ctx = this.ctx;
+                
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(rotation);
+                
+                // Color: white -> red (falling out) or white -> green (converting)
+                let r = 200, g = 200, b = 210;
+                if (redAmount > 0) {
+                    r = Math.round(200 + (220 - 200) * redAmount);
+                    g = Math.round(200 - 120 * redAmount);
+                    b = Math.round(210 - 150 * redAmount);
+                } else if (greenAmount > 0) {
+                    r = Math.round(200 - 100 * greenAmount);
+                    g = Math.round(200 + (220 - 200) * greenAmount);
+                    b = Math.round(210 - 80 * greenAmount);
+                }
+                
+                ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+                ctx.lineWidth = size * 0.1;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                
+                const headSize = size * 0.3;
+                const bodyLength = size * 0.7;
+                const limbLength = size * 0.4;
+                
+                // Personality-based animation
+                let armSwing, legSwing, headTilt = 0;
+                
+                if (personality === 'panicking') {
+                    armSwing = Math.sin(limbPhase * 3) * 1.2;
+                    legSwing = Math.sin(limbPhase * 2.5) * 0.6;
+                    headTilt = Math.sin(limbPhase * 4) * 0.15;
+                } else if (personality === 'confused') {
+                    armSwing = Math.sin(limbPhase * 0.5) * 0.3 + Math.sin(limbPhase * 2) * 0.2;
+                    legSwing = Math.sin(limbPhase * 0.8) * 0.15;
+                    headTilt = Math.sin(limbPhase * 0.7) * 0.2;
+                } else if (personality === 'giving_up') {
+                    armSwing = 0.8 + Math.sin(limbPhase * 0.3) * 0.1;
+                    legSwing = Math.sin(limbPhase * 0.5) * 0.1;
+                    headTilt = 0.2;
+                } else if (personality === 'calm') {
+                    armSwing = Math.sin(limbPhase) * 0.15;
+                    legSwing = Math.sin(limbPhase + Math.PI) * 0.1;
+                } else {
+                    armSwing = Math.sin(limbPhase) * (brokeOut ? 0.5 : 0.2);
+                    legSwing = Math.sin(limbPhase * 0.8 + Math.PI) * (brokeOut ? 0.4 : 0.15);
+                }
+                
+                // Head
+                ctx.beginPath();
+                ctx.arc(headTilt * size * 0.3, -bodyLength - headSize, headSize, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                // Body
+                ctx.beginPath();
+                ctx.moveTo(0, -bodyLength);
+                ctx.lineTo(0, 0);
+                ctx.stroke();
+                
+                // Arms
+                ctx.beginPath();
+                ctx.moveTo(0, -bodyLength * 0.6);
+                ctx.lineTo(
+                    -limbLength * Math.cos(armSwing + 0.35), 
+                    -bodyLength * 0.6 + limbLength * Math.sin(armSwing + 0.35)
+                );
+                ctx.moveTo(0, -bodyLength * 0.6);
+                ctx.lineTo(
+                    limbLength * Math.cos(-armSwing + 0.35), 
+                    -bodyLength * 0.6 + limbLength * Math.sin(-armSwing + 0.35)
+                );
+                ctx.stroke();
+                
+                // Legs
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(
+                    -limbLength * 0.55 * Math.cos(legSwing + 0.2), 
+                    limbLength * 0.85 * Math.sin(legSwing + 0.6)
+                );
+                ctx.moveTo(0, 0);
+                ctx.lineTo(
+                    limbLength * 0.55 * Math.cos(-legSwing + 0.2), 
+                    limbLength * 0.85 * Math.sin(-legSwing + 0.6)
+                );
+                ctx.stroke();
+                
+                ctx.restore();
+            }
+
+            render() {
+                const ctx = this.ctx;
+                ctx.clearRect(0, 0, this.width, this.height);
+                
+                // Draw figures
+                this.figures.forEach(f => {
+                    this.drawStickFigure(f.x, f.y, f.size, f.rotation, f.limbPhase, f.opacity, f.brokeOut, f.redAmount, f.greenAmount, f.personality);
+                });
+            }
+
+            animate() {
+                this.time++;
+                this.updateFigures();
+                this.render();
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+        
+        let funnelInstance;
+
+        // Initialize
+        const canvas = document.getElementById('funnel-canvas');
+        funnelInstance = new StickFigureFunnel(canvas);
+
+        // Form
+        const form = document.getElementById('waitlist-form');
+        const button = form.querySelector('button');
+        
+        // Preview effect on hover
+        button.addEventListener('mouseenter', () => {
+            funnelInstance.preview();
+        });
+        
+        button.addEventListener('mouseleave', () => {
+            funnelInstance.unpreview();
+        });
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = form.querySelector('input[type="email"]').value;
+            const company = form.querySelector('input[type="text"]').value;
+            
+            // Disable button while submitting
+            button.disabled = true;
+            button.textContent = 'Joining...';
+            
+            try {
+                const response = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, company })
+                });
+                
+                if (response.ok) {
+                    // Fix the funnel - all figures flow smoothly now
+                    funnelInstance.fix();
+                    
+                    form.style.display = 'none';
+                    document.getElementById('success-message').classList.add('show');
+                } else {
+                    throw new Error('Failed to submit');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                button.disabled = false;
+                button.textContent = 'Join Waitlist';
+                alert('Something went wrong. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
