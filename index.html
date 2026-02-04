@@ -160,11 +160,19 @@
         /* Waitlist form */
         .waitlist-form {
             display: flex;
+            flex-direction: column;
             gap: 10px;
+            max-width: 380px;
+        }
+
+        .form-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .waitlist-form input {
-            flex: 1;
+            width: 100%;
             padding: 12px 16px;
             background: rgba(15, 15, 15, 0.8);
             backdrop-filter: blur(10px);
@@ -411,7 +419,10 @@
             </div>
             
             <form class="waitlist-form" id="waitlist-form">
-                <input type="email" placeholder="Enter your email" required>
+                <div class="form-fields">
+                    <input type="email" placeholder="Work email" required>
+                    <input type="text" placeholder="Company name" required>
+                </div>
                 <button type="submit">Join Waitlist</button>
             </form>
             <p class="form-hint">Join to save the funnel</p>
@@ -843,6 +854,7 @@
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = form.querySelector('input[type="email"]').value;
+            const company = form.querySelector('input[type="text"]').value;
             const button = form.querySelector('button');
             
             // Disable button while submitting
@@ -855,7 +867,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ email })
+                    body: JSON.stringify({ email, company })
                 });
                 
                 if (response.ok) {
