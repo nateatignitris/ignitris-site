@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ignitris — Algorithmic Conversion Engine for PLG Startups</title>
-    <meta name="description" content="Stop losing 90% of your signups. Ignitris uses behavioral data to optimize free-to-paid conversion in real-time. Dynamic pricing, targeted offers, autonomous decisioning.">
+    <meta name="description" content="Stop losing 90% of your freemium users. Ignitris uses behavioral data to optimize free-to-paid conversion in real-time. Dynamic pricing, targeted offers, autonomous decisioning.">
     <meta name="keywords" content="conversion optimization, PLG, product-led growth, free-to-paid conversion, dynamic pricing, SaaS, startup growth">
     
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ignitrisofficial.com">
     <meta property="og:title" content="Ignitris — Algorithmic Conversion Engine">
-    <meta property="og:description" content="Stop losing 90% of your signups. Ignitris optimizes free-to-paid conversion in real-time.">
+    <meta property="og:description" content="Stop losing 90% of your freemium users. Ignitris optimizes free-to-paid conversion in real-time.">
     <meta property="og:image" content="https://ignitrisofficial.com/favicon.png">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://ignitrisofficial.com">
     <meta name="twitter:title" content="Ignitris — Algorithmic Conversion Engine">
-    <meta name="twitter:description" content="Stop losing 90% of your signups. Ignitris optimizes free-to-paid conversion in real-time.">
+    <meta name="twitter:description" content="Stop losing 90% of your freemium users. Ignitris optimizes free-to-paid conversion in real-time.">
     <meta name="twitter:image" content="https://ignitrisofficial.com/favicon.png">
     
     <!-- Canonical -->
@@ -108,6 +108,38 @@
             gap: 8px;
         }
 
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hiring-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0;
+            color: var(--white);
+            font-family: 'SF Pro', -apple-system, sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .hiring-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .hiring-link .arrow {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
         .status-dot {
             width: 4px;
             height: 4px;
@@ -129,7 +161,7 @@
             width: 100%;
             height: 100%;
             z-index: 1;
-            cursor: crosshair;
+            cursor: default;
         }
 
         /* Content overlay */
@@ -320,6 +352,10 @@
 
         /* Responsive */
         @media (max-width: 900px) {
+            #funnel-canvas {
+                display: none;
+            }
+
             .content-overlay {
                 padding: 120px 32px;
             }
@@ -411,6 +447,9 @@
                     <path d="M122.734 17.0374L-13.153 -12.2153L-43.2948 127.802L97.5622 153.739L122.734 17.0374ZM126.402 0V-139H14.1403L-9.48528 -29.2527L126.402 0ZM266.691 0L402.735 28.5157L437.847 -139H266.691V0ZM263.023 17.4979L270.458 156.299L377.148 150.584L399.067 46.0137L263.023 17.4979ZM215.343 53.8752L79.1015 26.3218L78.9054 27.2916L78.7231 28.264L215.343 53.8752ZM174.082 273.981L37.4616 248.369L36.7785 252.013L36.2906 255.689L174.082 273.981ZM213.968 297.925L349.686 327.953L383.372 175.699L228.263 159.662L213.968 297.925ZM210.3 314.502V453.502H321.908L346.018 344.53L210.3 314.502ZM68.1771 314.502L-67.8665 285.986L-102.979 453.502H68.1771V314.502ZM71.8448 297.004L55.8432 158.928L-43.651 170.459L-64.1988 268.488L71.8448 297.004ZM119.525 259.245L-16.9382 232.81L-17.2419 234.377L-17.5095 235.952L119.525 259.245ZM158.952 55.7171L22.7177 28.1292L22.6012 28.7048L22.4895 29.2813L158.952 55.7171ZM156.202 24.8655L66.187 130.782L66.187 130.782L156.202 24.8655ZM122.734 17.0374L258.621 46.2902L262.289 29.2527L126.402 0L-9.48528 -29.2527L-13.153 -12.2153L122.734 17.0374ZM126.402 0V139H266.691V0V-139H126.402V0ZM266.691 0L130.647 -28.5157L126.98 -11.0178L263.023 17.4979L399.067 46.0137L402.735 28.5157L266.691 0ZM263.023 17.4979L255.588 -121.303C244.011 -120.683 190.474 -120.036 144.891 -85.6986C92.3946 -46.154 82.0764 11.6123 79.1015 26.3218L215.343 53.8752L351.585 81.4285C352.469 77.0567 351.678 83.0401 347.519 92.4103C342.308 104.149 331.689 121.638 312.158 136.35C293.934 150.078 277.046 154.45 270.819 155.774C265.464 156.913 263.547 156.669 270.458 156.299L263.023 17.4979ZM174.082 273.981L310.702 299.592L351.963 79.4863L215.343 53.8752L78.7231 28.264L37.4616 248.369L174.082 273.981ZM174.082 273.981L36.2906 255.689C33.1461 279.375 33.3695 315.933 53.9182 353.208C74.9897 391.43 106.707 411.047 129.053 420.589C149.431 429.291 168.135 432.296 176.777 433.556C185.688 434.855 196.226 435.832 199.673 436.188L213.968 297.925L228.263 159.662C223.666 159.187 222.619 159.098 219.687 158.786C217.515 158.555 216.834 158.457 216.877 158.464C216.89 158.465 218.867 158.744 222.008 159.495C225.077 160.23 230.922 161.804 238.228 164.924C253.376 171.392 279.627 186.801 297.374 218.995C314.599 250.24 313.642 278.946 311.873 292.272L174.082 273.981ZM213.968 297.925L78.2501 267.897L74.5824 284.474L210.3 314.502L346.018 344.53L349.686 327.953L213.968 297.925ZM210.3 314.502V175.502H68.1771V314.502V453.502H210.3V314.502ZM68.1771 314.502L204.221 343.018L207.888 325.52L71.8448 297.004L-64.1988 268.488L-67.8665 285.986L68.1771 314.502ZM71.8448 297.004L87.8464 435.08C88.9854 434.948 89.9271 434.864 93.592 434.517C96.4043 434.25 101.895 433.731 107.919 432.878C119.423 431.251 142.824 427.231 168.032 413.68C230.806 379.935 250.145 320.273 256.559 282.539L119.525 259.245L-17.5095 235.952C-17.4425 235.558 -17.0042 233.059 -15.7402 229.12C-14.466 225.15 -12.128 219.012 -7.99152 211.767C1.42206 195.279 16.4778 179.528 36.4038 168.817C53.4739 159.64 67.6484 157.807 68.9803 157.619C69.9184 157.486 70.0867 157.499 67.358 157.757C65.4819 157.935 60.6642 158.37 55.8432 158.928L71.8448 297.004ZM119.525 259.245L255.988 285.681L295.416 82.1528L158.952 55.7171L22.4895 29.2813L-16.9382 232.81L119.525 259.245ZM158.952 55.7171L295.187 83.3049C296.01 79.242 300.008 60.7323 300.049 39.528C300.076 25.3966 299.397 -35.8547 246.216 -81.0513L156.202 24.8655L66.187 130.782C42.4637 110.621 31.6917 86.9366 26.9575 71.261C22.414 56.2168 22.039 44.2782 22.0492 38.9948C22.0676 29.3749 23.7288 23.1361 22.7177 28.1292L158.952 55.7171ZM156.202 24.8655L246.216 -81.0512C241.375 -85.1661 228.633 -95.7943 209.783 -104.351C191.598 -112.607 175.705 -115.282 170.191 -116.192C167.167 -116.691 164.302 -117.087 162.996 -117.269C161.23 -117.515 160.158 -117.661 158.717 -117.87C156.23 -118.232 152.821 -118.759 147.906 -119.664L122.734 17.0374L97.5622 153.739C106.401 155.367 113.307 156.451 118.743 157.241C121.264 157.607 123.555 157.921 124.685 158.078C126.275 158.3 125.837 158.249 124.905 158.095C123.575 157.875 110.519 155.891 94.8692 148.787C78.5556 141.381 68.0487 132.364 66.187 130.782L156.202 24.8655Z" fill="white" mask="url(#path-2-inside-1_373_24)"/>
                 </svg>
             </div>
+            <div class="nav-actions">
+                <a href="/careers.html" class="hiring-link">We're hiring <span class="arrow">↗</span></a>
+            </div>
         </div>
     </nav>
 
@@ -462,19 +501,18 @@
         </div>
     </footer>
 
+
     <script>
-        // Stick figures with personalities falling through funnel
-        class StickFigureFunnel {
+        // Small connected dots flowing through funnel
+        class DotFunnel {
             constructor(canvas) {
                 this.canvas = canvas;
                 this.ctx = canvas.getContext('2d');
-                this.figures = [];
-                this.mouseX = null;
-                this.mouseY = null;
-                this.mouseInfluence = 80;
+                this.dots = [];
                 this.time = 0;
-                this.gravity = 0.012;
                 this.isFixed = false;
+                this.isPreviewing = false;
+                this.connectionDistance = 50;
                 
                 this.resize();
                 this.init();
@@ -492,7 +530,7 @@
                 this.canvas.style.height = this.height + 'px';
                 this.ctx.scale(dpr, dpr);
                 
-                this.funnelCenterX = this.width * 0.63;
+                this.funnelCenterX = this.width * 0.68;
                 this.funnelTop = this.height * 0.12;
                 this.funnelBottom = this.height * 0.85;
                 this.funnelTopWidth = this.width * 0.42;
@@ -501,61 +539,38 @@
 
             init() {
                 for (let i = 0; i < 150; i++) {
-                    this.spawnFigure(this.funnelTop + Math.random() * (this.funnelBottom - this.funnelTop) * 0.85);
+                    this.spawnDot(this.funnelTop + Math.random() * (this.funnelBottom - this.funnelTop) * 0.9);
                 }
             }
 
             bindEvents() {
                 window.addEventListener('resize', () => this.resize());
-                
-                this.canvas.addEventListener('mousemove', (e) => {
-                    this.mouseX = e.clientX;
-                    this.mouseY = e.clientY;
-                });
-                
-                this.canvas.addEventListener('mouseleave', () => {
-                    this.mouseX = null;
-                    this.mouseY = null;
-                });
-
-                this.canvas.addEventListener('click', (e) => {
-                    for (let i = 0; i < 3; i++) {
-                        this.spawnFigureAt(
-                            e.clientX + (Math.random() - 0.5) * 20,
-                            Math.max(this.funnelTop, e.clientY - 15)
-                        );
-                    }
-                });
             }
             
             fix() {
                 this.isFixed = true;
                 this.isPreviewing = false;
-                this.figures.forEach(f => {
-                    if (f.brokeOut) {
-                        f.alive = false;
-                    }
-                    f.willConvert = true;
-                    f.vx *= 0.3;
-                    f.personality = 'calm';
+                this.dots.forEach(d => {
+                    if (d.brokeOut) d.alive = false;
+                    d.willConvert = true;
                 });
             }
             
             preview() {
                 if (this.isFixed) return;
                 this.isPreviewing = true;
-                this.figures.forEach(f => {
-                    f.previewWillConvert = f.willConvert;
-                    f.willConvert = true;
+                this.dots.forEach(d => {
+                    d.previewWillConvert = d.willConvert;
+                    d.willConvert = true;
                 });
             }
             
             unpreview() {
                 if (this.isFixed) return;
                 this.isPreviewing = false;
-                this.figures.forEach(f => {
-                    if (f.previewWillConvert !== undefined) {
-                        f.willConvert = f.previewWillConvert;
+                this.dots.forEach(d => {
+                    if (d.previewWillConvert !== undefined) {
+                        d.willConvert = d.previewWillConvert;
                     }
                 });
             }
@@ -565,311 +580,177 @@
                 if (y >= this.funnelBottom) return this.funnelBottomWidth;
                 
                 const t = (y - this.funnelTop) / (this.funnelBottom - this.funnelTop);
-                // Curved easing for organic funnel shape
                 const eased = t * t * (3 - 2 * t);
                 
                 return this.funnelTopWidth - (this.funnelTopWidth - this.funnelBottomWidth) * eased;
             }
 
-            spawnFigure(startY = null) {
-                const y = startY !== null ? startY : this.funnelTop - 10;
+            spawnDot(startY = null) {
+                const y = startY !== null ? startY : this.funnelTop - 5;
                 const funnelWidth = this.getFunnelWidth(y);
-                const x = this.funnelCenterX + (Math.random() - 0.5) * funnelWidth * 0.75;
+                const x = this.funnelCenterX + (Math.random() - 0.5) * funnelWidth * 0.9;
                 
                 const willConvert = this.isFixed ? true : Math.random() < 0.10;
                 const breakOutY = this.funnelTop + (0.35 + Math.random() * 0.45) * (this.funnelBottom - this.funnelTop);
                 
-                // Assign personality
-                const personalities = ['panicking', 'confused', 'giving_up', 'normal'];
-                const personality = this.isFixed ? 'calm' : personalities[Math.floor(Math.random() * personalities.length)];
-                
-                this.figures.push({
+                this.dots.push({
                     x: x,
                     y: y,
-                    vx: (Math.random() - 0.5) * 0.15,
-                    vy: 0.08 + Math.random() * 0.12,
-                    size: 4 + Math.random() * 2,
-                    opacity: 0.45 + Math.random() * 0.3,
-                    rotation: 0,
-                    rotationSpeed: 0,
-                    limbPhase: Math.random() * Math.PI * 2,
+                    targetX: x,
+                    vx: 0,
+                    vy: 0.15 + Math.random() * 0.1,
+                    radius: 2 + Math.random() * 1.5,
+                    opacity: 0.5 + Math.random() * 0.3,
                     willConvert: willConvert,
                     breakOutY: breakOutY,
                     brokeOut: false,
                     breakDirection: 0,
                     redAmount: 0,
                     greenAmount: 0,
-                    personality: personality,
+                    phase: Math.random() * Math.PI * 2,
                     alive: true
                 });
             }
 
-            spawnFigureAt(x, y) {
-                const personalities = ['panicking', 'confused', 'giving_up', 'normal'];
-                const personality = this.isFixed ? 'calm' : personalities[Math.floor(Math.random() * personalities.length)];
+            updateDots() {
+                const targetCount = 150;
                 
-                this.figures.push({
-                    x: x,
-                    y: y,
-                    vx: (Math.random() - 0.5) * 0.2,
-                    vy: 0.05,
-                    size: 4 + Math.random() * 2,
-                    opacity: 0.5 + Math.random() * 0.3,
-                    rotation: 0,
-                    rotationSpeed: 0,
-                    limbPhase: Math.random() * Math.PI * 2,
-                    willConvert: this.isFixed ? true : Math.random() < 0.12,
-                    breakOutY: y + 60 + Math.random() * 120,
-                    brokeOut: false,
-                    breakDirection: 0,
-                    redAmount: 0,
-                    greenAmount: 0,
-                    personality: personality,
-                    alive: true
-                });
-            }
-
-            updateFigures() {
-                const targetCount = 160;
-                
-                this.figures.forEach(f => {
-                    if (!f.alive) return;
+                this.dots.forEach(d => {
+                    if (!d.alive) return;
                     
-                    const funnelWidth = this.getFunnelWidth(f.y);
+                    const funnelWidth = this.getFunnelWidth(d.y);
                     const funnelLeft = this.funnelCenterX - funnelWidth / 2;
                     const funnelRight = this.funnelCenterX + funnelWidth / 2;
                     
-                    // Personality affects limb speed
-                    let limbSpeed = 0.015;
-                    if (f.personality === 'panicking') limbSpeed = 0.06;
-                    else if (f.personality === 'confused') limbSpeed = 0.025;
-                    else if (f.personality === 'giving_up') limbSpeed = 0.008;
-                    else if (f.personality === 'calm') limbSpeed = 0.012;
+                    d.phase += 0.01;
                     
-                    f.limbPhase += limbSpeed;
-                    f.rotation += f.rotationSpeed;
-                    f.rotationSpeed *= 0.99;
-                    
-                    if (f.brokeOut) {
-                        f.redAmount = Math.min(1, f.redAmount + 0.015);
+                    if (d.brokeOut) {
+                        d.redAmount = Math.min(1, d.redAmount + 0.01);
+                        d.x += d.breakDirection * 0.3;
+                        d.y += d.vy * 0.3;
+                        d.opacity *= 0.995;
                         
-                        f.vy += this.gravity * 0.6;
-                        f.vx += f.breakDirection * 0.006;
-                        f.rotationSpeed += f.breakDirection * 0.0002;
-                        f.opacity *= 0.997;
-                        
-                        f.x += f.vx;
-                        f.y += f.vy;
-                        
-                        if (f.opacity < 0.02 || f.y > this.height + 50 || f.x < -100 || f.x > this.width + 100) {
-                            f.alive = false;
+                        if (d.opacity < 0.02 || d.x < -50 || d.x > this.width + 50) {
+                            d.alive = false;
                         }
                     } else if (this.isFixed || this.isPreviewing) {
-                        // Spiral down with refined motion
-                        f.greenAmount = Math.min(1, f.greenAmount + 0.02);
-                        f.personality = 'calm';
+                        d.greenAmount = Math.min(1, d.greenAmount + 0.015);
                         
-                        // Smooth transition into spiral
-                        if (!f.spiralInitialized) {
-                            f.spiralInitialized = true;
-                            f.spiralPhase = f.limbPhase; // Use existing phase for offset
-                            f.spiralSpeed = 0.03 + Math.random() * 0.04; // Vary speed per figure
-                            f.targetVy = 1.0 + Math.random() * 0.4; // Vary descent speed
-                        }
+                        // Smooth flow toward center
+                        const targetX = this.funnelCenterX + Math.sin(d.phase * 2) * funnelWidth * 0.15;
+                        d.x += (targetX - d.x) * 0.02;
+                        d.y += d.vy * 0.8;
                         
-                        // Ease into target speed
-                        f.vy += (f.targetVy - f.vy) * 0.05;
-                        
-                        // Spiral radius tightens as funnel narrows
-                        const progress = (f.y - this.funnelTop) / (this.funnelBottom - this.funnelTop);
-                        const spiralRadius = funnelWidth * 0.3 * (1 - progress * 0.5);
-                        
-                        // Update spiral phase
-                        f.spiralPhase += f.spiralSpeed;
-                        
-                        // Spiral motion
-                        const targetX = this.funnelCenterX + Math.sin(f.spiralPhase) * spiralRadius;
-                        f.vx += (targetX - f.x) * 0.1;
-                        f.vx *= 0.9;
-                        
-                        // Rotate into the turn
-                        const targetRotation = Math.cos(f.spiralPhase) * 0.15;
-                        f.rotation += (targetRotation - f.rotation) * 0.1;
-                        
-                        f.x += f.vx;
-                        f.y += f.vy;
-                        
-                        // Keep within bounds
-                        if (f.x < funnelLeft + f.size) f.x = funnelLeft + f.size;
-                        if (f.x > funnelRight - f.size) f.x = funnelRight - f.size;
-                        
-                        if (f.y > this.funnelBottom + 25) {
-                            f.opacity *= 0.96;
-                            if (f.opacity < 0.03) f.alive = false;
+                        if (d.y > this.funnelBottom + 20) {
+                            d.opacity *= 0.97;
+                            if (d.opacity < 0.02) d.alive = false;
                         }
                     } else {
-                        // Check if near bottom - start turning green if converting
-                        if (f.willConvert && f.y > this.funnelBottom - 100) {
-                            f.greenAmount = Math.min(1, f.greenAmount + 0.01);
+                        if (d.willConvert && d.y > this.funnelBottom - 80) {
+                            d.greenAmount = Math.min(1, d.greenAmount + 0.008);
                         }
                         
-                        f.vy += this.gravity;
-                        f.vy = Math.min(f.vy, 1.0);
+                        // Gentle wave motion
+                        const wave = Math.sin(d.phase + d.y * 0.01) * 0.1;
+                        d.vx = wave;
+                        d.vx *= 0.98;
                         
-                        if (this.mouseX !== null && this.mouseY !== null) {
-                            const dx = f.x - this.mouseX;
-                            const dy = f.y - this.mouseY;
-                            const dist = Math.sqrt(dx * dx + dy * dy);
-                            
-                            if (dist < this.mouseInfluence && dist > 0) {
-                                const force = Math.pow(1 - dist / this.mouseInfluence, 2) * 0.5;
-                                f.vx += (dx / dist) * force;
-                                f.vy += (dy / dist) * force * 0.15;
-                            }
-                        }
+                        d.x += d.vx;
+                        d.y += d.vy;
                         
-                        f.vx *= 0.997;
-                        f.x += f.vx;
-                        f.y += f.vy;
-                        
-                        const hitLeft = f.x <= funnelLeft + f.size;
-                        const hitRight = f.x >= funnelRight - f.size;
-                        
-                        if (hitLeft || hitRight) {
-                            const wallDirection = hitLeft ? -1 : 1;
-                            
-                            if (!f.willConvert && f.y >= f.breakOutY) {
-                                f.brokeOut = true;
-                                f.breakDirection = wallDirection;
-                                f.vx = wallDirection * (0.2 + Math.random() * 0.2);
-                                f.rotationSpeed = wallDirection * (0.003 + Math.random() * 0.006);
+                        // Soft bounce off walls or escape
+                        if (d.x < funnelLeft + d.radius) {
+                            if (!d.willConvert && d.y > d.breakOutY) {
+                                d.brokeOut = true;
+                                d.breakDirection = -1;
                             } else {
-                                f.vx = -f.vx * 0.25 + (-wallDirection * 0.1);
-                                f.x = hitLeft ? funnelLeft + f.size + 1 : funnelRight - f.size - 1;
-                                f.rotationSpeed += wallDirection * 0.0008;
+                                d.x = funnelLeft + d.radius;
+                                d.vx *= -0.3;
+                            }
+                        }
+                        if (d.x > funnelRight - d.radius) {
+                            if (!d.willConvert && d.y > d.breakOutY) {
+                                d.brokeOut = true;
+                                d.breakDirection = 1;
+                            } else {
+                                d.x = funnelRight - d.radius;
+                                d.vx *= -0.3;
                             }
                         }
                         
-                        if (f.y > this.funnelBottom + 25) {
-                            f.opacity *= 0.98;
-                            if (f.opacity < 0.03) f.alive = false;
+                        if (d.y > this.funnelBottom + 20) {
+                            d.opacity *= 0.98;
+                            if (d.opacity < 0.02) d.alive = false;
                         }
                     }
                 });
                 
-                this.figures = this.figures.filter(f => f.alive);
+                this.dots = this.dots.filter(d => d.alive);
                 
-                if (this.figures.length < targetCount && Math.random() > 0.15) {
-                    this.spawnFigure();
+                if (this.dots.length < targetCount && Math.random() > 0.4) {
+                    this.spawnDot();
                 }
-            }
-
-            drawStickFigure(x, y, size, rotation, limbPhase, opacity, brokeOut, redAmount, greenAmount, personality) {
-                const ctx = this.ctx;
-                
-                ctx.save();
-                ctx.translate(x, y);
-                ctx.rotate(rotation);
-                
-                // Color: white -> red (falling out) or white -> green (converting)
-                let r = 200, g = 200, b = 210;
-                if (redAmount > 0) {
-                    r = Math.round(200 + (220 - 200) * redAmount);
-                    g = Math.round(200 - 120 * redAmount);
-                    b = Math.round(210 - 150 * redAmount);
-                } else if (greenAmount > 0) {
-                    r = Math.round(200 - 100 * greenAmount);
-                    g = Math.round(200 + (220 - 200) * greenAmount);
-                    b = Math.round(210 - 80 * greenAmount);
-                }
-                
-                ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-                ctx.lineWidth = size * 0.1;
-                ctx.lineCap = 'round';
-                ctx.lineJoin = 'round';
-                
-                const headSize = size * 0.3;
-                const bodyLength = size * 0.7;
-                const limbLength = size * 0.4;
-                
-                // Personality-based animation
-                let armSwing, legSwing, headTilt = 0;
-                
-                if (personality === 'panicking') {
-                    armSwing = Math.sin(limbPhase * 3) * 1.2;
-                    legSwing = Math.sin(limbPhase * 2.5) * 0.6;
-                    headTilt = Math.sin(limbPhase * 4) * 0.15;
-                } else if (personality === 'confused') {
-                    armSwing = Math.sin(limbPhase * 0.5) * 0.3 + Math.sin(limbPhase * 2) * 0.2;
-                    legSwing = Math.sin(limbPhase * 0.8) * 0.15;
-                    headTilt = Math.sin(limbPhase * 0.7) * 0.2;
-                } else if (personality === 'giving_up') {
-                    armSwing = 0.8 + Math.sin(limbPhase * 0.3) * 0.1;
-                    legSwing = Math.sin(limbPhase * 0.5) * 0.1;
-                    headTilt = 0.2;
-                } else if (personality === 'calm') {
-                    armSwing = Math.sin(limbPhase) * 0.15;
-                    legSwing = Math.sin(limbPhase + Math.PI) * 0.1;
-                } else {
-                    armSwing = Math.sin(limbPhase) * (brokeOut ? 0.5 : 0.2);
-                    legSwing = Math.sin(limbPhase * 0.8 + Math.PI) * (brokeOut ? 0.4 : 0.15);
-                }
-                
-                // Head
-                ctx.beginPath();
-                ctx.arc(headTilt * size * 0.3, -bodyLength - headSize, headSize, 0, Math.PI * 2);
-                ctx.stroke();
-                
-                // Body
-                ctx.beginPath();
-                ctx.moveTo(0, -bodyLength);
-                ctx.lineTo(0, 0);
-                ctx.stroke();
-                
-                // Arms
-                ctx.beginPath();
-                ctx.moveTo(0, -bodyLength * 0.6);
-                ctx.lineTo(
-                    -limbLength * Math.cos(armSwing + 0.35), 
-                    -bodyLength * 0.6 + limbLength * Math.sin(armSwing + 0.35)
-                );
-                ctx.moveTo(0, -bodyLength * 0.6);
-                ctx.lineTo(
-                    limbLength * Math.cos(-armSwing + 0.35), 
-                    -bodyLength * 0.6 + limbLength * Math.sin(-armSwing + 0.35)
-                );
-                ctx.stroke();
-                
-                // Legs
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.lineTo(
-                    -limbLength * 0.55 * Math.cos(legSwing + 0.2), 
-                    limbLength * 0.85 * Math.sin(legSwing + 0.6)
-                );
-                ctx.moveTo(0, 0);
-                ctx.lineTo(
-                    limbLength * 0.55 * Math.cos(-legSwing + 0.2), 
-                    limbLength * 0.85 * Math.sin(-legSwing + 0.6)
-                );
-                ctx.stroke();
-                
-                ctx.restore();
             }
 
             render() {
                 const ctx = this.ctx;
                 ctx.clearRect(0, 0, this.width, this.height);
                 
-                // Draw figures
-                this.figures.forEach(f => {
-                    this.drawStickFigure(f.x, f.y, f.size, f.rotation, f.limbPhase, f.opacity, f.brokeOut, f.redAmount, f.greenAmount, f.personality);
+                // Draw connections
+                const activeDots = this.dots.filter(d => !d.brokeOut);
+                
+                for (let i = 0; i < activeDots.length; i++) {
+                    for (let j = i + 1; j < activeDots.length; j++) {
+                        const d1 = activeDots[i];
+                        const d2 = activeDots[j];
+                        const dx = d1.x - d2.x;
+                        const dy = d1.y - d2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (dist < this.connectionDistance) {
+                            const opacity = (1 - dist / this.connectionDistance) * 0.2 * Math.min(d1.opacity, d2.opacity);
+                            
+                            let r = 255, g = 255, b = 255;
+                            if (d1.greenAmount > 0 || d2.greenAmount > 0) {
+                                const greenAvg = (d1.greenAmount + d2.greenAmount) / 2;
+                                r = Math.round(255 - 155 * greenAvg);
+                                g = 255;
+                                b = Math.round(255 - 105 * greenAvg);
+                            }
+                            
+                            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(d1.x, d1.y);
+                            ctx.lineTo(d2.x, d2.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                
+                // Draw dots
+                this.dots.forEach(d => {
+                    let r = 255, g = 255, b = 255;
+                    if (d.redAmount > 0) {
+                        r = 255;
+                        g = Math.round(255 - 180 * d.redAmount);
+                        b = Math.round(255 - 200 * d.redAmount);
+                    } else if (d.greenAmount > 0) {
+                        r = Math.round(255 - 155 * d.greenAmount);
+                        g = 255;
+                        b = Math.round(255 - 105 * d.greenAmount);
+                    }
+                    
+                    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${d.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(d.x, d.y, d.radius, 0, Math.PI * 2);
+                    ctx.fill();
                 });
             }
 
             animate() {
                 this.time++;
-                this.updateFigures();
+                this.updateDots();
                 this.render();
                 requestAnimationFrame(() => this.animate());
             }
@@ -877,15 +758,12 @@
         
         let funnelInstance;
 
-        // Initialize
         const canvas = document.getElementById('funnel-canvas');
-        funnelInstance = new StickFigureFunnel(canvas);
+        funnelInstance = new DotFunnel(canvas);
 
-        // Form
         const form = document.getElementById('waitlist-form');
         const button = form.querySelector('button');
         
-        // Preview effect on hover
         button.addEventListener('mouseenter', () => {
             funnelInstance.preview();
         });
@@ -899,7 +777,6 @@
             const email = form.querySelector('input[type="email"]').value;
             const company = form.querySelector('input[type="text"]').value;
             
-            // Disable button while submitting
             button.disabled = true;
             button.textContent = 'Joining...';
             
@@ -913,9 +790,7 @@
                 });
                 
                 if (response.ok) {
-                    // Fix the funnel - all figures flow smoothly now
                     funnelInstance.fix();
-                    
                     form.style.display = 'none';
                     document.getElementById('success-message').classList.add('show');
                 } else {
