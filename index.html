@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ignitris — Algorithmic Conversion Engine</title>
     <meta name="description" content="Real-time behavioral scoring that converts your highest-intent free users into paying customers, automatically.">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23000'/><rect x='30' y='15' width='12' height='70' rx='2' fill='%230279FD'/><rect x='55' y='35' width='12' height='50' rx='2' fill='%23fff'/></svg>">
+    <link rel="icon" type="image/png" href="/favicon.png">
     <meta property="og:title" content="Ignitris — Close the gap.">
     <meta property="og:description" content="Real-time behavioral scoring that converts your highest-intent free users into paying customers, automatically.">
     <meta property="og:type" content="website">
@@ -630,7 +630,20 @@
                 errEl.textContent = 'Please use your company email.'; errEl.classList.add('visible'); return;
             }
             btn.classList.add('loading'); btn.innerHTML = 'Submitting\u2026';
-            setTimeout(() => doSuccess(email), 1200);
+            const company = document.getElementById('companyField').value.trim();
+            fetch('/api/waitlist', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, company })
+            })
+            .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+            .then(() => doSuccess(email))
+            .catch(() => {
+                btn.classList.remove('loading');
+                btn.innerHTML = 'Get Early Access <span class="arrow">\u2192</span>';
+                errEl.textContent = 'Something went wrong. Please try again.';
+                errEl.classList.add('visible');
+            });
         }
 
         document.getElementById('joinBtn').onclick = e => { e.preventDefault(); submitForm(); };
