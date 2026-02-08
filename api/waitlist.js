@@ -28,9 +28,6 @@ export default async function handler(req, res) {
                     Company: {
                         rich_text: [{ text: { content: company || '' } }],
                     },
-                    'Signed Up': {
-                        date: { start: new Date().toISOString() },
-                    },
                 },
             }),
         });
