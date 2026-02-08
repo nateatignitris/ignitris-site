@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ignitris — Algorithmic Conversion Engine</title>
+    <meta name="description" content="Real-time behavioral scoring that converts your highest-intent free users into paying customers, automatically.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23000'/><rect x='30' y='15' width='12' height='70' rx='2' fill='%230279FD'/><rect x='55' y='35' width='12' height='50' rx='2' fill='%23fff'/></svg>">
+    <meta property="og:title" content="Ignitris — Close the gap.">
+    <meta property="og:description" content="Real-time behavioral scoring that converts your highest-intent free users into paying customers, automatically.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ignitris.com">
+    <meta property="og:image" content="https://ignitris.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ignitris — Close the gap.">
+    <meta name="twitter:description" content="Real-time behavioral scoring that converts your highest-intent free users into paying customers, automatically.">
+    <meta name="twitter:image" content="https://ignitris.com/og-image.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --black: #000000; --white: #fafafa; --gray: #888; --gray-dim: #555; --border: #222; --blue: #0279FD; --red: #ff6b6b; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; font-weight: 300; background: var(--black); color: var(--white); min-height: 100vh; overflow-x: hidden; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: var(--black); }
+        nav::before, nav::after { content: '+'; position: absolute; bottom: -0.5em; font-size: 0.7rem; color: #333; font-weight: 300; }
+        nav::before { left: 24px; } nav::after { right: 24px; }
+        .logo { position: absolute; left: 50%; transform: translateX(-50%); }
+        .logo-img { height: 30px; width: auto; }
+        .nav-spacer { width: 120px; }
+        .hiring-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: transparent; color: var(--white); text-decoration: none; font-size: 0.85rem; font-weight: 400; border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s; cursor: pointer; }
+        .hiring-btn:hover { border-color: #444; background: rgba(255,255,255,0.05); }
+        .hiring-btn .arrow { font-size: 0.9rem; display: inline-block; transition: transform 0.2s; }
+        .hiring-btn:hover .arrow { transform: translate(2px, -2px); }
+
+        .main { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 73px; }
+        .left-panel { display: flex; flex-direction: column; justify-content: flex-end; padding: 60px 64px 100px; position: relative; }
+        .headline { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif; font-size: clamp(3rem, 5.5vw, 4.5rem); font-weight: 500; line-height: 1.05; margin-bottom: 24px; letter-spacing: -0.04em; }
+        .description { font-size: 0.95rem; font-weight: 300; line-height: 1.3; max-width: 480px; margin-bottom: 28px; opacity: 0.45; letter-spacing: -0.005em; }
+        .waitlist-form { display: flex; flex-direction: column; gap: 8px; width: fit-content; min-width: 280px; }
+        .input-field { padding: 10px 14px; background: transparent; color: var(--white); font-size: 0.8rem; font-weight: 300; font-family: inherit; border: 1px solid var(--border); outline: none; transition: border-color 0.2s; }
+        .input-field::placeholder { color: var(--gray-dim); font-weight: 300; }
+        .input-field:focus { border-color: #444; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: transparent; color: var(--white); font-size: 0.8rem; font-weight: 400; border: 1px solid var(--border); cursor: pointer; transition: border-color 0.2s, background 0.2s; font-family: inherit; width: fit-content; text-decoration: none; }
+        .btn:hover { border-color: #444; background: rgba(255,255,255,0.05); }
+        .btn .arrow { font-size: 0.9rem; transition: transform 0.2s; }
+        .btn:hover .arrow { transform: translateX(3px); }
+        .btn.loading { pointer-events: none; opacity: 0.4; }
+        .social-proof { font-size: 0.7rem; font-weight: 300; opacity: 0.3; margin-top: 4px; letter-spacing: 0.02em; }
+        .form-error { font-size: 0.65rem; font-weight: 300; color: var(--red); opacity: 0; margin-top: -2px; transition: opacity 0.3s; }
+        .form-error.visible { opacity: 0.7; }
+        .form-success { display: none; }
+        .form-success .check { font-size: 1.2rem; margin-bottom: 8px; }
+        .form-success .success-headline { font-size: 0.95rem; font-weight: 500; opacity: 0.9; margin-bottom: 4px; }
+        .form-success .position { font-size: 0.7rem; font-weight: 300; opacity: 0.4; margin-bottom: 16px; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; letter-spacing: 0.03em; }
+        .form-success .success-sub { font-size: 0.7rem; font-weight: 300; opacity: 0.35; margin-bottom: 12px; }
+        .referral-box { border: 1px solid var(--border); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+        .referral-box .ref-link { font-size: 0.7rem; font-weight: 300; opacity: 0.5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; }
+        .referral-box .copy-btn { font-size: 0.65rem; font-weight: 400; opacity: 0.6; background: transparent; border: 1px solid var(--border); padding: 4px 10px; cursor: pointer; font-family: inherit; transition: border-color 0.2s, opacity 0.2s; white-space: nowrap; color: var(--white); }
+        .referral-box .copy-btn:hover { border-color: #444; opacity: 1; }
+        .referral-note { font-size: 0.6rem; font-weight: 300; opacity: 0.25; }
+
+        .right-panel { position: relative; overflow: hidden; min-height: calc(100vh - 73px); }
+        #cv { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        footer { position: fixed; bottom: 0; left: 0; right: 0; padding: 18px 48px; display: flex; justify-content: space-between; align-items: center; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.55rem; font-weight: 400; text-transform: uppercase; letter-spacing: 0.12em; border-top: 1px solid var(--border); z-index: 100; background: var(--black); }
+        footer::before, footer::after { content: '+'; position: absolute; top: -0.5em; font-size: 0.7rem; color: #333; font-weight: 300; }
+        footer::before { left: 24px; } footer::after { right: 24px; }
+        footer a { color: var(--white); text-decoration: none; margin-left: 32px; text-transform: uppercase; letter-spacing: 0.12em; }
+        footer a:hover { opacity: 0.6; }
+
+        @media (max-width: 900px) {
+            .main { grid-template-columns: 1fr; }
+            .left-panel { padding: 60px 32px; min-height: auto; }
+            .right-panel { min-height: 60vh; }
+            .headline { font-size: 3rem; }
+            .waitlist-form { min-width: unset; width: 100%; }
+            .referral-box { flex-wrap: wrap; }
+            nav { padding: 20px 24px; }
+            footer { padding: 16px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-spacer"></div>
+        <div class="logo">
+            <svg height="20" viewBox="0 0 8042 2511" class="logo-img" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2103.12 2510.57C1996.16 2510.57 1902.57 2495.6 1822.35 2465.68C1742.89 2436.51 1679.47 2396.23 1632.11 2344.81C1584.74 2293.39 1555.32 2235.84 1543.86 2172.14L1541.57 2161.78H1821.2L1825.78 2170.99C1841.06 2206.29 1872.39 2235.45 1919.76 2258.48C1967.89 2282.27 2028.63 2294.16 2101.97 2294.16C2195.18 2294.16 2266.62 2271.14 2316.28 2225.1C2365.94 2179.05 2390.77 2117.28 2390.77 2039.77V1863.65H2385.04C2362.89 1907.39 2333.09 1944.99 2295.65 1976.46C2258.98 2007.92 2215.81 2032.48 2166.15 2050.13C2117.25 2067.78 2063.77 2076.6 2005.71 2076.6C1904.1 2076.6 1815.47 2051.66 1739.83 2001.78C1664.96 1951.9 1606.89 1881.3 1565.64 1789.98C1525.14 1697.89 1504.9 1588.53 1504.9 1461.91V1460.76C1504.9 1331.84 1525.53 1221.33 1566.78 1129.24C1608.8 1036.39 1667.63 964.637 1743.27 913.988C1818.91 863.339 1907.92 838.015 2010.29 838.015C2067.59 838.015 2120.31 847.991 2168.44 867.944C2216.58 887.129 2258.6 913.988 2294.51 948.521C2331.18 983.054 2360.98 1023.73 2383.9 1070.54H2390.77V863.339H2676.13V2048.98C2676.13 2141.06 2652.83 2221.64 2606.22 2290.71C2559.62 2360.54 2493.53 2414.64 2407.96 2453.01C2322.39 2491.38 2220.78 2510.57 2103.12 2510.57ZM2095.1 1855.59C2154.69 1855.59 2206.64 1839.86 2250.96 1808.4C2295.27 1776.16 2329.65 1730.89 2354.1 1672.57C2379.31 1614.24 2391.92 1545.94 2391.92 1467.67V1466.52C2391.92 1387.48 2379.31 1319.18 2354.1 1261.62C2328.89 1203.3 2294.12 1158.41 2249.81 1126.94C2205.5 1095.48 2153.93 1079.75 2095.1 1079.75C2033.98 1079.75 1980.88 1095.48 1935.8 1126.94C1890.72 1158.41 1855.96 1202.92 1831.51 1260.47C1807.07 1318.03 1794.84 1386.71 1794.84 1466.52V1467.67C1794.84 1547.48 1807.07 1616.54 1831.51 1674.87C1855.96 1732.42 1890.72 1776.93 1935.8 1808.4C1980.88 1839.86 2033.98 1855.59 2095.1 1855.59Z" fill="white"/>
+                <path d="M2862.98 2083.51V863.339H3147.19V1054.42H3154.07C3185.39 988.426 3232 935.859 3293.88 896.721C3356.53 857.584 3433.7 838.015 3525.38 838.015C3659.08 838.015 3762.22 878.688 3834.8 960.032C3908.15 1041.38 3944.82 1152.65 3944.82 1293.85V2083.51H3659.46V1351.41C3659.46 1264.69 3639.22 1197.93 3598.72 1151.12C3558.23 1103.54 3497.49 1079.75 3416.51 1079.75C3362.26 1079.75 3314.89 1092.41 3274.4 1117.73C3233.91 1142.29 3202.58 1176.82 3180.43 1221.33C3158.27 1265.07 3147.19 1316.49 3147.19 1375.58V2083.51H2862.98Z" fill="white"/>
+                <path d="M4135.11 2083.51V863.339H4420.47V2083.51H4135.11ZM4277.21 688.372C4232.9 688.372 4195.46 673.024 4164.9 642.328C4134.34 611.631 4119.06 574.796 4119.06 531.822C4119.06 488.08 4134.34 451.244 4164.9 421.316C4195.46 390.62 4232.9 375.271 4277.21 375.271C4322.29 375.271 4360.11 390.62 4390.67 421.316C4421.23 451.244 4436.51 488.08 4436.51 531.822C4436.51 574.796 4421.23 611.631 4390.67 642.328C4360.11 673.024 4322.29 688.372 4277.21 688.372Z" fill="white"/>
+                <path d="M5066.87 2107.68C4940.81 2107.68 4846.83 2080.06 4784.95 2024.8C4723.83 1969.55 4693.27 1879 4693.27 1753.14V1084.35H4521.36V863.339H4693.27V553.693H4983.21V863.339H5208.97V1084.35H4983.21V1730.12C4983.21 1789.21 4996.2 1830.27 5022.17 1853.29C5048.91 1875.54 5087.88 1886.67 5139.07 1886.67C5153.58 1886.67 5166.19 1886.29 5176.89 1885.52C5188.35 1883.98 5199.04 1882.83 5208.97 1882.07V2097.32C5192.17 2099.62 5171.54 2101.93 5147.09 2104.23C5123.4 2106.53 5096.66 2107.68 5066.87 2107.68Z" fill="white"/>
+                <path d="M5358 2083.51V863.339H5642.22V1073.99H5649.09C5667.43 1000.32 5700.66 942.766 5748.8 901.326C5797.69 859.119 5857.29 838.015 5927.57 838.015C5945.15 838.015 5961.96 839.166 5978 841.468C5994.04 843.771 6007.41 846.457 6018.11 849.526V1108.52C6006.65 1103.92 5990.22 1100.08 5968.83 1097.01C5948.2 1093.94 5925.66 1092.41 5901.22 1092.41C5847.74 1092.41 5801.51 1103.54 5762.55 1125.79C5723.58 1147.28 5693.79 1179.13 5673.16 1221.33C5652.53 1263.54 5642.22 1314.96 5642.22 1375.58V2083.51H5358Z" fill="white"/>
+                <path d="M6125.88 2083.51V863.339H6411.24V2083.51H6125.88ZM6267.99 688.372C6223.68 688.372 6186.24 673.024 6155.68 642.328C6125.12 611.631 6109.84 574.796 6109.84 531.822C6109.84 488.08 6125.12 451.244 6155.68 421.316C6186.24 390.62 6223.68 375.271 6267.99 375.271C6313.07 375.271 6350.88 390.62 6381.45 421.316C6412.01 451.244 6427.29 488.08 6427.29 531.822C6427.29 574.796 6412.01 611.631 6381.45 642.328C6350.88 673.024 6313.07 688.372 6267.99 688.372Z" fill="white"/>
+                <path d="M7081.71 2107.68C6975.51 2107.68 6884.59 2091.95 6808.96 2060.49C6734.08 2029.02 6675.25 1984.9 6632.47 1928.11C6590.45 1870.56 6564.85 1804.17 6555.69 1728.97L6554.54 1718.61H6835.31L6837.61 1728.97C6848.3 1781.92 6873.52 1822.98 6913.24 1852.14C6953.74 1881.3 7010.27 1895.88 7082.86 1895.88C7129.46 1895.88 7169.19 1890.12 7202.04 1878.61C7234.89 1867.1 7260.11 1850.22 7277.68 1827.96C7296.02 1805.71 7305.18 1779.62 7305.18 1749.69V1748.54C7305.18 1712.47 7292.96 1683.31 7268.51 1661.05C7244.06 1638.03 7200.13 1619.23 7136.72 1604.65L6935.02 1559.76C6857.85 1542.11 6793.29 1517.93 6741.34 1487.24C6689.39 1456.54 6650.42 1418.56 6624.45 1373.28C6598.47 1327.23 6585.48 1273.9 6585.48 1213.27V1212.12C6585.48 1137.69 6605.73 1072.46 6646.22 1016.44C6686.71 960.416 6743.63 916.674 6816.98 885.21C6890.32 853.747 6975.51 838.015 7072.54 838.015C7173.39 838.015 7259.72 854.898 7331.54 888.664C7403.36 922.429 7458.75 967.706 7497.71 1024.49C7537.44 1081.28 7558.84 1144.98 7561.89 1215.58L7563.04 1228.24H7297.16L7296.02 1219.03C7289.9 1169.92 7267.75 1129.63 7229.55 1098.16C7191.35 1065.93 7139.01 1049.82 7072.54 1049.82C7030.52 1049.82 6993.85 1055.96 6962.52 1068.24C6931.96 1080.51 6908.28 1097.78 6891.47 1120.04C6875.43 1142.29 6867.4 1168.38 6867.4 1198.31V1199.46C6867.4 1222.48 6873.13 1243.2 6884.59 1261.62C6896.05 1280.04 6914.39 1296.15 6939.6 1309.97C6964.82 1323.01 6998.43 1334.52 7040.45 1344.5L7242.15 1389.39C7368.21 1417.79 7457.99 1458.46 7511.47 1511.41C7564.95 1563.59 7591.69 1633.81 7591.69 1722.06V1723.21C7591.69 1799.95 7569.91 1867.49 7526.37 1925.81C7482.82 1983.36 7422.46 2028.26 7345.29 2060.49C7268.89 2091.95 7181.03 2107.68 7081.71 2107.68Z" fill="white"/>
+                <mask id="path-2-inside-1_373_24" fill="white"><path d="M852.788 0L828.043 114.951C1013.63 149.126 1013.63 133.592 1053.84 167.767C1103.93 210.338 1084.77 314.822 1072.4 375.922L806.391 1749.13C763.088 2003.88 645.551 1985.24 484.711 2003.88L459.967 2121.94H1418.82L1443.57 2010.1C1275.3 1992.7 1155.91 1988.35 1174.47 1848.54L1452.84 363.495C1493.05 164.66 1542.54 130.485 1774.52 118.058L1799.27 0H852.788Z"/></mask>
+                <path d="M852.788 0L828.043 114.951C1013.63 149.126 1013.63 133.592 1053.84 167.767C1103.93 210.338 1084.77 314.822 1072.4 375.922L806.391 1749.13C763.088 2003.88 645.551 1985.24 484.711 2003.88L459.967 2121.94H1418.82L1443.57 2010.1C1275.3 1992.7 1155.91 1988.35 1174.47 1848.54L1452.84 363.495C1493.05 164.66 1542.54 130.485 1774.52 118.058L1799.27 0H852.788Z" fill="white"/>
+                <path d="M828.043 114.951L692.156 85.7002L662.016 225.715L802.87 251.653L828.043 114.951ZM852.788 0V-139H740.525L716.9 -29.2513L852.788 0ZM1799.27 0L1935.31 28.5144L1970.42 -139H1799.27V0ZM1774.52 118.058L1781.96 256.859L1888.65 251.144L1910.57 146.573L1774.52 118.058ZM1452.84 363.495L1316.6 335.943L1316.41 336.913L1316.22 337.885L1452.84 363.495ZM1174.47 1848.54L1037.85 1822.93L1037.16 1826.58L1036.68 1830.25L1174.47 1848.54ZM1443.57 2010.1L1579.28 2040.12L1612.97 1887.87L1457.86 1871.83L1443.57 2010.1ZM1418.82 2121.94V2260.94H1530.43L1554.54 2151.97L1418.82 2121.94ZM459.967 2121.94L323.923 2093.43L288.813 2260.94H459.967V2121.94ZM484.711 2003.88L468.709 1865.81L369.214 1877.34L348.668 1975.37L484.711 2003.88ZM806.391 1749.13L669.928 1722.69L669.624 1724.26L669.357 1725.83L806.391 1749.13ZM1072.4 375.922L936.161 348.336L936.044 348.911L935.933 349.488L1072.4 375.922ZM1053.84 167.767L1143.85 61.8526L1143.85 61.8525L1053.84 167.767Z" fill="white" mask="url(#path-2-inside-1_373_24)"/>
+            </svg>
+        </div>
+        <a class="hiring-btn" href="careers.html">We're hiring <span class="arrow">↗</span></a>
+    </nav>
+
+    <main class="main">
+        <section class="left-panel">
+            <h1 class="headline">Close the gap.</h1>
+            <p class="description">Real-time behavioral scoring that converts your highest-intent free users into paying customers, automatically.</p>
+            <div class="waitlist-form" id="waitlistForm">
+                <input type="email" class="input-field" id="emailField" placeholder="Email address" />
+                <input type="text" class="input-field" id="companyField" placeholder="Company name" />
+                <button class="btn" id="joinBtn">Get Early Access <span class="arrow">→</span></button>
+                <div class="social-proof">Join 200+ teams on the waitlist</div>
+                <div class="form-error" id="formError"></div>
+            </div>
+            <div class="form-success" id="formSuccess">
+                <div class="check">✓</div>
+                <div class="success-headline">You're on the list.</div>
+                <div class="position">Position #<span id="positionNum">---</span></div>
+                <div class="success-sub">Move up the waitlist by sharing your link.</div>
+                <div class="referral-box">
+                    <span class="ref-link" id="refLink">https://ignitris.com/r/abc123</span>
+                    <button class="copy-btn" id="copyBtn">Copy</button>
+                </div>
+                <div class="referral-note">Each referral moves you up the waitlist</div>
+            </div>
+        </section>
+
+        <section class="right-panel">
+            <canvas id="cv"></canvas>
+        </section>
+    </main>
+
+    <footer>
+        <div>© 2026 Ignitris</div>
+        <div>
+            <a href="https://linkedin.com/company/ignitris" target="_blank">LinkedIn</a>
+            <a href="https://instagram.com/ignitris" target="_blank">Instagram</a>
+            <a href="https://x.com/ignitris" target="_blank">X</a>
+        </div>
+    </footer>
+
+    <script>
+        const cv = document.getElementById('cv');
+        const ctx = cv.getContext('2d');
+        let W, H;
+        let charGrid = [];
+        let animId = null;
+
+        const fontSize = 4.5;
+        const cW = 2.8;
+        const cH = 4.8;
+        const DIGITS = '0123456789';
+
+        // Interaction state
+        let mouseX = -9999, mouseY = -9999;
+        let mouseOver = false;
+        let btnHover = false;
+        const PRESS_RADIUS = 70;
+        const IGNITE_RADIUS = 120;
+        const PRESS_EASE = 0.08;
+        const IGNITE_EASE = 0.10;
+
+        let seed = 42;
+        function srand() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+
+        function renderFunnel() {
+            if (animId) cancelAnimationFrame(animId);
+            const dpr = devicePixelRatio || 1;
+            W = cv.parentElement.clientWidth;
+            H = cv.parentElement.clientHeight;
+            cv.width = W * dpr; cv.height = H * dpr;
+            cv.style.width = W + 'px'; cv.style.height = H + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            // ── Per-pixel 3D funnel (fully enhanced) ──
+            const offW = 700, offH = 800;
+            const off = document.createElement('canvas');
+            off.width = offW; off.height = offH;
+            const oc = off.getContext('2d');
+
+            const cx = offW / 2;
+            const topY = offH * 0.11;
+            const botY = offH * 0.91;
+            const topRx = offW * 0.37;
+            const topRy = topRx * 0.23;
+            const botR = offW * 0.013;
+            const coneH = botY - topY;
+
+            // Wall thickness
+            const wallT = 0.88;
+            const inRx = topRx * wallT;
+            const inRy = topRy * wallT;
+            const inBotR = botR * 0.7;
+
+            // Cone slope
+            const dR = topRx - botR;
+            const slant = Math.sqrt(coneH * coneH + dR * dR);
+            const cosSl = coneH / slant;
+            const sinSl = dR / slant;
+
+            function n3(x, y, z) {
+                const l = Math.sqrt(x*x + y*y + z*z) || 1;
+                return [x/l, y/l, z/l];
+            }
+
+            // Lights
+            const keyL = n3(0.82, -0.3, 0.38);    // Strong right-side key
+            const fillL = n3(-0.35, -0.1, 0.35);   // Soft left fill
+            const bounceL = n3(0.1, 0.85, 0.15);   // Warm uplight from below
+
+            // Procedural hash noise (fast, deterministic)
+            function hash(x, y) {
+                let h = x * 374761393 + y * 668265263;
+                h = (h ^ (h >> 13)) * 1274126177;
+                h = h ^ (h >> 16);
+                return (h & 0x7fffffff) / 0x7fffffff;
+            }
+            // Smooth noise via bilinear interpolation
+            function smoothNoise(px, py, scale) {
+                const x = px / scale, y = py / scale;
+                const ix = Math.floor(x), iy = Math.floor(y);
+                const fx = x - ix, fy = y - iy;
+                const a = hash(ix, iy), b = hash(ix+1, iy);
+                const c = hash(ix, iy+1), d = hash(ix+1, iy+1);
+                const top = a + (b - a) * fx;
+                const bot = c + (d - c) * fx;
+                return top + (bot - top) * fy;
+            }
+            // Multi-octave noise for surface texture
+            function surfaceNoise(px, py) {
+                return smoothNoise(px, py, 35) * 0.5 +
+                       smoothNoise(px, py, 15) * 0.3 +
+                       smoothNoise(px, py, 7) * 0.2;
+            }
+
+            const imgBuf = oc.createImageData(offW, offH);
+            const pix = imgBuf.data;
+
+            for (let py = 0; py < offH; py++) {
+                for (let px = 0; px < offW; px++) {
+                    const idx = (py * offW + px) * 4;
+                    let val = 0;
+                    const dx = px - cx;
+
+                    // Outer & inner ellipse tests at rim
+                    const eOx = dx / topRx, eOy = (py - topY) / topRy;
+                    const inOuterEll = (eOx * eOx + eOy * eOy) < 1.0;
+                    const eIx = dx / inRx, eIy = (py - topY) / inRy;
+                    const inInnerEll = (eIx * eIx + eIy * eIy) < 1.0;
+
+                    if (inOuterEll) {
+                        if (!inInnerEll) {
+                            // ── RIM LIP (top face of wall) ──
+                            // Normal: mostly upward with slight outward tilt
+                            const rimAngle = Math.atan2(py - topY, dx);
+                            const Nx = Math.cos(rimAngle) * 0.2;
+                            const Ny = -0.95;
+                            const Nz = Math.sin(rimAngle) * 0.2;
+                            const N = n3(Nx, Ny, Nz);
+
+                            const dKey = Math.max(0, N[0]*keyL[0] + N[1]*keyL[1] + N[2]*keyL[2]);
+                            const dFill = Math.max(0, N[0]*fillL[0] + N[1]*fillL[1] + N[2]*fillL[2]);
+
+                            val = 0.02 + dKey * 0.65 + dFill * 0.1;
+
+                            // Brighter on the right (lit) side of the rim
+                            val *= (0.7 + 0.3 * (eOx * 0.5 + 0.5));
+
+                            // Subtle noise texture on rim
+                            const nz = surfaceNoise(px * 2, py * 2);
+                            val *= (0.9 + nz * 0.2);
+
+                        } else {
+                            // ── INTERIOR CAVITY ──
+                            const depth = Math.sqrt(eIx * eIx + eIy * eIy);
+
+                            // Inner back wall: subtle shading, brighter on key side
+                            const innerSide = eIx * 0.3 + 0.5;
+
+                            // Depth layers: center is deepest = darkest
+                            const depthFade = Math.pow(depth, 0.6);
+
+                            // Inner wall normal (points inward + toward viewer at edges)
+                            const inNx = -eIx * 0.5;
+                            const inNz = Math.sqrt(1 - Math.min(1, eIx * eIx)) * 0.3;
+                            const dKeyIn = Math.max(0, inNx * keyL[0] + 0.2 * keyL[1] + inNz * keyL[2]);
+
+                            val = 0.002 + 0.045 * depthFade * innerSide + dKeyIn * 0.04;
+
+                            // Ambient occlusion: darker near the rim edge (where wall meets cavity)
+                            const rimDist = 1 - depth;
+                            if (rimDist < 0.2) {
+                                val *= rimDist / 0.2;
+                            }
+
+                            // Very subtle noise in interior
+                            val *= (0.92 + surfaceNoise(px, py) * 0.16);
+                        }
+                    } else {
+                        // ── OUTER CONE SURFACE ──
+                        const absX = Math.abs(dx);
+
+                        // Front rim curve
+                        let rimFrontY = botY + 1; // default: off screen
+                        if (absX <= topRx) {
+                            rimFrontY = topY + topRy * Math.sqrt(Math.max(0, 1 - (dx * dx) / (topRx * topRx)));
+                        }
+
+                        if (py >= rimFrontY && py <= botY) {
+                            const t = (py - rimFrontY) / (botY - rimFrontY);
+                            const rOuter = topRx * (1 - t) + botR * t;
+                            const relX = dx / rOuter;
+
+                            if (relX > -1 && relX < 1) {
+                                const sinT = relX;
+                                const cosT = Math.sqrt(1 - relX * relX);
+
+                                // Surface normal
+                                const Nx = sinT * cosSl;
+                                const Ny = -sinSl;
+                                const Nz = cosT * cosSl;
+
+                                // Key + fill diffuse
+                                const dKey = Math.max(0, Nx*keyL[0] + Ny*keyL[1] + Nz*keyL[2]);
+                                const dFill = Math.max(0, Nx*fillL[0] + Ny*fillL[1] + Nz*fillL[2]);
+
+                                // Bounce light (upward, warms shadow side)
+                                const dBounce = Math.max(0, Nx*bounceL[0] + Ny*bounceL[1] + Nz*bounceL[2]);
+
+                                // Specular
+                                const Hv = n3(keyL[0], keyL[1], keyL[2] + 1);
+                                const nDotH = Math.max(0, Nx*Hv[0] + Ny*Hv[1] + Nz*Hv[2]);
+                                const spec = Math.pow(nDotH, 100);
+
+                                // Fresnel
+                                const fres = Math.pow(1 - cosT * cosSl, 5) * 0.04;
+
+                                // Base shading
+                                val = 0.003 + dKey * 0.82 + dFill * 0.07 + dBounce * 0.06 + spec * 0.55 + fres;
+
+                                // ── Horizontal ring lines (machining marks) ──
+                                const ringFreq = 180;
+                                const ringVal = Math.sin(t * ringFreq) * 0.5 + 0.5; // 0-1
+                                val *= (0.93 + ringVal * 0.07); // subtle modulation
+
+                                // ── Procedural noise texture (brushed metal) ──
+                                // Stretch horizontally for brushed look
+                                const nz = surfaceNoise(px * 0.8, py * 2.5);
+                                val *= (0.88 + nz * 0.24);
+
+                                // ── Vertical fade toward spout ──
+                                val *= (1 - t * 0.18);
+
+                                // ── Ambient occlusion ──
+                                // Near the rim (t close to 0): darken
+                                if (t < 0.06) {
+                                    val *= (0.65 + 0.35 * (t / 0.06));
+                                }
+                                // Near the spout (t close to 1): darken
+                                if (t > 0.92) {
+                                    val *= (0.6 + 0.4 * ((1 - t) / 0.08));
+                                }
+
+                                // Silhouette feathering
+                                const edgeDist = 1 - Math.abs(relX);
+                                if (edgeDist < 0.035) val *= edgeDist / 0.035;
+                            }
+                        }
+
+                        // Fallback: below topY (sides not covered by rimFront curve)
+                        if (val === 0 && py > topY && py <= botY) {
+                            const t = (py - topY) / coneH;
+                            const rOuter = topRx * (1 - t) + botR * t;
+                            const relX = dx / rOuter;
+
+                            if (relX > -1 && relX < 1) {
+                                const sinT = relX;
+                                const cosT = Math.sqrt(1 - relX * relX);
+
+                                const Nx = sinT * cosSl;
+                                const Ny = -sinSl;
+                                const Nz = cosT * cosSl;
+
+                                const dKey = Math.max(0, Nx*keyL[0] + Ny*keyL[1] + Nz*keyL[2]);
+                                const dFill = Math.max(0, Nx*fillL[0] + Ny*fillL[1] + Nz*fillL[2]);
+                                const dBounce = Math.max(0, Nx*bounceL[0] + Ny*bounceL[1] + Nz*bounceL[2]);
+
+                                const Hv = n3(keyL[0], keyL[1], keyL[2] + 1);
+                                const nDotH = Math.max(0, Nx*Hv[0] + Ny*Hv[1] + Nz*Hv[2]);
+                                const spec = Math.pow(nDotH, 100);
+                                const fres = Math.pow(1 - cosT * cosSl, 5) * 0.04;
+
+                                val = 0.003 + dKey * 0.82 + dFill * 0.07 + dBounce * 0.06 + spec * 0.55 + fres;
+
+                                // Ring lines
+                                const ringVal = Math.sin(t * 180) * 0.5 + 0.5;
+                                val *= (0.93 + ringVal * 0.07);
+
+                                // Noise
+                                const nz = surfaceNoise(px * 0.8, py * 2.5);
+                                val *= (0.88 + nz * 0.24);
+
+                                val *= (1 - t * 0.18);
+
+                                // AO at rim
+                                if (t < 0.06) val *= (0.65 + 0.35 * (t / 0.06));
+                                if (t > 0.92) val *= (0.6 + 0.4 * ((1 - t) / 0.08));
+
+                                const edgeDist = 1 - Math.abs(relX);
+                                if (edgeDist < 0.035) val *= edgeDist / 0.035;
+                            }
+                        }
+                    }
+
+                    // Gamma for rich midtones
+                    val = Math.pow(Math.min(1, Math.max(0, val)), 0.78);
+                    const g = Math.floor(val * 255);
+                    pix[idx] = g; pix[idx+1] = g; pix[idx+2] = g; pix[idx+3] = 255;
+                }
+            }
+            oc.putImageData(imgBuf, 0, 0);
+
+            // Front rim highlight (directional, brighter on right)
+            const rimGrad = oc.createLinearGradient(cx - topRx, topY, cx + topRx, topY);
+            rimGrad.addColorStop(0, 'rgba(255,255,255,0.02)');
+            rimGrad.addColorStop(0.25, 'rgba(255,255,255,0.1)');
+            rimGrad.addColorStop(0.5, 'rgba(255,255,255,0.6)');
+            rimGrad.addColorStop(0.72, 'rgba(255,255,255,1.0)');
+            rimGrad.addColorStop(1, 'rgba(255,255,255,0.35)');
+            oc.strokeStyle = rimGrad;
+            oc.lineWidth = 2.5;
+            oc.beginPath();
+            oc.ellipse(cx, topY, topRx, topRy, 0, 0.03, Math.PI - 0.03);
+            oc.stroke();
+
+            // Subtle back rim
+            oc.strokeStyle = 'rgba(255,255,255,0.025)';
+            oc.lineWidth = 1;
+            oc.beginPath();
+            oc.ellipse(cx, topY, topRx, topRy, 0, Math.PI + 0.1, 2 * Math.PI - 0.1);
+            oc.stroke();
+
+            // ── Sample to number grid ──
+            const imgData = oc.getImageData(0, 0, offW, offH).data;
+            const cols = Math.floor(W / cW);
+            const rows = Math.floor(H / cH);
+            const sx = offW / cols;
+            const sy = offH / rows;
+
+            charGrid = [];
+            seed = 42;
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const px = Math.floor(c * sx);
+                    const py = Math.floor(r * sy);
+                    if (px >= offW || py >= offH) continue;
+                    const idx = (py * offW + px) * 4;
+                    const gray = imgData[idx];
+                    if (gray < 2) continue;
+
+                    const b = Math.max(0.02, gray / 255);
+                    const baseDigit = DIGITS[Math.floor(srand() * 10)];
+                    // Flipped side: always a DIFFERENT digit
+                    let flippedDigit = DIGITS[Math.floor(srand() * 10)];
+                    while (flippedDigit === baseDigit) flippedDigit = DIGITS[(DIGITS.indexOf(flippedDigit) + 1) % 10];
+
+                    charGrid.push({
+                        x: c * cW, y: r * cH,
+                        baseDigit, flippedDigit, currentDigit: baseDigit,
+                        brightness: b, grayBase: Math.floor(b * 255),
+                        press: 0, ignite: 0, cycleTimer: srand() * 100,
+                        blueFlip: 0,
+                    });
+                }
+            }
+
+            startAnimation();
+        }
+
+        function startAnimation() {
+            if (animId) cancelAnimationFrame(animId);
+            let lastTime = 0;
+
+            function frame(time) {
+                const dt = Math.min(50, time - (lastTime || time));
+                lastTime = time;
+
+                const dpr = devicePixelRatio || 1;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, W, H);
+                ctx.textBaseline = 'top';
+
+                for (const g of charGrid) {
+                    const dx = g.x - mouseX;
+                    const dy = g.y - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    let targetPress = 0, targetIgnite = 0;
+                    if (mouseOver) {
+                        if (dist < PRESS_RADIUS) {
+                            targetPress = 1 - (dist / PRESS_RADIUS);
+                            targetPress *= targetPress;
+                        }
+                        if (dist < IGNITE_RADIUS) {
+                            targetIgnite = 1 - (dist / IGNITE_RADIUS);
+                            targetIgnite = Math.sqrt(targetIgnite);
+                        }
+                    }
+
+                    g.press += (targetPress - g.press) * PRESS_EASE;
+                    g.ignite += (targetIgnite - g.ignite) * IGNITE_EASE;
+                    if (g.press < 0.005) g.press = 0;
+                    if (g.ignite < 0.005) g.ignite = 0;
+
+                    // ── Blue flip: smooth transition ──
+                    const targetBlue = btnHover ? 1 : 0;
+                    g.blueFlip += (targetBlue - g.blueFlip) * 0.10;
+                    if (g.blueFlip < 0.005) g.blueFlip = 0;
+                    if (g.blueFlip > 0.995) g.blueFlip = 1;
+
+                    const bf = g.blueFlip;
+                    const isBlue = bf > 0.5;
+
+                    // Which character to show
+                    let displayDigit;
+                    if (g.ignite > 0.05) {
+                        g.cycleTimer += dt * (0.008 + g.ignite * 0.025);
+                        if (g.cycleTimer > 1) {
+                            g.cycleTimer -= 1;
+                            g.currentDigit = DIGITS[Math.floor(Math.random() * 10)];
+                        }
+                        displayDigit = g.currentDigit;
+                    } else {
+                        // Swap to a different digit when blue
+                        displayDigit = isBlue ? g.flippedDigit : g.baseDigit;
+                    }
+
+                    // Depth press
+                    const pressDarken = 1 - g.press * 0.65;
+                    const pressScale = 1 - g.press * 0.3;
+                    const gVal = Math.floor(g.grayBase * pressDarken);
+
+                    // Color: lerp gray → blue
+                    const grayR = Math.min(255, gVal + Math.floor(g.press * 15));
+                    const grayG = gVal;
+                    const grayB = Math.max(0, gVal - Math.floor(g.press * 8));
+                    const blueR = Math.floor(2 * g.brightness + (1 - g.brightness) * 8);
+                    const bluG = Math.floor(121 * g.brightness + (1 - g.brightness) * 20);
+                    const bluB = Math.floor(253 * g.brightness + (1 - g.brightness) * 40);
+                    const rC = Math.floor(grayR + (blueR - grayR) * bf);
+                    const gC = Math.floor(grayG + (bluG - grayG) * bf);
+                    const bC = Math.floor(grayB + (bluB - grayB) * bf);
+
+                    const fSize = fontSize * pressScale;
+                    ctx.font = `400 ${fSize}px "SF Mono","Fira Code","Consolas",monospace`;
+                    ctx.fillStyle = `rgb(${rC},${gC},${bC})`;
+
+                    const d = dist || 1;
+                    const pressOffX = g.press * (dx / d) * -1.5;
+                    const pressOffY = g.press * (dy / d) * -1.5;
+
+                    ctx.fillText(displayDigit, g.x + pressOffX, g.y + pressOffY + (fontSize - fSize) * 0.5);
+                }
+
+                animId = requestAnimationFrame(frame);
+            }
+            animId = requestAnimationFrame(frame);
+        }
+
+        cv.addEventListener('mousemove', e => {
+            const rect = cv.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+            mouseOver = true;
+        });
+        cv.addEventListener('mouseleave', () => { mouseOver = false; });
+
+        renderFunnel();
+        window.addEventListener('resize', renderFunnel);
+
+        // ── Button hover → blue flip ──
+        const joinBtnEl = document.getElementById('joinBtn');
+        joinBtnEl.addEventListener('mouseenter', () => { btnHover = true; });
+        joinBtnEl.addEventListener('mouseleave', () => { btnHover = false; });
+
+        // Also trigger on form field focus
+        document.querySelectorAll('.input-field').forEach(el => {
+            el.addEventListener('focus', () => { btnHover = true; });
+            el.addEventListener('blur', () => {
+                // Only revert if no other field is focused and button isn't hovered
+                setTimeout(() => {
+                    const active = document.activeElement;
+                    if (!active || !active.classList.contains('input-field')) {
+                        btnHover = false;
+                    }
+                }, 50);
+            });
+        });
+
+        // ── FORM ──
+        function doSuccess(email) {
+            document.getElementById('waitlistForm').style.display = 'none';
+            const ref = btoa(email).slice(0, 8).replace(/[^a-zA-Z0-9]/g, '') + Math.random().toString(36).slice(2, 6);
+            document.getElementById('refLink').textContent = 'https://ignitris.com/r/' + ref;
+            document.getElementById('formSuccess').style.display = 'block';
+            const fin = 200 + Math.floor(Math.random() * 47) + 1;
+            const el = document.getElementById('positionNum');
+            let cur = 0;
+            (function step() {
+                cur += Math.ceil((fin - cur) * 0.12);
+                if (cur >= fin) { el.textContent = fin; return; }
+                el.textContent = cur; requestAnimationFrame(step);
+            })();
+        }
+
+        function submitForm() {
+            const btn = document.getElementById('joinBtn');
+            const emailEl = document.getElementById('emailField');
+            const errEl = document.getElementById('formError');
+            const email = emailEl.value.trim().toLowerCase();
+            const blocked = ['gmail.com','yahoo.com','hotmail.com','outlook.com','aol.com','icloud.com','mail.com','protonmail.com','zoho.com','yandex.com','live.com','me.com','msn.com','proton.me'];
+            const domain = email.split('@')[1] || '';
+            emailEl.style.borderColor = ''; errEl.classList.remove('visible');
+            if (!email || !email.includes('@') || !domain.includes('.')) {
+                emailEl.style.borderColor = 'rgba(255,107,107,0.4)';
+                errEl.textContent = 'Please enter a valid email address.'; errEl.classList.add('visible'); return;
+            }
+            if (blocked.includes(domain)) {
+                emailEl.style.borderColor = 'rgba(255,107,107,0.4)';
+                errEl.textContent = 'Please use your company email.'; errEl.classList.add('visible'); return;
+            }
+            btn.classList.add('loading'); btn.innerHTML = 'Submitting\u2026';
+            setTimeout(() => doSuccess(email), 1200);
+        }
+
+        document.getElementById('joinBtn').onclick = e => { e.preventDefault(); submitForm(); };
+        document.querySelectorAll('.input-field').forEach(el => {
+            el.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); submitForm(); } });
+        });
+        document.getElementById('copyBtn').addEventListener('click', () => {
+            const link = document.getElementById('refLink').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                const b = document.getElementById('copyBtn');
+                b.textContent = 'Copied'; b.style.opacity = '1';
+                setTimeout(() => { b.textContent = 'Copy'; b.style.opacity = ''; }, 2000);
+            });
+        });
+        document.getElementById('emailField').addEventListener('input', () => {
+            document.getElementById('emailField').style.borderColor = '';
+            document.getElementById('formError').classList.remove('visible');
+        });
+    </script>
+</body>
+</html>
