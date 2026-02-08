@@ -45,9 +45,6 @@ export default async function handler(req, res) {
                     Response: {
                         rich_text: [{ text: { content: (message || '').slice(0, 2000) } }],
                     },
-                    'Applied At': {
-                        date: { start: new Date().toISOString() },
-                    },
                 },
             }),
         });
