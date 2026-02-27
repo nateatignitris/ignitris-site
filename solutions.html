@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ignitris | Engineering Digital Growth</title>
+    <title>Solutions | Ignitris</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -11,7 +11,6 @@
             --black: #000000;
             --white: #ffffff;
             --gray: #888888;
-            --gray-dim: #111111;
             --border: rgba(255, 255, 255, 0.12);
         }
 
@@ -20,26 +19,14 @@
             background: var(--black);
             color: var(--white);
             min-height: 100vh;
-            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Page Transition */
-        body {
-            animation: pageIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        body { animation: pageIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
         @keyframes pageIn {
-            from {
-                opacity: 0;
-                filter: blur(10px);
-                transform: scale(0.98);
-            }
-            to {
-                opacity: 1;
-                filter: blur(0);
-                transform: scale(1);
-            }
+            from { opacity: 0; filter: blur(10px); transform: scale(0.98); }
+            to   { opacity: 1; filter: blur(0);    transform: scale(1);    }
         }
 
         body.page-transitioning {
@@ -47,36 +34,11 @@
         }
 
         @keyframes pageOut {
-            from {
-                opacity: 1;
-                filter: blur(0);
-                transform: scale(1);
-            }
-            to {
-                opacity: 0;
-                filter: blur(10px);
-                transform: scale(1.02);
-            }
+            from { opacity: 1; filter: blur(0); transform: scale(1); }
+            to   { opacity: 0; filter: blur(10px); transform: scale(1.02); }
         }
 
-
-
-        /* Entrance Animations */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-up {
-            opacity: 0;
-            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.3s; }
-        .delay-3 { animation-delay: 0.5s; }
-        .delay-4 { animation-delay: 0.7s; }
-
-        /* NAV - TRUE LIQUID GLASS */
+        /* NAV */
         nav {
             position: sticky;
             top: 20px;
@@ -91,15 +53,11 @@
             width: calc(100% - 40px);
             max-width: 1100px;
             border-radius: 100px;
-            
-            /* True Liquid Glass - Transparent Background with Blur */
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(40px) saturate(180%);
             -webkit-backdrop-filter: blur(40px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2);
         }
 
         .nav-logo {
@@ -108,26 +66,11 @@
             text-decoration: none;
             color: rgba(255, 255, 255, 0.95);
             transition: opacity 0.2s;
-            position: relative;
-            z-index: 2;
         }
-        
         .nav-logo:hover { opacity: 0.7; }
+        .nav-logo svg { height: 18px; width: auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
 
-        .nav-logo svg { 
-            height: 18px;
-            width: auto; 
-            display: block;
-            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
-        }
-
-        .nav-actions { 
-            display: flex; 
-            align-items: center; 
-            gap: 12px;
-            position: relative;
-            z-index: 2;
-        }
+        .nav-actions { display: flex; align-items: center; gap: 12px; }
 
         .btn {
             position: relative;
@@ -146,154 +89,129 @@
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
         }
-
         .btn::before, .btn::after {
             content: ''; position: absolute; width: 6px; height: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.3); transition: all 0.3s ease;
         }
         .btn::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
         .btn::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
-        .btn:hover { 
-            background: rgba(255, 255, 255, 0.15); 
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-1px);
-        }
-        .btn:hover::before, .btn:hover::after { border-color: rgba(255, 255, 255, 0.6); width: 10px; height: 10px; }
-        .btn-ghost { 
-            border-color: transparent; 
-            background: transparent;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        .btn-ghost:hover { 
-            color: rgba(255, 255, 255, 1);
-            background: rgba(255, 255, 255, 0.08);
+        .btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+        .btn:hover::before, .btn:hover::after { border-color: rgba(255,255,255,0.6); width: 10px; height: 10px; }
+        .btn-ghost { border-color: transparent; background: transparent; color: rgba(255,255,255,0.7); }
+        .btn-ghost:hover { color: rgba(255,255,255,1); background: rgba(255,255,255,0.08); }
+
+        /* HERO */
+        .page-hero {
+            padding: 120px 40px 100px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        /* Hero CTA Button */
-        .hero-cta {
-            position: relative;
-            z-index: 2;
+        .page-label {
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 30px;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(40px, 6vw, 68px);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+
+        .page-hero p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* SOLUTIONS GRID */
+        .solutions-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 40px 140px;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .solution-card {
+            background: var(--black);
+            padding: 60px 50px;
+            transition: background 0.3s ease;
+        }
+
+        .solution-card:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .solution-number {
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .solution-card h2 {
+            font-size: clamp(22px, 2.5vw, 30px);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .solution-card p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .solution-cta {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 12px 32px;
-            font-size: 11px;
+            margin-top: 36px;
+            font-size: 10px;
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
             text-decoration: none;
-            color: rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            margin-top: 20px;
+            transition: color 0.2s;
         }
 
-        .hero-cta::before, .hero-cta::after {
-            content: ''; position: absolute; width: 6px; height: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease;
-        }
-        .hero-cta::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-        .hero-cta::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
-        .hero-cta:hover { 
-            background: rgba(255, 255, 255, 0.15); 
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        .hero-cta:hover::before, .hero-cta:hover::after { 
-            border-color: rgba(255, 255, 255, 0.6); 
-            width: 10px; 
-            height: 10px; 
-        }
-
-        /* HERO */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0 40px;
-            margin-top: 0;
-            gap: 24px;
-            overflow: hidden;
-        }
-
-        /* Video Background */
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-            pointer-events: none; /* Disable any interaction */
-        }
-        
-        /* Force hide video controls */
-        .hero-video::-webkit-media-controls {
-            display: none !important;
-        }
-        
-        .hero-video::-webkit-media-controls-enclosure {
-            display: none !important;
-        }
-
-        /* Dark overlay for text readability */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, 0.3) 0%,
-                rgba(0, 0, 0, 0.5) 50%,
-                rgba(0, 0, 0, 0.8) 100%
-            );
-            z-index: 1;
-        }
-
-        .hero-kicker {
-            font-size: 10px;
-            letter-spacing: 0.4em;
-            color: rgba(255, 255, 255, 0.8);
-            text-transform: uppercase;
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero h1 {
-            font-size: clamp(36px, 6vw, 72px);
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            line-height: 1;
-            text-align: center;
-            color: var(--white);
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .scroll-indicator { display: none; }
+        .solution-cta:hover { color: rgba(255, 255, 255, 1); }
 
         footer {
-            padding: 100px 40px;
+            padding: 80px 40px;
             text-align: center;
-            color: var(--gray-dim);
+            color: rgba(255, 255, 255, 0.1);
             font-size: 11px;
             letter-spacing: 0.2em;
             text-transform: uppercase;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        @media (max-width: 768px) {
+            .page-hero { padding: 100px 20px 60px; }
+            .solutions-section { padding: 60px 20px 100px; }
+            .solutions-grid { grid-template-columns: 1fr; }
+            .solution-card { padding: 40px 30px; }
         }
     </style>
 </head>
@@ -315,26 +233,50 @@
         </a>
         <div class="nav-actions">
             <a href="careers.html" class="btn btn-ghost">Careers</a>
-            <a href="#" class="btn">Get Started <span class="arrow">&rarr;</span></a>
+            <a href="#" class="btn">Get Started &rarr;</a>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <!-- NOTE: Make sure hero-video.mp4 is in the same folder as this HTML file -->
-    <section class="hero">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="hero-video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        
-        <h1 class="animate-up delay-1">Close the gap.</h1>
-        <a href="solutions.html" class="hero-cta animate-up delay-2">Explore Solutions <span class="arrow">&rarr;</span></a>
-        
-        <div class="scroll-indicator animate-up delay-3">
-            <span>Scroll</span>
-            <div class="line"></div>
-        </div>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="page-label">[ Solutions ]</div>
+        <h1>Close the gap between<br>potential and performance</h1>
+        <p>We identify where your organization is leaving value on the table — and build the systems to capture it.</p>
+    </section>
 
+    <!-- SOLUTIONS GRID -->
+    <section class="solutions-section">
+        <div class="solutions-grid">
+
+            <div class="solution-card">
+                <div class="solution-number">[ 01 ]</div>
+                <h2>Software Stack Optimization</h2>
+                <p>Most enterprises run 10x more tools than they need. We map your entire software ecosystem, identify redundancies, and consolidate your stack — cutting costs without cutting capability.</p>
+                <a href="#" class="solution-cta">Learn more &rarr;</a>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-number">[ 02 ]</div>
+                <h2>AI-Powered Workflow Automation</h2>
+                <p>Manual processes are the hidden tax on your team's time. We design and deploy AI-driven automation that eliminates repetitive work and frees your people for high-leverage activity.</p>
+                <a href="#" class="solution-cta">Learn more &rarr;</a>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-number">[ 03 ]</div>
+                <h2>Enterprise Analytics & Visibility</h2>
+                <p>You can't optimize what you can't see. We build real-time dashboards and reporting infrastructure that give leadership a clear picture of spend, performance, and opportunity.</p>
+                <a href="#" class="solution-cta">Learn more &rarr;</a>
+            </div>
+
+            <div class="solution-card">
+                <div class="solution-number">[ 04 ]</div>
+                <h2>Digital Transformation Strategy</h2>
+                <p>From roadmap to rollout, we partner with your leadership team to design and execute a modernization strategy that delivers measurable ROI within 90 days — guaranteed.</p>
+                <a href="#" class="solution-cta">Learn more &rarr;</a>
+            </div>
+
+        </div>
     </section>
 
     <footer>
@@ -342,20 +284,14 @@
     </footer>
 
     <script>
-        // Smooth page transitions
         document.addEventListener('DOMContentLoaded', function() {
             const links = document.querySelectorAll('a[href$=".html"]');
-            
             links.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const href = this.getAttribute('href');
-                    
                     document.body.classList.add('page-transitioning');
-                    
-                    setTimeout(() => {
-                        window.location.href = href;
-                    }, 400);
+                    setTimeout(() => { window.location.href = href; }, 400);
                 });
             });
         });
