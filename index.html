@@ -226,6 +226,7 @@
 
         /* The glass pill row — mimics the nav bar */
         .waitlist-row {
+            position: relative;
             display: flex;
             align-items: center;
             width: 100%;
@@ -237,6 +238,54 @@
             border-radius: 100px;
             padding: 5px 5px 5px 22px;
             gap: 0;
+            overflow: visible;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .waitlist-row.success {
+            justify-content: center;
+            padding: 5px 22px;
+            animation: successPulse 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes successPulse {
+            0%   { border-color: rgba(255,255,255,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+            30%  { border-color: rgba(255,255,255,0.6);  box-shadow: 0 8px 52px rgba(255,255,255,0.14), 0 0 0 5px rgba(255,255,255,0.05); }
+            100% { border-color: rgba(255,255,255,0.22); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+        }
+
+        /* Success text lives inside the pill */
+        .waitlist-success-inner {
+            display: none;
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 0.02em;
+            opacity: 0;
+            animation: none;
+        }
+
+        .waitlist-success-inner.visible {
+            display: block;
+            animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+        }
+
+        /* Particles */
+        @keyframes particleRise {
+            0%   { opacity: 0.85; transform: translateY(0) translateX(0) scale(1); }
+            100% { opacity: 0;    transform: translateY(-48px) translateX(var(--dx)) scale(0.2); }
+        }
+
+        .waitlist-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.75);
+            pointer-events: none;
+            top: 50%;
+            animation: particleRise var(--dur) ease forwards;
+            animation-delay: var(--delay);
         }
 
         .waitlist-input {
@@ -388,7 +437,7 @@
             <p class="hero-subtitle animate-up delay-2">Mapping user intent in real time, identifying the exact moment a free user converts into a paying customer.</p>
 
             <div class="waitlist animate-up delay-3">
-                <div class="waitlist-row">
+                <div class="waitlist-row" id="waitlist-row">
                     <input
                         type="email"
                         class="waitlist-input"
@@ -398,8 +447,8 @@
                         spellcheck="false"
                     >
                     <button class="waitlist-btn" id="waitlist-submit" type="button">Join Waitlist</button>
+                    <span class="waitlist-success-inner" id="waitlist-success">You're on the list.</span>
                 </div>
-                <p class="waitlist-success" id="waitlist-success">You're on the list. We'll be in touch.</p>
                 <p class="waitlist-error" id="waitlist-error">Something went wrong. Try again.</p>
             </div>
         </div>
@@ -435,8 +484,22 @@
         // Waitlist form
         const emailInput = document.getElementById('waitlist-email');
         const submitBtn  = document.getElementById('waitlist-submit');
-        const successMsg = document.getElementById('waitlist-success');
+        const successMsg = document.getElementById('waitlist-success'); // inner span inside pill
         const errorMsg   = document.getElementById('waitlist-error');
+
+        function spawnParticles(row) {
+            for (let i = 0; i < 12; i++) {
+                const p = document.createElement('span');
+                p.className = 'waitlist-particle';
+                const dx = (Math.random() - 0.5) * 90;
+                const left = 15 + Math.random() * 70;
+                const dur  = (0.65 + Math.random() * 0.45).toFixed(2) + 's';
+                const delay = (Math.random() * 0.25).toFixed(2) + 's';
+                p.style.cssText = `left:${left}%; --dx:${dx}px; --dur:${dur}; --delay:${delay};`;
+                row.appendChild(p);
+                setTimeout(() => p.remove(), 1300);
+            }
+        }
 
         submitBtn.addEventListener('click', async function() {
             const email = emailInput.value.trim();
@@ -458,9 +521,21 @@
                 });
 
                 if (res.ok) {
-                    emailInput.style.display = 'none';
-                    submitBtn.style.display  = 'none';
-                    successMsg.classList.add('visible');
+                    // Fade out input + button
+                    emailInput.style.transition = 'opacity 0.22s ease';
+                    submitBtn.style.transition  = 'opacity 0.22s ease';
+                    emailInput.style.opacity = '0';
+                    submitBtn.style.opacity  = '0';
+
+                    setTimeout(() => {
+                        emailInput.style.display = 'none';
+                        submitBtn.style.display  = 'none';
+
+                        const row = document.getElementById('waitlist-row');
+                        row.classList.add('success');
+                        spawnParticles(row);
+                        successMsg.classList.add('visible');
+                    }, 240);
                 } else {
                     throw new Error('Submit failed');
                 }
