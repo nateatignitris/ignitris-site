@@ -92,37 +92,104 @@
         .btn:hover::before, .btn:hover::after { border-color: rgba(255,255,255,0.6); width: 10px; height: 10px; }
         .btn-ghost { border-color: transparent; background: transparent; color: rgba(255,255,255,0.7); }
         .btn-ghost:hover { color: rgba(255,255,255,1); background: rgba(255,255,255,0.08); }
+        .btn-primary { background: #ffffff; color: #000000; border-color: transparent; font-weight: 700; }
+        .btn-primary:hover { background: rgba(255,255,255,0.88); transform: translateY(-1px); }
+        .btn-primary::before, .btn-primary::after { border-color: rgba(0,0,0,0.15); }
 
-        /* HERO */
+        /* SPLIT-SCREEN HERO */
         .page-hero {
-            padding: 140px 40px 100px;
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .page-hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 64px 80px;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .page-label {
             font-size: 10px;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.4);
-            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 36px;
         }
 
-        .page-hero h1 {
-            font-size: clamp(40px, 6vw, 68px);
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            margin-bottom: 30px;
+        .page-hero-left h1 {
+            font-size: clamp(36px, 3.8vw, 62px);
+            font-weight: 500;
+            letter-spacing: -0.025em;
+            line-height: 1.08;
+            margin-bottom: 28px;
+            color: #ffffff;
         }
 
-        .page-hero p {
-            font-size: 18px;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.6);
-            max-width: 600px;
-            margin: 0 auto;
+        .page-hero-left p {
+            font-size: 15px;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.5);
+            max-width: 420px;
+            margin-bottom: 48px;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* PLACEHOLDER IMAGE PANEL */
+        .page-hero-right {
+            position: relative;
+            overflow: hidden;
+            background: #0a0a0a;
+        }
+
+        .placeholder-image {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Subtle grid lines */
+        .placeholder-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        /* Central glow */
+        .placeholder-image::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(ellipse at center,
+                rgba(255,255,255,0.06) 0%,
+                transparent 70%);
+        }
+
+        .placeholder-label {
+            position: relative;
+            z-index: 1;
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 10px 20px;
         }
 
         /* SOLUTIONS GRID */
@@ -236,7 +303,9 @@
         }
 
         @media (max-width: 768px) {
-            .page-hero { padding: 100px 20px 60px; }
+            .page-hero { grid-template-columns: 1fr; height: auto; }
+            .page-hero-left { padding: 120px 28px 60px; }
+            .page-hero-right { height: 300px; }
             .solutions-section { padding: 60px 20px 100px; }
             .solutions-grid { grid-template-columns: 1fr; }
             .solution-card { padding: 40px 30px; }
@@ -260,17 +329,28 @@
         </a>
         <div class="nav-actions">
             <a href="/careers" class="btn btn-ghost">Careers</a>
-            <a href="/careers" class="btn">Get Started &rarr;</a>
+            <a href="/careers" class="btn btn-primary">Get Started &rarr;</a>
         </div>
     </nav>
 
     <section class="page-hero">
-        <div class="page-label">Solutions</div>
-        <h1>Close the gap between<br>potential and performance</h1>
-        <p>We identify where your organization is leaving value on the table and build the systems to capture it.</p>
+        <div class="page-hero-left">
+            <div class="page-label">Solutions</div>
+            <h1>Close the gap between potential and performance.</h1>
+            <p>We identify where your organization is leaving value on the table and build the systems to capture it — in real time.</p>
+            <div class="hero-cta-group">
+                <a href="/careers" class="btn btn-primary">Get Started &rarr;</a>
+                <a href="#solutions" class="btn btn-ghost">See Solutions</a>
+            </div>
+        </div>
+        <div class="page-hero-right">
+            <div class="placeholder-image">
+                <span class="placeholder-label">Product Visual</span>
+            </div>
+        </div>
     </section>
 
-    <section class="solutions-section">
+    <section class="solutions-section" id="solutions">
         <div class="solutions-grid">
 
             <div class="solution-card">
