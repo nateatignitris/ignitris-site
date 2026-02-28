@@ -14,9 +14,8 @@
             color: #ffffff;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
+            animation: pageIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-
-        body { animation: pageIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
         @keyframes pageIn {
             from { opacity: 0; filter: blur(10px); transform: scale(0.98); }
@@ -28,11 +27,35 @@
         }
 
         @keyframes pageOut {
-            from { opacity: 1; filter: blur(0); transform: scale(1); }
+            from { opacity: 1; filter: blur(0);    transform: scale(1);    }
             to   { opacity: 0; filter: blur(10px); transform: scale(1.02); }
         }
 
-        /* NAV */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0);    }
+        }
+
+        @keyframes pillShake {
+            0%, 100% { transform: translateX(0); }
+            15%      { transform: translateX(-7px); }
+            35%      { transform: translateX(7px); }
+            55%      { transform: translateX(-4px); }
+            75%      { transform: translateX(4px); }
+            90%      { transform: translateX(-2px); }
+        }
+
+        .animate-up {
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.5s; }
+        .delay-4 { animation-delay: 0.65s; }
+        .delay-5 { animation-delay: 0.8s; }
+
+        /* ── NAV (exact homepage copy) ── */
         nav {
             position: fixed;
             top: 20px;
@@ -60,10 +83,11 @@
             transition: opacity 0.2s;
         }
         .nav-logo:hover { opacity: 0.7; }
-        .nav-logo svg { height: 18px; width: auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
+        .nav-logo svg { height: 18px; width: auto; display: block; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
 
         .nav-actions { display: flex; align-items: center; gap: 12px; }
 
+        /* ── BUTTON SYSTEM (exact homepage copy) ── */
         .btn {
             position: relative;
             display: inline-flex;
@@ -81,6 +105,8 @@
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            font-family: inherit;
         }
         .btn::before, .btn::after {
             content: ''; position: absolute; width: 6px; height: 6px;
@@ -88,111 +114,216 @@
         }
         .btn::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
         .btn::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
-        .btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+        .btn:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
         .btn:hover::before, .btn:hover::after { border-color: rgba(255,255,255,0.6); width: 10px; height: 10px; }
+
         .btn-ghost { border-color: transparent; background: transparent; color: rgba(255,255,255,0.7); }
         .btn-ghost:hover { color: rgba(255,255,255,1); background: rgba(255,255,255,0.08); }
+
         .btn-primary { background: #ffffff; color: #000000; border-color: transparent; font-weight: 700; }
         .btn-primary:hover { background: rgba(255,255,255,0.88); transform: translateY(-1px); }
         .btn-primary::before, .btn-primary::after { border-color: rgba(0,0,0,0.15); }
 
-        /* SPLIT-SCREEN HERO */
-        .page-hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        /* ── HERO SECTION (mirrors homepage exactly) ── */
+        .hero {
+            position: relative;
             height: 100vh;
-            overflow: hidden;
-        }
-
-        .page-hero-left {
+            width: 100%;
+            background: #0A1628;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            padding: 120px 64px 80px;
-            border-right: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .page-label {
-            font-size: 10px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.35);
+        .hero-content {
+            width: 95vw;
+            max-width: 1400px;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(14px, 1.25vw, 19px);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.0;
+            color: #ffffff;
+            white-space: nowrap;
+            margin-bottom: 16px;
+        }
+
+        .hero-supporting {
+            font-size: 15px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.44);
+            line-height: 1.38;
+            letter-spacing: 0.005em;
             margin-bottom: 36px;
         }
 
-        .page-hero-left h1 {
-            font-size: clamp(36px, 3.8vw, 62px);
-            font-weight: 500;
-            letter-spacing: -0.025em;
-            line-height: 1.08;
-            margin-bottom: 28px;
+        /* Waitlist pill (exact homepage copy) */
+        .waitlist {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            max-width: 440px;
+            margin: 0 auto;
+        }
+
+        .waitlist-row {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background: rgba(20, 20, 20, 0.68);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-radius: 100px;
+            padding: 5px 5px 5px 22px;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .waitlist-row.success { justify-content: center; padding: 5px 22px; }
+
+        .waitlist-row.shake {
+            animation: pillShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards !important;
+            border-color: rgba(255, 90, 90, 0.5) !important;
+        }
+
+        .waitlist-success-inner {
+            display: none;
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.92);
+            letter-spacing: 0.01em;
+            opacity: 0;
+        }
+        .waitlist-success-inner.visible {
+            display: block;
+            animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        }
+
+        .waitlist-error-text {
+            font-size: 11px;
+            font-weight: 400;
+            color: rgba(255, 100, 100, 0.85);
+            padding: 10px 0 0;
+            letter-spacing: 0.01em;
+            opacity: 0;
+            animation: fadeUp 0.3s ease forwards;
+        }
+
+        .waitlist-input {
+            flex: 1;
+            height: 38px;
+            padding: 0;
+            font-size: 13px;
+            font-weight: 300;
             color: #ffffff;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: inherit;
+            -webkit-font-smoothing: antialiased;
+            min-width: 0;
         }
+        .waitlist-input::placeholder { color: rgba(255, 255, 255, 0.28); }
 
-        .page-hero-left p {
-            font-size: 15px;
-            line-height: 1.65;
-            color: rgba(255, 255, 255, 0.5);
-            max-width: 420px;
-            margin-bottom: 48px;
-        }
-
-        .hero-cta-group {
-            display: flex;
+        .waitlist-btn {
+            display: inline-flex;
             align-items: center;
-            gap: 12px;
-        }
-
-        /* PLACEHOLDER IMAGE PANEL */
-        .page-hero-right {
-            position: relative;
-            overflow: hidden;
-            background: #0a0a0a;
-        }
-
-        .placeholder-image {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        /* Subtle grid lines */
-        .placeholder-image::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-            background-size: 48px 48px;
-        }
-
-        /* Central glow */
-        .placeholder-image::after {
-            content: '';
-            position: absolute;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(ellipse at center,
-                rgba(255,255,255,0.06) 0%,
-                transparent 70%);
-        }
-
-        .placeholder-label {
-            position: relative;
-            z-index: 1;
+            height: 38px;
+            padding: 0 20px;
             font-size: 10px;
-            letter-spacing: 0.25em;
+            font-weight: 600;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 10px 20px;
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 100px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            -webkit-font-smoothing: antialiased;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            flex-shrink: 0;
+        }
+        .waitlist-btn:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.35); }
+        .waitlist-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* "See Solutions" — subtle text link matching homepage secondary action language */
+        .see-solutions-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 22px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .see-solutions-link:hover { color: rgba(255, 255, 255, 0.7); }
+
+        @media (max-width: 900px) {
+            .hero-content h1 { white-space: normal; font-size: clamp(18px, 4.5vw, 26px); line-height: 1.25; }
+            .hero-content { width: 90vw; padding: 0 24px; }
         }
 
-        /* SOLUTIONS GRID */
+        /* ── PRODUCT VISUAL SECTION ── */
+        .visual-section {
+            background: #000000;
+            padding: 100px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .visual-label {
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.28);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #050505;
+        }
+
+        .video-container video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .visual-section { padding: 60px 24px; }
+            .video-container { border-radius: 8px; }
+        }
+
+        /* ── SOLUTION CARDS SECTION ── */
         .solutions-section {
             max-width: 1100px;
             margin: 0 auto;
@@ -203,59 +334,59 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.07);
         }
 
         .solution-card {
             background: #000000;
-            padding: 60px 50px;
+            padding: 60px 52px;
             transition: background 0.3s ease;
         }
-
-        .solution-card:hover {
-            background: rgba(255, 255, 255, 0.02);
-        }
+        .solution-card:hover { background: rgba(255, 255, 255, 0.02); }
 
         .solution-number {
             font-size: 10px;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.3);
-            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.25);
+            margin-bottom: 28px;
+            font-weight: 400;
         }
 
         .solution-card h2 {
-            font-size: clamp(22px, 2.5vw, 30px);
+            font-size: clamp(20px, 2vw, 26px);
             font-weight: 400;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.015em;
             line-height: 1.2;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             color: #ffffff;
         }
 
         .solution-card p {
             font-size: 15px;
             line-height: 1.7;
-            color: rgba(255, 255, 255, 0.55);
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
         }
 
+        /* "Learn more" — same text link style as site secondary links */
         .solution-cta {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 36px;
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.1em;
+            gap: 6px;
+            margin-top: 32px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.3);
             text-decoration: none;
-            transition: color 0.2s;
+            transition: color 0.2s ease;
         }
+        .solution-cta:hover { color: rgba(255, 255, 255, 0.7); }
 
-        .solution-cta:hover { color: rgba(255, 255, 255, 1); }
-
+        /* ── FOOTER ── */
         footer {
             padding: 60px 40px;
             text-align: center;
@@ -266,7 +397,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 28px;
+            gap: 10px;
             margin-bottom: 28px;
         }
 
@@ -274,26 +405,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: rgba(255, 255, 255, 0.5);
+            width: 32px;
+            height: 32px;
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.42);
             text-decoration: none;
-            transition: all 0.25s ease;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.2s ease;
         }
-
-        .footer-socials a:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            color: rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .footer-socials svg {
-            width: 15px;
-            height: 15px;
-            fill: currentColor;
-        }
+        .footer-socials a:hover { border-color: rgba(255,255,255,0.5); color: rgba(255,255,255,1); background: rgba(255,255,255,0.1); }
+        .footer-socials svg { width: 13px; height: 13px; fill: currentColor; }
 
         .footer-copy {
             color: rgba(255, 255, 255, 0.18);
@@ -303,12 +425,9 @@
         }
 
         @media (max-width: 768px) {
-            .page-hero { grid-template-columns: 1fr; height: auto; }
-            .page-hero-left { padding: 120px 28px 60px; }
-            .page-hero-right { height: 300px; }
             .solutions-section { padding: 60px 20px 100px; }
             .solutions-grid { grid-template-columns: 1fr; }
-            .solution-card { padding: 40px 30px; }
+            .solution-card { padding: 44px 28px; }
         }
     </style>
 </head>
@@ -333,52 +452,76 @@
         </div>
     </nav>
 
-    <section class="page-hero">
-        <div class="page-hero-left">
-            <div class="page-label">Solutions</div>
-            <h1>Close the gap between potential and performance.</h1>
-            <p>We identify where your organization is leaving value on the table and build the systems to capture it in real time.</p>
-            <div class="hero-cta-group">
-                <a href="/get-started" class="btn btn-primary">Join Waitlist &rarr;</a>
-                <a href="#solutions" class="btn btn-ghost">See Solutions</a>
+    <!-- HERO: same system as homepage -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="animate-up delay-1">Close the gap between where your organization is and where it should be.</h1>
+            <p class="hero-supporting animate-up delay-2">We identify where you are leaving value on the table and build the systems to capture it in real time.</p>
+
+            <div class="waitlist animate-up delay-3">
+                <div class="waitlist-row" id="waitlist-row">
+                    <input
+                        type="email"
+                        class="waitlist-input"
+                        id="waitlist-email"
+                        placeholder="your@company.com"
+                        autocomplete="email"
+                        spellcheck="false"
+                    >
+                    <button class="waitlist-btn" id="waitlist-submit" type="button">Join Waitlist</button>
+                    <span class="waitlist-success-inner" id="waitlist-success">You're on the list.</span>
+                </div>
             </div>
-        </div>
-        <div class="page-hero-right">
-            <div class="placeholder-image">
-                <span class="placeholder-label">Product Visual</span>
-            </div>
+
+            <a href="#solutions" class="see-solutions-link animate-up delay-4">
+                See Solutions &darr;
+            </a>
         </div>
     </section>
 
-    <section class="solutions-section" id="solutions">
+    <!-- PRODUCT VISUAL: eagle video, 16:9, with Join Waitlist CTA below -->
+    <section class="visual-section" id="solutions">
+        <span class="visual-label animate-up delay-1">Product Visual</span>
+
+        <div class="video-container animate-up delay-2">
+            <video autoplay muted loop playsinline>
+                <source src="hero-video.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <a href="/get-started" class="btn btn-primary animate-up delay-3">Join Waitlist &rarr;</a>
+    </section>
+
+    <!-- 4 SOLUTION CARDS -->
+    <section class="solutions-section">
         <div class="solutions-grid">
 
             <div class="solution-card">
                 <div class="solution-number">01</div>
                 <h2>Software Stack Optimization</h2>
                 <p>Most enterprises run 10x more tools than they need. We map your entire software ecosystem, identify redundancies, and consolidate your stack to cut costs without cutting capability.</p>
-                <a href="#" class="solution-cta">Learn more &rarr;</a>
+                <a href="/get-started" class="solution-cta">Learn more &rarr;</a>
             </div>
 
             <div class="solution-card">
                 <div class="solution-number">02</div>
                 <h2>AI-Powered Workflow Automation</h2>
                 <p>Manual processes are the hidden tax on your team's time. We design and deploy AI-driven automation that eliminates repetitive work and frees your people for high-leverage activity.</p>
-                <a href="#" class="solution-cta">Learn more &rarr;</a>
+                <a href="/get-started" class="solution-cta">Learn more &rarr;</a>
             </div>
 
             <div class="solution-card">
                 <div class="solution-number">03</div>
-                <h2>Enterprise Analytics & Visibility</h2>
-                <p>You can't optimize what you can't see. We build real-time dashboards and reporting infrastructure that give leadership a clear picture of spend, performance, and opportunity.</p>
-                <a href="#" class="solution-cta">Learn more &rarr;</a>
+                <h2>Enterprise Analytics and Visibility</h2>
+                <p>You cannot optimize what you cannot see. We build real-time dashboards and reporting infrastructure that give leadership a clear picture of spend, performance, and opportunity.</p>
+                <a href="/get-started" class="solution-cta">Learn more &rarr;</a>
             </div>
 
             <div class="solution-card">
                 <div class="solution-number">04</div>
                 <h2>Digital Transformation Strategy</h2>
                 <p>From roadmap to rollout, we partner with your leadership team to design and execute a modernization strategy that delivers measurable ROI within 90 days.</p>
-                <a href="#" class="solution-cta">Learn more &rarr;</a>
+                <a href="/get-started" class="solution-cta">Learn more &rarr;</a>
             </div>
 
         </div>
@@ -410,6 +553,78 @@
                     setTimeout(() => { window.location.href = href; }, 400);
                 });
             });
+        });
+
+        const emailInput = document.getElementById('waitlist-email');
+        const submitBtn  = document.getElementById('waitlist-submit');
+        const successMsg = document.getElementById('waitlist-success');
+
+        const BLOCKED_DOMAINS = ['gmail.com'];
+
+        function shakePill(msg) {
+            const row = document.getElementById('waitlist-row');
+            row.classList.remove('shake');
+            void row.offsetWidth;
+            row.classList.add('shake');
+            let existing = document.getElementById('waitlist-inline-error');
+            if (existing) existing.remove();
+            const err = document.createElement('p');
+            err.id = 'waitlist-inline-error';
+            err.className = 'waitlist-error-text';
+            err.textContent = msg;
+            row.parentElement.appendChild(err);
+            setTimeout(() => { row.classList.remove('shake'); row.style.borderColor = ''; }, 500);
+            setTimeout(() => err.remove(), 3500);
+        }
+
+        submitBtn.addEventListener('click', async function() {
+            const email  = emailInput.value.trim();
+            const domain = email.split('@')[1]?.toLowerCase();
+
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                emailInput.focus();
+                return;
+            }
+
+            if (BLOCKED_DOMAINS.includes(domain)) {
+                shakePill('Please use a work email.');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = '...';
+
+            try {
+                const res = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                if (res.ok) {
+                    emailInput.style.transition = 'opacity 0.25s ease';
+                    submitBtn.style.transition  = 'opacity 0.25s ease';
+                    emailInput.style.opacity = '0';
+                    submitBtn.style.opacity  = '0';
+                    setTimeout(() => {
+                        emailInput.style.display = 'none';
+                        submitBtn.style.display  = 'none';
+                        const row = document.getElementById('waitlist-row');
+                        row.classList.add('success');
+                        successMsg.classList.add('visible');
+                    }, 260);
+                } else {
+                    throw new Error('failed');
+                }
+            } catch (err) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Join Waitlist';
+                shakePill('Something went wrong. Try again.');
+            }
+        });
+
+        emailInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') submitBtn.click();
         });
     </script>
 
