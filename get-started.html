@@ -34,13 +34,21 @@
 
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(12px); }
-            to   { opacity: 1; transform: translateY(0);    }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes expandIn {
-            from { opacity: 0; transform: translateY(8px) scale(0.98); }
-            to   { opacity: 1; transform: translateY(0)   scale(1);    }
+        @keyframes fadeOnly {
+            from { opacity: 0; }
+            to   { opacity: 1; }
         }
+
+        .animate-up {
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.5s; }
 
         /* NAV */
         nav {
@@ -103,7 +111,7 @@
         .btn-ghost { border-color: transparent; background: transparent; color: rgba(255,255,255,0.7); }
         .btn-ghost:hover { color: rgba(255,255,255,1); background: rgba(255,255,255,0.08); }
 
-        /* PAGE SHELL */
+        /* PAGE CENTER */
         .page {
             height: 100vh;
             display: flex;
@@ -111,56 +119,29 @@
             justify-content: center;
         }
 
-        /* CHAT MODULE */
-        .chat-module {
+        .form-module {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            gap: 14px;
+            align-items: center;
+            gap: 0;
             width: 100%;
-            max-width: 520px;
+            max-width: 440px;
             padding: 0 24px;
+            text-align: center;
         }
 
-        /* Individual chat bubble */
-        .bubble {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
-            padding: 18px 24px;
-            font-size: 15px;
-            font-weight: 400;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.92);
-            letter-spacing: 0.005em;
+        .form-eyebrow {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.28);
+            margin-bottom: 18px;
         }
 
-        /* Clickable trigger bubble */
-        .bubble-trigger {
-            cursor: pointer;
-            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-        }
-
-        .bubble-trigger:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.22);
-            transform: translateY(-1px);
-        }
-
-        /* The email input bubble — hidden initially */
-        .bubble-input-wrap {
-            display: none;
-            width: 100%;
-            animation: expandIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .bubble-input-wrap.visible {
-            display: block;
-        }
-
-        .bubble-input-row {
+        /* Glass pill — same as homepage */
+        .waitlist-row {
+            position: relative;
             display: flex;
             align-items: center;
             width: 100%;
@@ -170,14 +151,19 @@
             border: 1px solid rgba(255, 255, 255, 0.12);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             border-radius: 100px;
-            padding: 6px 6px 6px 22px;
+            padding: 5px 5px 5px 22px;
             gap: 0;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .bubble-input-row.shake {
-            animation: pillShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
-            border-color: rgba(255, 90, 90, 0.5);
+        .waitlist-row.success {
+            justify-content: center;
+            padding: 5px 22px;
+        }
+
+        .waitlist-row.shake {
+            animation: pillShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards !important;
+            border-color: rgba(255, 90, 90, 0.5) !important;
         }
 
         @keyframes pillShake {
@@ -189,11 +175,11 @@
             90%      { transform: translateX(-2px); }
         }
 
-        .bubble-email-input {
+        .waitlist-input {
             flex: 1;
             height: 38px;
             padding: 0;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 300;
             color: #ffffff;
             background: transparent;
@@ -204,11 +190,11 @@
             min-width: 0;
         }
 
-        .bubble-email-input::placeholder {
+        .waitlist-input::placeholder {
             color: rgba(255, 255, 255, 0.28);
         }
 
-        .bubble-submit-btn {
+        .waitlist-btn {
             display: inline-flex;
             align-items: center;
             height: 38px;
@@ -229,37 +215,55 @@
             flex-shrink: 0;
         }
 
-        .bubble-submit-btn:hover {
+        .waitlist-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             border-color: rgba(255, 255, 255, 0.35);
         }
 
-        .bubble-submit-btn:disabled {
+        .waitlist-btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
         }
 
-        /* Success bubble */
-        .bubble-success {
+        /* Success text inside pill */
+        .waitlist-success-inner {
             display: none;
-            animation: expandIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.92);
+            letter-spacing: 0.01em;
+            opacity: 0;
         }
 
-        .bubble-success.visible {
-            display: inline-block;
-        }
-
-        /* Error text */
-        .bubble-error {
-            font-size: 11px;
-            color: rgba(255, 110, 110, 0.9);
-            padding: 8px 4px 0;
-            display: none;
-            animation: fadeUp 0.3s ease forwards;
-        }
-
-        .bubble-error.visible {
+        .waitlist-success-inner.visible {
             display: block;
+            animation: fadeOnly 0.45s ease 0.1s both;
+        }
+
+        /* iMessage dot loader */
+        @keyframes imessageDot {
+            0%, 60%, 100% { transform: translateY(0);   opacity: 0.35; }
+            30%            { transform: translateY(-4px); opacity: 1;    }
+        }
+        .dot-loader { display: inline-flex; align-items: center; gap: 3px; }
+        .dot-loader span {
+            display: inline-block; width: 4px; height: 4px;
+            border-radius: 50%; background: currentColor;
+            animation: imessageDot 0.9s infinite ease-in-out;
+        }
+        .dot-loader span:nth-child(1) { animation-delay: 0s; }
+        .dot-loader span:nth-child(2) { animation-delay: 0.15s; }
+        .dot-loader span:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Inline error below pill */
+        .waitlist-error-text {
+            font-size: 11px;
+            font-weight: 400;
+            color: rgba(255, 100, 100, 0.85);
+            padding: 10px 0 0;
+            letter-spacing: 0.01em;
+            opacity: 0;
+            animation: fadeUp 0.3s ease forwards;
         }
     </style>
 </head>
@@ -284,34 +288,31 @@
     </nav>
 
     <div class="page">
-        <div class="chat-module">
+        <div class="form-module">
 
-            <!-- Initial bubble: clickable prompt -->
-            <div class="bubble bubble-trigger" id="bubble-trigger" role="button" tabindex="0" aria-label="Join Waitlist">
-                Join Waitlist
-            </div>
+            <p class="form-eyebrow animate-up delay-1">Early access</p>
 
-            <!-- Email input pill — appears after clicking the bubble -->
-            <div class="bubble-input-wrap" id="bubble-input-wrap">
-                <div class="bubble-input-row" id="bubble-input-row">
+            <div class="waitlist animate-up delay-2" style="width:100%;">
+                <div class="waitlist-row" id="waitlist-row">
                     <input
-                        type="email"
-                        class="bubble-email-input"
-                        id="bubble-email"
-                        placeholder="your@company.com"
+                        type="text"
+                        class="waitlist-input"
+                        id="waitlist-email"
+                        placeholder="tim@useignitris.com"
                         autocomplete="email"
                         spellcheck="false"
+                        inputmode="email"
                     >
-                    <button class="bubble-submit-btn" id="bubble-submit" type="button">Join &rarr;</button>
-                    <span id="bubble-success-inline" style="display:none; font-size:14px; font-weight:400; color:rgba(255,255,255,0.92); letter-spacing:0.01em; padding: 0 16px 0 8px;">You're on the list.</span>
+                    <button class="waitlist-btn" id="waitlist-submit" type="button">Join &rarr;</button>
+                    <span class="waitlist-success-inner" id="waitlist-success">You're on our list.</span>
                 </div>
-                <p class="bubble-error" id="bubble-error"></p>
             </div>
 
         </div>
     </div>
 
     <script>
+        // Page transitions
         document.addEventListener('DOMContentLoaded', function() {
             const links = document.querySelectorAll('a[href^="/"]');
             links.forEach(link => {
@@ -324,59 +325,52 @@
             });
         });
 
-        const trigger    = document.getElementById('bubble-trigger');
-        const inputWrap  = document.getElementById('bubble-input-wrap');
-        const inputRow   = document.getElementById('bubble-input-row');
-        const emailInput = document.getElementById('bubble-email');
-        const submitBtn  = document.getElementById('bubble-submit');
-        const errorEl    = document.getElementById('bubble-error');
-        const successInline = document.getElementById('bubble-success-inline');
+        const emailInput = document.getElementById('waitlist-email');
+        const submitBtn  = document.getElementById('waitlist-submit');
+        const successMsg = document.getElementById('waitlist-success');
+        const row        = document.getElementById('waitlist-row');
 
         const BLOCKED_DOMAINS = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com'];
 
-        function openInput() {
-            trigger.style.transition = 'opacity 0.2s ease';
-            trigger.style.opacity = '0';
-            trigger.style.pointerEvents = 'none';
-            setTimeout(() => {
-                trigger.style.display = 'none';
-                inputWrap.classList.add('visible');
-                emailInput.focus();
-            }, 200);
-        }
-
-        trigger.addEventListener('click', openInput);
-        trigger.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openInput(); }
-        });
-
         function shakePill(msg) {
-            inputRow.classList.remove('shake');
-            void inputRow.offsetWidth;
-            inputRow.classList.add('shake');
-            errorEl.textContent = msg;
-            errorEl.classList.add('visible');
-            setTimeout(() => { inputRow.classList.remove('shake'); }, 500);
-            setTimeout(() => { errorEl.classList.remove('visible'); }, 3500);
+            row.classList.remove('shake');
+            void row.offsetWidth;
+            row.classList.add('shake');
+            // Remove any existing error
+            const existing = document.getElementById('waitlist-inline-error');
+            if (existing) existing.remove();
+            const err = document.createElement('p');
+            err.id = 'waitlist-inline-error';
+            err.className = 'waitlist-error-text';
+            err.textContent = msg;
+            row.parentElement.appendChild(err);
+            setTimeout(() => { row.classList.remove('shake'); }, 500);
+            setTimeout(() => err.remove(), 3500);
         }
 
         submitBtn.addEventListener('click', async function() {
             const email  = emailInput.value.trim();
             const domain = email.split('@')[1]?.toLowerCase();
 
-            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            if (!email) {
+                shakePill('Please enter your work email.');
                 emailInput.focus();
                 return;
             }
-
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                shakePill('Please enter a valid email address.');
+                emailInput.focus();
+                return;
+            }
             if (BLOCKED_DOMAINS.includes(domain)) {
                 shakePill('Please use a work email.');
                 return;
             }
 
             submitBtn.disabled = true;
-            submitBtn.textContent = '...';
-            errorEl.classList.remove('visible');
+            submitBtn.innerHTML = '<span class="dot-loader"><span></span><span></span><span></span></span>';
+            const existing = document.getElementById('waitlist-inline-error');
+            if (existing) existing.remove();
 
             try {
                 const res = await fetch('/api/waitlist', {
@@ -393,15 +387,15 @@
                     setTimeout(() => {
                         emailInput.style.display = 'none';
                         submitBtn.style.display  = 'none';
-                        successInline.style.display = 'inline';
-                        successInline.style.animation = 'fadeUp 0.4s cubic-bezier(0.16,1,0.3,1) forwards';
+                        row.classList.add('success');
+                        successMsg.classList.add('visible');
                     }, 220);
                 } else {
                     throw new Error('failed');
                 }
             } catch (err) {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Join \u2192';
+                submitBtn.innerHTML = 'Join &rarr;';
                 shakePill('Something went wrong. Please try again.');
             }
         });

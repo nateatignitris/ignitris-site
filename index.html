@@ -267,9 +267,14 @@
             opacity: 0;
         }
 
+        @keyframes fadeOnly {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
         .waitlist-success-inner.visible {
             display: block;
-            animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+            animation: fadeOnly 0.45s ease 0.1s both;
         }
 
         /* iMessage dot loader */
@@ -511,7 +516,13 @@
             const email  = emailInput.value.trim();
             const domain = email.split('@')[1]?.toLowerCase();
 
-            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            if (!email) {
+                shakePill('Please enter your work email.');
+                emailInput.focus();
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                shakePill('Please enter a valid email address.');
                 emailInput.focus();
                 return;
             }
