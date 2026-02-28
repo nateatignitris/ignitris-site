@@ -168,7 +168,7 @@
         .hero-video::-webkit-media-controls { display: none !important; }
         .hero-video::-webkit-media-controls-enclosure { display: none !important; }
 
-        /* Left-side gradient so text stays readable */
+        /* Left-side black fade */
         .hero-overlay {
             position: absolute;
             top: 0;
@@ -177,10 +177,10 @@
             height: 100%;
             background: linear-gradient(
                 to right,
-                rgba(0, 0, 0, 0.88) 0%,
-                rgba(0, 0, 0, 0.72) 30%,
-                rgba(0, 0, 0, 0.30) 58%,
-                rgba(0, 0, 0, 0.00) 75%
+                rgba(0, 0, 0, 0.92) 0%,
+                rgba(0, 0, 0, 0.78) 28%,
+                rgba(0, 0, 0, 0.40) 52%,
+                rgba(0, 0, 0, 0.00) 72%
             );
         }
 
@@ -190,59 +190,51 @@
             top: 50%;
             transform: translateY(-50%);
             left: 72px;
-            max-width: 500px;
+            max-width: 560px;
         }
 
         .hero-content h1 {
-            font-size: clamp(36px, 4vw, 64px);
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            line-height: 1;
+            font-size: clamp(52px, 5.8vw, 96px);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 0.95;
             color: #ffffff;
-            margin-bottom: 20px;
+            margin-bottom: 28px;
         }
 
         .hero-subtitle {
-            font-size: clamp(13px, 1.1vw, 16px);
+            font-size: clamp(13px, 1.15vw, 17px);
             font-weight: 300;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 420px;
-            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.62);
+            max-width: 400px;
+            line-height: 1.75;
             letter-spacing: 0.01em;
-            margin-bottom: 40px;
+            margin-bottom: 44px;
         }
 
         /* WAITLIST FORM */
         .waitlist {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            max-width: 380px;
-        }
-
-        .waitlist-label {
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.45);
+            gap: 0;
+            max-width: 400px;
         }
 
         .waitlist-row {
             display: flex;
-            gap: 10px;
             align-items: stretch;
         }
 
         .waitlist-input {
             flex: 1;
-            height: 44px;
-            padding: 0 16px;
+            height: 46px;
+            padding: 0 18px;
             font-size: 13px;
             font-weight: 300;
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-right: none;
             border-radius: 0;
             outline: none;
             font-family: inherit;
@@ -251,38 +243,60 @@
         }
 
         .waitlist-input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.28);
         }
 
         .waitlist-input:focus {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.11);
+            border-color: rgba(255, 255, 255, 0.42);
         }
 
+        /* Unique outlined → invert button */
         .waitlist-btn {
-            height: 44px;
-            padding: 0 22px;
+            position: relative;
+            height: 46px;
+            padding: 0 26px;
             font-size: 10px;
             font-weight: 600;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: #000000;
-            background: #ffffff;
-            border: 1px solid #ffffff;
+            color: #ffffff;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.55);
             cursor: pointer;
             font-family: inherit;
-            transition: all 0.25s ease;
             white-space: nowrap;
             -webkit-font-smoothing: antialiased;
             border-radius: 0;
+            overflow: hidden;
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .waitlist-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: #ffffff;
+            transform: translateX(-101%);
+            transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .waitlist-btn span {
+            position: relative;
+            z-index: 1;
         }
 
         .waitlist-btn:hover {
-            background: rgba(255, 255, 255, 0.88);
+            color: #000000;
+            border-color: #ffffff;
+        }
+
+        .waitlist-btn:hover::before {
+            transform: translateX(0);
         }
 
         .waitlist-btn:disabled {
-            opacity: 0.5;
+            opacity: 0.45;
             cursor: not-allowed;
         }
 
@@ -290,8 +304,8 @@
             display: none;
             font-size: 13px;
             font-weight: 300;
-            color: rgba(255, 255, 255, 0.7);
-            padding: 12px 0 0;
+            color: rgba(255, 255, 255, 0.65);
+            padding: 14px 0 0;
             letter-spacing: 0.01em;
         }
 
@@ -303,8 +317,8 @@
             display: none;
             font-size: 11px;
             font-weight: 400;
-            color: rgba(255, 120, 120, 0.9);
-            padding: 6px 0 0;
+            color: rgba(255, 110, 110, 0.9);
+            padding: 8px 0 0;
             letter-spacing: 0.01em;
         }
 
@@ -312,38 +326,39 @@
             display: block;
         }
 
-        /* SOCIALS: bottom-left */
+        /* SOCIALS: bottom-left — sharp square style */
         .hero-socials {
             position: absolute;
             bottom: 44px;
             left: 72px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 8px;
         }
 
         .hero-socials a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            color: rgba(255, 255, 255, 0.5);
+            width: 32px;
+            height: 32px;
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.42);
             text-decoration: none;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .hero-socials a:hover {
-            border-color: rgba(255, 255, 255, 0.45);
-            color: rgba(255, 255, 255, 0.95);
-            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 1);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .hero-socials svg {
-            width: 14px;
-            height: 14px;
+            width: 13px;
+            height: 13px;
             fill: currentColor;
         }
     </style>
@@ -383,18 +398,17 @@
             <p class="hero-subtitle animate-up delay-2">Mapping user intent in real time, identifying the exact moment a free user converts into a paying customer.</p>
 
             <div class="waitlist animate-up delay-3">
-                <span class="waitlist-label">Join the waitlist</span>
                 <div class="waitlist-row">
                     <input
                         type="email"
                         class="waitlist-input"
                         id="waitlist-email"
-                        placeholder="your@email.com"
+                        placeholder="Tim@useignitris.com"
                         autocomplete="email"
                         spellcheck="false"
                     >
                     <button class="waitlist-btn" id="waitlist-submit" type="button">
-                        Add me
+                        <span>Join Waitlist</span>
                     </button>
                 </div>
                 <p class="waitlist-success" id="waitlist-success">You're on the list. We'll be in touch.</p>
