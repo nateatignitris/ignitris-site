@@ -172,19 +172,32 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            max-width: 680px;
-            width: 100%;
-            padding: 0 24px;
+            width: 95vw;
+            max-width: 1400px;
+            padding: 0 40px;
             text-align: center;
         }
 
         .hero-content h1 {
-            font-size: clamp(26px, 2.8vw, 42px);
+            font-size: clamp(14px, 1.25vw, 19px);
             font-weight: 400;
-            letter-spacing: -0.02em;
-            line-height: 1.22;
+            letter-spacing: -0.01em;
+            line-height: 1.0;
             color: #ffffff;
+            white-space: nowrap;
             margin-bottom: 36px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-content h1 {
+                white-space: normal;
+                font-size: clamp(18px, 4.5vw, 26px);
+                line-height: 1.25;
+            }
+            .hero-content {
+                width: 90vw;
+                padding: 0 24px;
+            }
         }
 
         .hero-subtitle {
@@ -401,7 +414,7 @@
         <div class="nav-actions">
             <a href="/solutions" class="btn btn-ghost">Solutions</a>
             <a href="/careers" class="btn btn-ghost">Careers</a>
-            <a href="/get-started" class="btn btn-primary">Get Started &rarr;</a>
+            <a href="/get-started" class="btn btn-primary">Join Waitlist &rarr;</a>
         </div>
     </nav>
 

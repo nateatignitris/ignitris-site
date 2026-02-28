@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Started | Ignitris</title>
+    <title>Join Waitlist | Ignitris</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #000000;
+            background: #0A1628;
             color: #ffffff;
-            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
             -webkit-font-smoothing: antialiased;
             animation: pageIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes pageIn {
-            from { opacity: 0; filter: blur(10px); transform: scale(0.98); }
-            to   { opacity: 1; filter: blur(0);    transform: scale(1);    }
+            from { opacity: 0; filter: blur(8px); transform: scale(0.99); }
+            to   { opacity: 1; filter: blur(0);   transform: scale(1);    }
         }
 
         body.page-transitioning {
@@ -28,12 +29,17 @@
 
         @keyframes pageOut {
             from { opacity: 1; filter: blur(0); transform: scale(1); }
-            to   { opacity: 0; filter: blur(10px); transform: scale(1.02); }
+            to   { opacity: 0; filter: blur(8px); transform: scale(1.01); }
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(12px); }
             to   { opacity: 1; transform: translateY(0);    }
+        }
+
+        @keyframes expandIn {
+            from { opacity: 0; transform: translateY(8px) scale(0.98); }
+            to   { opacity: 1; transform: translateY(0)   scale(1);    }
         }
 
         /* NAV */
@@ -96,260 +102,164 @@
         .btn:hover::before, .btn:hover::after { border-color: rgba(255,255,255,0.6); width: 10px; height: 10px; }
         .btn-ghost { border-color: transparent; background: transparent; color: rgba(255,255,255,0.7); }
         .btn-ghost:hover { color: rgba(255,255,255,1); background: rgba(255,255,255,0.08); }
-        .btn-primary { background: #ffffff; color: #000000; border-color: transparent; font-weight: 700; }
-        .btn-primary:hover { background: rgba(255,255,255,0.88); transform: translateY(-1px); }
-        .btn-primary::before, .btn-primary::after { border-color: rgba(0,0,0,0.15); }
 
-        /* PAGE LAYOUT */
-        .page-wrap {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 100vh;
-        }
-
-        /* LEFT: context panel */
-        .page-left {
+        /* PAGE SHELL */
+        .page {
+            height: 100vh;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            padding: 120px 64px 80px;
-            border-right: 1px solid rgba(255, 255, 255, 0.06);
-            background: radial-gradient(ellipse 100% 80% at 0% 40%, #0B1A38 0%, #000000 70%);
         }
 
-        .page-label {
-            font-size: 10px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.35);
-            margin-bottom: 36px;
-        }
-
-        .page-left h1 {
-            font-size: clamp(36px, 3.5vw, 58px);
-            font-weight: 500;
-            letter-spacing: -0.025em;
-            line-height: 1.08;
-            margin-bottom: 24px;
-            color: #ffffff;
-        }
-
-        .page-left p {
-            font-size: 15px;
-            line-height: 1.65;
-            color: rgba(255, 255, 255, 0.45);
-            max-width: 400px;
-            margin-bottom: 48px;
-        }
-
-        .trust-list {
+        /* CHAT MODULE */
+        .chat-module {
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            list-style: none;
-        }
-
-        .trust-list li {
-            display: flex;
             align-items: flex-start;
             gap: 14px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
-            line-height: 1.5;
+            width: 100%;
+            max-width: 520px;
+            padding: 0 24px;
         }
 
-        .trust-list li span.dot {
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            margin-top: 7px;
-            flex-shrink: 0;
-        }
-
-        /* RIGHT: form panel */
-        .page-right {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 120px 64px 80px;
-        }
-
-        .form-heading {
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 40px;
-            text-transform: uppercase;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 480px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .form-field label {
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .form-field input,
-        .form-field select,
-        .form-field textarea {
-            background: rgba(255, 255, 255, 0.04);
+        /* Individual chat bubble */
+        .bubble {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.07);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            padding: 12px 16px;
-            font-size: 14px;
-            font-weight: 300;
-            color: #ffffff;
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.2s ease;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .form-field input:focus,
-        .form-field select:focus,
-        .form-field textarea:focus {
-            border-color: rgba(255, 255, 255, 0.28);
-        }
-
-        .form-field input::placeholder,
-        .form-field textarea::placeholder {
-            color: rgba(255, 255, 255, 0.2);
-        }
-
-        .form-field select {
-            appearance: none;
-            cursor: pointer;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .form-field select option {
-            background: #111111;
-            color: #ffffff;
-        }
-
-        .form-field textarea {
-            resize: none;
-            height: 110px;
+            border-radius: 18px;
+            padding: 18px 24px;
+            font-size: 15px;
+            font-weight: 400;
             line-height: 1.6;
+            color: rgba(255, 255, 255, 0.92);
+            letter-spacing: 0.005em;
         }
 
-        .form-field.full {
-            grid-column: 1 / -1;
-        }
-
-        .form-submit-row {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding-top: 8px;
-        }
-
-        .form-submit-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 14px 32px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #000000;
-            background: #ffffff;
-            border: none;
-            border-radius: 4px;
+        /* Clickable trigger bubble */
+        .bubble-trigger {
             cursor: pointer;
-            font-family: inherit;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            white-space: nowrap;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
         }
 
-        .form-submit-btn:hover {
-            background: rgba(255, 255, 255, 0.88);
+        .bubble-trigger:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.22);
             transform: translateY(-1px);
         }
 
-        .form-submit-btn:disabled {
+        /* The email input bubble — hidden initially */
+        .bubble-input-wrap {
+            display: none;
+            width: 100%;
+            animation: expandIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .bubble-input-wrap.visible {
+            display: block;
+        }
+
+        .bubble-input-row {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background: rgba(20, 20, 20, 0.68);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-radius: 100px;
+            padding: 6px 6px 6px 22px;
+            gap: 0;
+            transition: border-color 0.3s ease;
+        }
+
+        .bubble-input-row.shake {
+            animation: pillShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+            border-color: rgba(255, 90, 90, 0.5);
+        }
+
+        @keyframes pillShake {
+            0%, 100% { transform: translateX(0); }
+            15%      { transform: translateX(-7px); }
+            35%      { transform: translateX(7px); }
+            55%      { transform: translateX(-4px); }
+            75%      { transform: translateX(4px); }
+            90%      { transform: translateX(-2px); }
+        }
+
+        .bubble-email-input {
+            flex: 1;
+            height: 38px;
+            padding: 0;
+            font-size: 14px;
+            font-weight: 300;
+            color: #ffffff;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: inherit;
+            -webkit-font-smoothing: antialiased;
+            min-width: 0;
+        }
+
+        .bubble-email-input::placeholder {
+            color: rgba(255, 255, 255, 0.28);
+        }
+
+        .bubble-submit-btn {
+            display: inline-flex;
+            align-items: center;
+            height: 38px;
+            padding: 0 20px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 100px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            -webkit-font-smoothing: antialiased;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            flex-shrink: 0;
+        }
+
+        .bubble-submit-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .bubble-submit-btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
-            transform: none;
         }
 
-        .form-note {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.25);
-            line-height: 1.5;
-        }
-
-        /* Success state */
-        .form-success {
+        /* Success bubble */
+        .bubble-success {
             display: none;
-            animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: expandIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .form-success.visible {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        .bubble-success.visible {
+            display: inline-block;
         }
 
-        .form-success h3 {
-            font-size: clamp(22px, 2.5vw, 32px);
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            color: #ffffff;
-        }
-
-        .form-success p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.45);
-            line-height: 1.6;
-        }
-
-        .form-error-msg {
+        /* Error text */
+        .bubble-error {
             font-size: 11px;
-            color: rgba(255, 100, 100, 0.9);
+            color: rgba(255, 110, 110, 0.9);
+            padding: 8px 4px 0;
+            display: none;
             animation: fadeUp 0.3s ease forwards;
         }
 
-        @keyframes formShake {
-            0%, 100% { transform: translateX(0); }
-            15%      { transform: translateX(-5px); }
-            35%      { transform: translateX(5px); }
-            55%      { transform: translateX(-3px); }
-            75%      { transform: translateX(3px); }
-        }
-
-        .form-submit-btn.shake {
-            animation: formShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
-        }
-
-        @media (max-width: 900px) {
-            .page-wrap { grid-template-columns: 1fr; }
-            .page-left { padding: 120px 28px 60px; display: none; }
-            .page-right { padding: 120px 28px 80px; }
+        .bubble-error.visible {
+            display: block;
         }
     </style>
 </head>
@@ -374,76 +284,32 @@
         </div>
     </nav>
 
-    <div class="page-wrap">
+    <div class="page">
+        <div class="chat-module">
 
-        <div class="page-left">
-            <div class="page-label">Get Started</div>
-            <h1>Let's close the gap together.</h1>
-            <p>Tell us about your organization and what you are trying to solve. We will reach out within one business day.</p>
-            <ul class="trust-list">
-                <li><span class="dot"></span>Dedicated point of contact from day one</li>
-                <li><span class="dot"></span>No long-term contracts required to start</li>
-                <li><span class="dot"></span>Results scoped and measured before engagement begins</li>
-                <li><span class="dot"></span>Work email required to maintain quality intake</li>
-            </ul>
-        </div>
-
-        <div class="page-right">
-            <div class="form-heading">Tell us about yourself</div>
-
-            <div class="form-success" id="form-success">
-                <h3>You're on our radar.</h3>
-                <p>Expect to hear from us within one business day. In the meantime, take a look at what we do on the <a href="/solutions" style="color:rgba(255,255,255,0.6);text-underline-offset:3px;">Solutions</a> page.</p>
+            <!-- Initial bubble: clickable prompt -->
+            <div class="bubble bubble-trigger" id="bubble-trigger" role="button" tabindex="0" aria-label="Join Waitlist">
+                Join Waitlist
             </div>
 
-            <form class="contact-form" id="contact-form" novalidate>
-                <div class="form-row">
-                    <div class="form-field">
-                        <label for="cf-name">Your Name</label>
-                        <input type="text" id="cf-name" placeholder="Alex Chen" autocomplete="name" required>
-                    </div>
-                    <div class="form-field">
-                        <label for="cf-title">Job Title</label>
-                        <input type="text" id="cf-title" placeholder="VP of Operations">
-                    </div>
+            <!-- Email input pill — appears after clicking the bubble -->
+            <div class="bubble-input-wrap" id="bubble-input-wrap">
+                <div class="bubble-input-row" id="bubble-input-row">
+                    <input
+                        type="email"
+                        class="bubble-email-input"
+                        id="bubble-email"
+                        placeholder="your@company.com"
+                        autocomplete="email"
+                        spellcheck="false"
+                    >
+                    <button class="bubble-submit-btn" id="bubble-submit" type="button">Join &rarr;</button>
+                    <span id="bubble-success-inline" style="display:none; font-size:14px; font-weight:400; color:rgba(255,255,255,0.92); letter-spacing:0.01em; padding: 0 16px 0 8px;">You're on the list.</span>
                 </div>
+                <p class="bubble-error" id="bubble-error"></p>
+            </div>
 
-                <div class="form-field">
-                    <label for="cf-email">Work Email</label>
-                    <input type="email" id="cf-email" placeholder="alex@yourcompany.com" autocomplete="email" required>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-field">
-                        <label for="cf-company">Company</label>
-                        <input type="text" id="cf-company" placeholder="Acme Corp" required>
-                    </div>
-                    <div class="form-field">
-                        <label for="cf-size">Company Size</label>
-                        <select id="cf-size">
-                            <option value="" disabled selected>Select range</option>
-                            <option value="1-50">1 to 50</option>
-                            <option value="51-200">51 to 200</option>
-                            <option value="201-1000">201 to 1,000</option>
-                            <option value="1000+">1,000 plus</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-field">
-                    <label for="cf-message">What are you trying to solve?</label>
-                    <textarea id="cf-message" placeholder="Briefly describe the challenge or opportunity you want to address..." required></textarea>
-                </div>
-
-                <div class="form-submit-row">
-                    <button type="submit" class="form-submit-btn" id="form-submit">Send Request &rarr;</button>
-                    <span class="form-note">We do not share your information.</span>
-                </div>
-
-                <div id="form-error-msg" style="display:none;" class="form-error-msg"></div>
-            </form>
         </div>
-
     </div>
 
     <script>
@@ -459,75 +325,90 @@
             });
         });
 
+        const trigger    = document.getElementById('bubble-trigger');
+        const inputWrap  = document.getElementById('bubble-input-wrap');
+        const inputRow   = document.getElementById('bubble-input-row');
+        const emailInput = document.getElementById('bubble-email');
+        const submitBtn  = document.getElementById('bubble-submit');
+        const errorEl    = document.getElementById('bubble-error');
+        const successInline = document.getElementById('bubble-success-inline');
+
         const BLOCKED_DOMAINS = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com'];
 
-        const form    = document.getElementById('contact-form');
-        const submitBtn = document.getElementById('form-submit');
-        const successEl = document.getElementById('form-success');
-        const errorEl   = document.getElementById('form-error-msg');
-
-        function showError(msg) {
-            errorEl.textContent = msg;
-            errorEl.style.display = 'block';
-            submitBtn.classList.remove('shake');
-            void submitBtn.offsetWidth;
-            submitBtn.classList.add('shake');
-            setTimeout(() => submitBtn.classList.remove('shake'), 450);
+        function openInput() {
+            trigger.style.transition = 'opacity 0.2s ease';
+            trigger.style.opacity = '0';
+            trigger.style.pointerEvents = 'none';
+            setTimeout(() => {
+                trigger.style.display = 'none';
+                inputWrap.classList.add('visible');
+                emailInput.focus();
+            }, 200);
         }
 
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
+        trigger.addEventListener('click', openInput);
+        trigger.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openInput(); }
+        });
 
-            const name    = document.getElementById('cf-name').value.trim();
-            const title   = document.getElementById('cf-title').value.trim();
-            const email   = document.getElementById('cf-email').value.trim();
-            const company = document.getElementById('cf-company').value.trim();
-            const size    = document.getElementById('cf-size').value;
-            const message = document.getElementById('cf-message').value.trim();
+        function shakePill(msg) {
+            inputRow.classList.remove('shake');
+            void inputRow.offsetWidth;
+            inputRow.classList.add('shake');
+            errorEl.textContent = msg;
+            errorEl.classList.add('visible');
+            setTimeout(() => { inputRow.classList.remove('shake'); }, 500);
+            setTimeout(() => { errorEl.classList.remove('visible'); }, 3500);
+        }
 
-            if (!name || !email || !company || !message) {
-                showError('Please fill in all required fields.');
-                return;
-            }
-
+        submitBtn.addEventListener('click', async function() {
+            const email  = emailInput.value.trim();
             const domain = email.split('@')[1]?.toLowerCase();
-            if (!domain || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                showError('Please enter a valid email address.');
+
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                emailInput.focus();
                 return;
             }
 
             if (BLOCKED_DOMAINS.includes(domain)) {
-                showError('Please use your work email address.');
+                shakePill('Please use a work email.');
                 return;
             }
 
             submitBtn.disabled = true;
             submitBtn.textContent = '...';
-            errorEl.style.display = 'none';
+            errorEl.classList.remove('visible');
 
             try {
-                const res = await fetch('/api/contact', {
+                const res = await fetch('/api/waitlist', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, title, email, company, size, message })
+                    body: JSON.stringify({ email })
                 });
 
                 if (res.ok) {
-                    form.style.transition = 'opacity 0.3s ease';
-                    form.style.opacity = '0';
+                    emailInput.style.transition = 'opacity 0.2s ease';
+                    submitBtn.style.transition  = 'opacity 0.2s ease';
+                    emailInput.style.opacity = '0';
+                    submitBtn.style.opacity  = '0';
                     setTimeout(() => {
-                        form.style.display = 'none';
-                        document.querySelector('.form-heading').style.display = 'none';
-                        successEl.classList.add('visible');
-                    }, 300);
+                        emailInput.style.display = 'none';
+                        submitBtn.style.display  = 'none';
+                        successInline.style.display = 'inline';
+                        successInline.style.animation = 'fadeUp 0.4s cubic-bezier(0.16,1,0.3,1) forwards';
+                    }, 220);
                 } else {
                     throw new Error('failed');
                 }
             } catch (err) {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Request \u2192';
-                showError('Something went wrong. Please try again.');
+                submitBtn.textContent = 'Join \u2192';
+                shakePill('Something went wrong. Please try again.');
             }
+        });
+
+        emailInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') submitBtn.click();
         });
     </script>
 
