@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solutions | Ignitris</title>
+    <title>Get Started | Ignitris</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -14,9 +14,8 @@
             color: #ffffff;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
+            animation: pageIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-
-        body { animation: pageIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
         @keyframes pageIn {
             from { opacity: 0; filter: blur(10px); transform: scale(0.98); }
@@ -30,6 +29,11 @@
         @keyframes pageOut {
             from { opacity: 1; filter: blur(0); transform: scale(1); }
             to   { opacity: 0; filter: blur(10px); transform: scale(1.02); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0);    }
         }
 
         /* NAV */
@@ -96,20 +100,21 @@
         .btn-primary:hover { background: rgba(255,255,255,0.88); transform: translateY(-1px); }
         .btn-primary::before, .btn-primary::after { border-color: rgba(0,0,0,0.15); }
 
-        /* SPLIT-SCREEN HERO */
-        .page-hero {
+        /* PAGE LAYOUT */
+        .page-wrap {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
         }
 
-        .page-hero-left {
+        /* LEFT: context panel */
+        .page-left {
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 120px 64px 80px;
             border-right: 1px solid rgba(255, 255, 255, 0.06);
+            background: radial-gradient(ellipse 100% 80% at 0% 40%, #0B1A38 0%, #000000 70%);
         }
 
         .page-label {
@@ -120,195 +125,231 @@
             margin-bottom: 36px;
         }
 
-        .page-hero-left h1 {
-            font-size: clamp(36px, 3.8vw, 62px);
+        .page-left h1 {
+            font-size: clamp(36px, 3.5vw, 58px);
             font-weight: 500;
             letter-spacing: -0.025em;
             line-height: 1.08;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             color: #ffffff;
         }
 
-        .page-hero-left p {
+        .page-left p {
             font-size: 15px;
             line-height: 1.65;
-            color: rgba(255, 255, 255, 0.5);
-            max-width: 420px;
+            color: rgba(255, 255, 255, 0.45);
+            max-width: 400px;
             margin-bottom: 48px;
         }
 
-        .hero-cta-group {
+        .trust-list {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            flex-direction: column;
+            gap: 18px;
+            list-style: none;
         }
 
-        /* PLACEHOLDER IMAGE PANEL */
-        .page-hero-right {
-            position: relative;
-            overflow: hidden;
-            background: #0a0a0a;
+        .trust-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.5;
         }
 
-        .placeholder-image {
-            position: absolute;
-            inset: 0;
+        .trust-list li span.dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            margin-top: 7px;
+            flex-shrink: 0;
+        }
+
+        /* RIGHT: form panel */
+        .page-right {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            overflow: hidden;
+            padding: 120px 64px 80px;
         }
 
-        /* Subtle grid lines */
-        .placeholder-image::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-            background-size: 48px 48px;
-        }
-
-        /* Central glow */
-        .placeholder-image::after {
-            content: '';
-            position: absolute;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(ellipse at center,
-                rgba(255,255,255,0.06) 0%,
-                transparent 70%);
-        }
-
-        .placeholder-label {
-            position: relative;
-            z-index: 1;
-            font-size: 10px;
-            letter-spacing: 0.25em;
+        .form-heading {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 40px;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 10px 20px;
         }
 
-        /* SOLUTIONS GRID */
-        .solutions-section {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 80px 40px 140px;
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 480px;
         }
 
-        .solutions-grid {
+        .form-row {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
         }
 
-        .solution-card {
-            background: #000000;
-            padding: 60px 50px;
-            transition: background 0.3s ease;
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .solution-card:hover {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .solution-number {
+        .form-field label {
             font-size: 10px;
-            letter-spacing: 0.3em;
+            font-weight: 600;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.3);
-            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.4);
         }
 
-        .solution-card h2 {
-            font-size: clamp(22px, 2.5vw, 30px);
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            line-height: 1.2;
-            margin-bottom: 20px;
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 300;
+            color: #ffffff;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s ease;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus,
+        .form-field textarea:focus {
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+
+        .form-field input::placeholder,
+        .form-field textarea::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .form-field select {
+            appearance: none;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-field select option {
+            background: #111111;
             color: #ffffff;
         }
 
-        .solution-card p {
-            font-size: 15px;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.55);
+        .form-field textarea {
+            resize: none;
+            height: 110px;
+            line-height: 1.6;
         }
 
-        .solution-cta {
+        .form-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-submit-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding-top: 8px;
+        }
+
+        .form-submit-btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            margin-top: 36px;
-            font-size: 10px;
-            font-weight: 600;
+            padding: 14px 32px;
+            font-size: 11px;
+            font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            transition: color 0.2s;
+            color: #000000;
+            background: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
         }
 
-        .solution-cta:hover { color: rgba(255, 255, 255, 1); }
-
-        footer {
-            padding: 60px 40px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        .form-submit-btn:hover {
+            background: rgba(255, 255, 255, 0.88);
+            transform: translateY(-1px);
         }
 
-        .footer-socials {
+        .form-submit-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-note {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.25);
+            line-height: 1.5;
+        }
+
+        /* Success state */
+        .form-success {
+            display: none;
+            animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .form-success.visible {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 28px;
-            margin-bottom: 28px;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .footer-socials a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            transition: all 0.25s ease;
+        .form-success h3 {
+            font-size: clamp(22px, 2.5vw, 32px);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #ffffff;
         }
 
-        .footer-socials a:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            color: rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.06);
+        .form-success p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.45);
+            line-height: 1.6;
         }
 
-        .footer-socials svg {
-            width: 15px;
-            height: 15px;
-            fill: currentColor;
+        .form-error-msg {
+            font-size: 11px;
+            color: rgba(255, 100, 100, 0.9);
+            animation: fadeUp 0.3s ease forwards;
         }
 
-        .footer-copy {
-            color: rgba(255, 255, 255, 0.18);
-            font-size: 10px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
+        @keyframes formShake {
+            0%, 100% { transform: translateX(0); }
+            15%      { transform: translateX(-5px); }
+            35%      { transform: translateX(5px); }
+            55%      { transform: translateX(-3px); }
+            75%      { transform: translateX(3px); }
         }
 
-        @media (max-width: 768px) {
-            .page-hero { grid-template-columns: 1fr; height: auto; }
-            .page-hero-left { padding: 120px 28px 60px; }
-            .page-hero-right { height: 300px; }
-            .solutions-section { padding: 60px 20px 100px; }
-            .solutions-grid { grid-template-columns: 1fr; }
-            .solution-card { padding: 40px 30px; }
+        .form-submit-btn.shake {
+            animation: formShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+        }
+
+        @media (max-width: 900px) {
+            .page-wrap { grid-template-columns: 1fr; }
+            .page-left { padding: 120px 28px 60px; display: none; }
+            .page-right { padding: 120px 28px 80px; }
         }
     </style>
 </head>
@@ -328,76 +369,82 @@
             </svg>
         </a>
         <div class="nav-actions">
+            <a href="/solutions" class="btn btn-ghost">Solutions</a>
             <a href="/careers" class="btn btn-ghost">Careers</a>
-            <a href="/get-started" class="btn btn-primary">Get Started &rarr;</a>
         </div>
     </nav>
 
-    <section class="page-hero">
-        <div class="page-hero-left">
-            <div class="page-label">Solutions</div>
-            <h1>Close the gap between potential and performance.</h1>
-            <p>We identify where your organization is leaving value on the table and build the systems to capture it in real time.</p>
-            <div class="hero-cta-group">
-                <a href="/get-started" class="btn btn-primary">Get Started &rarr;</a>
-                <a href="#solutions" class="btn btn-ghost">See Solutions</a>
-            </div>
+    <div class="page-wrap">
+
+        <div class="page-left">
+            <div class="page-label">Get Started</div>
+            <h1>Let's close the gap together.</h1>
+            <p>Tell us about your organization and what you are trying to solve. We will reach out within one business day.</p>
+            <ul class="trust-list">
+                <li><span class="dot"></span>Dedicated point of contact from day one</li>
+                <li><span class="dot"></span>No long-term contracts required to start</li>
+                <li><span class="dot"></span>Results scoped and measured before engagement begins</li>
+                <li><span class="dot"></span>Work email required to maintain quality intake</li>
+            </ul>
         </div>
-        <div class="page-hero-right">
-            <div class="placeholder-image">
-                <span class="placeholder-label">Product Visual</span>
+
+        <div class="page-right">
+            <div class="form-heading">Tell us about yourself</div>
+
+            <div class="form-success" id="form-success">
+                <h3>You're on our radar.</h3>
+                <p>Expect to hear from us within one business day. In the meantime, take a look at what we do on the <a href="/solutions" style="color:rgba(255,255,255,0.6);text-underline-offset:3px;">Solutions</a> page.</p>
             </div>
+
+            <form class="contact-form" id="contact-form" novalidate>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="cf-name">Your Name</label>
+                        <input type="text" id="cf-name" placeholder="Alex Chen" autocomplete="name" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="cf-title">Job Title</label>
+                        <input type="text" id="cf-title" placeholder="VP of Operations">
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="cf-email">Work Email</label>
+                    <input type="email" id="cf-email" placeholder="alex@yourcompany.com" autocomplete="email" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="cf-company">Company</label>
+                        <input type="text" id="cf-company" placeholder="Acme Corp" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="cf-size">Company Size</label>
+                        <select id="cf-size">
+                            <option value="" disabled selected>Select range</option>
+                            <option value="1-50">1 to 50</option>
+                            <option value="51-200">51 to 200</option>
+                            <option value="201-1000">201 to 1,000</option>
+                            <option value="1000+">1,000 plus</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="cf-message">What are you trying to solve?</label>
+                    <textarea id="cf-message" placeholder="Briefly describe the challenge or opportunity you want to address..." required></textarea>
+                </div>
+
+                <div class="form-submit-row">
+                    <button type="submit" class="form-submit-btn" id="form-submit">Send Request &rarr;</button>
+                    <span class="form-note">We do not share your information.</span>
+                </div>
+
+                <div id="form-error-msg" style="display:none;" class="form-error-msg"></div>
+            </form>
         </div>
-    </section>
 
-    <section class="solutions-section" id="solutions">
-        <div class="solutions-grid">
-
-            <div class="solution-card">
-                <div class="solution-number">01</div>
-                <h2>Software Stack Optimization</h2>
-                <p>Most enterprises run 10x more tools than they need. We map your entire software ecosystem, identify redundancies, and consolidate your stack to cut costs without cutting capability.</p>
-                <a href="#" class="solution-cta">Learn more &rarr;</a>
-            </div>
-
-            <div class="solution-card">
-                <div class="solution-number">02</div>
-                <h2>AI-Powered Workflow Automation</h2>
-                <p>Manual processes are the hidden tax on your team's time. We design and deploy AI-driven automation that eliminates repetitive work and frees your people for high-leverage activity.</p>
-                <a href="#" class="solution-cta">Learn more &rarr;</a>
-            </div>
-
-            <div class="solution-card">
-                <div class="solution-number">03</div>
-                <h2>Enterprise Analytics & Visibility</h2>
-                <p>You can't optimize what you can't see. We build real-time dashboards and reporting infrastructure that give leadership a clear picture of spend, performance, and opportunity.</p>
-                <a href="#" class="solution-cta">Learn more &rarr;</a>
-            </div>
-
-            <div class="solution-card">
-                <div class="solution-number">04</div>
-                <h2>Digital Transformation Strategy</h2>
-                <p>From roadmap to rollout, we partner with your leadership team to design and execute a modernization strategy that delivers measurable ROI within 90 days.</p>
-                <a href="#" class="solution-cta">Learn more &rarr;</a>
-            </div>
-
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-socials">
-            <a href="https://x.com/ignitris" target="_blank" rel="noopener" aria-label="X">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href="https://www.linkedin.com/company/ignitris/?viewAsMember=true" target="_blank" rel="noopener" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/ignitris/" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-            </a>
-        </div>
-        <p class="footer-copy">&copy; 2026 Ignitris. All rights reserved.</p>
-    </footer>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -410,6 +457,77 @@
                     setTimeout(() => { window.location.href = href; }, 400);
                 });
             });
+        });
+
+        const BLOCKED_DOMAINS = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com'];
+
+        const form    = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('form-submit');
+        const successEl = document.getElementById('form-success');
+        const errorEl   = document.getElementById('form-error-msg');
+
+        function showError(msg) {
+            errorEl.textContent = msg;
+            errorEl.style.display = 'block';
+            submitBtn.classList.remove('shake');
+            void submitBtn.offsetWidth;
+            submitBtn.classList.add('shake');
+            setTimeout(() => submitBtn.classList.remove('shake'), 450);
+        }
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const name    = document.getElementById('cf-name').value.trim();
+            const title   = document.getElementById('cf-title').value.trim();
+            const email   = document.getElementById('cf-email').value.trim();
+            const company = document.getElementById('cf-company').value.trim();
+            const size    = document.getElementById('cf-size').value;
+            const message = document.getElementById('cf-message').value.trim();
+
+            if (!name || !email || !company || !message) {
+                showError('Please fill in all required fields.');
+                return;
+            }
+
+            const domain = email.split('@')[1]?.toLowerCase();
+            if (!domain || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError('Please enter a valid email address.');
+                return;
+            }
+
+            if (BLOCKED_DOMAINS.includes(domain)) {
+                showError('Please use your work email address.');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = '...';
+            errorEl.style.display = 'none';
+
+            try {
+                const res = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, title, email, company, size, message })
+                });
+
+                if (res.ok) {
+                    form.style.transition = 'opacity 0.3s ease';
+                    form.style.opacity = '0';
+                    setTimeout(() => {
+                        form.style.display = 'none';
+                        document.querySelector('.form-heading').style.display = 'none';
+                        successEl.classList.add('visible');
+                    }, 300);
+                } else {
+                    throw new Error('failed');
+                }
+            } catch (err) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Request \u2192';
+                showError('Something went wrong. Please try again.');
+            }
         });
     </script>
 
