@@ -245,13 +245,40 @@
         .waitlist-row.success {
             justify-content: center;
             padding: 5px 22px;
-            animation: successPulse 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: successPulse 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .waitlist-row.shake {
+            animation: pillShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards !important;
+            border-color: rgba(255, 90, 90, 0.55) !important;
+        }
+
+        @keyframes pillShake {
+            0%, 100% { transform: translateX(0); }
+            15%      { transform: translateX(-7px); }
+            35%      { transform: translateX(7px); }
+            55%      { transform: translateX(-4px); }
+            75%      { transform: translateX(4px); }
+            90%      { transform: translateX(-2px); }
         }
 
         @keyframes successPulse {
-            0%   { border-color: rgba(255,255,255,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
-            30%  { border-color: rgba(255,255,255,0.6);  box-shadow: 0 8px 52px rgba(255,255,255,0.14), 0 0 0 5px rgba(255,255,255,0.05); }
-            100% { border-color: rgba(255,255,255,0.22); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+            0%   { border-color: rgba(255,255,255,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.4);  transform: scale(1); }
+            18%  { border-color: rgba(255,255,255,0.9);  box-shadow: 0 8px 90px rgba(255,255,255,0.28), 0 0 0 10px rgba(255,255,255,0.07); transform: scale(1.05); }
+            55%  { transform: scale(0.985); }
+            100% { border-color: rgba(255,255,255,0.28); box-shadow: 0 8px 40px rgba(0,0,0,0.4);  transform: scale(1); }
+        }
+
+        /* Shockwave rings spawned by JS */
+        @keyframes shockwave {
+            0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.65; }
+            100% { transform: translate(-50%, -50%) scale(3.2); opacity: 0; }
+        }
+
+        /* Full-screen flash spawned by JS */
+        @keyframes flashFade {
+            0%   { opacity: 1; }
+            100% { opacity: 0; }
         }
 
         /* Success text lives inside the pill */
@@ -259,33 +286,45 @@
             display: none;
             font-size: 13px;
             font-weight: 300;
-            color: rgba(255, 255, 255, 0.8);
-            letter-spacing: 0.02em;
+            color: rgba(255, 255, 255, 0.85);
             opacity: 0;
             animation: none;
         }
 
         .waitlist-success-inner.visible {
             display: block;
-            animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+            animation: successTextReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+        }
+
+        @keyframes successTextReveal {
+            0%   { opacity: 0; transform: scale(0.82) translateY(5px); letter-spacing: 0.18em; }
+            100% { opacity: 1; transform: scale(1)    translateY(0);    letter-spacing: 0.02em; }
         }
 
         /* Particles */
         @keyframes particleRise {
-            0%   { opacity: 0.85; transform: translateY(0) translateX(0) scale(1); }
-            100% { opacity: 0;    transform: translateY(-48px) translateX(var(--dx)) scale(0.2); }
+            0%   { opacity: 1;   transform: translateY(0) translateX(0) scale(1); }
+            100% { opacity: 0;   transform: translateY(var(--dy)) translateX(var(--dx)) scale(0.15); }
         }
 
         .waitlist-particle {
             position: absolute;
-            width: 3px;
-            height: 3px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, var(--alpha, 0.8));
             pointer-events: none;
             top: 50%;
-            animation: particleRise var(--dur) ease forwards;
+            animation: particleRise var(--dur) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
             animation-delay: var(--delay);
+        }
+
+        .waitlist-error-text {
+            font-size: 11px;
+            font-weight: 400;
+            color: rgba(255, 100, 100, 0.85);
+            padding: 10px 0 0;
+            letter-spacing: 0.01em;
+            opacity: 0;
+            animation: fadeUp 0.3s ease forwards;
         }
 
         .waitlist-input {
@@ -449,7 +488,7 @@
                     <button class="waitlist-btn" id="waitlist-submit" type="button">Join Waitlist</button>
                     <span class="waitlist-success-inner" id="waitlist-success">You're on the list.</span>
                 </div>
-                <p class="waitlist-error" id="waitlist-error">Something went wrong. Try again.</p>
+                <span id="waitlist-error" style="display:none;"></span>
             </div>
         </div>
 
@@ -484,34 +523,101 @@
         // Waitlist form
         const emailInput = document.getElementById('waitlist-email');
         const submitBtn  = document.getElementById('waitlist-submit');
-        const successMsg = document.getElementById('waitlist-success'); // inner span inside pill
+        const successMsg = document.getElementById('waitlist-success');
         const errorMsg   = document.getElementById('waitlist-error');
 
-        function spawnParticles(row) {
-            for (let i = 0; i < 12; i++) {
-                const p = document.createElement('span');
+        const BLOCKED_DOMAINS = ['gmail.com'];
+
+        function shakePill(msg) {
+            const row = document.getElementById('waitlist-row');
+            row.classList.remove('shake');
+            void row.offsetWidth; // reflow to restart animation
+            row.classList.add('shake');
+            // Show inline error below pill
+            let existing = document.getElementById('waitlist-inline-error');
+            if (existing) existing.remove();
+            const err = document.createElement('p');
+            err.id = 'waitlist-inline-error';
+            err.className = 'waitlist-error-text';
+            err.textContent = msg;
+            row.parentElement.appendChild(err);
+            setTimeout(() => { row.classList.remove('shake'); row.style.borderColor = ''; }, 500);
+            setTimeout(() => err.remove(), 3500);
+        }
+
+        function triggerSuccessEffect(row) {
+            const hero = document.querySelector('.hero');
+            const rowRect  = row.getBoundingClientRect();
+            const heroRect = hero.getBoundingClientRect();
+            const cx = rowRect.left + rowRect.width  / 2 - heroRect.left;
+            const cy = rowRect.top  + rowRect.height / 2 - heroRect.top;
+
+            // 1. Full-screen flash
+            const flash = document.createElement('div');
+            flash.style.cssText = `position:fixed;inset:0;z-index:9999;background:rgba(255,255,255,0.07);pointer-events:none;animation:flashFade 0.55s ease forwards;`;
+            document.body.appendChild(flash);
+            setTimeout(() => flash.remove(), 650);
+
+            // 2. Three expanding shockwave rings
+            for (let r = 0; r < 3; r++) {
+                const ring = document.createElement('div');
+                const opacity = 0.65 - r * 0.15;
+                ring.style.cssText = `
+                    position:absolute;
+                    left:${cx}px; top:${cy}px;
+                    width:${rowRect.width}px; height:${rowRect.height}px;
+                    border:1px solid rgba(255,255,255,${opacity});
+                    border-radius:100px;
+                    transform:translate(-50%,-50%) scale(1);
+                    pointer-events:none;
+                    animation:shockwave ${0.75 + r * 0.18}s cubic-bezier(0.16,1,0.3,1) ${r * 0.1}s forwards;
+                `;
+                hero.appendChild(ring);
+                setTimeout(() => ring.remove(), 1400);
+            }
+
+            // 3. Particle burst — 40 particles, varying sizes + glow
+            const sizes   = [2, 2, 2, 3, 3, 3, 4, 5, 6];
+            for (let i = 0; i < 40; i++) {
+                const p     = document.createElement('span');
+                const size  = sizes[Math.floor(Math.random() * sizes.length)];
+                const dx    = (Math.random() - 0.5) * 220;
+                const dy    = -(25 + Math.random() * 130);
+                const left  = 8 + Math.random() * 84;
+                const dur   = (0.75 + Math.random() * 0.65).toFixed(2) + 's';
+                const delay = (Math.random() * 0.28).toFixed(2) + 's';
+                const alpha = (0.55 + Math.random() * 0.45).toFixed(2);
+                const glow  = size >= 4 ? `box-shadow:0 0 ${size * 2.5}px rgba(255,255,255,0.9);` : '';
                 p.className = 'waitlist-particle';
-                const dx = (Math.random() - 0.5) * 90;
-                const left = 15 + Math.random() * 70;
-                const dur  = (0.65 + Math.random() * 0.45).toFixed(2) + 's';
-                const delay = (Math.random() * 0.25).toFixed(2) + 's';
-                p.style.cssText = `left:${left}%; --dx:${dx}px; --dur:${dur}; --delay:${delay};`;
+                p.style.cssText = `
+                    width:${size}px; height:${size}px;
+                    left:${left}%; ${glow}
+                    --dx:${dx}px; --dy:${dy}px;
+                    --dur:${dur}; --delay:${delay}; --alpha:${alpha};
+                `;
                 row.appendChild(p);
-                setTimeout(() => p.remove(), 1300);
+                setTimeout(() => p.remove(), 1600);
             }
         }
 
         submitBtn.addEventListener('click', async function() {
-            const email = emailInput.value.trim();
+            const email  = emailInput.value.trim();
+            const domain = email.split('@')[1]?.toLowerCase();
 
             if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 emailInput.focus();
                 return;
             }
 
+            if (BLOCKED_DOMAINS.includes(domain)) {
+                shakePill('Please use a work email.');
+                return;
+            }
+
             submitBtn.disabled = true;
             submitBtn.textContent = '...';
-            errorMsg.classList.remove('visible');
+            const existing = document.getElementById('waitlist-inline-error');
+            if (existing) existing.remove();
 
             try {
                 const res = await fetch('/api/waitlist', {
@@ -522,8 +628,8 @@
 
                 if (res.ok) {
                     // Fade out input + button
-                    emailInput.style.transition = 'opacity 0.22s ease';
-                    submitBtn.style.transition  = 'opacity 0.22s ease';
+                    emailInput.style.transition = 'opacity 0.2s ease';
+                    submitBtn.style.transition  = 'opacity 0.2s ease';
                     emailInput.style.opacity = '0';
                     submitBtn.style.opacity  = '0';
 
@@ -533,16 +639,16 @@
 
                         const row = document.getElementById('waitlist-row');
                         row.classList.add('success');
-                        spawnParticles(row);
+                        triggerSuccessEffect(row);
                         successMsg.classList.add('visible');
-                    }, 240);
+                    }, 220);
                 } else {
-                    throw new Error('Submit failed');
+                    throw new Error('failed');
                 }
             } catch (err) {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Join Waitlist';
-                errorMsg.classList.add('visible');
+                shakePill('Something went wrong. Try again.');
             }
         });
 
