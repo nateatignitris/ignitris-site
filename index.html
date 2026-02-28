@@ -209,96 +209,84 @@
             font-weight: 400;
             color: rgba(255, 255, 255, 0.44);
             max-width: 380px;
-            line-height: 1.68;
+            line-height: 1.38;
             letter-spacing: 0.005em;
             margin: 0 auto 36px;
         }
 
-        /* WAITLIST FORM */
+        /* WAITLIST FORM — liquid glass pill container */
         .waitlist {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0;
-            max-width: 420px;
+            max-width: 440px;
             margin: 0 auto;
         }
 
+        /* The glass pill row — mimics the nav bar */
         .waitlist-row {
             display: flex;
-            align-items: stretch;
-            gap: 8px;
+            align-items: center;
             width: 100%;
+            background: rgba(20, 20, 20, 0.68);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-radius: 100px;
+            padding: 5px 5px 5px 22px;
+            gap: 0;
         }
 
         .waitlist-input {
             flex: 1;
-            height: 44px;
-            padding: 0 16px;
+            height: 38px;
+            padding: 0;
             font-size: 13px;
             font-weight: 300;
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 0;
+            background: transparent;
+            border: none;
             outline: none;
             font-family: inherit;
-            transition: all 0.25s ease;
             -webkit-font-smoothing: antialiased;
+            min-width: 0;
         }
 
         .waitlist-input::placeholder {
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.28);
         }
 
-        .waitlist-input:focus {
-            background: rgba(255, 255, 255, 0.11);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Button matches site .btn system — white fill, corner brackets */
+        /* Button sits inside the pill — its own inner pill */
         .waitlist-btn {
-            position: relative;
             display: inline-flex;
             align-items: center;
-            height: 44px;
+            height: 38px;
             padding: 0 20px;
             font-size: 10px;
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 100px;
             cursor: pointer;
             font-family: inherit;
             white-space: nowrap;
             -webkit-font-smoothing: antialiased;
-            border-radius: 0;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            flex-shrink: 0;
         }
-
-        .waitlist-btn::before, .waitlist-btn::after {
-            content: ''; position: absolute; width: 6px; height: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease;
-        }
-        .waitlist-btn::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-        .waitlist-btn::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 
         .waitlist-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-1px);
-        }
-
-        .waitlist-btn:hover::before, .waitlist-btn:hover::after {
-            border-color: rgba(255, 255, 255, 0.6); width: 10px; height: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.35);
         }
 
         .waitlist-btn:disabled {
-            opacity: 0.45;
+            opacity: 0.4;
             cursor: not-allowed;
         }
 
@@ -306,7 +294,7 @@
             display: none;
             font-size: 13px;
             font-weight: 300;
-            color: rgba(255, 255, 255, 0.65);
+            color: rgba(255, 255, 255, 0.6);
             padding: 14px 0 0;
             letter-spacing: 0.01em;
         }
@@ -320,7 +308,7 @@
             font-size: 11px;
             font-weight: 400;
             color: rgba(255, 110, 110, 0.9);
-            padding: 8px 0 0;
+            padding: 10px 0 0;
             letter-spacing: 0.01em;
         }
 
@@ -328,12 +316,11 @@
             display: block;
         }
 
-        /* SOCIALS: bottom-center — sharp square style */
+        /* SOCIALS: bottom-right — sharp square style */
         .hero-socials {
             position: absolute;
             bottom: 44px;
-            left: 50%;
-            transform: translateX(-50%);
+            right: 44px;
             display: flex;
             align-items: center;
             gap: 8px;
