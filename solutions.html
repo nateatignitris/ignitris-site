@@ -4,20 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solutions | Ignitris</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        :root {
-            --black: #000000;
-            --white: #ffffff;
-            --gray: #888888;
-            --border: rgba(255, 255, 255, 0.12);
-        }
-
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--black);
-            color: var(--white);
+            background: #000000;
+            color: #ffffff;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
         }
@@ -40,24 +34,22 @@
 
         /* NAV */
         nav {
-            position: sticky;
+            position: fixed;
             top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 20px;
+            right: 20px;
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 24px;
             height: 48px;
-            width: calc(100% - 40px);
-            max-width: 1100px;
             border-radius: 100px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(20, 20, 20, 0.7);
             backdrop-filter: blur(40px) saturate(180%);
             -webkit-backdrop-filter: blur(40px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
         .nav-logo {
@@ -103,7 +95,7 @@
 
         /* HERO */
         .page-hero {
-            padding: 120px 40px 100px;
+            padding: 140px 40px 100px;
             max-width: 900px;
             margin: 0 auto;
             text-align: center;
@@ -149,7 +141,7 @@
         }
 
         .solution-card {
-            background: var(--black);
+            background: #000000;
             padding: 60px 50px;
             transition: background 0.3s ease;
         }
@@ -172,7 +164,7 @@
             letter-spacing: -0.01em;
             line-height: 1.2;
             margin-bottom: 20px;
-            color: var(--white);
+            color: #ffffff;
         }
 
         .solution-card p {
@@ -217,7 +209,6 @@
 </head>
 <body>
 
-    <!-- NAV -->
     <nav>
         <a href="/" class="nav-logo">
             <svg viewBox="0 0 8042 2511" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -237,42 +228,40 @@
         </div>
     </nav>
 
-    <!-- PAGE HERO -->
     <section class="page-hero">
-        <div class="page-label">[ Solutions ]</div>
+        <div class="page-label">Solutions</div>
         <h1>Close the gap between<br>potential and performance</h1>
-        <p>We identify where your organization is leaving value on the table — and build the systems to capture it.</p>
+        <p>We identify where your organization is leaving value on the table and build the systems to capture it.</p>
     </section>
 
-    <!-- SOLUTIONS GRID -->
     <section class="solutions-section">
         <div class="solutions-grid">
 
             <div class="solution-card">
-                <div class="solution-number">[ 01 ]</div>
+                <div class="solution-number">01</div>
                 <h2>Software Stack Optimization</h2>
-                <p>Most enterprises run 10x more tools than they need. We map your entire software ecosystem, identify redundancies, and consolidate your stack — cutting costs without cutting capability.</p>
+                <p>Most enterprises run 10x more tools than they need. We map your entire software ecosystem, identify redundancies, and consolidate your stack to cut costs without cutting capability.</p>
                 <a href="#" class="solution-cta">Learn more &rarr;</a>
             </div>
 
             <div class="solution-card">
-                <div class="solution-number">[ 02 ]</div>
+                <div class="solution-number">02</div>
                 <h2>AI-Powered Workflow Automation</h2>
                 <p>Manual processes are the hidden tax on your team's time. We design and deploy AI-driven automation that eliminates repetitive work and frees your people for high-leverage activity.</p>
                 <a href="#" class="solution-cta">Learn more &rarr;</a>
             </div>
 
             <div class="solution-card">
-                <div class="solution-number">[ 03 ]</div>
+                <div class="solution-number">03</div>
                 <h2>Enterprise Analytics & Visibility</h2>
                 <p>You can't optimize what you can't see. We build real-time dashboards and reporting infrastructure that give leadership a clear picture of spend, performance, and opportunity.</p>
                 <a href="#" class="solution-cta">Learn more &rarr;</a>
             </div>
 
             <div class="solution-card">
-                <div class="solution-number">[ 04 ]</div>
+                <div class="solution-number">04</div>
                 <h2>Digital Transformation Strategy</h2>
-                <p>From roadmap to rollout, we partner with your leadership team to design and execute a modernization strategy that delivers measurable ROI within 90 days — guaranteed.</p>
+                <p>From roadmap to rollout, we partner with your leadership team to design and execute a modernization strategy that delivers measurable ROI within 90 days.</p>
                 <a href="#" class="solution-cta">Learn more &rarr;</a>
             </div>
 

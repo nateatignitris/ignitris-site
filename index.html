@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>useignitris.com - Ignitris</title>
-    <link rel="icon" type="image/png" href="og-image.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <meta property="og:title" content="Ignitris">
     <meta property="og:description" content="Mapping user intent in real time, predicting the apex in which a free user is most likely to pay for a product.">
     <meta property="og:image" content="og-image.png">
@@ -78,33 +78,23 @@
         .delay-3 { animation-delay: 0.5s; }
         .delay-4 { animation-delay: 0.7s; }
 
-        .nav-wrapper {
+        nav {
             position: fixed;
             top: 20px;
-            left: 0;
-            right: 0;
+            left: 20px;
+            right: 20px;
             z-index: 1000;
-            display: flex;
-            justify-content: center;
-            pointer-events: none;
-            padding: 0 20px;
-        }
-
-        nav {
-            pointer-events: all;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 24px;
             height: 48px;
-            width: 100%;
-            max-width: 1100px;
             border-radius: 100px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(20, 20, 20, 0.7);
             backdrop-filter: blur(40px) saturate(180%);
             -webkit-backdrop-filter: blur(40px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
         .nav-logo {
@@ -353,7 +343,6 @@
 </head>
 <body>
 
-    <div class="nav-wrapper">
     <nav>
         <a href="/" class="nav-logo">
             <svg viewBox="0 0 8042 2511" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -372,7 +361,6 @@
             <a href="#" class="btn">Get Started <span class="arrow">&rarr;</span></a>
         </div>
     </nav>
-    </div>
 
     <section class="hero">
         <video class="hero-video" autoplay muted loop playsinline>
@@ -382,7 +370,6 @@
         
         <h1 class="animate-up delay-1">Close the gap.</h1>
         <p class="hero-subtitle animate-up delay-2">Mapping user intent in real time, predicting the apex in which a free user is most likely to pay for a product.</p>
-        <a href="/solutions" class="hero-cta animate-up delay-3">Explore Solutions <span class="arrow">&rarr;</span></a>
         
         <div class="scroll-indicator animate-up delay-3">
             <span>Scroll</span>
