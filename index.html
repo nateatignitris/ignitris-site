@@ -272,6 +272,21 @@
             animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
         }
 
+        /* iMessage dot loader */
+        @keyframes imessageDot {
+            0%, 60%, 100% { transform: translateY(0);   opacity: 0.35; }
+            30%            { transform: translateY(-4px); opacity: 1;    }
+        }
+        .dot-loader { display: inline-flex; align-items: center; gap: 3px; }
+        .dot-loader span {
+            display: inline-block; width: 4px; height: 4px;
+            border-radius: 50%; background: currentColor;
+            animation: imessageDot 0.9s infinite ease-in-out;
+        }
+        .dot-loader span:nth-child(1) { animation-delay: 0s; }
+        .dot-loader span:nth-child(2) { animation-delay: 0.15s; }
+        .dot-loader span:nth-child(3) { animation-delay: 0.3s; }
+
         .waitlist-error-text {
             font-size: 11px;
             font-weight: 400;
@@ -432,7 +447,7 @@
                         spellcheck="false"
                     >
                     <button class="waitlist-btn" id="waitlist-submit" type="button">Join Waitlist</button>
-                    <span class="waitlist-success-inner" id="waitlist-success">You're on the list.</span>
+                    <span class="waitlist-success-inner" id="waitlist-success">You're on our list.</span>
                 </div>
                 <span id="waitlist-error" style="display:none;"></span>
             </div>
@@ -507,7 +522,7 @@
             }
 
             submitBtn.disabled = true;
-            submitBtn.textContent = '...';
+            submitBtn.innerHTML = '<span class="dot-loader"><span></span><span></span><span></span></span>';
             const existing = document.getElementById('waitlist-inline-error');
             if (existing) existing.remove();
 
@@ -536,7 +551,7 @@
                 }
             } catch (err) {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Join Waitlist';
+                submitBtn.innerHTML = 'Join Waitlist';
                 shakePill('Something went wrong. Try again.');
             }
         });

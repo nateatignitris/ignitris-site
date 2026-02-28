@@ -10,7 +10,7 @@
 
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #000000;
+            background: #0A1628;
             color: #ffffff;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
@@ -43,8 +43,6 @@
         .delay-1 { animation-delay: 0.1s; }
         .delay-2 { animation-delay: 0.3s; }
         .delay-3 { animation-delay: 0.5s; }
-        .delay-4 { animation-delay: 0.65s; }
-        .delay-5 { animation-delay: 0.8s; }
 
         /* NAV */
         nav {
@@ -72,8 +70,6 @@
             text-decoration: none;
             color: rgba(255, 255, 255, 0.95);
             transition: opacity 0.2s;
-            position: relative;
-            z-index: 2;
         }
         .nav-logo:hover { opacity: 0.7; }
         .nav-logo svg {
@@ -83,14 +79,7 @@
             filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
         }
 
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            position: relative;
-            z-index: 2;
-        }
-
+        /* BTN system */
         .btn {
             position: relative;
             display: inline-flex;
@@ -109,6 +98,7 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            font-family: inherit;
         }
         .btn::before, .btn::after {
             content: ''; position: absolute; width: 6px; height: 6px;
@@ -123,32 +113,9 @@
         }
         .btn:hover::before, .btn:hover::after { border-color: rgba(255, 255, 255, 0.6); width: 10px; height: 10px; }
 
-        .btn-ghost {
-            border-color: transparent;
-            background: transparent;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        .btn-ghost:hover {
-            color: rgba(255, 255, 255, 1);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .btn-primary {
-            background: #ffffff;
-            color: #000000;
-            border-color: transparent;
-            font-weight: 700;
-        }
-        .btn-primary:hover {
-            background: rgba(255, 255, 255, 0.88);
-            transform: translateY(-1px);
-        }
-        .btn-primary::before, .btn-primary::after { border-color: rgba(0, 0, 0, 0.15); }
-
         /* HERO */
         .hero {
-            background: #0A1628;
-            padding: 180px 40px 100px;
+            padding: 180px 40px 80px;
             text-align: center;
         }
 
@@ -162,79 +129,143 @@
             margin: 0 auto;
         }
 
-        /* POSITIONS */
+        /* CAROUSEL */
         .positions-section {
-            max-width: 900px;
+            max-width: 860px;
             margin: 0 auto;
-            padding: 80px 40px 120px;
+            padding: 20px 40px 140px;
         }
 
-        .positions-list {
+        .carousel {
             display: flex;
-            flex-direction: column;
-            gap: 1px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            align-items: center;
+            gap: 20px;
+        }
+
+        .carousel-viewport {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            width: 100%;
         }
 
         .position-card {
-            background: #000000;
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 30px;
-            align-items: center;
-            transition: background 0.3s ease;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 56px 52px;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
         }
 
-        .position-card:hover {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .position-info h3 {
-            font-size: 18px;
+        .card-index {
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.18);
             font-weight: 400;
-            letter-spacing: -0.01em;
-            line-height: 1.2;
-            margin-bottom: 12px;
+            margin-bottom: 36px;
+            display: block;
+        }
+
+        .position-card h3 {
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
             color: rgba(255, 255, 255, 0.92);
+            margin-bottom: 12px;
+            flex: 1;
         }
 
-        .position-meta {
-            display: flex;
-            gap: 20px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.35);
-            font-weight: 300;
+        .card-type {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.28);
+            font-weight: 400;
+            margin-bottom: 44px;
+            display: block;
         }
 
-        .position-meta span {
+        /* Arrow buttons */
+        .carousel-btn {
             display: flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+            font-family: inherit;
+            padding: 0;
+        }
+        .carousel-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 1);
+        }
+        .carousel-btn:disabled {
+            opacity: 0.18;
+            cursor: default;
+        }
+        .carousel-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
-        /* iMessage dot loader */
+        /* Dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 28px;
+        }
+
+        .c-dot {
+            height: 4px;
+            width: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.18);
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            padding: 0;
+        }
+        .c-dot.active {
+            width: 24px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        /* iMessage dot loader for Apply buttons */
         @keyframes imessageDot {
             0%, 60%, 100% { transform: translateY(0);   opacity: 0.35; }
             30%            { transform: translateY(-5px); opacity: 1;    }
         }
-
-        .dot-loader {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
+        .dot-loader { display: inline-flex; align-items: center; gap: 4px; }
         .dot-loader span {
-            display: inline-block;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: currentColor;
+            display: inline-block; width: 4px; height: 4px;
+            border-radius: 50%; background: currentColor;
             animation: imessageDot 0.9s infinite ease-in-out;
         }
-
         .dot-loader span:nth-child(1) { animation-delay: 0s; }
         .dot-loader span:nth-child(2) { animation-delay: 0.15s; }
         .dot-loader span:nth-child(3) { animation-delay: 0.3s; }
@@ -267,13 +298,11 @@
             transition: all 0.2s ease;
             background: rgba(255, 255, 255, 0.03);
         }
-
         .footer-socials a:hover {
             border-color: rgba(255, 255, 255, 0.5);
             color: rgba(255, 255, 255, 1);
             background: rgba(255, 255, 255, 0.1);
         }
-
         .footer-socials svg {
             width: 13px;
             height: 13px;
@@ -289,26 +318,11 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .hero {
-                padding: 140px 24px 80px;
-            }
-
-            .positions-section,
-            .contact-section {
-                padding-left: 24px;
-                padding-right: 24px;
-            }
-
-            .position-card {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 30px 20px;
-            }
-
-            .position-meta {
-                flex-direction: column;
-                gap: 8px;
-            }
+            .hero { padding: 140px 24px 60px; }
+            .positions-section { padding: 20px 24px 100px; }
+            .position-card { padding: 40px 32px; }
+            .carousel { gap: 12px; }
+            .carousel-btn { width: 36px; height: 36px; }
         }
     </style>
 </head>
@@ -327,8 +341,6 @@
                 <path d="M852.788 0L828.043 114.951C1013.63 149.126 1013.63 133.592 1053.84 167.767C1103.93 210.338 1084.77 314.822 1072.4 375.922L806.391 1749.13C763.088 2003.88 645.551 1985.24 484.711 2003.88L459.967 2121.94H1418.82L1443.57 2010.1C1275.3 1992.7 1155.91 1988.35 1174.47 1848.54L1452.84 363.495C1493.05 164.66 1542.54 130.485 1774.52 118.058L1799.27 0H852.788Z" fill="currentColor"/>
             </svg>
         </a>
-        <div class="nav-actions">
-        </div>
     </nav>
 
     <section class="hero">
@@ -336,54 +348,63 @@
     </section>
 
     <section class="positions-section">
-        <div class="positions-list animate-up delay-2">
-            <div class="position-card">
-                <div class="position-info">
-                    <h3>Senior Full-Stack Engineer</h3>
-                    <div class="position-meta">
-                        <span>Remote</span>
-                        <span>Full-time</span>
-                        <span>Engineering</span>
+        <div class="carousel animate-up delay-2">
+            <button class="carousel-btn" id="carousel-prev" aria-label="Previous" disabled>
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+
+            <div class="carousel-viewport">
+                <div class="carousel-track" id="carousel-track">
+
+                    <div class="carousel-slide">
+                        <div class="position-card">
+                            <span class="card-index">01 / 04</span>
+                            <h3>Senior Full-Stack Engineer</h3>
+                            <span class="card-type">Full-time Engineering</span>
+                            <a href="/apply?role=Senior+Full-Stack+Engineer&dept=Engineering" class="btn" style="align-self:flex-start;">Apply &rarr;</a>
+                        </div>
                     </div>
+
+                    <div class="carousel-slide">
+                        <div class="position-card">
+                            <span class="card-index">02 / 04</span>
+                            <h3>Product Designer</h3>
+                            <span class="card-type">Full-time Design</span>
+                            <a href="/apply?role=Product+Designer&dept=Design" class="btn" style="align-self:flex-start;">Apply &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <div class="position-card">
+                            <span class="card-index">03 / 04</span>
+                            <h3>Enterprise Account Executive</h3>
+                            <span class="card-type">Full-time Sales</span>
+                            <a href="/apply?role=Enterprise+Account+Executive&dept=Sales" class="btn" style="align-self:flex-start;">Apply &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <div class="position-card">
+                            <span class="card-index">04 / 04</span>
+                            <h3>ML / AI Engineer</h3>
+                            <span class="card-type">Full-time AI / ML</span>
+                            <a href="/apply?role=ML%2FAI+Engineer&dept=AI%2FML" class="btn" style="align-self:flex-start;">Apply &rarr;</a>
+                        </div>
+                    </div>
+
                 </div>
-                <a href="/apply?role=Senior+Full-Stack+Engineer&dept=Engineering" class="btn">Apply &rarr;</a>
             </div>
 
-            <div class="position-card">
-                <div class="position-info">
-                    <h3>Product Designer</h3>
-                    <div class="position-meta">
-                        <span>Remote</span>
-                        <span>Full-time</span>
-                        <span>Design</span>
-                    </div>
-                </div>
-                <a href="/apply?role=Product+Designer&dept=Design" class="btn">Apply &rarr;</a>
-            </div>
+            <button class="carousel-btn" id="carousel-next" aria-label="Next">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+        </div>
 
-            <div class="position-card">
-                <div class="position-info">
-                    <h3>Enterprise Account Executive</h3>
-                    <div class="position-meta">
-                        <span>Remote / US</span>
-                        <span>Full-time</span>
-                        <span>Sales</span>
-                    </div>
-                </div>
-                <a href="/apply?role=Enterprise+Account+Executive&dept=Sales" class="btn">Apply &rarr;</a>
-            </div>
-
-            <div class="position-card">
-                <div class="position-info">
-                    <h3>ML / AI Engineer</h3>
-                    <div class="position-meta">
-                        <span>Remote</span>
-                        <span>Full-time</span>
-                        <span>AI / ML</span>
-                    </div>
-                </div>
-                <a href="/apply?role=ML%2FAI+Engineer&dept=AI%2FML" class="btn">Apply &rarr;</a>
-            </div>
+        <div class="carousel-dots" id="carousel-dots">
+            <button class="c-dot active" data-idx="0" aria-label="Slide 1"></button>
+            <button class="c-dot" data-idx="1" aria-label="Slide 2"></button>
+            <button class="c-dot" data-idx="2" aria-label="Slide 3"></button>
+            <button class="c-dot" data-idx="3" aria-label="Slide 4"></button>
         </div>
     </section>
 
@@ -403,30 +424,58 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Page transition for normal nav links
-            const navLinks = document.querySelectorAll('a[href^="/"]:not([href*="?"])');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Page transitions
+            document.querySelectorAll('a[href^="/"]:not([href*="?"])').forEach(link => {
+                link.addEventListener('click', function (e) {
                     e.preventDefault();
-                    const href = this.getAttribute('href');
                     document.body.classList.add('page-transitioning');
-                    setTimeout(() => { window.location.href = href; }, 400);
+                    setTimeout(() => { window.location.href = this.getAttribute('href'); }, 400);
                 });
             });
 
+            // Carousel
+            const track   = document.getElementById('carousel-track');
+            const slides  = track.querySelectorAll('.carousel-slide');
+            const prevBtn = document.getElementById('carousel-prev');
+            const nextBtn = document.getElementById('carousel-next');
+            const dots    = document.querySelectorAll('.c-dot');
+            const total   = slides.length;
+            let current   = 0;
+
+            function goTo(idx) {
+                current = Math.max(0, Math.min(idx, total - 1));
+                track.style.transform = `translateX(-${current * 100}%)`;
+                dots.forEach((d, i) => d.classList.toggle('active', i === current));
+                prevBtn.disabled = current === 0;
+                nextBtn.disabled = current === total - 1;
+            }
+
+            prevBtn.addEventListener('click', () => goTo(current - 1));
+            nextBtn.addEventListener('click', () => goTo(current + 1));
+            dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
+
+            // Keyboard navigation
+            document.addEventListener('keydown', e => {
+                if (e.key === 'ArrowLeft')  goTo(current - 1);
+                if (e.key === 'ArrowRight') goTo(current + 1);
+            });
+
+            goTo(0);
+
             // iMessage dot loader on Apply buttons
-            const applyBtns = document.querySelectorAll('a.btn[href*="?"]');
-            applyBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
+            document.querySelectorAll('a.btn[href*="?"]').forEach(btn => {
+                btn.addEventListener('click', function (e) {
                     e.preventDefault();
-                    const href = this.getAttribute('href');
                     if (this.classList.contains('loading')) return;
+                    const href = this.getAttribute('href');
                     this.classList.add('loading');
                     this.innerHTML = '<span class="dot-loader"><span></span><span></span><span></span></span>';
                     setTimeout(() => { window.location.href = href; }, 700);
                 });
             });
+
         });
     </script>
 
