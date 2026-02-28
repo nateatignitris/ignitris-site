@@ -60,6 +60,7 @@
         .delay-3 { animation-delay: 0.5s; }
         .delay-4 { animation-delay: 0.65s; }
 
+        /* NAV */
         nav {
             position: fixed;
             top: 20px;
@@ -145,15 +146,83 @@
             background: rgba(255, 255, 255, 0.08);
         }
 
+        /* SPLIT HERO */
         .hero {
-            position: relative;
             height: 100vh;
             display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT PANEL */
+        .hero-left {
+            width: 50%;
+            height: 100%;
+            background: #000000;
+            display: flex;
             flex-direction: column;
+            justify-content: center;
+            padding: 100px 72px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .hero-left h1 {
+            font-size: clamp(32px, 3.6vw, 60px);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(13px, 1.1vw, 16px);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 420px;
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+        }
+
+        .hero-socials {
+            position: absolute;
+            bottom: 44px;
+            left: 72px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .hero-socials a {
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 40px;
-            gap: 16px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .hero-socials a:hover {
+            border-color: rgba(255, 255, 255, 0.35);
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .hero-socials svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* RIGHT PANEL */
+        .hero-right {
+            flex: 1;
+            height: 100%;
+            position: relative;
             overflow: hidden;
         }
 
@@ -164,89 +233,10 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: 0;
             pointer-events: none;
         }
         .hero-video::-webkit-media-controls { display: none !important; }
         .hero-video::-webkit-media-controls-enclosure { display: none !important; }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, 0.3) 0%,
-                rgba(0, 0, 0, 0.5) 50%,
-                rgba(0, 0, 0, 0.8) 100%
-            );
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: clamp(36px, 6vw, 72px);
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            line-height: 1;
-            text-align: center;
-            color: #ffffff;
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero-subtitle {
-            font-size: clamp(13px, 1.4vw, 17px);
-            font-weight: 300;
-            color: rgba(255, 255, 255, 0.75);
-            text-align: center;
-            max-width: 560px;
-            line-height: 1.65;
-            position: relative;
-            z-index: 2;
-            letter-spacing: 0.01em;
-        }
-
-        .hero-socials {
-            position: absolute;
-            bottom: 40px;
-            left: 0;
-            right: 0;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .hero-socials a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            transition: all 0.25s ease;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .hero-socials a:hover {
-            border-color: rgba(255, 255, 255, 0.4);
-            color: rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .hero-socials svg {
-            width: 15px;
-            height: 15px;
-            fill: currentColor;
-        }
     </style>
 </head>
 <body>
@@ -272,25 +262,30 @@
     </nav>
 
     <section class="hero">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="hero-video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
 
-        <h1 class="animate-up delay-1">Close the gap.</h1>
-        <p class="hero-subtitle animate-up delay-2">Mapping user intent in real time, identifying the exact moment a free user converts into a paying customer.</p>
+        <div class="hero-left">
+            <h1 class="animate-up delay-1">Close the gap.</h1>
+            <p class="hero-subtitle animate-up delay-2">Mapping user intent in real time, identifying the exact moment a free user converts into a paying customer.</p>
 
-        <div class="hero-socials animate-up delay-4">
-            <a href="https://x.com/ignitris" target="_blank" rel="noopener" aria-label="X">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href="https://www.linkedin.com/company/ignitris/?viewAsMember=true" target="_blank" rel="noopener" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/ignitris/" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-            </a>
+            <div class="hero-socials animate-up delay-4">
+                <a href="https://x.com/ignitris" target="_blank" rel="noopener" aria-label="X">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/company/ignitris/?viewAsMember=true" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/ignitris/" target="_blank" rel="noopener" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                </a>
+            </div>
         </div>
+
+        <div class="hero-right">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="hero-video.mp4" type="video/mp4">
+            </video>
+        </div>
+
     </section>
 
     <script>
