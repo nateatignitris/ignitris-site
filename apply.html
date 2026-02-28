@@ -428,37 +428,37 @@
             <p>Fill out the form below and we'll review your application within a week.</p>
         </div>
 
-        <form class="application-form">
+        <form class="application-form" id="application-form">
             <div class="form-section">
                 <h2 class="section-title">Personal Information</h2>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label required">First Name</label>
-                        <input type="text" class="form-input" required>
+                        <input type="text" class="form-input" id="field-firstName" required>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label required">Last Name</label>
-                        <input type="text" class="form-input" required>
+                        <input type="text" class="form-input" id="field-lastName" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label required">Email</label>
-                        <input type="email" class="form-input" required>
+                        <input type="email" class="form-input" id="field-email" required>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Phone</label>
-                        <input type="tel" class="form-input">
+                        <input type="tel" class="form-input" id="field-phone">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Location</label>
-                    <input type="text" class="form-input" placeholder="City, State/Country">
+                    <input type="text" class="form-input" id="field-location" placeholder="City, State/Country">
                 </div>
             </div>
 
@@ -473,22 +473,22 @@
 
                 <div class="form-group">
                     <label class="form-label">LinkedIn Profile</label>
-                    <input type="url" class="form-input" placeholder="https://linkedin.com/in/yourname">
+                    <input type="url" class="form-input" id="field-linkedin" placeholder="https://linkedin.com/in/yourname">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Portfolio / Website</label>
-                    <input type="url" class="form-input" placeholder="https://yourportfolio.com">
+                    <input type="url" class="form-input" id="field-portfolio" placeholder="https://yourportfolio.com">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Cover Letter</label>
-                    <textarea class="form-textarea" placeholder="Tell us why you're a great fit for Ignitris..."></textarea>
+                    <textarea class="form-textarea" id="field-coverLetter" placeholder="Tell us why you're a great fit for Ignitris..."></textarea>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">How did you hear about us?</label>
-                    <select class="form-select">
+                    <select class="form-select" id="field-source">
                         <option value="">Select an option</option>
                         <option value="linkedin">LinkedIn</option>
                         <option value="referral">Referral</option>
@@ -500,7 +500,9 @@
             </div>
 
             <div class="submit-section">
-                <button type="submit" class="submit-btn">Submit Application</button>
+                <button type="submit" class="submit-btn" id="submit-btn">Submit Application</button>
+                <p id="apply-success" style="display:none; margin-top:20px; font-size:14px; color:rgba(255,255,255,0.6); letter-spacing:0.01em;">Application received. We'll be in touch within a week.</p>
+                <p id="apply-error" style="display:none; margin-top:14px; font-size:12px; color:rgba(255,110,110,0.9); letter-spacing:0.01em;">Something went wrong. Please try again.</p>
             </div>
         </form>
     </div>
@@ -522,30 +524,71 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Pre-fill role from URL param
             const params = new URLSearchParams(window.location.search);
             const role = params.get('role');
-            const dept = params.get('dept');
-
             if (role) {
                 const header = document.querySelector('.form-header h1');
                 if (header) header.textContent = 'Apply: ' + role;
             }
-        });
 
-        document.addEventListener('DOMContentLoaded', function() {
+            // Page transitions
             const links = document.querySelectorAll('a[href^="/"]');
-
             links.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const href = this.getAttribute('href');
-
                     document.body.classList.add('page-transitioning');
-
-                    setTimeout(() => {
-                        window.location.href = href;
-                    }, 400);
+                    setTimeout(() => { window.location.href = href; }, 400);
                 });
+            });
+
+            // Application form submission
+            const form      = document.getElementById('application-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const success   = document.getElementById('apply-success');
+            const error     = document.getElementById('apply-error');
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = '...';
+                error.style.display = 'none';
+
+                const params = new URLSearchParams(window.location.search);
+
+                const payload = {
+                    firstName:   document.getElementById('field-firstName').value.trim(),
+                    lastName:    document.getElementById('field-lastName').value.trim(),
+                    email:       document.getElementById('field-email').value.trim(),
+                    phone:       document.getElementById('field-phone').value.trim(),
+                    location:    document.getElementById('field-location').value.trim(),
+                    role:        params.get('role') || '',
+                    linkedin:    document.getElementById('field-linkedin').value.trim(),
+                    portfolio:   document.getElementById('field-portfolio').value.trim(),
+                    coverLetter: document.getElementById('field-coverLetter').value.trim(),
+                    source:      document.getElementById('field-source').value
+                };
+
+                try {
+                    const res = await fetch('/api/apply', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (res.ok) {
+                        form.style.display = 'none';
+                        success.style.display = 'block';
+                    } else {
+                        throw new Error('Failed');
+                    }
+                } catch (err) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Application';
+                    error.style.display = 'block';
+                }
             });
         });
     </script>

@@ -194,21 +194,21 @@
         }
 
         .hero-content h1 {
-            font-size: clamp(36px, 3.4vw, 56px);
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            line-height: 1.05;
+            font-size: clamp(48px, 5vw, 80px);
+            font-weight: 500;
+            letter-spacing: -0.025em;
+            line-height: 1.0;
             color: #ffffff;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .hero-subtitle {
-            font-size: 14px;
-            font-weight: 300;
-            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.44);
             max-width: 340px;
-            line-height: 1.7;
-            letter-spacing: 0.01em;
+            line-height: 1.68;
+            letter-spacing: 0.005em;
             margin-bottom: 36px;
         }
 
@@ -400,7 +400,7 @@
                         type="email"
                         class="waitlist-input"
                         id="waitlist-email"
-                        placeholder="Tim@useignitris.com"
+                        placeholder="tim@useignitris.com"
                         autocomplete="email"
                         spellcheck="false"
                     >
@@ -440,9 +440,6 @@
         });
 
         // Waitlist form
-        // To connect your email list, sign up at formspree.io and replace YOUR_FORM_ID below.
-        const FORMSPREE_ID = 'YOUR_FORM_ID';
-
         const emailInput = document.getElementById('waitlist-email');
         const submitBtn  = document.getElementById('waitlist-submit');
         const successMsg = document.getElementById('waitlist-success');
@@ -461,10 +458,10 @@
             errorMsg.classList.remove('visible');
 
             try {
-                const res = await fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+                const res = await fetch('/api/waitlist', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({ email: email })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
                 });
 
                 if (res.ok) {
@@ -476,7 +473,7 @@
                 }
             } catch (err) {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Add me';
+                submitBtn.textContent = 'Join Waitlist';
                 errorMsg.classList.add('visible');
             }
         });
