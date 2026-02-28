@@ -168,7 +168,7 @@
         .hero-video::-webkit-media-controls { display: none !important; }
         .hero-video::-webkit-media-controls-enclosure { display: none !important; }
 
-        /* Left-side black fade */
+        /* Dark overlay — uniform across screen for centered text legibility */
         .hero-overlay {
             position: absolute;
             top: 0;
@@ -176,21 +176,23 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(
-                to right,
-                rgba(0, 0, 0, 0.92) 0%,
-                rgba(0, 0, 0, 0.78) 28%,
-                rgba(0, 0, 0, 0.40) 52%,
-                rgba(0, 0, 0, 0.00) 72%
+                to bottom,
+                rgba(0, 0, 0, 0.48) 0%,
+                rgba(0, 0, 0, 0.60) 50%,
+                rgba(0, 0, 0, 0.52) 100%
             );
         }
 
-        /* Left content: vertically centered */
+        /* Center content: horizontally and vertically */
         .hero-content {
             position: absolute;
             top: 50%;
-            transform: translateY(-50%);
-            left: 72px;
-            max-width: 460px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 560px;
+            width: 100%;
+            padding: 0 24px;
+            text-align: center;
         }
 
         .hero-content h1 {
@@ -206,24 +208,27 @@
             font-size: 15px;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.44);
-            max-width: 340px;
+            max-width: 380px;
             line-height: 1.68;
             letter-spacing: 0.005em;
-            margin-bottom: 36px;
+            margin: 0 auto 36px;
         }
 
         /* WAITLIST FORM */
         .waitlist {
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 0;
-            max-width: 380px;
+            max-width: 420px;
+            margin: 0 auto;
         }
 
         .waitlist-row {
             display: flex;
             align-items: stretch;
             gap: 8px;
+            width: 100%;
         }
 
         .waitlist-input {
@@ -323,11 +328,12 @@
             display: block;
         }
 
-        /* SOCIALS: bottom-left — sharp square style */
+        /* SOCIALS: bottom-center — sharp square style */
         .hero-socials {
             position: absolute;
             bottom: 44px;
-            left: 72px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             align-items: center;
             gap: 8px;
