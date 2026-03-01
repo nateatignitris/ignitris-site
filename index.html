@@ -31,7 +31,7 @@
             height: 100vh;
             overflow: hidden;
             -webkit-font-smoothing: antialiased;
-            animation: pageIn 0.15s ease forwards;
+            animation: pageIn 0.08s ease forwards;
         }
 
         @keyframes pageIn {
@@ -40,7 +40,7 @@
         }
 
         body.page-transitioning {
-            animation: pageOut 0.12s ease forwards;
+            
         }
 
         @keyframes pageOut {
@@ -482,8 +482,8 @@
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const href = this.getAttribute('href');
-                    document.body.classList.add('page-transitioning');
-                    setTimeout(() => { window.location.href = href; }, 120);
+                    
+                    window.location.href = href;
                 });
             });
         });

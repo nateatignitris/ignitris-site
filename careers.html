@@ -19,7 +19,7 @@
             color: #ffffff;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
-            animation: pageIn 0.15s ease forwards;
+            animation: pageIn 0.08s ease forwards;
         }
 
         @keyframes pageIn {
@@ -28,7 +28,7 @@
         }
 
         body.page-transitioning {
-            animation: pageOut 0.12s ease forwards;
+            
         }
 
         @keyframes pageOut {
@@ -435,8 +435,8 @@
             document.querySelectorAll('a[href^="/"]:not([href*="?"])').forEach(link => {
                 link.addEventListener('click', function (e) {
                     e.preventDefault();
-                    document.body.classList.add('page-transitioning');
-                    setTimeout(() => { window.location.href = this.getAttribute("href"); }, 120);
+                    
+                    window.location.href = this.getAttribute('href');
                 });
             });
 
