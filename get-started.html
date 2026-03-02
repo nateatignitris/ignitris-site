@@ -270,6 +270,88 @@
             opacity: 0;
             animation: fadeUp 0.3s ease forwards;
         }
+
+        /* Social proof */
+        .waitlist-social-proof {
+            font-size: 11px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.28);
+            letter-spacing: 0.05em;
+            padding: 10px 0 0;
+            text-align: center;
+        }
+
+        /* Reassurance */
+        .waitlist-reassurance {
+            font-size: 10px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 8px 0 0;
+            text-align: center;
+        }
+
+        /* Exit intent bar */
+        .exit-bar {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 20px 12px 24px;
+            background: rgba(20, 20, 20, 0.82);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 100px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
+            z-index: 999;
+        }
+        .exit-bar.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .exit-bar-text {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.01em;
+        }
+        .exit-bar-cta {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 100px;
+            padding: 6px 14px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s ease;
+        }
+        .exit-bar-cta:hover { background: rgba(255, 255, 255, 0.22); }
+        .exit-bar-dismiss {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            line-height: 1;
+            background: none;
+            border: none;
+            font-family: inherit;
+            padding: 0 0 0 4px;
+            transition: color 0.2s ease;
+        }
+        .exit-bar-dismiss:hover { color: rgba(255, 255, 255, 0.6); }
     </style>
 </head>
 <body>
@@ -311,9 +393,18 @@
                     <button class="waitlist-btn" id="waitlist-submit" type="button">Join &rarr;</button>
                     <span class="waitlist-success-inner" id="waitlist-success">You're on our list.</span>
                 </div>
+                <p class="waitlist-social-proof animate-up delay-3" id="social-proof">join 100+ teams on the waitlist</p>
+                <p class="waitlist-reassurance animate-up delay-3">work email only &nbsp;·&nbsp; no spam</p>
             </div>
 
         </div>
+    </div>
+
+    <!-- Exit intent bar -->
+    <div class="exit-bar" id="exit-bar">
+        <span class="exit-bar-text">early access is limited.</span>
+        <button class="exit-bar-cta" id="exit-bar-cta">join the waitlist</button>
+        <button class="exit-bar-dismiss" id="exit-bar-dismiss" aria-label="Dismiss">×</button>
     </div>
 
     <script>
@@ -407,6 +498,47 @@
 
         emailInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') submitBtn.click();
+        });
+
+        // --- Live waitlist count ---
+        (async function() {
+            try {
+                const res  = await fetch('/api/count');
+                const data = await res.json();
+                const el   = document.getElementById('social-proof');
+                if (el && data.count) {
+                    el.textContent = 'join ' + data.count + '+ teams on the waitlist';
+                }
+            } catch (_) {}
+        })();
+
+        // --- Exit intent ---
+        const exitBar     = document.getElementById('exit-bar');
+        const exitCta     = document.getElementById('exit-bar-cta');
+        const exitDismiss = document.getElementById('exit-bar-dismiss');
+        let exitShown     = false;
+
+        function showExitBar() {
+            if (exitShown) return;
+            exitShown = true;
+            exitBar.classList.add('visible');
+        }
+
+        document.addEventListener('mouseleave', function(e) {
+            if (e.clientY <= 8) showExitBar();
+        });
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') showExitBar();
+        });
+
+        exitCta.addEventListener('click', function() {
+            exitBar.classList.remove('visible');
+            emailInput.focus();
+        });
+
+        exitDismiss.addEventListener('click', function() {
+            exitBar.classList.remove('visible');
         });
     </script>
 
