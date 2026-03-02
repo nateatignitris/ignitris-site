@@ -47,6 +47,54 @@
             to   { opacity: 1; }
         }
 
+        /* Breakout success state */
+        .waitlist-confirmed {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+            opacity: 0;
+        }
+        .waitlist-confirmed.visible {
+            display: flex;
+            animation: fadeOnly 0.1s ease forwards;
+        }
+        .confirmed-line {
+            width: 40px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.22);
+            transform: scaleX(0);
+            transform-origin: center;
+        }
+        .confirmed-line.draw {
+            animation: drawLine 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+        }
+        @keyframes drawLine {
+            from { transform: scaleX(0); opacity: 0; }
+            to   { transform: scaleX(1); opacity: 1; }
+        }
+        .confirmed-label {
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 0.03em;
+            color: rgba(255, 255, 255, 0.9);
+            opacity: 0;
+        }
+        .confirmed-label.reveal {
+            animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .confirmed-sub {
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            color: rgba(255, 255, 255, 0.25);
+            opacity: 0;
+        }
+        .confirmed-sub.reveal {
+            animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
         .animate-up {
             opacity: 0;
             animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -161,11 +209,6 @@
             transition: border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .waitlist-row.success {
-            justify-content: center;
-            padding: 5px 22px;
-        }
-
         .waitlist-row.shake {
             animation: pillShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards !important;
             border-color: rgba(255, 90, 90, 0.5) !important;
@@ -228,21 +271,6 @@
         .waitlist-btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
-        }
-
-        /* Success text inside pill */
-        .waitlist-success-inner {
-            display: none;
-            font-size: 14px;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.92);
-            letter-spacing: 0.01em;
-            opacity: 0;
-        }
-
-        .waitlist-success-inner.visible {
-            display: block;
-            animation: fadeOnly 0.45s ease 0.1s both;
         }
 
         /* iMessage dot loader */
@@ -382,10 +410,14 @@
                         inputmode="email"
                     >
                     <button class="waitlist-btn" id="waitlist-submit" type="button">Join &rarr;</button>
-                    <span class="waitlist-success-inner" id="waitlist-success">You're on our list.</span>
                 </div>
                 <p class="waitlist-social-proof animate-up delay-3" id="social-proof">join 100+ teams on the waitlist</p>
                 <p class="waitlist-reassurance animate-up delay-3">work email only &nbsp;·&nbsp; no spam</p>
+                <div class="waitlist-confirmed" id="waitlist-confirmed">
+                    <span class="confirmed-line" id="confirmed-line"></span>
+                    <p class="confirmed-label" id="confirmed-label">you're in.</p>
+                    <p class="confirmed-sub" id="confirmed-sub">we'll reach out before launch.</p>
+                </div>
             </div>
 
         </div>
@@ -414,7 +446,7 @@
 
         const emailInput = document.getElementById('waitlist-email');
         const submitBtn  = document.getElementById('waitlist-submit');
-        const successMsg = document.getElementById('waitlist-success');
+
         const row        = document.getElementById('waitlist-row');
 
         const BLOCKED_DOMAINS = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com'];
@@ -467,15 +499,27 @@
                 });
 
                 if (res.ok) {
-                    emailInput.style.transition = 'opacity 0.2s ease';
-                    submitBtn.style.transition  = 'opacity 0.2s ease';
-                    emailInput.style.opacity = '0';
-                    submitBtn.style.opacity  = '0';
+                    const eyebrow     = document.querySelector('.form-eyebrow');
+                    const socialProof = document.getElementById('social-proof');
+                    const reassurance = document.querySelector('.waitlist-reassurance');
+                    const confirmed   = document.getElementById('waitlist-confirmed');
+                    const line        = document.getElementById('confirmed-line');
+                    const label       = document.getElementById('confirmed-label');
+                    const sub         = document.getElementById('confirmed-sub');
+
+                    // Fade out pill, eyebrow, and sub-text together
+                    [row, eyebrow, socialProof, reassurance].forEach(el => {
+                        if (!el) return;
+                        el.style.transition = 'opacity 0.2s ease';
+                        el.style.opacity = '0';
+                    });
+
                     setTimeout(() => {
-                        emailInput.style.display = 'none';
-                        submitBtn.style.display  = 'none';
-                        row.classList.add('success');
-                        successMsg.classList.add('visible');
+                        [row, eyebrow, socialProof, reassurance].forEach(el => { if (el) el.style.display = 'none'; });
+                        confirmed.classList.add('visible');
+                        setTimeout(() => line.classList.add('draw'), 30);
+                        setTimeout(() => label.classList.add('reveal'), 220);
+                        setTimeout(() => sub.classList.add('reveal'), 380);
                     }, 220);
                 } else {
                     throw new Error('failed');
