@@ -2,36 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Join the founding team at Ignitris. We're hiring engineers, designers, and operators.">
-    <!-- Open Graph -->
-    <meta property="og:type"        content="website">
-    <meta property="og:url"         content="https://useignitris.com/careers">
-    <meta property="og:title"       content="Careers — Ignitris">
-    <meta property="og:description" content="Join the founding team at Ignitris. We're hiring engineers, designers, and operators.">
-    <meta property="og:image"       content="https://useignitris.com/og-image.png">
-    <meta property="og:image:width"  content="1200">
-    <meta property="og:image:height" content="630">
-    <!-- X / Twitter -->
-    <meta name="twitter:card"        content="summary_large_image">
-    <meta name="twitter:url"         content="https://useignitris.com/careers">
-    <meta name="twitter:title"       content="Careers — Ignitris">
-    <meta name="twitter:description" content="Join the founding team at Ignitris. We're hiring engineers, designers, and operators.">
-    <meta name="twitter:image"       content="https://useignitris.com/og-image.png">
-    <title>Careers | Ignitris</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">    <title>Careers | Ignitris</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html {
-            background: #0A1628;
+            background: #ffffff;
             touch-action: manipulation;
         }
 
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0A1628;
-            color: #ffffff;
+            background: #ffffff;
+            color: #0A1628;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             animation: pageIn 0.08s ease forwards;
@@ -77,18 +61,18 @@
             padding: 0 24px;
             height: 48px;
             border-radius: 100px;
-            background: rgba(20, 20, 20, 0.7);
+            background: rgba(255, 255, 255, 0.82);
             backdrop-filter: blur(40px) saturate(180%);
             -webkit-backdrop-filter: blur(40px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            box-shadow: 0 4px 24px rgba(10, 22, 40, 0.07);
         }
 
         .nav-logo {
             display: flex;
             align-items: center;
             text-decoration: none;
-            color: rgba(255, 255, 255, 0.95);
+            color: rgba(10, 22, 40, 0.9);
             transition: opacity 0.2s;
         }
         .nav-logo:hover { opacity: 0.7; }
@@ -111,9 +95,9 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             text-decoration: none;
-            color: rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(10, 22, 40, 0.85);
+            background: rgba(10, 22, 40, 0.04);
+            border: 1px solid rgba(10, 22, 40, 0.1);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             backdrop-filter: blur(10px);
@@ -122,16 +106,16 @@
         }
         .btn::before, .btn::after {
             content: ''; position: absolute; width: 6px; height: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease;
+            border: 1px solid rgba(10, 22, 40, 0.18); transition: all 0.3s ease;
         }
         .btn::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
         .btn::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
         .btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(10, 22, 40, 0.07);
+            border-color: rgba(10, 22, 40, 0.18);
             transform: translateY(-1px);
         }
-        .btn:hover::before, .btn:hover::after { border-color: rgba(255, 255, 255, 0.6); width: 10px; height: 10px; }
+        .btn:hover::before, .btn:hover::after { border-color: rgba(10, 22, 40, 0.5); width: 10px; height: 10px; }
 
         /* HERO */
         .hero {
@@ -142,7 +126,7 @@
         .hero-intro {
             font-size: 15px;
             font-weight: 400;
-            color: rgba(255, 255, 255, 0.44);
+            color: rgba(10, 22, 40, 0.38);
             max-width: 380px;
             line-height: 1.38;
             letter-spacing: 0.005em;
@@ -201,7 +185,7 @@
             font-weight: 400;
             letter-spacing: -0.02em;
             line-height: 1.1;
-            color: rgba(255, 255, 255, 0.92);
+            color: rgba(10, 22, 40, 0.88);
             margin-bottom: 12px;
             flex: 1;
         }
@@ -210,7 +194,7 @@
             font-size: 10px;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.28);
+            color: rgba(10, 22, 40, 0.32);
             font-weight: 400;
             margin-bottom: 44px;
             display: block;
@@ -233,9 +217,9 @@
             padding: 0;
         }
         .carousel-btn:hover:not(:disabled) {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.25);
-            color: rgba(255, 255, 255, 1);
+            background: rgba(10, 22, 40, 0.06);
+            border-color: rgba(10, 22, 40, 0.35);
+            color: rgba(10, 22, 40, 1);
         }
         .carousel-btn:disabled {
             opacity: 0.18;
@@ -312,16 +296,16 @@
             width: 32px;
             height: 32px;
             border-radius: 2px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.42);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            color: rgba(10, 22, 40, 0.36);
             text-decoration: none;
             transition: all 0.2s ease;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(10, 22, 40, 0.02);
         }
         .footer-socials a:hover {
-            border-color: rgba(255, 255, 255, 0.5);
-            color: rgba(255, 255, 255, 1);
-            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(10, 22, 40, 0.28);
+            color: rgba(10, 22, 40, 1);
+            background: rgba(10, 22, 40, 0.06);
         }
         .footer-socials svg {
             width: 13px;
