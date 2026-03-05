@@ -1,4 +1,14 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/demo",
+      "destination": "https://credit-sizing-demo-git-main-ignitris.vercel.app"
+    },
+    {
+      "source": "/demo/:path*",
+      "destination": "https://credit-sizing-demo-git-main-ignitris.vercel.app/:path*"
+    }
+  ]
 }
