@@ -1,0 +1,6359 @@
+{
+  "summary": {
+    "total_users": 10000,
+    "total_events": 83685,
+    "total_credits_dispersed": 1290510,
+    "current_tick": 240
+  },
+  "users": [
+    {
+      "id": "0efef29d",
+      "name": "User_0",
+      "persona": "tire_kicker",
+      "intent_score": 0.134,
+      "credit_balance": 100,
+      "total_credits_received": 100,
+      "total_sessions": 8,
+      "feature_depth": 0.44631340885035026,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "41a5b87a",
+      "name": "User_1",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 231,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7813,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "e25cd949",
+      "name": "User_2",
+      "persona": "tire_kicker",
+      "intent_score": 0.145,
+      "credit_balance": 190,
+      "total_credits_received": 190,
+      "total_sessions": 10,
+      "feature_depth": 0.4844947258876977,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "bf99ef5d",
+      "name": "User_3",
+      "persona": "growing_team",
+      "intent_score": 0.78,
+      "credit_balance": 365,
+      "total_credits_received": 365,
+      "total_sessions": 49,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 1957,
+      "seats_invited": 7,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "aed57310",
+      "name": "User_4",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 220,
+      "total_credits_received": 220,
+      "total_sessions": 52,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3153,
+      "seats_invited": 12,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "adc78087",
+      "name": "User_5",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 280,
+      "total_credits_received": 280,
+      "total_sessions": 50,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3539,
+      "seats_invited": 16,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "3eab1b19",
+      "name": "User_6",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 200,
+      "total_credits_received": 200,
+      "total_sessions": 242,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7748,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "24139e01",
+      "name": "User_7",
+      "persona": "enterprise",
+      "intent_score": 0.98,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 56,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6369,
+      "seats_invited": 9,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "31882753",
+      "name": "User_8",
+      "persona": "tire_kicker",
+      "intent_score": 0.139,
+      "credit_balance": 140,
+      "total_credits_received": 140,
+      "total_sessions": 6,
+      "feature_depth": 0.46322389544372977,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "32710759",
+      "name": "User_9",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 48,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2678,
+      "seats_invited": 18,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "771b677d",
+      "name": "User_10",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 140,
+      "total_credits_received": 140,
+      "total_sessions": 44,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2898,
+      "seats_invited": 17,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "9b6fa715",
+      "name": "User_11",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 210,
+      "total_credits_received": 210,
+      "total_sessions": 34,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3358,
+      "seats_invited": 11,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "ccf0c3e0",
+      "name": "User_12",
+      "persona": "growing_team",
+      "intent_score": 0.88,
+      "credit_balance": 215,
+      "total_credits_received": 215,
+      "total_sessions": 56,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2253,
+      "seats_invited": 9,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "23cf246a",
+      "name": "User_13",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 110,
+      "total_credits_received": 110,
+      "total_sessions": 256,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7900,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "385bd7d5",
+      "name": "User_14",
+      "persona": "tire_kicker",
+      "intent_score": 0.151,
+      "credit_balance": 190,
+      "total_credits_received": 190,
+      "total_sessions": 8,
+      "feature_depth": 0.5043331366932506,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "923738e2",
+      "name": "User_15",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 185,
+      "total_credits_received": 185,
+      "total_sessions": 226,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7721,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "f55d1ae0",
+      "name": "User_16",
+      "persona": "tire_kicker",
+      "intent_score": 0.141,
+      "credit_balance": 190,
+      "total_credits_received": 190,
+      "total_sessions": 13,
+      "feature_depth": 0.4692914154796207,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "9f8c7a00",
+      "name": "User_17",
+      "persona": "growing_team",
+      "intent_score": 0.81,
+      "credit_balance": 205,
+      "total_credits_received": 205,
+      "total_sessions": 60,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2668,
+      "seats_invited": 11,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "c2d88248",
+      "name": "User_18",
+      "persona": "growing_team",
+      "intent_score": 0.81,
+      "credit_balance": 280,
+      "total_credits_received": 280,
+      "total_sessions": 54,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2181,
+      "seats_invited": 12,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "249b6d88",
+      "name": "User_19",
+      "persona": "tire_kicker",
+      "intent_score": 0.13,
+      "credit_balance": 110,
+      "total_credits_received": 110,
+      "total_sessions": 9,
+      "feature_depth": 0.43332351961366933,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "e967621c",
+      "name": "User_20",
+      "persona": "enterprise",
+      "intent_score": 0.92,
+      "credit_balance": 235,
+      "total_credits_received": 235,
+      "total_sessions": 46,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6411,
+      "seats_invited": 6,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "3c30983b",
+      "name": "User_21",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 275,
+      "total_credits_received": 275,
+      "total_sessions": 47,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2302,
+      "seats_invited": 11,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "d3890e0e",
+      "name": "User_22",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 238,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7761,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "fc529d7f",
+      "name": "User_23",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 250,
+      "total_credits_received": 250,
+      "total_sessions": 62,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6417,
+      "seats_invited": 16,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "741ac14e",
+      "name": "User_24",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 175,
+      "total_credits_received": 175,
+      "total_sessions": 224,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7679,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "9ab4d861",
+      "name": "User_25",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 255,
+      "total_credits_received": 255,
+      "total_sessions": 53,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3379,
+      "seats_invited": 11,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "38e1b115",
+      "name": "User_26",
+      "persona": "enterprise",
+      "intent_score": 0.85,
+      "credit_balance": 235,
+      "total_credits_received": 235,
+      "total_sessions": 66,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6489,
+      "seats_invited": 7,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "eddbe793",
+      "name": "User_27",
+      "persona": "tire_kicker",
+      "intent_score": 0.146,
+      "credit_balance": 170,
+      "total_credits_received": 170,
+      "total_sessions": 9,
+      "feature_depth": 0.48811830469196144,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "b0c4a6a0",
+      "name": "User_28",
+      "persona": "growing_team",
+      "intent_score": 0.85,
+      "credit_balance": 260,
+      "total_credits_received": 260,
+      "total_sessions": 36,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2209,
+      "seats_invited": 9,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "c6e3c68b",
+      "name": "User_29",
+      "persona": "growing_team",
+      "intent_score": 0.81,
+      "credit_balance": 120,
+      "total_credits_received": 120,
+      "total_sessions": 52,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3179,
+      "seats_invited": 12,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "ac721984",
+      "name": "User_30",
+      "persona": "tire_kicker",
+      "intent_score": 0.135,
+      "credit_balance": 190,
+      "total_credits_received": 190,
+      "total_sessions": 10,
+      "feature_depth": 0.4514575346324781,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "8a863c57",
+      "name": "User_31",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 216,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7500,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "592c58e0",
+      "name": "User_32",
+      "persona": "tire_kicker",
+      "intent_score": 0.159,
+      "credit_balance": 190,
+      "total_credits_received": 190,
+      "total_sessions": 12,
+      "feature_depth": 0.529420276305989,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "7ab3bda1",
+      "name": "User_33",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 100,
+      "total_credits_received": 100,
+      "total_sessions": 241,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7798,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "4258f2a7",
+      "name": "User_34",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 235,
+      "total_credits_received": 235,
+      "total_sessions": 240,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 8065,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "e4c455b9",
+      "name": "User_35",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 155,
+      "total_credits_received": 155,
+      "total_sessions": 45,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3212,
+      "seats_invited": 10,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "6219aca2",
+      "name": "User_36",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 200,
+      "total_credits_received": 200,
+      "total_sessions": 58,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6703,
+      "seats_invited": 11,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "425b1589",
+      "name": "User_37",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 85,
+      "total_credits_received": 85,
+      "total_sessions": 249,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7885,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "38b23374",
+      "name": "User_38",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 260,
+      "total_credits_received": 260,
+      "total_sessions": 231,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7747,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "2d52bf67",
+      "name": "User_39",
+      "persona": "tire_kicker",
+      "intent_score": 0.142,
+      "credit_balance": 110,
+      "total_credits_received": 110,
+      "total_sessions": 8,
+      "feature_depth": 0.47435336347165297,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "f17dd6f1",
+      "name": "User_40",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 145,
+      "total_credits_received": 145,
+      "total_sessions": 254,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7880,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "415808e9",
+      "name": "User_41",
+      "persona": "growing_team",
+      "intent_score": 0.87,
+      "credit_balance": 250,
+      "total_credits_received": 250,
+      "total_sessions": 40,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2319,
+      "seats_invited": 13,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "0b8564e0",
+      "name": "User_42",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 115,
+      "total_credits_received": 115,
+      "total_sessions": 253,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7824,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "6d06b3ea",
+      "name": "User_43",
+      "persona": "tire_kicker",
+      "intent_score": 0.14,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 8,
+      "feature_depth": 0.4666099186022195,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "dc34531f",
+      "name": "User_44",
+      "persona": "tire_kicker",
+      "intent_score": 0.142,
+      "credit_balance": 180,
+      "total_credits_received": 180,
+      "total_sessions": 10,
+      "feature_depth": 0.4729665480534339,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "b44541fd",
+      "name": "User_45",
+      "persona": "growing_team",
+      "intent_score": 0.84,
+      "credit_balance": 240,
+      "total_credits_received": 240,
+      "total_sessions": 44,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2823,
+      "seats_invited": 12,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "275dc091",
+      "name": "User_46",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 175,
+      "total_credits_received": 175,
+      "total_sessions": 241,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7679,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "f4dd9ab6",
+      "name": "User_47",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 435,
+      "total_credits_received": 435,
+      "total_sessions": 53,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6529,
+      "seats_invited": 12,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "78b6b2d6",
+      "name": "User_48",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 200,
+      "total_credits_received": 200,
+      "total_sessions": 253,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7635,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "e5c6acac",
+      "name": "User_49",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 260,
+      "total_credits_received": 260,
+      "total_sessions": 58,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6465,
+      "seats_invited": 16,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "636af802",
+      "name": "User_50",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 235,
+      "total_credits_received": 235,
+      "total_sessions": 262,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7825,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "5af4657d",
+      "name": "User_51",
+      "persona": "tire_kicker",
+      "intent_score": 0.134,
+      "credit_balance": 140,
+      "total_credits_received": 140,
+      "total_sessions": 5,
+      "feature_depth": 0.4477892938441376,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "13dd2840",
+      "name": "User_52",
+      "persona": "growing_team",
+      "intent_score": 0.81,
+      "credit_balance": 255,
+      "total_credits_received": 255,
+      "total_sessions": 46,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2398,
+      "seats_invited": 18,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "899ca3ff",
+      "name": "User_53",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 235,
+      "total_credits_received": 235,
+      "total_sessions": 241,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 8064,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "2f9901ee",
+      "name": "User_54",
+      "persona": "tire_kicker",
+      "intent_score": 0.129,
+      "credit_balance": 120,
+      "total_credits_received": 120,
+      "total_sessions": 12,
+      "feature_depth": 0.4297308966021889,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "54b63a1e",
+      "name": "User_55",
+      "persona": "growing_team",
+      "intent_score": 0.78,
+      "credit_balance": 215,
+      "total_credits_received": 215,
+      "total_sessions": 56,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 1940,
+      "seats_invited": 13,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "a47745f7",
+      "name": "User_56",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 100,
+      "total_credits_received": 100,
+      "total_sessions": 242,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 8213,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "e34ceed4",
+      "name": "User_57",
+      "persona": "tire_kicker",
+      "intent_score": 0.131,
+      "credit_balance": 210,
+      "total_credits_received": 210,
+      "total_sessions": 8,
+      "feature_depth": 0.4378494540458281,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "e903add4",
+      "name": "User_58",
+      "persona": "tire_kicker",
+      "intent_score": 0.141,
+      "credit_balance": 190,
+      "total_credits_received": 190,
+      "total_sessions": 10,
+      "feature_depth": 0.46964390932591743,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "f4f9cdff",
+      "name": "User_59",
+      "persona": "growing_team",
+      "intent_score": 0.87,
+      "credit_balance": 325,
+      "total_credits_received": 325,
+      "total_sessions": 49,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2285,
+      "seats_invited": 11,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "845f54e7",
+      "name": "User_60",
+      "persona": "tire_kicker",
+      "intent_score": 0.138,
+      "credit_balance": 140,
+      "total_credits_received": 140,
+      "total_sessions": 5,
+      "feature_depth": 0.45942899682656047,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "e1cd0d26",
+      "name": "User_61",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 275,
+      "total_credits_received": 275,
+      "total_sessions": 48,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3499,
+      "seats_invited": 20,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "a7625326",
+      "name": "User_62",
+      "persona": "tire_kicker",
+      "intent_score": 0.135,
+      "credit_balance": 120,
+      "total_credits_received": 120,
+      "total_sessions": 12,
+      "feature_depth": 0.449382729339375,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "de3e3fee",
+      "name": "User_63",
+      "persona": "tire_kicker",
+      "intent_score": 0.149,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 8,
+      "feature_depth": 0.4974629695708154,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "3b8d9012",
+      "name": "User_64",
+      "persona": "tire_kicker",
+      "intent_score": 0.141,
+      "credit_balance": 180,
+      "total_credits_received": 180,
+      "total_sessions": 7,
+      "feature_depth": 0.47041940564080875,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "7f9e2427",
+      "name": "User_65",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 247,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7639,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "da8e7a57",
+      "name": "User_66",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 50,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3241,
+      "seats_invited": 15,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "93e42875",
+      "name": "User_67",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 225,
+      "total_credits_received": 225,
+      "total_sessions": 256,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7656,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "321d8d80",
+      "name": "User_68",
+      "persona": "tire_kicker",
+      "intent_score": 0.139,
+      "credit_balance": 170,
+      "total_credits_received": 170,
+      "total_sessions": 8,
+      "feature_depth": 0.46443059595536185,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "fe26f1e2",
+      "name": "User_69",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 200,
+      "total_credits_received": 200,
+      "total_sessions": 70,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6236,
+      "seats_invited": 17,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "eaf70435",
+      "name": "User_70",
+      "persona": "growing_team",
+      "intent_score": 0.84,
+      "credit_balance": 220,
+      "total_credits_received": 220,
+      "total_sessions": 49,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2929,
+      "seats_invited": 15,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "72c522a1",
+      "name": "User_71",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 210,
+      "total_credits_received": 210,
+      "total_sessions": 62,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6357,
+      "seats_invited": 15,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "c6c0aef6",
+      "name": "User_72",
+      "persona": "tire_kicker",
+      "intent_score": 0.142,
+      "credit_balance": 170,
+      "total_credits_received": 170,
+      "total_sessions": 4,
+      "feature_depth": 0.47252031110067394,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "84c09cb7",
+      "name": "User_73",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 275,
+      "total_credits_received": 275,
+      "total_sessions": 239,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7889,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "ab44adce",
+      "name": "User_74",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 200,
+      "total_credits_received": 200,
+      "total_sessions": 57,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6586,
+      "seats_invited": 14,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "d78a6c9a",
+      "name": "User_75",
+      "persona": "tire_kicker",
+      "intent_score": 0.128,
+      "credit_balance": 170,
+      "total_credits_received": 170,
+      "total_sessions": 6,
+      "feature_depth": 0.4272148669409681,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "a4d0581a",
+      "name": "User_76",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 228,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 8058,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "c7afc6e6",
+      "name": "User_77",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 195,
+      "total_credits_received": 195,
+      "total_sessions": 63,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6444,
+      "seats_invited": 13,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "6bebb9ea",
+      "name": "User_78",
+      "persona": "growing_team",
+      "intent_score": 0.87,
+      "credit_balance": 250,
+      "total_credits_received": 250,
+      "total_sessions": 50,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2863,
+      "seats_invited": 17,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "9158bc1b",
+      "name": "User_79",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 100,
+      "total_credits_received": 100,
+      "total_sessions": 52,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2596,
+      "seats_invited": 18,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "8b38335a",
+      "name": "User_80",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 100,
+      "total_credits_received": 100,
+      "total_sessions": 54,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6479,
+      "seats_invited": 12,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "43685eef",
+      "name": "User_81",
+      "persona": "enterprise",
+      "intent_score": 0.9,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 60,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6384,
+      "seats_invited": 5,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "5afd78e0",
+      "name": "User_82",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 310,
+      "total_credits_received": 310,
+      "total_sessions": 60,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6510,
+      "seats_invited": 15,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "8f9193a9",
+      "name": "User_83",
+      "persona": "tire_kicker",
+      "intent_score": 0.13,
+      "credit_balance": 170,
+      "total_credits_received": 170,
+      "total_sessions": 10,
+      "feature_depth": 0.4328277845003518,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "675063c7",
+      "name": "User_84",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 252,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7590,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "1bd00423",
+      "name": "User_85",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 230,
+      "total_credits_received": 230,
+      "total_sessions": 45,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3171,
+      "seats_invited": 18,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "4e41faec",
+      "name": "User_86",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 234,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 8206,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "c4a93d03",
+      "name": "User_87",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 110,
+      "total_credits_received": 110,
+      "total_sessions": 54,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6422,
+      "seats_invited": 13,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "7c683519",
+      "name": "User_88",
+      "persona": "tire_kicker",
+      "intent_score": 0.131,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 8,
+      "feature_depth": 0.4352066114453406,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "8a127e4f",
+      "name": "User_89",
+      "persona": "tire_kicker",
+      "intent_score": 0.139,
+      "credit_balance": 190,
+      "total_credits_received": 190,
+      "total_sessions": 9,
+      "feature_depth": 0.4645831271332013,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "e010c097",
+      "name": "User_90",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 235,
+      "total_credits_received": 235,
+      "total_sessions": 57,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6380,
+      "seats_invited": 14,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "45c93071",
+      "name": "User_91",
+      "persona": "tire_kicker",
+      "intent_score": 0.131,
+      "credit_balance": 220,
+      "total_credits_received": 220,
+      "total_sessions": 6,
+      "feature_depth": 0.4361010415028678,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "3317350f",
+      "name": "User_92",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 225,
+      "total_credits_received": 225,
+      "total_sessions": 53,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6294,
+      "seats_invited": 10,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "52e50e39",
+      "name": "User_93",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 135,
+      "total_credits_received": 135,
+      "total_sessions": 51,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6500,
+      "seats_invited": 12,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "879025fd",
+      "name": "User_94",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 236,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7628,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "22b0a41d",
+      "name": "User_95",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 175,
+      "total_credits_received": 175,
+      "total_sessions": 47,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6451,
+      "seats_invited": 10,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "f03f1aa2",
+      "name": "User_96",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 90,
+      "total_credits_received": 90,
+      "total_sessions": 53,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6117,
+      "seats_invited": 17,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "c4b0aac6",
+      "name": "User_97",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 235,
+      "total_credits_received": 235,
+      "total_sessions": 241,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 8107,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "d1ae3cc0",
+      "name": "User_98",
+      "persona": "growing_team",
+      "intent_score": 0.81,
+      "credit_balance": 215,
+      "total_credits_received": 215,
+      "total_sessions": 43,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2873,
+      "seats_invited": 21,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "c0ce5812",
+      "name": "User_99",
+      "persona": "tire_kicker",
+      "intent_score": 0.141,
+      "credit_balance": 200,
+      "total_credits_received": 200,
+      "total_sessions": 9,
+      "feature_depth": 0.47008096072530053,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "593c71ce",
+      "name": "User_100",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 135,
+      "total_credits_received": 135,
+      "total_sessions": 234,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7947,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "8674ac1a",
+      "name": "User_101",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 225,
+      "total_credits_received": 225,
+      "total_sessions": 256,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7679,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "e6d82c1e",
+      "name": "User_102",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 235,
+      "total_credits_received": 235,
+      "total_sessions": 48,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2498,
+      "seats_invited": 10,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "2ab931d6",
+      "name": "User_103",
+      "persona": "growing_team",
+      "intent_score": 0.79,
+      "credit_balance": 155,
+      "total_credits_received": 155,
+      "total_sessions": 54,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2030,
+      "seats_invited": 9,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "36a8f8dd",
+      "name": "User_104",
+      "persona": "tire_kicker",
+      "intent_score": 0.131,
+      "credit_balance": 240,
+      "total_credits_received": 240,
+      "total_sessions": 6,
+      "feature_depth": 0.43634537980078786,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "2917b31c",
+      "name": "User_105",
+      "persona": "growing_team",
+      "intent_score": 0.78,
+      "credit_balance": 330,
+      "total_credits_received": 330,
+      "total_sessions": 45,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 1953,
+      "seats_invited": 7,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "ee297b53",
+      "name": "User_106",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 125,
+      "total_credits_received": 125,
+      "total_sessions": 252,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7710,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "2787b1b8",
+      "name": "User_107",
+      "persona": "growing_team",
+      "intent_score": 0.86,
+      "credit_balance": 250,
+      "total_credits_received": 250,
+      "total_sessions": 52,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2028,
+      "seats_invited": 8,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "741717da",
+      "name": "User_108",
+      "persona": "growing_team",
+      "intent_score": 0.78,
+      "credit_balance": 220,
+      "total_credits_received": 220,
+      "total_sessions": 43,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3450,
+      "seats_invited": 13,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "0bbe6e90",
+      "name": "User_109",
+      "persona": "enterprise",
+      "intent_score": 0.9,
+      "credit_balance": 300,
+      "total_credits_received": 300,
+      "total_sessions": 56,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6436,
+      "seats_invited": 8,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "41031ee7",
+      "name": "User_110",
+      "persona": "tire_kicker",
+      "intent_score": 0.127,
+      "credit_balance": 230,
+      "total_credits_received": 230,
+      "total_sessions": 8,
+      "feature_depth": 0.42474406089605204,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "9cd98480",
+      "name": "User_111",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 145,
+      "total_credits_received": 145,
+      "total_sessions": 50,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3261,
+      "seats_invited": 15,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "da7b64df",
+      "name": "User_112",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 135,
+      "total_credits_received": 135,
+      "total_sessions": 259,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7838,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "9e4bd8be",
+      "name": "User_113",
+      "persona": "tire_kicker",
+      "intent_score": 0.143,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 5,
+      "feature_depth": 0.47635246372055245,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "c77d9dc5",
+      "name": "User_114",
+      "persona": "tire_kicker",
+      "intent_score": 0.139,
+      "credit_balance": 140,
+      "total_credits_received": 140,
+      "total_sessions": 14,
+      "feature_depth": 0.4625374788960053,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "928830c2",
+      "name": "User_115",
+      "persona": "growing_team",
+      "intent_score": 0.87,
+      "credit_balance": 340,
+      "total_credits_received": 340,
+      "total_sessions": 42,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 1892,
+      "seats_invited": 12,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "14036d04",
+      "name": "User_116",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 280,
+      "total_credits_received": 280,
+      "total_sessions": 63,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3008,
+      "seats_invited": 13,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "ec4837e4",
+      "name": "User_117",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 210,
+      "total_credits_received": 210,
+      "total_sessions": 239,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7595,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "ac1ab044",
+      "name": "User_118",
+      "persona": "enterprise",
+      "intent_score": 0.98,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 66,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6550,
+      "seats_invited": 9,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "29ea3f00",
+      "name": "User_119",
+      "persona": "tire_kicker",
+      "intent_score": 0.132,
+      "credit_balance": 180,
+      "total_credits_received": 180,
+      "total_sessions": 10,
+      "feature_depth": 0.44020634245846335,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "aa7ec163",
+      "name": "User_120",
+      "persona": "growing_team",
+      "intent_score": 0.81,
+      "credit_balance": 235,
+      "total_credits_received": 235,
+      "total_sessions": 56,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3427,
+      "seats_invited": 12,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "38fdc220",
+      "name": "User_121",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 110,
+      "total_credits_received": 110,
+      "total_sessions": 52,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2758,
+      "seats_invited": 12,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "32a599bd",
+      "name": "User_122",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 175,
+      "total_credits_received": 175,
+      "total_sessions": 224,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7551,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "92eb97c4",
+      "name": "User_123",
+      "persona": "tire_kicker",
+      "intent_score": 0.134,
+      "credit_balance": 170,
+      "total_credits_received": 170,
+      "total_sessions": 7,
+      "feature_depth": 0.44551523394302617,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "326e9c4b",
+      "name": "User_124",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 185,
+      "total_credits_received": 185,
+      "total_sessions": 241,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7847,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "70a71abd",
+      "name": "User_125",
+      "persona": "tire_kicker",
+      "intent_score": 0.121,
+      "credit_balance": 210,
+      "total_credits_received": 210,
+      "total_sessions": 11,
+      "feature_depth": 0.4027581502430559,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "3bd9dc37",
+      "name": "User_126",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 210,
+      "total_credits_received": 210,
+      "total_sessions": 226,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7759,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "96d0881b",
+      "name": "User_127",
+      "persona": "growing_team",
+      "intent_score": 0.78,
+      "credit_balance": 265,
+      "total_credits_received": 265,
+      "total_sessions": 44,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2678,
+      "seats_invited": 10,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "67539786",
+      "name": "User_128",
+      "persona": "tire_kicker",
+      "intent_score": 0.152,
+      "credit_balance": 190,
+      "total_credits_received": 190,
+      "total_sessions": 8,
+      "feature_depth": 0.5080284418150633,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "45de67cc",
+      "name": "User_129",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 100,
+      "total_credits_received": 100,
+      "total_sessions": 59,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6520,
+      "seats_invited": 11,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "c2149674",
+      "name": "User_130",
+      "persona": "growing_team",
+      "intent_score": 0.81,
+      "credit_balance": 105,
+      "total_credits_received": 105,
+      "total_sessions": 50,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3079,
+      "seats_invited": 18,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "da3a83dc",
+      "name": "User_131",
+      "persona": "growing_team",
+      "intent_score": 0.84,
+      "credit_balance": 220,
+      "total_credits_received": 220,
+      "total_sessions": 54,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2342,
+      "seats_invited": 13,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "aa475a6e",
+      "name": "User_132",
+      "persona": "growing_team",
+      "intent_score": 0.84,
+      "credit_balance": 105,
+      "total_credits_received": 105,
+      "total_sessions": 42,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3019,
+      "seats_invited": 16,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "93c625b8",
+      "name": "User_133",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 100,
+      "total_credits_received": 100,
+      "total_sessions": 239,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7731,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "249343cd",
+      "name": "User_134",
+      "persona": "tire_kicker",
+      "intent_score": 0.127,
+      "credit_balance": 230,
+      "total_credits_received": 230,
+      "total_sessions": 9,
+      "feature_depth": 0.42182047678529266,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "7bb71230",
+      "name": "User_135",
+      "persona": "tire_kicker",
+      "intent_score": 0.125,
+      "credit_balance": 170,
+      "total_credits_received": 170,
+      "total_sessions": 7,
+      "feature_depth": 0.4152664075804044,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "3f34289b",
+      "name": "User_136",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 185,
+      "total_credits_received": 185,
+      "total_sessions": 69,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6666,
+      "seats_invited": 16,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "91e4848d",
+      "name": "User_137",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 110,
+      "total_credits_received": 110,
+      "total_sessions": 234,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7534,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "3fae4fea",
+      "name": "User_138",
+      "persona": "tire_kicker",
+      "intent_score": 0.132,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 5,
+      "feature_depth": 0.44165812167648666,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "1c554d04",
+      "name": "User_139",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 235,
+      "total_credits_received": 235,
+      "total_sessions": 40,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3102,
+      "seats_invited": 13,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "764a6a8c",
+      "name": "User_140",
+      "persona": "tire_kicker",
+      "intent_score": 0.134,
+      "credit_balance": 180,
+      "total_credits_received": 180,
+      "total_sessions": 10,
+      "feature_depth": 0.447461201405816,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "33b042eb",
+      "name": "User_141",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 100,
+      "total_credits_received": 100,
+      "total_sessions": 238,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7651,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "08027b8c",
+      "name": "User_142",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 185,
+      "total_credits_received": 185,
+      "total_sessions": 238,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7939,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "2562c516",
+      "name": "User_143",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 77,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6450,
+      "seats_invited": 14,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "40192cb0",
+      "name": "User_144",
+      "persona": "tire_kicker",
+      "intent_score": 0.138,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 13,
+      "feature_depth": 0.4615058699122253,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "9f737ec2",
+      "name": "User_145",
+      "persona": "tire_kicker",
+      "intent_score": 0.126,
+      "credit_balance": 170,
+      "total_credits_received": 170,
+      "total_sessions": 10,
+      "feature_depth": 0.42125736713769335,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "244c0602",
+      "name": "User_146",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 260,
+      "total_credits_received": 260,
+      "total_sessions": 247,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7825,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "c2c98d13",
+      "name": "User_147",
+      "persona": "tire_kicker",
+      "intent_score": 0.154,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 8,
+      "feature_depth": 0.5147035926957699,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "5cf97e57",
+      "name": "User_148",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 270,
+      "total_credits_received": 270,
+      "total_sessions": 61,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6286,
+      "seats_invited": 13,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "09757816",
+      "name": "User_149",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 115,
+      "total_credits_received": 115,
+      "total_sessions": 263,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7691,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "3e453364",
+      "name": "User_150",
+      "persona": "tire_kicker",
+      "intent_score": 0.126,
+      "credit_balance": 110,
+      "total_credits_received": 110,
+      "total_sessions": 9,
+      "feature_depth": 0.41833595820973585,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "43738159",
+      "name": "User_151",
+      "persona": "tire_kicker",
+      "intent_score": 0.134,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 9,
+      "feature_depth": 0.4481751494251099,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "d71d3cf1",
+      "name": "User_152",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 130,
+      "total_credits_received": 130,
+      "total_sessions": 36,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3276,
+      "seats_invited": 16,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "bc9965d0",
+      "name": "User_153",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 145,
+      "total_credits_received": 145,
+      "total_sessions": 61,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6476,
+      "seats_invited": 21,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "6d4e1b70",
+      "name": "User_154",
+      "persona": "tire_kicker",
+      "intent_score": 0.143,
+      "credit_balance": 200,
+      "total_credits_received": 200,
+      "total_sessions": 9,
+      "feature_depth": 0.4753846044396372,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "f212718b",
+      "name": "User_155",
+      "persona": "enterprise",
+      "intent_score": 0.98,
+      "credit_balance": 235,
+      "total_credits_received": 235,
+      "total_sessions": 61,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6480,
+      "seats_invited": 9,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "63462711",
+      "name": "User_156",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 270,
+      "total_credits_received": 270,
+      "total_sessions": 51,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2752,
+      "seats_invited": 12,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "aeef4e15",
+      "name": "User_157",
+      "persona": "growing_team",
+      "intent_score": 0.87,
+      "credit_balance": 215,
+      "total_credits_received": 215,
+      "total_sessions": 42,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2267,
+      "seats_invited": 12,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "c36bdfce",
+      "name": "User_158",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 210,
+      "total_credits_received": 210,
+      "total_sessions": 46,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6540,
+      "seats_invited": 12,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "0b6ea49b",
+      "name": "User_159",
+      "persona": "tire_kicker",
+      "intent_score": 0.123,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 9,
+      "feature_depth": 0.411044964642403,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "264fde1c",
+      "name": "User_160",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 200,
+      "total_credits_received": 200,
+      "total_sessions": 54,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6639,
+      "seats_invited": 15,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "193bd53f",
+      "name": "User_161",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 85,
+      "total_credits_received": 85,
+      "total_sessions": 53,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3053,
+      "seats_invited": 19,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "d6de5749",
+      "name": "User_162",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 265,
+      "total_credits_received": 265,
+      "total_sessions": 48,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2396,
+      "seats_invited": 10,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "644c6940",
+      "name": "User_163",
+      "persona": "tire_kicker",
+      "intent_score": 0.143,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 5,
+      "feature_depth": 0.4759503737349571,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "f1988f03",
+      "name": "User_164",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 145,
+      "total_credits_received": 145,
+      "total_sessions": 46,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2954,
+      "seats_invited": 15,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "371e4699",
+      "name": "User_165",
+      "persona": "growing_team",
+      "intent_score": 0.84,
+      "credit_balance": 175,
+      "total_credits_received": 175,
+      "total_sessions": 50,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3009,
+      "seats_invited": 19,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "a1c8ce8b",
+      "name": "User_166",
+      "persona": "tire_kicker",
+      "intent_score": 0.138,
+      "credit_balance": 240,
+      "total_credits_received": 240,
+      "total_sessions": 9,
+      "feature_depth": 0.4589443996076824,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "9352de6a",
+      "name": "User_167",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 105,
+      "total_credits_received": 105,
+      "total_sessions": 51,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3095,
+      "seats_invited": 15,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "4d24f487",
+      "name": "User_168",
+      "persona": "enterprise",
+      "intent_score": 0.98,
+      "credit_balance": 100,
+      "total_credits_received": 100,
+      "total_sessions": 66,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6486,
+      "seats_invited": 9,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "fb930f4c",
+      "name": "User_169",
+      "persona": "tire_kicker",
+      "intent_score": 0.13,
+      "credit_balance": 100,
+      "total_credits_received": 100,
+      "total_sessions": 7,
+      "feature_depth": 0.43389051262216266,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "00ec7dbb",
+      "name": "User_170",
+      "persona": "tire_kicker",
+      "intent_score": 0.129,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 12,
+      "feature_depth": 0.4315789969478417,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "71757730",
+      "name": "User_171",
+      "persona": "tire_kicker",
+      "intent_score": 0.145,
+      "credit_balance": 190,
+      "total_credits_received": 190,
+      "total_sessions": 11,
+      "feature_depth": 0.4843919944815818,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "35f94dc3",
+      "name": "User_172",
+      "persona": "tire_kicker",
+      "intent_score": 0.151,
+      "credit_balance": 170,
+      "total_credits_received": 170,
+      "total_sessions": 8,
+      "feature_depth": 0.503526678836354,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "1b49faf5",
+      "name": "User_173",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 260,
+      "total_credits_received": 260,
+      "total_sessions": 44,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3276,
+      "seats_invited": 12,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "9274a8b4",
+      "name": "User_174",
+      "persona": "growing_team",
+      "intent_score": 0.76,
+      "credit_balance": 325,
+      "total_credits_received": 325,
+      "total_sessions": 49,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2337,
+      "seats_invited": 9,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "4aae8a63",
+      "name": "User_175",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 242,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7738,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "560964bd",
+      "name": "User_176",
+      "persona": "tire_kicker",
+      "intent_score": 0.153,
+      "credit_balance": 180,
+      "total_credits_received": 180,
+      "total_sessions": 12,
+      "feature_depth": 0.5113119491461295,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "dbb07f30",
+      "name": "User_177",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 180,
+      "total_credits_received": 180,
+      "total_sessions": 47,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3338,
+      "seats_invited": 12,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "6c33d0d3",
+      "name": "User_178",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 145,
+      "total_credits_received": 145,
+      "total_sessions": 50,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2629,
+      "seats_invited": 19,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "28244b7a",
+      "name": "User_179",
+      "persona": "growing_team",
+      "intent_score": 0.87,
+      "credit_balance": 120,
+      "total_credits_received": 120,
+      "total_sessions": 53,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3213,
+      "seats_invited": 16,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "6ba3386d",
+      "name": "User_180",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 185,
+      "total_credits_received": 185,
+      "total_sessions": 53,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3256,
+      "seats_invited": 12,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "44d45f6e",
+      "name": "User_181",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 215,
+      "total_credits_received": 215,
+      "total_sessions": 245,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7802,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "0b1d2469",
+      "name": "User_182",
+      "persona": "tire_kicker",
+      "intent_score": 0.136,
+      "credit_balance": 170,
+      "total_credits_received": 170,
+      "total_sessions": 3,
+      "feature_depth": 0.4530647810824102,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "771f53c2",
+      "name": "User_183",
+      "persona": "growing_team",
+      "intent_score": 0.83,
+      "credit_balance": 395,
+      "total_credits_received": 395,
+      "total_sessions": 56,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2692,
+      "seats_invited": 8,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "9cee092c",
+      "name": "User_184",
+      "persona": "enterprise",
+      "intent_score": 0.98,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 54,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6517,
+      "seats_invited": 9,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "1a4ad9d2",
+      "name": "User_185",
+      "persona": "tire_kicker",
+      "intent_score": 0.126,
+      "credit_balance": 110,
+      "total_credits_received": 110,
+      "total_sessions": 9,
+      "feature_depth": 0.4189242662059287,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "ecd025b5",
+      "name": "User_186",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 85,
+      "total_credits_received": 85,
+      "total_sessions": 265,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7794,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "023d69eb",
+      "name": "User_187",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 160,
+      "total_credits_received": 160,
+      "total_sessions": 55,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6275,
+      "seats_invited": 15,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "14081739",
+      "name": "User_188",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 110,
+      "total_credits_received": 110,
+      "total_sessions": 245,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7522,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "79a33fdc",
+      "name": "User_189",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 135,
+      "total_credits_received": 135,
+      "total_sessions": 240,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7725,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "b6443fb3",
+      "name": "User_190",
+      "persona": "power_user",
+      "intent_score": 0.77,
+      "credit_balance": 145,
+      "total_credits_received": 145,
+      "total_sessions": 257,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7896,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "0a4801dc",
+      "name": "User_191",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 200,
+      "total_credits_received": 200,
+      "total_sessions": 239,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7870,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "3a61c504",
+      "name": "User_192",
+      "persona": "growing_team",
+      "intent_score": 0.84,
+      "credit_balance": 95,
+      "total_credits_received": 95,
+      "total_sessions": 47,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 2786,
+      "seats_invited": 7,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "ca4b89ca",
+      "name": "User_193",
+      "persona": "tire_kicker",
+      "intent_score": 0.153,
+      "credit_balance": 200,
+      "total_credits_received": 200,
+      "total_sessions": 8,
+      "feature_depth": 0.5115023149216578,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "21b75f8a",
+      "name": "User_194",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 200,
+      "total_credits_received": 200,
+      "total_sessions": 233,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 7718,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "d742c097",
+      "name": "User_195",
+      "persona": "power_user",
+      "intent_score": 0.8,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 253,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 8116,
+      "seats_invited": 0,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "0e81e4f2",
+      "name": "User_196",
+      "persona": "tire_kicker",
+      "intent_score": 0.122,
+      "credit_balance": 180,
+      "total_credits_received": 180,
+      "total_sessions": 4,
+      "feature_depth": 0.40512253540822396,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 0,
+      "seats_invited": 0,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "f1c7772b",
+      "name": "User_197",
+      "persona": "growing_team",
+      "intent_score": 0.9,
+      "credit_balance": 150,
+      "total_credits_received": 150,
+      "total_sessions": 54,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3465,
+      "seats_invited": 21,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "c81a845f",
+      "name": "User_198",
+      "persona": "growing_team",
+      "intent_score": 0.81,
+      "credit_balance": 170,
+      "total_credits_received": 170,
+      "total_sessions": 53,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 3137,
+      "seats_invited": 19,
+      "friction_proximity": 0.0,
+      "current_state": "onboarding"
+    },
+    {
+      "id": "6e0676ce",
+      "name": "User_199",
+      "persona": "enterprise",
+      "intent_score": 1.0,
+      "credit_balance": 125,
+      "total_credits_received": 125,
+      "total_sessions": 64,
+      "feature_depth": 1.0,
+      "last_active": "2025-12-15T07:47:40.727952",
+      "api_usage_vol": 6569,
+      "seats_invited": 12,
+      "friction_proximity": 1.0,
+      "current_state": "onboarding"
+    }
+  ],
+  "history": [
+    {
+      "tick": 1,
+      "timestamp": "2025-12-05T08:47:40.727952",
+      "tier_counts": {
+        "low": 10000,
+        "mid": 0,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 4570
+    },
+    {
+      "tick": 2,
+      "timestamp": "2025-12-05T09:47:40.727952",
+      "tier_counts": {
+        "low": 10000,
+        "mid": 0,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 4840
+    },
+    {
+      "tick": 3,
+      "timestamp": "2025-12-05T10:47:40.727952",
+      "tier_counts": {
+        "low": 10000,
+        "mid": 0,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 4370
+    },
+    {
+      "tick": 4,
+      "timestamp": "2025-12-05T11:47:40.727952",
+      "tier_counts": {
+        "low": 10000,
+        "mid": 0,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 5390
+    },
+    {
+      "tick": 5,
+      "timestamp": "2025-12-05T12:47:40.727952",
+      "tier_counts": {
+        "low": 10000,
+        "mid": 0,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 4850
+    },
+    {
+      "tick": 6,
+      "timestamp": "2025-12-05T13:47:40.727952",
+      "tier_counts": {
+        "low": 10000,
+        "mid": 0,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 4520
+    },
+    {
+      "tick": 7,
+      "timestamp": "2025-12-05T14:47:40.727952",
+      "tier_counts": {
+        "low": 10000,
+        "mid": 0,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 5010
+    },
+    {
+      "tick": 8,
+      "timestamp": "2025-12-05T15:47:40.727952",
+      "tier_counts": {
+        "low": 10000,
+        "mid": 0,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 5020
+    },
+    {
+      "tick": 9,
+      "timestamp": "2025-12-05T16:47:40.727952",
+      "tier_counts": {
+        "low": 10000,
+        "mid": 0,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 5280
+    },
+    {
+      "tick": 10,
+      "timestamp": "2025-12-05T17:47:40.727952",
+      "tier_counts": {
+        "low": 9995,
+        "mid": 5,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 4880
+    },
+    {
+      "tick": 11,
+      "timestamp": "2025-12-05T18:47:40.727952",
+      "tier_counts": {
+        "low": 9943,
+        "mid": 57,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 5275
+    },
+    {
+      "tick": 12,
+      "timestamp": "2025-12-05T19:47:40.727952",
+      "tier_counts": {
+        "low": 9698,
+        "mid": 302,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 5920
+    },
+    {
+      "tick": 13,
+      "timestamp": "2025-12-05T20:47:40.727952",
+      "tier_counts": {
+        "low": 9096,
+        "mid": 904,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 6755
+    },
+    {
+      "tick": 14,
+      "timestamp": "2025-12-05T21:47:40.727952",
+      "tier_counts": {
+        "low": 8260,
+        "mid": 1740,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 7930
+    },
+    {
+      "tick": 15,
+      "timestamp": "2025-12-05T22:47:40.727952",
+      "tier_counts": {
+        "low": 7547,
+        "mid": 2453,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 10530
+    },
+    {
+      "tick": 16,
+      "timestamp": "2025-12-05T23:47:40.727952",
+      "tier_counts": {
+        "low": 7081,
+        "mid": 2919,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 10725
+    },
+    {
+      "tick": 17,
+      "timestamp": "2025-12-06T00:47:40.727952",
+      "tier_counts": {
+        "low": 6763,
+        "mid": 3237,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 12095
+    },
+    {
+      "tick": 18,
+      "timestamp": "2025-12-06T01:47:40.727952",
+      "tier_counts": {
+        "low": 6601,
+        "mid": 3399,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 12120
+    },
+    {
+      "tick": 19,
+      "timestamp": "2025-12-06T02:47:40.727952",
+      "tier_counts": {
+        "low": 6543,
+        "mid": 3457,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 11745
+    },
+    {
+      "tick": 20,
+      "timestamp": "2025-12-06T03:47:40.727952",
+      "tier_counts": {
+        "low": 6532,
+        "mid": 3468,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 11655
+    },
+    {
+      "tick": 21,
+      "timestamp": "2025-12-06T04:47:40.727952",
+      "tier_counts": {
+        "low": 6531,
+        "mid": 3469,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 12180
+    },
+    {
+      "tick": 22,
+      "timestamp": "2025-12-06T05:47:40.727952",
+      "tier_counts": {
+        "low": 6528,
+        "mid": 3472,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 11510
+    },
+    {
+      "tick": 23,
+      "timestamp": "2025-12-06T06:47:40.727952",
+      "tier_counts": {
+        "low": 6525,
+        "mid": 3475,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 12095
+    },
+    {
+      "tick": 24,
+      "timestamp": "2025-12-06T07:47:40.727952",
+      "tier_counts": {
+        "low": 6520,
+        "mid": 3480,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 12245
+    },
+    {
+      "tick": 25,
+      "timestamp": "2025-12-06T08:47:40.727952",
+      "tier_counts": {
+        "low": 6518,
+        "mid": 3482,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 11235
+    },
+    {
+      "tick": 26,
+      "timestamp": "2025-12-06T09:47:40.727952",
+      "tier_counts": {
+        "low": 6503,
+        "mid": 3497,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 11830
+    },
+    {
+      "tick": 27,
+      "timestamp": "2025-12-06T10:47:40.727952",
+      "tier_counts": {
+        "low": 6493,
+        "mid": 3507,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 11985
+    },
+    {
+      "tick": 28,
+      "timestamp": "2025-12-06T11:47:40.727952",
+      "tier_counts": {
+        "low": 6482,
+        "mid": 3518,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 11225
+    },
+    {
+      "tick": 29,
+      "timestamp": "2025-12-06T12:47:40.727952",
+      "tier_counts": {
+        "low": 6462,
+        "mid": 3538,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 12440
+    },
+    {
+      "tick": 30,
+      "timestamp": "2025-12-06T13:47:40.727952",
+      "tier_counts": {
+        "low": 6425,
+        "mid": 3575,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 12895
+    },
+    {
+      "tick": 31,
+      "timestamp": "2025-12-06T14:47:40.727952",
+      "tier_counts": {
+        "low": 6405,
+        "mid": 3595,
+        "high": 0,
+        "paid": 0
+      },
+      "credits_dispersed": 12005
+    },
+    {
+      "tick": 32,
+      "timestamp": "2025-12-06T15:47:40.727952",
+      "tier_counts": {
+        "low": 6370,
+        "mid": 3628,
+        "high": 2,
+        "paid": 0
+      },
+      "credits_dispersed": 12565
+    },
+    {
+      "tick": 33,
+      "timestamp": "2025-12-06T16:47:40.727952",
+      "tier_counts": {
+        "low": 6343,
+        "mid": 3652,
+        "high": 5,
+        "paid": 0
+      },
+      "credits_dispersed": 13100
+    },
+    {
+      "tick": 34,
+      "timestamp": "2025-12-06T17:47:40.727952",
+      "tier_counts": {
+        "low": 6311,
+        "mid": 3683,
+        "high": 6,
+        "paid": 0
+      },
+      "credits_dispersed": 12695
+    },
+    {
+      "tick": 35,
+      "timestamp": "2025-12-06T18:47:40.727952",
+      "tier_counts": {
+        "low": 6259,
+        "mid": 3730,
+        "high": 11,
+        "paid": 0
+      },
+      "credits_dispersed": 12490
+    },
+    {
+      "tick": 36,
+      "timestamp": "2025-12-06T19:47:40.727952",
+      "tier_counts": {
+        "low": 6226,
+        "mid": 3757,
+        "high": 17,
+        "paid": 0
+      },
+      "credits_dispersed": 12105
+    },
+    {
+      "tick": 37,
+      "timestamp": "2025-12-06T20:47:40.727952",
+      "tier_counts": {
+        "low": 6172,
+        "mid": 3806,
+        "high": 22,
+        "paid": 0
+      },
+      "credits_dispersed": 12260
+    },
+    {
+      "tick": 38,
+      "timestamp": "2025-12-06T21:47:40.727952",
+      "tier_counts": {
+        "low": 6121,
+        "mid": 3841,
+        "high": 38,
+        "paid": 0
+      },
+      "credits_dispersed": 12620
+    },
+    {
+      "tick": 39,
+      "timestamp": "2025-12-06T22:47:40.727952",
+      "tier_counts": {
+        "low": 6066,
+        "mid": 3876,
+        "high": 58,
+        "paid": 0
+      },
+      "credits_dispersed": 12060
+    },
+    {
+      "tick": 40,
+      "timestamp": "2025-12-06T23:47:40.727952",
+      "tier_counts": {
+        "low": 5998,
+        "mid": 3918,
+        "high": 84,
+        "paid": 0
+      },
+      "credits_dispersed": 12890
+    },
+    {
+      "tick": 41,
+      "timestamp": "2025-12-07T00:47:40.727952",
+      "tier_counts": {
+        "low": 5937,
+        "mid": 3947,
+        "high": 116,
+        "paid": 0
+      },
+      "credits_dispersed": 12435
+    },
+    {
+      "tick": 42,
+      "timestamp": "2025-12-07T01:47:40.727952",
+      "tier_counts": {
+        "low": 5876,
+        "mid": 3962,
+        "high": 162,
+        "paid": 0
+      },
+      "credits_dispersed": 13165
+    },
+    {
+      "tick": 43,
+      "timestamp": "2025-12-07T02:47:40.727952",
+      "tier_counts": {
+        "low": 5807,
+        "mid": 3966,
+        "high": 227,
+        "paid": 0
+      },
+      "credits_dispersed": 13010
+    },
+    {
+      "tick": 44,
+      "timestamp": "2025-12-07T03:47:40.727952",
+      "tier_counts": {
+        "low": 5732,
+        "mid": 3956,
+        "high": 312,
+        "paid": 0
+      },
+      "credits_dispersed": 13130
+    },
+    {
+      "tick": 45,
+      "timestamp": "2025-12-07T04:47:40.727952",
+      "tier_counts": {
+        "low": 5658,
+        "mid": 3957,
+        "high": 385,
+        "paid": 0
+      },
+      "credits_dispersed": 13230
+    },
+    {
+      "tick": 46,
+      "timestamp": "2025-12-07T05:47:40.727952",
+      "tier_counts": {
+        "low": 5596,
+        "mid": 3912,
+        "high": 492,
+        "paid": 0
+      },
+      "credits_dispersed": 13185
+    },
+    {
+      "tick": 47,
+      "timestamp": "2025-12-07T06:47:40.727952",
+      "tier_counts": {
+        "low": 5541,
+        "mid": 3873,
+        "high": 586,
+        "paid": 0
+      },
+      "credits_dispersed": 12890
+    },
+    {
+      "tick": 48,
+      "timestamp": "2025-12-07T07:47:40.727952",
+      "tier_counts": {
+        "low": 5481,
+        "mid": 3835,
+        "high": 684,
+        "paid": 0
+      },
+      "credits_dispersed": 12300
+    },
+    {
+      "tick": 49,
+      "timestamp": "2025-12-07T08:47:40.727952",
+      "tier_counts": {
+        "low": 5415,
+        "mid": 3777,
+        "high": 808,
+        "paid": 0
+      },
+      "credits_dispersed": 12435
+    },
+    {
+      "tick": 50,
+      "timestamp": "2025-12-07T09:47:40.727952",
+      "tier_counts": {
+        "low": 5355,
+        "mid": 3660,
+        "high": 985,
+        "paid": 0
+      },
+      "credits_dispersed": 11985
+    },
+    {
+      "tick": 51,
+      "timestamp": "2025-12-07T10:47:40.727952",
+      "tier_counts": {
+        "low": 5285,
+        "mid": 3517,
+        "high": 1198,
+        "paid": 0
+      },
+      "credits_dispersed": 12325
+    },
+    {
+      "tick": 52,
+      "timestamp": "2025-12-07T11:47:40.727952",
+      "tier_counts": {
+        "low": 5242,
+        "mid": 3403,
+        "high": 1355,
+        "paid": 0
+      },
+      "credits_dispersed": 11790
+    },
+    {
+      "tick": 53,
+      "timestamp": "2025-12-07T12:47:40.727952",
+      "tier_counts": {
+        "low": 5177,
+        "mid": 3331,
+        "high": 1492,
+        "paid": 0
+      },
+      "credits_dispersed": 11085
+    },
+    {
+      "tick": 54,
+      "timestamp": "2025-12-07T13:47:40.727952",
+      "tier_counts": {
+        "low": 5126,
+        "mid": 3288,
+        "high": 1586,
+        "paid": 0
+      },
+      "credits_dispersed": 10300
+    },
+    {
+      "tick": 55,
+      "timestamp": "2025-12-07T14:47:40.727952",
+      "tier_counts": {
+        "low": 5065,
+        "mid": 3269,
+        "high": 1666,
+        "paid": 0
+      },
+      "credits_dispersed": 10320
+    },
+    {
+      "tick": 56,
+      "timestamp": "2025-12-07T15:47:40.727952",
+      "tier_counts": {
+        "low": 5000,
+        "mid": 3254,
+        "high": 1746,
+        "paid": 0
+      },
+      "credits_dispersed": 10650
+    },
+    {
+      "tick": 57,
+      "timestamp": "2025-12-07T16:47:40.727952",
+      "tier_counts": {
+        "low": 4950,
+        "mid": 3229,
+        "high": 1821,
+        "paid": 0
+      },
+      "credits_dispersed": 11110
+    },
+    {
+      "tick": 58,
+      "timestamp": "2025-12-07T17:47:40.727952",
+      "tier_counts": {
+        "low": 4896,
+        "mid": 3200,
+        "high": 1904,
+        "paid": 0
+      },
+      "credits_dispersed": 11015
+    },
+    {
+      "tick": 59,
+      "timestamp": "2025-12-07T18:47:40.727952",
+      "tier_counts": {
+        "low": 4841,
+        "mid": 3170,
+        "high": 1989,
+        "paid": 0
+      },
+      "credits_dispersed": 10305
+    },
+    {
+      "tick": 60,
+      "timestamp": "2025-12-07T19:47:40.727952",
+      "tier_counts": {
+        "low": 4800,
+        "mid": 3139,
+        "high": 2061,
+        "paid": 0
+      },
+      "credits_dispersed": 10420
+    },
+    {
+      "tick": 61,
+      "timestamp": "2025-12-07T20:47:40.727952",
+      "tier_counts": {
+        "low": 4750,
+        "mid": 3117,
+        "high": 2133,
+        "paid": 0
+      },
+      "credits_dispersed": 9515
+    },
+    {
+      "tick": 62,
+      "timestamp": "2025-12-07T21:47:40.727952",
+      "tier_counts": {
+        "low": 4704,
+        "mid": 3093,
+        "high": 2203,
+        "paid": 0
+      },
+      "credits_dispersed": 10445
+    },
+    {
+      "tick": 63,
+      "timestamp": "2025-12-07T22:47:40.727952",
+      "tier_counts": {
+        "low": 4655,
+        "mid": 3065,
+        "high": 2280,
+        "paid": 0
+      },
+      "credits_dispersed": 9375
+    },
+    {
+      "tick": 64,
+      "timestamp": "2025-12-07T23:47:40.727952",
+      "tier_counts": {
+        "low": 4593,
+        "mid": 3068,
+        "high": 2339,
+        "paid": 0
+      },
+      "credits_dispersed": 9190
+    },
+    {
+      "tick": 65,
+      "timestamp": "2025-12-08T00:47:40.727952",
+      "tier_counts": {
+        "low": 4545,
+        "mid": 3047,
+        "high": 2408,
+        "paid": 0
+      },
+      "credits_dispersed": 9430
+    },
+    {
+      "tick": 66,
+      "timestamp": "2025-12-08T01:47:40.727952",
+      "tier_counts": {
+        "low": 4508,
+        "mid": 3023,
+        "high": 2469,
+        "paid": 0
+      },
+      "credits_dispersed": 10035
+    },
+    {
+      "tick": 67,
+      "timestamp": "2025-12-08T02:47:40.727952",
+      "tier_counts": {
+        "low": 4462,
+        "mid": 3009,
+        "high": 2529,
+        "paid": 0
+      },
+      "credits_dispersed": 10130
+    },
+    {
+      "tick": 68,
+      "timestamp": "2025-12-08T03:47:40.727952",
+      "tier_counts": {
+        "low": 4429,
+        "mid": 2971,
+        "high": 2600,
+        "paid": 0
+      },
+      "credits_dispersed": 9090
+    },
+    {
+      "tick": 69,
+      "timestamp": "2025-12-08T04:47:40.727952",
+      "tier_counts": {
+        "low": 4385,
+        "mid": 2881,
+        "high": 2734,
+        "paid": 0
+      },
+      "credits_dispersed": 9950
+    },
+    {
+      "tick": 70,
+      "timestamp": "2025-12-08T05:47:40.727952",
+      "tier_counts": {
+        "low": 4345,
+        "mid": 2720,
+        "high": 2935,
+        "paid": 0
+      },
+      "credits_dispersed": 8740
+    },
+    {
+      "tick": 71,
+      "timestamp": "2025-12-08T06:47:40.727952",
+      "tier_counts": {
+        "low": 4315,
+        "mid": 2582,
+        "high": 3103,
+        "paid": 0
+      },
+      "credits_dispersed": 9370
+    },
+    {
+      "tick": 72,
+      "timestamp": "2025-12-08T07:47:40.727952",
+      "tier_counts": {
+        "low": 4273,
+        "mid": 2535,
+        "high": 3192,
+        "paid": 0
+      },
+      "credits_dispersed": 8705
+    },
+    {
+      "tick": 73,
+      "timestamp": "2025-12-08T08:47:40.727952",
+      "tier_counts": {
+        "low": 4232,
+        "mid": 2511,
+        "high": 3257,
+        "paid": 0
+      },
+      "credits_dispersed": 8300
+    },
+    {
+      "tick": 74,
+      "timestamp": "2025-12-08T09:47:40.727952",
+      "tier_counts": {
+        "low": 4199,
+        "mid": 2495,
+        "high": 3306,
+        "paid": 0
+      },
+      "credits_dispersed": 8615
+    },
+    {
+      "tick": 75,
+      "timestamp": "2025-12-08T10:47:40.727952",
+      "tier_counts": {
+        "low": 4165,
+        "mid": 2471,
+        "high": 3364,
+        "paid": 0
+      },
+      "credits_dispersed": 8705
+    },
+    {
+      "tick": 76,
+      "timestamp": "2025-12-08T11:47:40.727952",
+      "tier_counts": {
+        "low": 4124,
+        "mid": 2451,
+        "high": 3425,
+        "paid": 0
+      },
+      "credits_dispersed": 8370
+    },
+    {
+      "tick": 77,
+      "timestamp": "2025-12-08T12:47:40.727952",
+      "tier_counts": {
+        "low": 4097,
+        "mid": 2414,
+        "high": 3489,
+        "paid": 0
+      },
+      "credits_dispersed": 8150
+    },
+    {
+      "tick": 78,
+      "timestamp": "2025-12-08T13:47:40.727952",
+      "tier_counts": {
+        "low": 4073,
+        "mid": 2395,
+        "high": 3532,
+        "paid": 0
+      },
+      "credits_dispersed": 8200
+    },
+    {
+      "tick": 79,
+      "timestamp": "2025-12-08T14:47:40.727952",
+      "tier_counts": {
+        "low": 4053,
+        "mid": 2361,
+        "high": 3586,
+        "paid": 0
+      },
+      "credits_dispersed": 7965
+    },
+    {
+      "tick": 80,
+      "timestamp": "2025-12-08T15:47:40.727952",
+      "tier_counts": {
+        "low": 4029,
+        "mid": 2324,
+        "high": 3647,
+        "paid": 0
+      },
+      "credits_dispersed": 8655
+    },
+    {
+      "tick": 81,
+      "timestamp": "2025-12-08T16:47:40.727952",
+      "tier_counts": {
+        "low": 4013,
+        "mid": 2284,
+        "high": 3703,
+        "paid": 0
+      },
+      "credits_dispersed": 8165
+    },
+    {
+      "tick": 82,
+      "timestamp": "2025-12-08T17:47:40.727952",
+      "tier_counts": {
+        "low": 3987,
+        "mid": 2269,
+        "high": 3744,
+        "paid": 0
+      },
+      "credits_dispersed": 8190
+    },
+    {
+      "tick": 83,
+      "timestamp": "2025-12-08T18:47:40.727952",
+      "tier_counts": {
+        "low": 3965,
+        "mid": 2228,
+        "high": 3807,
+        "paid": 0
+      },
+      "credits_dispersed": 7745
+    },
+    {
+      "tick": 84,
+      "timestamp": "2025-12-08T19:47:40.727952",
+      "tier_counts": {
+        "low": 3938,
+        "mid": 2201,
+        "high": 3861,
+        "paid": 0
+      },
+      "credits_dispersed": 7940
+    },
+    {
+      "tick": 85,
+      "timestamp": "2025-12-08T20:47:40.727952",
+      "tier_counts": {
+        "low": 3912,
+        "mid": 2166,
+        "high": 3922,
+        "paid": 0
+      },
+      "credits_dispersed": 7540
+    },
+    {
+      "tick": 86,
+      "timestamp": "2025-12-08T21:47:40.727952",
+      "tier_counts": {
+        "low": 3898,
+        "mid": 2115,
+        "high": 3987,
+        "paid": 0
+      },
+      "credits_dispersed": 7045
+    },
+    {
+      "tick": 87,
+      "timestamp": "2025-12-08T22:47:40.727952",
+      "tier_counts": {
+        "low": 3873,
+        "mid": 2089,
+        "high": 4038,
+        "paid": 0
+      },
+      "credits_dispersed": 7265
+    },
+    {
+      "tick": 88,
+      "timestamp": "2025-12-08T23:47:40.727952",
+      "tier_counts": {
+        "low": 3852,
+        "mid": 2038,
+        "high": 4110,
+        "paid": 0
+      },
+      "credits_dispersed": 7100
+    },
+    {
+      "tick": 89,
+      "timestamp": "2025-12-09T00:47:40.727952",
+      "tier_counts": {
+        "low": 3834,
+        "mid": 1998,
+        "high": 4168,
+        "paid": 0
+      },
+      "credits_dispersed": 6745
+    },
+    {
+      "tick": 90,
+      "timestamp": "2025-12-09T01:47:40.727952",
+      "tier_counts": {
+        "low": 3812,
+        "mid": 1953,
+        "high": 4235,
+        "paid": 0
+      },
+      "credits_dispersed": 6580
+    },
+    {
+      "tick": 91,
+      "timestamp": "2025-12-09T02:47:40.727952",
+      "tier_counts": {
+        "low": 3802,
+        "mid": 1900,
+        "high": 4298,
+        "paid": 0
+      },
+      "credits_dispersed": 7090
+    },
+    {
+      "tick": 92,
+      "timestamp": "2025-12-09T03:47:40.727952",
+      "tier_counts": {
+        "low": 3788,
+        "mid": 1860,
+        "high": 4352,
+        "paid": 0
+      },
+      "credits_dispersed": 6595
+    },
+    {
+      "tick": 93,
+      "timestamp": "2025-12-09T04:47:40.727952",
+      "tier_counts": {
+        "low": 3778,
+        "mid": 1815,
+        "high": 4407,
+        "paid": 0
+      },
+      "credits_dispersed": 6260
+    },
+    {
+      "tick": 94,
+      "timestamp": "2025-12-09T05:47:40.727952",
+      "tier_counts": {
+        "low": 3765,
+        "mid": 1762,
+        "high": 4473,
+        "paid": 0
+      },
+      "credits_dispersed": 6385
+    },
+    {
+      "tick": 95,
+      "timestamp": "2025-12-09T06:47:40.727952",
+      "tier_counts": {
+        "low": 3752,
+        "mid": 1714,
+        "high": 4534,
+        "paid": 0
+      },
+      "credits_dispersed": 6480
+    },
+    {
+      "tick": 96,
+      "timestamp": "2025-12-09T07:47:40.727952",
+      "tier_counts": {
+        "low": 3740,
+        "mid": 1662,
+        "high": 4598,
+        "paid": 0
+      },
+      "credits_dispersed": 5790
+    },
+    {
+      "tick": 97,
+      "timestamp": "2025-12-09T08:47:40.727952",
+      "tier_counts": {
+        "low": 3731,
+        "mid": 1616,
+        "high": 4653,
+        "paid": 0
+      },
+      "credits_dispersed": 5730
+    },
+    {
+      "tick": 98,
+      "timestamp": "2025-12-09T09:47:40.727952",
+      "tier_counts": {
+        "low": 3718,
+        "mid": 1568,
+        "high": 4714,
+        "paid": 0
+      },
+      "credits_dispersed": 5905
+    },
+    {
+      "tick": 99,
+      "timestamp": "2025-12-09T10:47:40.727952",
+      "tier_counts": {
+        "low": 3704,
+        "mid": 1514,
+        "high": 4782,
+        "paid": 0
+      },
+      "credits_dispersed": 5415
+    },
+    {
+      "tick": 100,
+      "timestamp": "2025-12-09T11:47:40.727952",
+      "tier_counts": {
+        "low": 3691,
+        "mid": 1471,
+        "high": 4838,
+        "paid": 0
+      },
+      "credits_dispersed": 5300
+    },
+    {
+      "tick": 101,
+      "timestamp": "2025-12-09T12:47:40.727952",
+      "tier_counts": {
+        "low": 3679,
+        "mid": 1420,
+        "high": 4901,
+        "paid": 0
+      },
+      "credits_dispersed": 5420
+    },
+    {
+      "tick": 102,
+      "timestamp": "2025-12-09T13:47:40.727952",
+      "tier_counts": {
+        "low": 3664,
+        "mid": 1374,
+        "high": 4962,
+        "paid": 0
+      },
+      "credits_dispersed": 4630
+    },
+    {
+      "tick": 103,
+      "timestamp": "2025-12-09T14:47:40.727952",
+      "tier_counts": {
+        "low": 3653,
+        "mid": 1306,
+        "high": 5041,
+        "paid": 0
+      },
+      "credits_dispersed": 5385
+    },
+    {
+      "tick": 104,
+      "timestamp": "2025-12-09T15:47:40.727952",
+      "tier_counts": {
+        "low": 3641,
+        "mid": 1237,
+        "high": 5122,
+        "paid": 0
+      },
+      "credits_dispersed": 5320
+    },
+    {
+      "tick": 105,
+      "timestamp": "2025-12-09T16:47:40.727952",
+      "tier_counts": {
+        "low": 3627,
+        "mid": 1196,
+        "high": 5177,
+        "paid": 0
+      },
+      "credits_dispersed": 4330
+    },
+    {
+      "tick": 106,
+      "timestamp": "2025-12-09T17:47:40.727952",
+      "tier_counts": {
+        "low": 3621,
+        "mid": 1148,
+        "high": 5231,
+        "paid": 0
+      },
+      "credits_dispersed": 4515
+    },
+    {
+      "tick": 107,
+      "timestamp": "2025-12-09T18:47:40.727952",
+      "tier_counts": {
+        "low": 3618,
+        "mid": 1106,
+        "high": 5276,
+        "paid": 0
+      },
+      "credits_dispersed": 4640
+    },
+    {
+      "tick": 108,
+      "timestamp": "2025-12-09T19:47:40.727952",
+      "tier_counts": {
+        "low": 3612,
+        "mid": 1064,
+        "high": 5324,
+        "paid": 0
+      },
+      "credits_dispersed": 4950
+    },
+    {
+      "tick": 109,
+      "timestamp": "2025-12-09T20:47:40.727952",
+      "tier_counts": {
+        "low": 3606,
+        "mid": 1023,
+        "high": 5371,
+        "paid": 0
+      },
+      "credits_dispersed": 4125
+    },
+    {
+      "tick": 110,
+      "timestamp": "2025-12-09T21:47:40.727952",
+      "tier_counts": {
+        "low": 3597,
+        "mid": 991,
+        "high": 5412,
+        "paid": 0
+      },
+      "credits_dispersed": 4655
+    },
+    {
+      "tick": 111,
+      "timestamp": "2025-12-09T22:47:40.727952",
+      "tier_counts": {
+        "low": 3596,
+        "mid": 946,
+        "high": 5458,
+        "paid": 0
+      },
+      "credits_dispersed": 3735
+    },
+    {
+      "tick": 112,
+      "timestamp": "2025-12-09T23:47:40.727952",
+      "tier_counts": {
+        "low": 3592,
+        "mid": 915,
+        "high": 5493,
+        "paid": 0
+      },
+      "credits_dispersed": 4255
+    },
+    {
+      "tick": 113,
+      "timestamp": "2025-12-10T00:47:40.727952",
+      "tier_counts": {
+        "low": 3588,
+        "mid": 894,
+        "high": 5518,
+        "paid": 0
+      },
+      "credits_dispersed": 4060
+    },
+    {
+      "tick": 114,
+      "timestamp": "2025-12-10T01:47:40.727952",
+      "tier_counts": {
+        "low": 3584,
+        "mid": 864,
+        "high": 5552,
+        "paid": 0
+      },
+      "credits_dispersed": 3940
+    },
+    {
+      "tick": 115,
+      "timestamp": "2025-12-10T02:47:40.727952",
+      "tier_counts": {
+        "low": 3582,
+        "mid": 831,
+        "high": 5587,
+        "paid": 0
+      },
+      "credits_dispersed": 3810
+    },
+    {
+      "tick": 116,
+      "timestamp": "2025-12-10T03:47:40.727952",
+      "tier_counts": {
+        "low": 3577,
+        "mid": 812,
+        "high": 5611,
+        "paid": 0
+      },
+      "credits_dispersed": 4220
+    },
+    {
+      "tick": 117,
+      "timestamp": "2025-12-10T04:47:40.727952",
+      "tier_counts": {
+        "low": 3576,
+        "mid": 778,
+        "high": 5646,
+        "paid": 0
+      },
+      "credits_dispersed": 4175
+    },
+    {
+      "tick": 118,
+      "timestamp": "2025-12-10T05:47:40.727952",
+      "tier_counts": {
+        "low": 3574,
+        "mid": 754,
+        "high": 5672,
+        "paid": 0
+      },
+      "credits_dispersed": 3655
+    },
+    {
+      "tick": 119,
+      "timestamp": "2025-12-10T06:47:40.727952",
+      "tier_counts": {
+        "low": 3573,
+        "mid": 731,
+        "high": 5696,
+        "paid": 0
+      },
+      "credits_dispersed": 3785
+    },
+    {
+      "tick": 120,
+      "timestamp": "2025-12-10T07:47:40.727952",
+      "tier_counts": {
+        "low": 3573,
+        "mid": 709,
+        "high": 5718,
+        "paid": 0
+      },
+      "credits_dispersed": 3600
+    },
+    {
+      "tick": 121,
+      "timestamp": "2025-12-10T08:47:40.727952",
+      "tier_counts": {
+        "low": 3573,
+        "mid": 690,
+        "high": 5737,
+        "paid": 0
+      },
+      "credits_dispersed": 3595
+    },
+    {
+      "tick": 122,
+      "timestamp": "2025-12-10T09:47:40.727952",
+      "tier_counts": {
+        "low": 3573,
+        "mid": 664,
+        "high": 5763,
+        "paid": 0
+      },
+      "credits_dispersed": 3580
+    },
+    {
+      "tick": 123,
+      "timestamp": "2025-12-10T10:47:40.727952",
+      "tier_counts": {
+        "low": 3573,
+        "mid": 644,
+        "high": 5783,
+        "paid": 0
+      },
+      "credits_dispersed": 3655
+    },
+    {
+      "tick": 124,
+      "timestamp": "2025-12-10T11:47:40.727952",
+      "tier_counts": {
+        "low": 3572,
+        "mid": 629,
+        "high": 5799,
+        "paid": 0
+      },
+      "credits_dispersed": 2870
+    },
+    {
+      "tick": 125,
+      "timestamp": "2025-12-10T12:47:40.727952",
+      "tier_counts": {
+        "low": 3571,
+        "mid": 616,
+        "high": 5813,
+        "paid": 0
+      },
+      "credits_dispersed": 3350
+    },
+    {
+      "tick": 126,
+      "timestamp": "2025-12-10T13:47:40.727952",
+      "tier_counts": {
+        "low": 3571,
+        "mid": 593,
+        "high": 5836,
+        "paid": 0
+      },
+      "credits_dispersed": 3145
+    },
+    {
+      "tick": 127,
+      "timestamp": "2025-12-10T14:47:40.727952",
+      "tier_counts": {
+        "low": 3571,
+        "mid": 567,
+        "high": 5862,
+        "paid": 0
+      },
+      "credits_dispersed": 3550
+    },
+    {
+      "tick": 128,
+      "timestamp": "2025-12-10T15:47:40.727952",
+      "tier_counts": {
+        "low": 3570,
+        "mid": 549,
+        "high": 5881,
+        "paid": 0
+      },
+      "credits_dispersed": 3265
+    },
+    {
+      "tick": 129,
+      "timestamp": "2025-12-10T16:47:40.727952",
+      "tier_counts": {
+        "low": 3570,
+        "mid": 533,
+        "high": 5897,
+        "paid": 0
+      },
+      "credits_dispersed": 3070
+    },
+    {
+      "tick": 130,
+      "timestamp": "2025-12-10T17:47:40.727952",
+      "tier_counts": {
+        "low": 3570,
+        "mid": 514,
+        "high": 5916,
+        "paid": 0
+      },
+      "credits_dispersed": 3190
+    },
+    {
+      "tick": 131,
+      "timestamp": "2025-12-10T18:47:40.727952",
+      "tier_counts": {
+        "low": 3569,
+        "mid": 500,
+        "high": 5931,
+        "paid": 0
+      },
+      "credits_dispersed": 2845
+    },
+    {
+      "tick": 132,
+      "timestamp": "2025-12-10T19:47:40.727952",
+      "tier_counts": {
+        "low": 3569,
+        "mid": 478,
+        "high": 5953,
+        "paid": 0
+      },
+      "credits_dispersed": 3175
+    },
+    {
+      "tick": 133,
+      "timestamp": "2025-12-10T20:47:40.727952",
+      "tier_counts": {
+        "low": 3569,
+        "mid": 466,
+        "high": 5965,
+        "paid": 0
+      },
+      "credits_dispersed": 2940
+    },
+    {
+      "tick": 134,
+      "timestamp": "2025-12-10T21:47:40.727952",
+      "tier_counts": {
+        "low": 3569,
+        "mid": 450,
+        "high": 5981,
+        "paid": 0
+      },
+      "credits_dispersed": 2825
+    },
+    {
+      "tick": 135,
+      "timestamp": "2025-12-10T22:47:40.727952",
+      "tier_counts": {
+        "low": 3567,
+        "mid": 434,
+        "high": 5999,
+        "paid": 0
+      },
+      "credits_dispersed": 2925
+    },
+    {
+      "tick": 136,
+      "timestamp": "2025-12-10T23:47:40.727952",
+      "tier_counts": {
+        "low": 3567,
+        "mid": 424,
+        "high": 6009,
+        "paid": 0
+      },
+      "credits_dispersed": 2635
+    },
+    {
+      "tick": 137,
+      "timestamp": "2025-12-11T00:47:40.727952",
+      "tier_counts": {
+        "low": 3567,
+        "mid": 418,
+        "high": 6015,
+        "paid": 0
+      },
+      "credits_dispersed": 2910
+    },
+    {
+      "tick": 138,
+      "timestamp": "2025-12-11T01:47:40.727952",
+      "tier_counts": {
+        "low": 3567,
+        "mid": 409,
+        "high": 6024,
+        "paid": 0
+      },
+      "credits_dispersed": 2630
+    },
+    {
+      "tick": 139,
+      "timestamp": "2025-12-11T02:47:40.727952",
+      "tier_counts": {
+        "low": 3567,
+        "mid": 397,
+        "high": 6036,
+        "paid": 0
+      },
+      "credits_dispersed": 2550
+    },
+    {
+      "tick": 140,
+      "timestamp": "2025-12-11T03:47:40.727952",
+      "tier_counts": {
+        "low": 3566,
+        "mid": 386,
+        "high": 6048,
+        "paid": 0
+      },
+      "credits_dispersed": 2840
+    },
+    {
+      "tick": 141,
+      "timestamp": "2025-12-11T04:47:40.727952",
+      "tier_counts": {
+        "low": 3566,
+        "mid": 374,
+        "high": 6060,
+        "paid": 0
+      },
+      "credits_dispersed": 2720
+    },
+    {
+      "tick": 142,
+      "timestamp": "2025-12-11T05:47:40.727952",
+      "tier_counts": {
+        "low": 3566,
+        "mid": 361,
+        "high": 6073,
+        "paid": 0
+      },
+      "credits_dispersed": 2700
+    },
+    {
+      "tick": 143,
+      "timestamp": "2025-12-11T06:47:40.727952",
+      "tier_counts": {
+        "low": 3566,
+        "mid": 346,
+        "high": 6088,
+        "paid": 0
+      },
+      "credits_dispersed": 2585
+    },
+    {
+      "tick": 144,
+      "timestamp": "2025-12-11T07:47:40.727952",
+      "tier_counts": {
+        "low": 3566,
+        "mid": 337,
+        "high": 6097,
+        "paid": 0
+      },
+      "credits_dispersed": 2490
+    },
+    {
+      "tick": 145,
+      "timestamp": "2025-12-11T08:47:40.727952",
+      "tier_counts": {
+        "low": 3566,
+        "mid": 326,
+        "high": 6108,
+        "paid": 0
+      },
+      "credits_dispersed": 2605
+    },
+    {
+      "tick": 146,
+      "timestamp": "2025-12-11T09:47:40.727952",
+      "tier_counts": {
+        "low": 3566,
+        "mid": 310,
+        "high": 6124,
+        "paid": 0
+      },
+      "credits_dispersed": 2505
+    },
+    {
+      "tick": 147,
+      "timestamp": "2025-12-11T10:47:40.727952",
+      "tier_counts": {
+        "low": 3565,
+        "mid": 305,
+        "high": 6130,
+        "paid": 0
+      },
+      "credits_dispersed": 2210
+    },
+    {
+      "tick": 148,
+      "timestamp": "2025-12-11T11:47:40.727952",
+      "tier_counts": {
+        "low": 3565,
+        "mid": 296,
+        "high": 6139,
+        "paid": 0
+      },
+      "credits_dispersed": 2485
+    },
+    {
+      "tick": 149,
+      "timestamp": "2025-12-11T12:47:40.727952",
+      "tier_counts": {
+        "low": 3565,
+        "mid": 283,
+        "high": 6152,
+        "paid": 0
+      },
+      "credits_dispersed": 2540
+    },
+    {
+      "tick": 150,
+      "timestamp": "2025-12-11T13:47:40.727952",
+      "tier_counts": {
+        "low": 3565,
+        "mid": 269,
+        "high": 6166,
+        "paid": 0
+      },
+      "credits_dispersed": 2590
+    },
+    {
+      "tick": 151,
+      "timestamp": "2025-12-11T14:47:40.727952",
+      "tier_counts": {
+        "low": 3565,
+        "mid": 258,
+        "high": 6177,
+        "paid": 0
+      },
+      "credits_dispersed": 2365
+    },
+    {
+      "tick": 152,
+      "timestamp": "2025-12-11T15:47:40.727952",
+      "tier_counts": {
+        "low": 3565,
+        "mid": 246,
+        "high": 6189,
+        "paid": 0
+      },
+      "credits_dispersed": 2495
+    },
+    {
+      "tick": 153,
+      "timestamp": "2025-12-11T16:47:40.727952",
+      "tier_counts": {
+        "low": 3565,
+        "mid": 233,
+        "high": 6202,
+        "paid": 0
+      },
+      "credits_dispersed": 2335
+    },
+    {
+      "tick": 154,
+      "timestamp": "2025-12-11T17:47:40.727952",
+      "tier_counts": {
+        "low": 3565,
+        "mid": 226,
+        "high": 6209,
+        "paid": 0
+      },
+      "credits_dispersed": 2155
+    },
+    {
+      "tick": 155,
+      "timestamp": "2025-12-11T18:47:40.727952",
+      "tier_counts": {
+        "low": 3564,
+        "mid": 216,
+        "high": 6220,
+        "paid": 0
+      },
+      "credits_dispersed": 1960
+    },
+    {
+      "tick": 156,
+      "timestamp": "2025-12-11T19:47:40.727952",
+      "tier_counts": {
+        "low": 3564,
+        "mid": 210,
+        "high": 6226,
+        "paid": 0
+      },
+      "credits_dispersed": 2360
+    },
+    {
+      "tick": 157,
+      "timestamp": "2025-12-11T20:47:40.727952",
+      "tier_counts": {
+        "low": 3564,
+        "mid": 204,
+        "high": 6232,
+        "paid": 0
+      },
+      "credits_dispersed": 2060
+    },
+    {
+      "tick": 158,
+      "timestamp": "2025-12-11T21:47:40.727952",
+      "tier_counts": {
+        "low": 3564,
+        "mid": 198,
+        "high": 6238,
+        "paid": 0
+      },
+      "credits_dispersed": 2115
+    },
+    {
+      "tick": 159,
+      "timestamp": "2025-12-11T22:47:40.727952",
+      "tier_counts": {
+        "low": 3564,
+        "mid": 189,
+        "high": 6247,
+        "paid": 0
+      },
+      "credits_dispersed": 2255
+    },
+    {
+      "tick": 160,
+      "timestamp": "2025-12-11T23:47:40.727952",
+      "tier_counts": {
+        "low": 3564,
+        "mid": 182,
+        "high": 6254,
+        "paid": 0
+      },
+      "credits_dispersed": 2200
+    },
+    {
+      "tick": 161,
+      "timestamp": "2025-12-12T00:47:40.727952",
+      "tier_counts": {
+        "low": 3564,
+        "mid": 172,
+        "high": 6264,
+        "paid": 0
+      },
+      "credits_dispersed": 2385
+    },
+    {
+      "tick": 162,
+      "timestamp": "2025-12-12T01:47:40.727952",
+      "tier_counts": {
+        "low": 3564,
+        "mid": 165,
+        "high": 6271,
+        "paid": 0
+      },
+      "credits_dispersed": 2105
+    },
+    {
+      "tick": 163,
+      "timestamp": "2025-12-12T02:47:40.727952",
+      "tier_counts": {
+        "low": 3564,
+        "mid": 160,
+        "high": 6276,
+        "paid": 0
+      },
+      "credits_dispersed": 1965
+    },
+    {
+      "tick": 164,
+      "timestamp": "2025-12-12T03:47:40.727952",
+      "tier_counts": {
+        "low": 3563,
+        "mid": 156,
+        "high": 6281,
+        "paid": 0
+      },
+      "credits_dispersed": 2090
+    },
+    {
+      "tick": 165,
+      "timestamp": "2025-12-12T04:47:40.727952",
+      "tier_counts": {
+        "low": 3563,
+        "mid": 147,
+        "high": 6290,
+        "paid": 0
+      },
+      "credits_dispersed": 2060
+    },
+    {
+      "tick": 166,
+      "timestamp": "2025-12-12T05:47:40.727952",
+      "tier_counts": {
+        "low": 3563,
+        "mid": 140,
+        "high": 6297,
+        "paid": 0
+      },
+      "credits_dispersed": 2325
+    },
+    {
+      "tick": 167,
+      "timestamp": "2025-12-12T06:47:40.727952",
+      "tier_counts": {
+        "low": 3563,
+        "mid": 130,
+        "high": 6307,
+        "paid": 0
+      },
+      "credits_dispersed": 2130
+    },
+    {
+      "tick": 168,
+      "timestamp": "2025-12-12T07:47:40.727952",
+      "tier_counts": {
+        "low": 3563,
+        "mid": 129,
+        "high": 6308,
+        "paid": 0
+      },
+      "credits_dispersed": 2255
+    },
+    {
+      "tick": 169,
+      "timestamp": "2025-12-12T08:47:40.727952",
+      "tier_counts": {
+        "low": 3563,
+        "mid": 125,
+        "high": 6312,
+        "paid": 0
+      },
+      "credits_dispersed": 2270
+    },
+    {
+      "tick": 170,
+      "timestamp": "2025-12-12T09:47:40.727952",
+      "tier_counts": {
+        "low": 3563,
+        "mid": 118,
+        "high": 6319,
+        "paid": 0
+      },
+      "credits_dispersed": 2170
+    },
+    {
+      "tick": 171,
+      "timestamp": "2025-12-12T10:47:40.727952",
+      "tier_counts": {
+        "low": 3562,
+        "mid": 111,
+        "high": 6327,
+        "paid": 0
+      },
+      "credits_dispersed": 1925
+    },
+    {
+      "tick": 172,
+      "timestamp": "2025-12-12T11:47:40.727952",
+      "tier_counts": {
+        "low": 3562,
+        "mid": 107,
+        "high": 6331,
+        "paid": 0
+      },
+      "credits_dispersed": 2185
+    },
+    {
+      "tick": 173,
+      "timestamp": "2025-12-12T12:47:40.727952",
+      "tier_counts": {
+        "low": 3562,
+        "mid": 104,
+        "high": 6334,
+        "paid": 0
+      },
+      "credits_dispersed": 2215
+    },
+    {
+      "tick": 174,
+      "timestamp": "2025-12-12T13:47:40.727952",
+      "tier_counts": {
+        "low": 3562,
+        "mid": 97,
+        "high": 6341,
+        "paid": 0
+      },
+      "credits_dispersed": 1935
+    },
+    {
+      "tick": 175,
+      "timestamp": "2025-12-12T14:47:40.727952",
+      "tier_counts": {
+        "low": 3562,
+        "mid": 95,
+        "high": 6343,
+        "paid": 0
+      },
+      "credits_dispersed": 2065
+    },
+    {
+      "tick": 176,
+      "timestamp": "2025-12-12T15:47:40.727952",
+      "tier_counts": {
+        "low": 3562,
+        "mid": 88,
+        "high": 6350,
+        "paid": 0
+      },
+      "credits_dispersed": 1940
+    },
+    {
+      "tick": 177,
+      "timestamp": "2025-12-12T16:47:40.727952",
+      "tier_counts": {
+        "low": 3562,
+        "mid": 85,
+        "high": 6353,
+        "paid": 0
+      },
+      "credits_dispersed": 1890
+    },
+    {
+      "tick": 178,
+      "timestamp": "2025-12-12T17:47:40.727952",
+      "tier_counts": {
+        "low": 3562,
+        "mid": 82,
+        "high": 6356,
+        "paid": 0
+      },
+      "credits_dispersed": 2015
+    },
+    {
+      "tick": 179,
+      "timestamp": "2025-12-12T18:47:40.727952",
+      "tier_counts": {
+        "low": 3562,
+        "mid": 80,
+        "high": 6358,
+        "paid": 0
+      },
+      "credits_dispersed": 1855
+    },
+    {
+      "tick": 180,
+      "timestamp": "2025-12-12T19:47:40.727952",
+      "tier_counts": {
+        "low": 3562,
+        "mid": 77,
+        "high": 6361,
+        "paid": 0
+      },
+      "credits_dispersed": 2225
+    },
+    {
+      "tick": 181,
+      "timestamp": "2025-12-12T20:47:40.727952",
+      "tier_counts": {
+        "low": 3562,
+        "mid": 76,
+        "high": 6362,
+        "paid": 0
+      },
+      "credits_dispersed": 1645
+    },
+    {
+      "tick": 182,
+      "timestamp": "2025-12-12T21:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 76,
+        "high": 6363,
+        "paid": 0
+      },
+      "credits_dispersed": 2140
+    },
+    {
+      "tick": 183,
+      "timestamp": "2025-12-12T22:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 76,
+        "high": 6363,
+        "paid": 0
+      },
+      "credits_dispersed": 1785
+    },
+    {
+      "tick": 184,
+      "timestamp": "2025-12-12T23:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 75,
+        "high": 6364,
+        "paid": 0
+      },
+      "credits_dispersed": 1900
+    },
+    {
+      "tick": 185,
+      "timestamp": "2025-12-13T00:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 73,
+        "high": 6366,
+        "paid": 0
+      },
+      "credits_dispersed": 2115
+    },
+    {
+      "tick": 186,
+      "timestamp": "2025-12-13T01:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 70,
+        "high": 6369,
+        "paid": 0
+      },
+      "credits_dispersed": 1910
+    },
+    {
+      "tick": 187,
+      "timestamp": "2025-12-13T02:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 69,
+        "high": 6370,
+        "paid": 0
+      },
+      "credits_dispersed": 1870
+    },
+    {
+      "tick": 188,
+      "timestamp": "2025-12-13T03:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 67,
+        "high": 6372,
+        "paid": 0
+      },
+      "credits_dispersed": 1935
+    },
+    {
+      "tick": 189,
+      "timestamp": "2025-12-13T04:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 61,
+        "high": 6378,
+        "paid": 0
+      },
+      "credits_dispersed": 2100
+    },
+    {
+      "tick": 190,
+      "timestamp": "2025-12-13T05:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 54,
+        "high": 6385,
+        "paid": 0
+      },
+      "credits_dispersed": 1955
+    },
+    {
+      "tick": 191,
+      "timestamp": "2025-12-13T06:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 49,
+        "high": 6390,
+        "paid": 0
+      },
+      "credits_dispersed": 1720
+    },
+    {
+      "tick": 192,
+      "timestamp": "2025-12-13T07:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 43,
+        "high": 6396,
+        "paid": 0
+      },
+      "credits_dispersed": 2030
+    },
+    {
+      "tick": 193,
+      "timestamp": "2025-12-13T08:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 43,
+        "high": 6396,
+        "paid": 0
+      },
+      "credits_dispersed": 1745
+    },
+    {
+      "tick": 194,
+      "timestamp": "2025-12-13T09:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 41,
+        "high": 6398,
+        "paid": 0
+      },
+      "credits_dispersed": 1880
+    },
+    {
+      "tick": 195,
+      "timestamp": "2025-12-13T10:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 40,
+        "high": 6399,
+        "paid": 0
+      },
+      "credits_dispersed": 1655
+    },
+    {
+      "tick": 196,
+      "timestamp": "2025-12-13T11:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 40,
+        "high": 6399,
+        "paid": 0
+      },
+      "credits_dispersed": 1785
+    },
+    {
+      "tick": 197,
+      "timestamp": "2025-12-13T12:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 39,
+        "high": 6400,
+        "paid": 0
+      },
+      "credits_dispersed": 1920
+    },
+    {
+      "tick": 198,
+      "timestamp": "2025-12-13T13:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 35,
+        "high": 6404,
+        "paid": 0
+      },
+      "credits_dispersed": 1855
+    },
+    {
+      "tick": 199,
+      "timestamp": "2025-12-13T14:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 35,
+        "high": 6404,
+        "paid": 0
+      },
+      "credits_dispersed": 1730
+    },
+    {
+      "tick": 200,
+      "timestamp": "2025-12-13T15:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 34,
+        "high": 6405,
+        "paid": 0
+      },
+      "credits_dispersed": 1920
+    },
+    {
+      "tick": 201,
+      "timestamp": "2025-12-13T16:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 32,
+        "high": 6407,
+        "paid": 0
+      },
+      "credits_dispersed": 1915
+    },
+    {
+      "tick": 202,
+      "timestamp": "2025-12-13T17:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 31,
+        "high": 6408,
+        "paid": 0
+      },
+      "credits_dispersed": 1810
+    },
+    {
+      "tick": 203,
+      "timestamp": "2025-12-13T18:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 31,
+        "high": 6408,
+        "paid": 0
+      },
+      "credits_dispersed": 1685
+    },
+    {
+      "tick": 204,
+      "timestamp": "2025-12-13T19:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 30,
+        "high": 6409,
+        "paid": 0
+      },
+      "credits_dispersed": 1945
+    },
+    {
+      "tick": 205,
+      "timestamp": "2025-12-13T20:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 30,
+        "high": 6409,
+        "paid": 0
+      },
+      "credits_dispersed": 2105
+    },
+    {
+      "tick": 206,
+      "timestamp": "2025-12-13T21:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 28,
+        "high": 6411,
+        "paid": 0
+      },
+      "credits_dispersed": 1880
+    },
+    {
+      "tick": 207,
+      "timestamp": "2025-12-13T22:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 27,
+        "high": 6412,
+        "paid": 0
+      },
+      "credits_dispersed": 1980
+    },
+    {
+      "tick": 208,
+      "timestamp": "2025-12-13T23:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 27,
+        "high": 6412,
+        "paid": 0
+      },
+      "credits_dispersed": 1565
+    },
+    {
+      "tick": 209,
+      "timestamp": "2025-12-14T00:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 27,
+        "high": 6412,
+        "paid": 0
+      },
+      "credits_dispersed": 1660
+    },
+    {
+      "tick": 210,
+      "timestamp": "2025-12-14T01:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 27,
+        "high": 6412,
+        "paid": 0
+      },
+      "credits_dispersed": 1930
+    },
+    {
+      "tick": 211,
+      "timestamp": "2025-12-14T02:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 27,
+        "high": 6412,
+        "paid": 0
+      },
+      "credits_dispersed": 1695
+    },
+    {
+      "tick": 212,
+      "timestamp": "2025-12-14T03:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 26,
+        "high": 6413,
+        "paid": 0
+      },
+      "credits_dispersed": 1720
+    },
+    {
+      "tick": 213,
+      "timestamp": "2025-12-14T04:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 26,
+        "high": 6413,
+        "paid": 0
+      },
+      "credits_dispersed": 2155
+    },
+    {
+      "tick": 214,
+      "timestamp": "2025-12-14T05:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 26,
+        "high": 6413,
+        "paid": 0
+      },
+      "credits_dispersed": 1865
+    },
+    {
+      "tick": 215,
+      "timestamp": "2025-12-14T06:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 25,
+        "high": 6414,
+        "paid": 0
+      },
+      "credits_dispersed": 1855
+    },
+    {
+      "tick": 216,
+      "timestamp": "2025-12-14T07:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 23,
+        "high": 6416,
+        "paid": 0
+      },
+      "credits_dispersed": 1780
+    },
+    {
+      "tick": 217,
+      "timestamp": "2025-12-14T08:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 23,
+        "high": 6416,
+        "paid": 0
+      },
+      "credits_dispersed": 1825
+    },
+    {
+      "tick": 218,
+      "timestamp": "2025-12-14T09:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 22,
+        "high": 6417,
+        "paid": 0
+      },
+      "credits_dispersed": 1785
+    },
+    {
+      "tick": 219,
+      "timestamp": "2025-12-14T10:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 21,
+        "high": 6418,
+        "paid": 0
+      },
+      "credits_dispersed": 1715
+    },
+    {
+      "tick": 220,
+      "timestamp": "2025-12-14T11:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 20,
+        "high": 6419,
+        "paid": 0
+      },
+      "credits_dispersed": 1575
+    },
+    {
+      "tick": 221,
+      "timestamp": "2025-12-14T12:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 18,
+        "high": 6421,
+        "paid": 0
+      },
+      "credits_dispersed": 2040
+    },
+    {
+      "tick": 222,
+      "timestamp": "2025-12-14T13:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 17,
+        "high": 6422,
+        "paid": 0
+      },
+      "credits_dispersed": 1795
+    },
+    {
+      "tick": 223,
+      "timestamp": "2025-12-14T14:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 17,
+        "high": 6422,
+        "paid": 0
+      },
+      "credits_dispersed": 1650
+    },
+    {
+      "tick": 224,
+      "timestamp": "2025-12-14T15:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 17,
+        "high": 6422,
+        "paid": 0
+      },
+      "credits_dispersed": 1740
+    },
+    {
+      "tick": 225,
+      "timestamp": "2025-12-14T16:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 15,
+        "high": 6424,
+        "paid": 0
+      },
+      "credits_dispersed": 1785
+    },
+    {
+      "tick": 226,
+      "timestamp": "2025-12-14T17:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 15,
+        "high": 6424,
+        "paid": 0
+      },
+      "credits_dispersed": 1685
+    },
+    {
+      "tick": 227,
+      "timestamp": "2025-12-14T18:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 15,
+        "high": 6424,
+        "paid": 0
+      },
+      "credits_dispersed": 1840
+    },
+    {
+      "tick": 228,
+      "timestamp": "2025-12-14T19:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 14,
+        "high": 6425,
+        "paid": 0
+      },
+      "credits_dispersed": 1960
+    },
+    {
+      "tick": 229,
+      "timestamp": "2025-12-14T20:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 14,
+        "high": 6425,
+        "paid": 0
+      },
+      "credits_dispersed": 1775
+    },
+    {
+      "tick": 230,
+      "timestamp": "2025-12-14T21:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 14,
+        "high": 6425,
+        "paid": 0
+      },
+      "credits_dispersed": 1740
+    },
+    {
+      "tick": 231,
+      "timestamp": "2025-12-14T22:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 14,
+        "high": 6425,
+        "paid": 0
+      },
+      "credits_dispersed": 1860
+    },
+    {
+      "tick": 232,
+      "timestamp": "2025-12-14T23:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 13,
+        "high": 6426,
+        "paid": 0
+      },
+      "credits_dispersed": 2060
+    },
+    {
+      "tick": 233,
+      "timestamp": "2025-12-15T00:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 11,
+        "high": 6428,
+        "paid": 0
+      },
+      "credits_dispersed": 1800
+    },
+    {
+      "tick": 234,
+      "timestamp": "2025-12-15T01:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 11,
+        "high": 6428,
+        "paid": 0
+      },
+      "credits_dispersed": 1945
+    },
+    {
+      "tick": 235,
+      "timestamp": "2025-12-15T02:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 11,
+        "high": 6428,
+        "paid": 0
+      },
+      "credits_dispersed": 1900
+    },
+    {
+      "tick": 236,
+      "timestamp": "2025-12-15T03:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 10,
+        "high": 6429,
+        "paid": 0
+      },
+      "credits_dispersed": 1720
+    },
+    {
+      "tick": 237,
+      "timestamp": "2025-12-15T04:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 9,
+        "high": 6430,
+        "paid": 0
+      },
+      "credits_dispersed": 1850
+    },
+    {
+      "tick": 238,
+      "timestamp": "2025-12-15T05:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 9,
+        "high": 6430,
+        "paid": 0
+      },
+      "credits_dispersed": 1910
+    },
+    {
+      "tick": 239,
+      "timestamp": "2025-12-15T06:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 9,
+        "high": 6430,
+        "paid": 0
+      },
+      "credits_dispersed": 1825
+    },
+    {
+      "tick": 240,
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "tier_counts": {
+        "low": 3561,
+        "mid": 9,
+        "high": 6430,
+        "paid": 0
+      },
+      "credits_dispersed": 1910
+    }
+  ],
+  "events": [
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "78dab33f",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "09a399f1",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "128020cc",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "75d8f5f3",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "0ae48de8",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "8c1895d0",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "8b03d1dd",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "c4ed7e75",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "e3d77f2c",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "0d1c9b37",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "90608293",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "1a66352c",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "af5038ee",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "779b849a",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "fe5a62c1",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "f82ed155",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "3f3f41cc",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "ff02f5dc",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "48d29e51",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "19df54a2",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "32464053",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "d4ab472a",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "069f001b",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "ede81c54",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "cf4f2ec9",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "9e27e8be",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "c2289b00",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "bd9f49f8",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "3e44bba4",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "10b316fb",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "5ccd450b",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "39016d8c",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "0e080c9b",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "e7e3a430",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "97d16503",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "a00fba84",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "24789826",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "6241531d",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "da7b994c",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "fd82e083",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "990214d3",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "440452a4",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "c6034b9c",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "421200a7",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "ced76fa0",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "c2859b9c",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "e1892dc5",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "1540fab7",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "c7c171fe",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "92a48ffb",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "15df6e9a",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "beee2c32",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "d460f6de",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "97b46b12",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "54c65186",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "6cd2cbc7",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "3e3bcde2",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "f19766a5",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "4d8c619d",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "12817f98",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "362e93e3",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "0a69f6bf",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "4a516aac",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "3abba23a",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "6cd362ba",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "706a8188",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "bfc28f5c",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "0f421fcc",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "f1f4a55c",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "31c4175c",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "60fd5666",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "3af6fd41",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "9c9564f1",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "5958737d",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "2bd5dcab",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "3bbf0047",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "567eeaa0",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "dedc4465",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "aed19b58",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "ac066d96",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "63b545df",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "950749a2",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "2f80c823",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "96602885",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "88202e19",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "c8779238",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "de03f3b5",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "78e2d497",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "7343d2ba",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "7155d935",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "38bd68dd",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "91bb7a8e",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "d9907786",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "7ae463fe",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "a91b2acd",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "7624c9b6",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "82142aea",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "c17bfbca",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "d65c2a54",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    },
+    {
+      "timestamp": "2025-12-15T07:47:40.727952",
+      "user_id": "29551eb4",
+      "action": "low_intent_drip",
+      "amount": 10,
+      "tier": "low"
+    }
+  ],
+  "pool": {
+    "total_allocated": 5000000,
+    "total_remaining": 3709490,
+    "utilization_pct": 25.8102
+  }
+}
