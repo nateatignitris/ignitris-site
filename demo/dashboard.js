@@ -2,6 +2,8 @@ let dashboardData = null;
 let timelineChart   = null;
 let currentFilter   = 'all';
 let currentSort     = 'intent_score';
+let lastLoadTime    = null;
+let timestampTimer  = null;
 
 const viewTitles = {
     overview: { title: 'Command Center',   subtitle: 'Global Intent Index & Credit Velocity' },
@@ -53,6 +55,7 @@ async function loadData() {
     try {
         const res = await fetch('simulation_results.json');
         dashboardData = await res.json();
+        startTimestamp();
         updateUI();
     } catch (err) {
         console.error('Failed to load simulation_results.json', err);
@@ -73,8 +76,26 @@ function updateUI() {
 /* ─── HEADER ─────────────────────────────────────────── */
 function updateHeader() {
     const el = id => document.getElementById(id);
-    el('tick-count').textContent = `${dashboardData.summary.current_tick} ticks`;
-    el('user-count').textContent = `${dashboardData.summary.total_users} users`;
+    if (el('tick-count')) el('tick-count').textContent = `${dashboardData.summary.current_tick} ticks`;
+    if (el('user-count')) el('user-count').textContent = `${dashboardData.summary.total_users} users`;
+}
+
+/* ─── CHART TIMESTAMP ────────────────────────────────── */
+function startTimestamp() {
+    lastLoadTime = Date.now();
+    updateTimestampLabel();
+    if (!timestampTimer) {
+        timestampTimer = setInterval(updateTimestampLabel, 1000);
+    }
+}
+
+function updateTimestampLabel() {
+    const el = document.getElementById('chart-timestamp');
+    if (!el || !lastLoadTime) return;
+    const secs = Math.round((Date.now() - lastLoadTime) / 1000);
+    el.textContent = secs <= 1
+        ? 'Updated just now'
+        : `Updated ${secs} seconds ago`;
 }
 
 /* ─── KPIs ───────────────────────────────────────────── */
@@ -242,9 +263,28 @@ function renderTimelineChart() {
         },
     ];
 
+    const crosshairPlugin = {
+        id: 'crosshair',
+        afterDraw(chart) {
+            const { ctx, chartArea, tooltip } = chart;
+            if (!tooltip || tooltip.opacity === 0) return;
+            const x = tooltip.caretX;
+            ctx.save();
+            ctx.setLineDash([3, 4]);
+            ctx.strokeStyle = 'rgba(10, 22, 40, 0.14)';
+            ctx.lineWidth   = 1;
+            ctx.beginPath();
+            ctx.moveTo(x, chartArea.top);
+            ctx.lineTo(x, chartArea.bottom);
+            ctx.stroke();
+            ctx.restore();
+        },
+    };
+
     timelineChart = new Chart(ctx, {
         type: 'line',
         data: { labels, datasets },
+        plugins: [crosshairPlugin],
         options: {
             responsive:          true,
             maintainAspectRatio: false,
