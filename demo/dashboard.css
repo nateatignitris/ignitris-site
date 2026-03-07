@@ -323,35 +323,160 @@ body {
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
+/* Compact KPI brick — about half the height */
+.dash-section--kpi {
+    padding: 20px 36px;
+}
+
+.dash-section--kpi .command-value-large {
+    font-size: 30px;
+    letter-spacing: -0.03em;
+}
+
+.dash-section--kpi .command-label {
+    margin-bottom: 8px;
+}
+
+.dash-section--kpi .flow-val {
+    font-size: 22px;
+    letter-spacing: -0.025em;
+}
+
+.dash-section--kpi .flow-stats {
+    gap: 20px;
+}
+
+.dash-section--kpi .pool-progress-mini {
+    margin-top: 16px;
+}
+
 .dash-section.drag-over {
     border-color: rgba(2, 121, 253, 0.28);
     box-shadow: 0 0 0 3px rgba(2, 121, 253, 0.06);
 }
 
 .dash-section.dragging {
-    opacity: 0.45;
+    opacity: 0.4;
+    box-shadow: 0 8px 32px rgba(10, 22, 40, 0.10);
 }
 
-/* Drag handle — appears on section hover */
+/* Drag handle — always slightly visible, full opacity on hover */
 .drag-handle {
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 12px;
+    right: 12px;
     width: 26px;
     height: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: grab;
-    opacity: 0;
+    opacity: 0.18;
     transition: opacity 0.15s ease, background 0.15s ease;
     color: var(--text-3);
     border-radius: 3px;
 }
 
-.dash-section:hover .drag-handle { opacity: 1; }
-.drag-handle:hover { background: rgba(10, 22, 40, 0.05); color: var(--text-2); }
+.dash-section:hover .drag-handle { opacity: 0.55; }
+.drag-handle:hover { opacity: 1 !important; background: rgba(10, 22, 40, 0.05); color: var(--text-2); }
 .drag-handle:active { cursor: grabbing; }
+
+/* ===== DASHBOARD CONTROLS (Add / Edit) ===== */
+.dash-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.ctrl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    font-family: inherit;
+    color: var(--text-2);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    -webkit-font-smoothing: antialiased;
+}
+
+.ctrl-btn:hover {
+    color: var(--text-1);
+    border-color: var(--border-mid);
+    background: rgba(10, 22, 40, 0.02);
+}
+
+/* Coming Soon Modal */
+.coming-soon-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 22, 40, 0.20);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.coming-soon-card {
+    background: var(--white);
+    border: 1px solid var(--border-mid);
+    padding: 44px 48px;
+    max-width: 360px;
+    width: 90vw;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(10, 22, 40, 0.08);
+}
+
+.coming-soon-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    opacity: 0.4;
+}
+
+.coming-soon-title {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--text-1);
+    margin-bottom: 8px;
+}
+
+.coming-soon-body,
+.coming-soon-desc {
+    font-size: 12px;
+    color: var(--text-3);
+    line-height: 1.65;
+    margin-bottom: 24px;
+}
+
+.coming-soon-close {
+    display: inline-block;
+    padding: 8px 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-1);
+    background: transparent;
+    border: 1px solid var(--border-mid);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.coming-soon-close:hover {
+    background: rgba(10, 22, 40, 0.04);
+    border-color: rgba(10, 22, 40, 0.2);
+}
 
 /* ===== COMMAND GRID (legacy, kept for compatibility) ===== */
 .command-card {
@@ -580,7 +705,6 @@ body {
 
 .chart-header {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 28px;
 }

@@ -133,10 +133,14 @@
 
         <!-- Home View -->
         <div class="view active" id="view-overview">
+            <div class="dash-controls">
+                <button class="ctrl-btn" id="btn-add-section">+ Add</button>
+                <button class="ctrl-btn" id="btn-edit-sections">&#9881; Edit</button>
+            </div>
             <div class="dash-sections" id="sections-container">
 
                 <!-- ── Section: Aggregate Intent Score ── -->
-                <div class="dash-section" data-section="intent" draggable="true">
+                <div class="dash-section dash-section--kpi" data-section="intent" draggable="true">
                     <div class="drag-handle" title="Drag to reorder">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
                             <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
@@ -152,7 +156,7 @@
                 </div>
 
                 <!-- ── Section: Credit Flow Summary ── -->
-                <div class="dash-section" data-section="flow" draggable="true">
+                <div class="dash-section dash-section--kpi" data-section="flow" draggable="true">
                     <div class="drag-handle" title="Drag to reorder">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
                             <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
@@ -196,12 +200,6 @@
                                 <span class="info-icon" data-tooltip="Credits dispersed per simulation tick. Tracks the rate of credit distribution across all active users over time.">i</span>
                             </div>
                             <div class="chart-timestamp" id="chart-timestamp">Updated just now</div>
-                        </div>
-                        <div class="chart-period-btns">
-                            <button class="period-btn" data-period="1d">1D</button>
-                            <button class="period-btn" data-period="1w">1W</button>
-                            <button class="period-btn" data-period="1m">1M</button>
-                            <button class="period-btn active" data-period="ytd">YTD</button>
                         </div>
                     </div>
                     <div class="chart-canvas-wrap">
@@ -398,6 +396,22 @@
             <div class="policy-actions">
                 <button class="btn btn-primary" id="btn-save-policy">Apply Policy Changes</button>
                 <button class="btn btn-secondary" id="btn-reset-policy">Reset to Defaults</button>
+            </div>
+        </div>
+
+        <!-- Coming Soon Modal -->
+        <div class="coming-soon-overlay" id="coming-soon-overlay">
+            <div class="coming-soon-card">
+                <div class="coming-soon-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M12 8v4.5"/>
+                        <circle cx="12" cy="15.5" r="0.6" fill="currentColor" stroke="none"/>
+                    </svg>
+                </div>
+                <h3 class="coming-soon-title">We're still working on this</h3>
+                <p class="coming-soon-desc">Custom dashboard sections are coming soon. Stay tuned.</p>
+                <button class="coming-soon-close" id="coming-soon-close">Got it</button>
             </div>
         </div>
 

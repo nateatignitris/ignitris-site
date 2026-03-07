@@ -4,7 +4,7 @@ let currentFilter   = 'all';
 let currentSort     = 'intent_score';
 let lastLoadTime    = null;
 let timestampTimer  = null;
-let currentPeriod   = 'ytd';
+const prevValues = {};
 
 const viewTitles = {
     overview: { title: 'Home',           subtitle: 'Global Intent Index & Credit Velocity' },
@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
     initFilters();
     initPolicyButtons();
-    initPeriodButtons();
     initDragSections();
+    initComingSoonModal();
     loadData();
     setInterval(loadData, 8000);
 });
@@ -131,13 +131,16 @@ function renderKPIs() {
 function countUp(elId, end, duration = 800) {
     const el = document.getElementById(elId);
     if (!el) return;
-    const start = performance.now();
+    const startVal = prevValues[elId] ?? null;
+    if (startVal !== null && startVal === end) return; // unchanged — leave it
+    prevValues[elId] = end;
+    const from = startVal ?? 0;
+    const startTime = performance.now();
 
     function frame(now) {
-        const p       = Math.min((now - start) / duration, 1);
-        const eased   = 1 - Math.pow(1 - p, 3);
-        const current = Math.round(end * eased);
-        el.textContent = current.toLocaleString();
+        const p     = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(from + (end - from) * eased).toLocaleString();
         if (p < 1) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
@@ -146,12 +149,16 @@ function countUp(elId, end, duration = 800) {
 function countUpFloat(elId, end, duration = 800, decimals = 3) {
     const el = document.getElementById(elId);
     if (!el) return;
-    const start = performance.now();
+    const startVal = prevValues[elId] ?? null;
+    if (startVal !== null && Math.abs(startVal - end) < Math.pow(10, -decimals) / 2) return;
+    prevValues[elId] = end;
+    const from = startVal ?? 0;
+    const startTime = performance.now();
 
     function frame(now) {
-        const p     = Math.min((now - start) / duration, 1);
+        const p     = Math.min((now - startTime) / duration, 1);
         const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = (end * eased).toFixed(decimals);
+        el.textContent = (from + (end - from) * eased).toFixed(decimals);
         if (p < 1) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
@@ -171,34 +178,6 @@ function triggerEntrance() {
     targets.forEach((el, i) => {
         if (!el) return;
         el.classList.add('animate-in', `d${Math.min(i + 1, 6)}`);
-    });
-}
-
-/* ─── CHART PERIOD ───────────────────────────────────── */
-function getChartSlice(period) {
-    const hist = dashboardData?.history || [];
-    const n    = hist.length;
-    // Slice proportions: 1D=10%, 1W=25%, 1M=50%, YTD=100%
-    const sliceMap = { '1d': Math.max(1, Math.round(n * 0.10)),
-                       '1w': Math.max(1, Math.round(n * 0.25)),
-                       '1m': Math.max(1, Math.round(n * 0.50)),
-                       'ytd': n };
-    return hist.slice(-(sliceMap[period] ?? n));
-}
-
-function initPeriodButtons() {
-    document.querySelectorAll('.period-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentPeriod = btn.getAttribute('data-period');
-            if (timelineChart) {
-                const slice = getChartSlice(currentPeriod);
-                timelineChart.data.labels              = slice.map(h => h.tick);
-                timelineChart.data.datasets[0].data    = slice.map(h => h.credits_dispersed);
-                timelineChart.update('active');
-            }
-        });
     });
 }
 
@@ -261,10 +240,8 @@ function renderTimelineChart() {
     const canvas = document.getElementById('timeline-chart');
     if (!canvas || timelineChart) return;
 
-    const allHist = dashboardData.history || [];
-    if (!allHist.length) return;
-
-    const hist   = getChartSlice(currentPeriod);
+    const hist = dashboardData.history || [];
+    if (!hist.length) return;
     const ctx    = canvas.getContext('2d');
     const height = canvas.offsetHeight || 260;
     const labels = hist.map(h => h.tick);
@@ -667,11 +644,15 @@ function renderRevenue() {
 function countUpDollar(elId, end, duration = 900) {
     const el = document.getElementById(elId);
     if (!el) return;
-    const start = performance.now();
+    const startVal = prevValues[elId] ?? null;
+    if (startVal !== null && startVal === end) return;
+    prevValues[elId] = end;
+    const from = startVal ?? 0;
+    const startTime = performance.now();
     function frame(now) {
-        const p     = Math.min((now - start) / duration, 1);
+        const p     = Math.min((now - startTime) / duration, 1);
         const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = '$' + Math.round(end * eased).toLocaleString();
+        el.textContent = '$' + Math.round(from + (end - from) * eased).toLocaleString();
         if (p < 1) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
@@ -680,14 +661,36 @@ function countUpDollar(elId, end, duration = 900) {
 function countUpDollarFloat(elId, end, duration = 900) {
     const el = document.getElementById(elId);
     if (!el) return;
-    const start = performance.now();
+    const startVal = prevValues[elId] ?? null;
+    if (startVal !== null && Math.abs(startVal - end) < 0.005) return;
+    prevValues[elId] = end;
+    const from = startVal ?? 0;
+    const startTime = performance.now();
     function frame(now) {
-        const p     = Math.min((now - start) / duration, 1);
+        const p     = Math.min((now - startTime) / duration, 1);
         const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = '$' + (end * eased).toFixed(2);
+        el.textContent = '$' + (from + (end - from) * eased).toFixed(2);
         if (p < 1) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
+}
+
+/* ─── COMING SOON MODAL ──────────────────────────────── */
+function initComingSoonModal() {
+    const overlay = document.getElementById('coming-soon-overlay');
+    if (!overlay) return;
+
+    document.getElementById('btn-add-section')?.addEventListener('click', () => {
+        overlay.style.display = 'flex';
+    });
+
+    document.getElementById('coming-soon-close')?.addEventListener('click', () => {
+        overlay.style.display = 'none';
+    });
+
+    overlay.addEventListener('click', e => {
+        if (e.target === overlay) overlay.style.display = 'none';
+    });
 }
 
 /* ─── POLICY BUTTONS ─────────────────────────────────── */
