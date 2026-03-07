@@ -100,6 +100,13 @@ function renderKPIs() {
     }, 200);
 }
 
+/* ─── NUMBER FORMATTING ──────────────────────────────── */
+function formatCompact(n) {
+    if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
+    if (n >= 1_000)     return (n / 1_000).toFixed(1) + 'K';
+    return n.toString();
+}
+
 /* ─── COUNT-UP ANIMATIONS ────────────────────────────── */
 function countUp(elId, end, duration = 800, compact = false) {
     const el = document.getElementById(elId);
@@ -110,8 +117,8 @@ function countUp(elId, end, duration = 800, compact = false) {
         const p       = Math.min((now - start) / duration, 1);
         const eased   = 1 - Math.pow(1 - p, 3);
         const current = Math.round(end * eased);
-        el.textContent = compact && current >= 1000
-            ? (current / 1000).toFixed(1) + 'K'
+        el.textContent = compact
+            ? formatCompact(current)
             : current.toLocaleString();
         if (p < 1) requestAnimationFrame(frame);
     }
@@ -186,7 +193,7 @@ function customTooltip(context) {
                 <span style="width:6px;height:6px;border-radius:50%;background:${dp.dataset.borderColor};display:inline-block;flex-shrink:0;"></span>
                 ${dp.dataset.label}
             </span>
-            <span class="tooltip-val">${Number(dp.raw).toLocaleString()}</span>
+            <span class="tooltip-val">${formatCompact(Number(dp.raw))}</span>
         </div>
     `).join('');
 
@@ -266,7 +273,7 @@ function renderTimelineChart() {
                         font:          { size: 10, family: "'SF Mono', ui-monospace, monospace" },
                         maxTicksLimit: 5,
                         padding:       10,
-                        callback: v => v >= 1000 ? (v / 1000).toFixed(0) + 'K' : v,
+                        callback: v => formatCompact(v),
                     },
                 },
                 x: {
