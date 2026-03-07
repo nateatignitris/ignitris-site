@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initFilters();
     initPolicyButtons();
     initDragSections();
-    initComingSoonModal();
+    initEditMode();
+    initAddWidget();
     loadData();
     setInterval(loadData, 8000);
 });
@@ -557,6 +558,7 @@ function initDragSections() {
     let dragOverEl = null;
 
     container.addEventListener('dragstart', e => {
+        if (!container.classList.contains('editing')) { e.preventDefault(); return; }
         dragEl = e.target.closest('.dash-section');
         if (!dragEl) return;
         e.dataTransfer.effectAllowed = 'move';
@@ -675,16 +677,39 @@ function countUpDollarFloat(elId, end, duration = 900) {
     requestAnimationFrame(frame);
 }
 
-/* ─── COMING SOON MODAL ──────────────────────────────── */
-function initComingSoonModal() {
-    const overlay = document.getElementById('coming-soon-overlay');
+/* ─── EDIT MODE ──────────────────────────────────────── */
+let editMode = false;
+
+function initEditMode() {
+    const btn       = document.getElementById('btn-edit-sections');
+    const container = document.getElementById('sections-container');
+    if (!btn || !container) return;
+
+    btn.addEventListener('click', () => {
+        editMode = !editMode;
+        container.classList.toggle('editing', editMode);
+
+        // Toggle draggable on all sections
+        container.querySelectorAll('.dash-section').forEach(s => {
+            s.draggable = editMode;
+        });
+
+        // Update button label + active styling
+        btn.innerHTML = editMode ? '&#10003; Done' : '&#9881; Edit';
+        btn.classList.toggle('ctrl-btn--active', editMode);
+    });
+}
+
+/* ─── ADD WIDGET PANEL ───────────────────────────────── */
+function initAddWidget() {
+    const overlay = document.getElementById('add-widget-overlay');
     if (!overlay) return;
 
     document.getElementById('btn-add-section')?.addEventListener('click', () => {
         overlay.style.display = 'flex';
     });
 
-    document.getElementById('coming-soon-close')?.addEventListener('click', () => {
+    document.getElementById('add-widget-close')?.addEventListener('click', () => {
         overlay.style.display = 'none';
     });
 

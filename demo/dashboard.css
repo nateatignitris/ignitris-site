@@ -310,9 +310,14 @@ body {
 
 /* ===== DRAGGABLE SECTIONS ===== */
 .dash-sections {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
+}
+
+/* Full-width sections span both columns */
+.dash-section--full {
+    grid-column: 1 / -1;
 }
 
 .dash-section {
@@ -373,7 +378,7 @@ body {
     box-shadow: 0 8px 32px rgba(10, 22, 40, 0.10);
 }
 
-/* Drag handle — always slightly visible, full opacity on hover */
+/* Drag handle — hidden by default, only visible in edit mode */
 .drag-handle {
     position: absolute;
     top: 12px;
@@ -384,15 +389,35 @@ body {
     align-items: center;
     justify-content: center;
     cursor: grab;
-    opacity: 0.18;
+    opacity: 0;
+    pointer-events: none;
     transition: opacity 0.15s ease, background 0.15s ease;
     color: var(--text-3);
     border-radius: 3px;
 }
 
-.dash-section:hover .drag-handle { opacity: 0.55; }
-.drag-handle:hover { opacity: 1 !important; background: rgba(10, 22, 40, 0.05); color: var(--text-2); }
+/* Edit mode — show handles, enable grab cursor */
+.dash-sections.editing .drag-handle {
+    opacity: 0.35;
+    pointer-events: auto;
+}
+
+.dash-sections.editing .dash-section:hover .drag-handle { opacity: 0.65; }
+.dash-sections.editing .drag-handle:hover { opacity: 1 !important; background: rgba(10, 22, 40, 0.05); color: var(--text-2); }
 .drag-handle:active { cursor: grabbing; }
+
+/* Edit mode — subtle dashed outline on sections */
+.dash-sections.editing .dash-section {
+    outline: 1.5px dashed rgba(2, 121, 253, 0.25);
+    outline-offset: -1px;
+}
+
+/* Edit button active state */
+.ctrl-btn--active {
+    color: var(--blue) !important;
+    border-color: rgba(2, 121, 253, 0.35) !important;
+    background: rgba(2, 121, 253, 0.04) !important;
+}
 
 /* ===== DASHBOARD CONTROLS (Add / Edit) ===== */
 .dash-controls {
@@ -427,69 +452,99 @@ body {
     background: rgba(10, 22, 40, 0.02);
 }
 
-/* Coming Soon Modal */
-.coming-soon-overlay {
+/* Add Widget Panel */
+.add-widget-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(10, 22, 40, 0.20);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(10, 22, 40, 0.15);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     display: none;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-end;
     z-index: 1000;
 }
 
-.coming-soon-card {
+.add-widget-panel {
     background: var(--white);
-    border: 1px solid var(--border-mid);
-    border-radius: 6px;
-    padding: 44px 48px;
-    max-width: 360px;
-    width: 90vw;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 20px 60px rgba(10, 22, 40, 0.08);
+    border-left: 1px solid var(--border);
+    width: 320px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -12px 0 40px rgba(10, 22, 40, 0.07);
+    animation: slideInRight 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.coming-soon-icon {
-    font-size: 28px;
-    margin-bottom: 16px;
-    opacity: 0.4;
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
 }
 
-.coming-soon-title {
-    font-size: 14px;
+.add-widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.add-widget-title {
+    font-size: 13px;
     font-weight: 500;
-    letter-spacing: -0.01em;
     color: var(--text-1);
-    margin-bottom: 8px;
+    letter-spacing: -0.01em;
 }
 
-.coming-soon-body,
-.coming-soon-desc {
+.add-widget-close {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--text-3);
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s;
+    line-height: 1;
+}
+
+.add-widget-close:hover {
+    color: var(--text-1);
+    background: rgba(10, 22, 40, 0.05);
+}
+
+.add-widget-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    text-align: center;
+    gap: 10px;
+}
+
+.add-widget-empty-icon {
+    opacity: 0.2;
+    margin-bottom: 6px;
+}
+
+.add-widget-empty-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-1);
+}
+
+.add-widget-empty-desc {
     font-size: 12px;
     color: var(--text-3);
-    line-height: 1.65;
-    margin-bottom: 24px;
-}
-
-.coming-soon-close {
-    display: inline-block;
-    padding: 8px 20px;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-1);
-    background: transparent;
-    border: 1px solid var(--border-mid);
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
-}
-
-.coming-soon-close:hover {
-    background: rgba(10, 22, 40, 0.04);
-    border-color: rgba(10, 22, 40, 0.2);
+    line-height: 1.6;
+    max-width: 220px;
 }
 
 /* ===== COMMAND GRID (legacy, kept for compatibility) ===== */

@@ -139,77 +139,8 @@
             </div>
             <div class="dash-sections" id="sections-container">
 
-                <!-- ── Section: Aggregate Intent Score ── -->
-                <div class="dash-section dash-section--kpi" data-section="intent" draggable="true">
-                    <div class="drag-handle" title="Drag to reorder">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
-                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
-                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
-                        </svg>
-                    </div>
-                    <div class="command-label">
-                        Aggregate Intent Score
-                        <span class="info-icon" data-tooltip="Weighted average intent across approximately 10,000 users based on recent interaction signals.">i</span>
-                    </div>
-                    <div class="command-value-large" id="agg-intent-score">0.000</div>
-                </div>
-
-                <!-- ── Section: Credit Flow Summary ── -->
-                <div class="dash-section dash-section--kpi" data-section="flow" draggable="true">
-                    <div class="drag-handle" title="Drag to reorder">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
-                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
-                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
-                        </svg>
-                    </div>
-                    <div class="command-label">
-                        Credit Flow Summary
-                        <span class="info-icon" data-tooltip="Current issued and remaining credit across all active users in the simulation pool.">i</span>
-                    </div>
-                    <div class="flow-stats">
-                        <div class="flow-item">
-                            <span class="flow-val" id="kpi-credits-dispersed">0</span>
-                            <span class="flow-lab">Issued</span>
-                        </div>
-                        <div class="flow-divider"></div>
-                        <div class="flow-item">
-                            <span class="flow-val" id="pool-remaining">0</span>
-                            <span class="flow-lab">Remaining</span>
-                        </div>
-                    </div>
-                    <div class="pool-progress-mini">
-                        <div class="pool-bar-fill" id="pool-bar-fill"></div>
-                    </div>
-                </div>
-
-                <!-- ── Section: Credit Velocity Chart ── -->
-                <div class="dash-section" data-section="velocity" draggable="true">
-                    <div class="drag-handle" title="Drag to reorder">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
-                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
-                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
-                        </svg>
-                    </div>
-                    <div class="chart-header">
-                        <div class="chart-title-group">
-                            <div class="command-label">
-                                Credit Velocity
-                                <span class="info-icon" data-tooltip="Credits dispersed per simulation tick. Tracks the rate of credit distribution across all active users over time.">i</span>
-                            </div>
-                            <div class="chart-timestamp" id="chart-timestamp">Updated just now</div>
-                        </div>
-                    </div>
-                    <div class="chart-canvas-wrap">
-                        <canvas id="timeline-chart" height="320"></canvas>
-                    </div>
-                    <div id="chart-tooltip"></div>
-                </div>
-
                 <!-- ── Section: Revenue (Beta) ── -->
-                <div class="dash-section" data-section="revenue" draggable="true">
+                <div class="dash-section dash-section--full" data-section="revenue" draggable="false">
                     <div class="drag-handle" title="Drag to reorder">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
                             <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
@@ -243,6 +174,75 @@
                         </div>
                     </div>
                     <div class="rev-note">Simulated · Based on credit distribution data</div>
+                </div>
+
+                <!-- ── Section: Credit Velocity Chart ── -->
+                <div class="dash-section dash-section--full" data-section="velocity" draggable="false">
+                    <div class="drag-handle" title="Drag to reorder">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
+                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
+                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
+                        </svg>
+                    </div>
+                    <div class="chart-header">
+                        <div class="chart-title-group">
+                            <div class="command-label">
+                                Credit Velocity
+                                <span class="info-icon" data-tooltip="Credits dispersed per simulation tick. Tracks the rate of credit distribution across all active users over time.">i</span>
+                            </div>
+                            <div class="chart-timestamp" id="chart-timestamp">Updated just now</div>
+                        </div>
+                    </div>
+                    <div class="chart-canvas-wrap">
+                        <canvas id="timeline-chart" height="320"></canvas>
+                    </div>
+                    <div id="chart-tooltip"></div>
+                </div>
+
+                <!-- ── Section: Aggregate Intent Score ── -->
+                <div class="dash-section dash-section--kpi" data-section="intent" draggable="false">
+                    <div class="drag-handle" title="Drag to reorder">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
+                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
+                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
+                        </svg>
+                    </div>
+                    <div class="command-label">
+                        Aggregate Intent Score
+                        <span class="info-icon" data-tooltip="Weighted average intent across approximately 10,000 users based on recent interaction signals.">i</span>
+                    </div>
+                    <div class="command-value-large" id="agg-intent-score">0.000</div>
+                </div>
+
+                <!-- ── Section: Credit Flow Summary ── -->
+                <div class="dash-section dash-section--kpi" data-section="flow" draggable="false">
+                    <div class="drag-handle" title="Drag to reorder">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
+                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
+                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
+                        </svg>
+                    </div>
+                    <div class="command-label">
+                        Credit Flow Summary
+                        <span class="info-icon" data-tooltip="Current issued and remaining credit across all active users in the simulation pool.">i</span>
+                    </div>
+                    <div class="flow-stats">
+                        <div class="flow-item">
+                            <span class="flow-val" id="kpi-credits-dispersed">0</span>
+                            <span class="flow-lab">Issued</span>
+                        </div>
+                        <div class="flow-divider"></div>
+                        <div class="flow-item">
+                            <span class="flow-val" id="pool-remaining">0</span>
+                            <span class="flow-lab">Remaining</span>
+                        </div>
+                    </div>
+                    <div class="pool-progress-mini">
+                        <div class="pool-bar-fill" id="pool-bar-fill"></div>
+                    </div>
                 </div>
 
             </div>
@@ -399,19 +399,25 @@
             </div>
         </div>
 
-        <!-- Coming Soon Modal -->
-        <div class="coming-soon-overlay" id="coming-soon-overlay">
-            <div class="coming-soon-card">
-                <div class="coming-soon-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="9"/>
-                        <path d="M12 8v4.5"/>
-                        <circle cx="12" cy="15.5" r="0.6" fill="currentColor" stroke="none"/>
-                    </svg>
+        <!-- Add Widget Panel -->
+        <div class="add-widget-overlay" id="add-widget-overlay">
+            <div class="add-widget-panel">
+                <div class="add-widget-header">
+                    <span class="add-widget-title">Add Widget</span>
+                    <button class="add-widget-close" id="add-widget-close">&times;</button>
                 </div>
-                <h3 class="coming-soon-title">We're still working on this</h3>
-                <p class="coming-soon-desc">Custom dashboard sections are coming soon. Stay tuned.</p>
-                <button class="coming-soon-close" id="coming-soon-close">Got it</button>
+                <div class="add-widget-body">
+                    <div class="add-widget-empty-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                            <rect x="3" y="3" width="7" height="7" rx="1"/>
+                            <rect x="14" y="3" width="7" height="7" rx="1"/>
+                            <rect x="3" y="14" width="7" height="7" rx="1"/>
+                            <rect x="14" y="14" width="7" height="7" rx="1"/>
+                        </svg>
+                    </div>
+                    <p class="add-widget-empty-title">No widgets available yet</p>
+                    <p class="add-widget-empty-desc">We're building more dashboard widgets. They'll appear here when ready.</p>
+                </div>
             </div>
         </div>
 
