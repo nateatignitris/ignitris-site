@@ -259,30 +259,9 @@ body {
 
 .header {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 52px;
-}
-
-.page-title {
-    font-size: 19px;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    color: var(--text-1);
-    margin-bottom: 5px;
-}
-
-.page-subtitle {
-    font-size: 11px;
-    color: var(--text-3);
-    letter-spacing: 0.01em;
-}
-
-.header-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 36px;
 }
 
 /* Glass pill status badge */
@@ -329,22 +308,133 @@ body {
 .view { display: none; }
 .view.active { display: block; }
 
-/* ===== COMMAND GRID ===== */
-/* Gap = 1px + border-color background = seamless borders between cards */
-.command-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    margin-bottom: 1px;
+/* ===== DRAGGABLE SECTIONS ===== */
+.dash-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
+.dash-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 32px 36px;
+    position: relative;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dash-section.drag-over {
+    border-color: rgba(2, 121, 253, 0.28);
+    box-shadow: 0 0 0 3px rgba(2, 121, 253, 0.06);
+}
+
+.dash-section.dragging {
+    opacity: 0.45;
+}
+
+/* Drag handle — appears on section hover */
+.drag-handle {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    opacity: 0;
+    transition: opacity 0.15s ease, background 0.15s ease;
+    color: var(--text-3);
+    border-radius: 3px;
+}
+
+.dash-section:hover .drag-handle { opacity: 1; }
+.drag-handle:hover { background: rgba(10, 22, 40, 0.05); color: var(--text-2); }
+.drag-handle:active { cursor: grabbing; }
+
+/* ===== COMMAND GRID (legacy, kept for compatibility) ===== */
 .command-card {
     background: var(--white);
     padding: 32px 36px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+/* ===== REVENUE SECTION ===== */
+.section-label-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.section-label-row .command-label {
+    margin-bottom: 0;
+}
+
+.beta-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 7px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(2, 121, 253, 0.07);
+    color: var(--blue);
+    border: 1px solid rgba(2, 121, 253, 0.14);
+    border-radius: 2px;
+    font-family: 'SF Pro Display', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.rev-grid {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.rev-metric {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rev-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.11em;
+    color: var(--text-3);
+}
+
+.rev-value {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--text-1);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
+}
+
+.rev-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--border);
+    flex-shrink: 0;
+    margin: 0 32px;
+}
+
+.rev-note {
+    margin-top: 20px;
+    font-size: 10px;
+    color: var(--text-3);
+    letter-spacing: 0.02em;
 }
 
 .command-label {
@@ -416,7 +506,7 @@ body {
 .command-value-large {
     font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 52px;
-    font-weight: 300;
+    font-weight: 500;
     color: var(--text-1);
     letter-spacing: -0.04em;
     line-height: 1;
@@ -445,7 +535,7 @@ body {
 .flow-val {
     font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 32px;
-    font-weight: 300;
+    font-weight: 500;
     color: var(--text-1);
     letter-spacing: -0.03em;
     line-height: 1;
@@ -485,11 +575,7 @@ body {
 
 /* ===== CHART SECTION ===== */
 .command-chart-wrap {
-    background: var(--white);
-    border: 1px solid var(--border);
-    margin-top: 20px;
-    padding: 32px 40px 36px;
-    position: relative;
+    /* Legacy wrapper kept for JS compatibility — now a no-op since chart lives in .dash-section */
 }
 
 .chart-header {
@@ -909,12 +995,14 @@ body {
 }
 
 .tier-analysis-num {
-    font-family: 'SF Mono', ui-monospace, monospace;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 44px;
-    font-weight: 300;
+    font-weight: 500;
     letter-spacing: -0.04em;
     line-height: 1;
     margin-bottom: 6px;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
 }
 
 .tier-analysis-sub {

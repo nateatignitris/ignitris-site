@@ -7,11 +7,11 @@ let timestampTimer  = null;
 let currentPeriod   = 'ytd';
 
 const viewTitles = {
-    overview: { title: 'Command Center',   subtitle: 'Global Intent Index & Credit Velocity' },
-    users:    { title: 'User Index',        subtitle: 'Stochastic behavior tracking' },
-    events:   { title: 'Live Feed',         subtitle: 'Credit sizing actions — audit trail' },
-    tiers:    { title: 'Tier Distribution', subtitle: 'Cohort intent analysis' },
-    policy:   { title: 'System Parameters', subtitle: 'Global variable constraints' },
+    overview: { title: 'Home',           subtitle: 'Global Intent Index & Credit Velocity' },
+    users:    { title: 'User Index',     subtitle: 'Stochastic behavior tracking' },
+    events:   { title: 'Live Feed',      subtitle: 'Credit sizing actions — audit trail' },
+    tiers:    { title: 'Distribution',   subtitle: 'Cohort intent analysis' },
+    policy:   { title: 'Parameters',     subtitle: 'Global variable constraints' },
 };
 
 /* ─── INIT ───────────────────────────────────────────── */
@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFilters();
     initPolicyButtons();
     initPeriodButtons();
+    initDragSections();
     loadData();
     setInterval(loadData, 8000);
 });
@@ -41,8 +42,10 @@ function switchView(viewId) {
 
     const meta = viewTitles[viewId];
     if (meta) {
-        document.getElementById('page-title').textContent    = meta.title;
-        document.getElementById('page-subtitle').textContent = meta.subtitle;
+        const titleEl    = document.getElementById('page-title');
+        const subtitleEl = document.getElementById('page-subtitle');
+        if (titleEl)    titleEl.textContent    = meta.title;
+        if (subtitleEl) subtitleEl.textContent = meta.subtitle;
     }
 
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -68,6 +71,7 @@ function updateUI() {
     if (!dashboardData) return;
     updateHeader();
     renderKPIs();
+    renderRevenue();
     renderTimelineChart();
     renderUsersTable();
     renderEventsList();
@@ -161,13 +165,12 @@ function triggerEntrance() {
 
     const targets = [
         document.querySelector('.header'),
-        ...document.querySelectorAll('.command-card'),
-        document.querySelector('.command-chart-wrap'),
+        ...document.querySelectorAll('.dash-section'),
     ];
 
     targets.forEach((el, i) => {
         if (!el) return;
-        el.classList.add('animate-in', `d${i + 1}`);
+        el.classList.add('animate-in', `d${Math.min(i + 1, 6)}`);
     });
 }
 
@@ -565,6 +568,127 @@ document.getElementById('modal-close')?.addEventListener('click', () => {
 document.getElementById('user-modal')?.addEventListener('click', e => {
     if (e.target === e.currentTarget) e.currentTarget.style.display = 'none';
 });
+
+/* ─── DRAG SECTIONS ──────────────────────────────────── */
+function initDragSections() {
+    const container = document.getElementById('sections-container');
+    if (!container) return;
+
+    loadSectionOrder();
+
+    let dragEl     = null;
+    let dragOverEl = null;
+
+    container.addEventListener('dragstart', e => {
+        dragEl = e.target.closest('.dash-section');
+        if (!dragEl) return;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', dragEl.dataset.section);
+        setTimeout(() => dragEl && dragEl.classList.add('dragging'), 0);
+    });
+
+    container.addEventListener('dragend', () => {
+        if (dragEl)     dragEl.classList.remove('dragging');
+        if (dragOverEl) dragOverEl.classList.remove('drag-over');
+        dragEl     = null;
+        dragOverEl = null;
+        saveSectionOrder();
+    });
+
+    container.addEventListener('dragover', e => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+
+        const target = e.target.closest('.dash-section');
+        if (!target || target === dragEl) return;
+
+        if (dragOverEl && dragOverEl !== target) dragOverEl.classList.remove('drag-over');
+        dragOverEl = target;
+        target.classList.add('drag-over');
+
+        const rect     = target.getBoundingClientRect();
+        const midpoint = rect.top + rect.height / 2;
+        if (e.clientY < midpoint) {
+            container.insertBefore(dragEl, target);
+        } else {
+            container.insertBefore(dragEl, target.nextSibling);
+        }
+    });
+
+    container.addEventListener('drop', e => {
+        e.preventDefault();
+        if (dragOverEl) dragOverEl.classList.remove('drag-over');
+    });
+}
+
+function saveSectionOrder() {
+    try {
+        const order = [...document.querySelectorAll('.dash-section')].map(s => s.dataset.section);
+        localStorage.setItem('ignitris_section_order', JSON.stringify(order));
+    } catch(e) {}
+}
+
+function loadSectionOrder() {
+    try {
+        const saved = localStorage.getItem('ignitris_section_order');
+        if (!saved) return;
+        const order = JSON.parse(saved);
+        if (!Array.isArray(order)) return;
+        const container = document.getElementById('sections-container');
+        if (!container) return;
+        order.forEach(sectionId => {
+            const el = container.querySelector(`[data-section="${sectionId}"]`);
+            if (el) container.appendChild(el);
+        });
+    } catch(e) {}
+}
+
+/* ─── REVENUE ────────────────────────────────────────── */
+function renderRevenue() {
+    const d = dashboardData;
+    if (!d) return;
+
+    // $0.005 per credit — treat simulation period as one month of activity
+    const CREDIT_PRICE = 0.005;
+    const totalCredits = d.summary.total_credits_dispersed;
+    const totalUsers   = d.users.length;
+
+    const grossVolume = totalCredits * CREDIT_PRICE;
+    const mrr         = grossVolume;
+    const arr         = mrr * 12;
+    const arpu        = totalUsers > 0 ? grossVolume / totalUsers : 0;
+
+    countUpDollar('rev-gross', grossVolume);
+    countUpDollar('rev-mrr',   mrr);
+    countUpDollar('rev-arr',   arr);
+    countUpDollarFloat('rev-arpu', arpu);
+}
+
+function countUpDollar(elId, end, duration = 900) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    const start = performance.now();
+    function frame(now) {
+        const p     = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = '$' + Math.round(end * eased).toLocaleString();
+        if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+}
+
+function countUpDollarFloat(elId, end, duration = 900) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    const start = performance.now();
+    function frame(now) {
+        const p     = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = '$' + (end * eased).toFixed(2);
+        if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+}
 
 /* ─── POLICY BUTTONS ─────────────────────────────────── */
 function initPolicyButtons() {

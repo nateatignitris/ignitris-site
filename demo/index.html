@@ -81,7 +81,7 @@
                     <line x1="3" y1="8" x2="21" y2="8" />
                     <line x1="3" y1="16" x2="14" y2="16" />
                 </svg>
-                <span>Overview</span>
+                <span>Home</span>
             </a>
             <a href="#" class="sidebar-link" data-view="users">
                 <!-- Abstract: Grid of 4 dots -->
@@ -108,7 +108,7 @@
                     <line x1="12" y1="20" x2="12" y2="4" />
                     <line x1="18" y1="20" x2="18" y2="14" />
                 </svg>
-                <span>Tiers</span>
+                <span>Distribution</span>
             </a>
             <a href="#" class="sidebar-link" data-view="policy">
                 <!-- Abstract: Two intersecting lines -->
@@ -125,36 +125,44 @@
     <main class="main-content">
         <!-- Header -->
         <header class="header">
-            <div class="header-left">
-                <h1 class="page-title" id="page-title">Credit Command Center</h1>
-                <p class="page-subtitle" id="page-subtitle">Real-time credit sizing overview</p>
-            </div>
-            <div class="header-right">
-                <div class="status-badge" id="status-badge">
-                    <span class="status-dot"></span>
-                    <span>Demo</span>
-                </div>
-                <!-- tick/user count removed per design revision -->
+            <div class="status-badge" id="status-badge">
+                <span class="status-dot"></span>
+                <span>Live</span>
             </div>
         </header>
 
-        <!-- Overview View -->
+        <!-- Home View -->
         <div class="view active" id="view-overview">
-            <div class="command-grid">
-                <!-- Aggregate Intent -->
-                <div class="command-card">
+            <div class="dash-sections" id="sections-container">
+
+                <!-- ── Section: Aggregate Intent Score ── -->
+                <div class="dash-section" data-section="intent" draggable="true">
+                    <div class="drag-handle" title="Drag to reorder">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
+                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
+                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
+                        </svg>
+                    </div>
                     <div class="command-label">
                         Aggregate Intent Score
-                        <span class="info-icon" data-tooltip="This score represents the weighted average intent across approximately 10,000 users based on recent interaction signals.">i</span>
+                        <span class="info-icon" data-tooltip="Weighted average intent across approximately 10,000 users based on recent interaction signals.">i</span>
                     </div>
                     <div class="command-value-large" id="agg-intent-score">0.000</div>
                 </div>
 
-                <!-- Credit Flow -->
-                <div class="command-card">
+                <!-- ── Section: Credit Flow Summary ── -->
+                <div class="dash-section" data-section="flow" draggable="true">
+                    <div class="drag-handle" title="Drag to reorder">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
+                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
+                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
+                        </svg>
+                    </div>
                     <div class="command-label">
                         Credit Flow Summary
-                        <span class="info-icon" data-tooltip="This summary reflects the current issued and remaining credit across active users.">i</span>
+                        <span class="info-icon" data-tooltip="Current issued and remaining credit across all active users in the simulation pool.">i</span>
                     </div>
                     <div class="flow-stats">
                         <div class="flow-item">
@@ -171,29 +179,74 @@
                         <div class="pool-bar-fill" id="pool-bar-fill"></div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Main Timeline Chart -->
-            <div class="command-chart-wrap">
-                <div class="chart-header">
-                    <div class="chart-title-group">
-                        <div class="command-label">
-                            Credit Velocity
-                            <span class="info-icon" data-tooltip="Credits dispersed per simulation tick. Tracks the rate of credit distribution across all active users over time.">i</span>
+                <!-- ── Section: Credit Velocity Chart ── -->
+                <div class="dash-section" data-section="velocity" draggable="true">
+                    <div class="drag-handle" title="Drag to reorder">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
+                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
+                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
+                        </svg>
+                    </div>
+                    <div class="chart-header">
+                        <div class="chart-title-group">
+                            <div class="command-label">
+                                Credit Velocity
+                                <span class="info-icon" data-tooltip="Credits dispersed per simulation tick. Tracks the rate of credit distribution across all active users over time.">i</span>
+                            </div>
+                            <div class="chart-timestamp" id="chart-timestamp">Updated just now</div>
                         </div>
-                        <div class="chart-timestamp" id="chart-timestamp">Updated just now</div>
+                        <div class="chart-period-btns">
+                            <button class="period-btn" data-period="1d">1D</button>
+                            <button class="period-btn" data-period="1w">1W</button>
+                            <button class="period-btn" data-period="1m">1M</button>
+                            <button class="period-btn active" data-period="ytd">YTD</button>
+                        </div>
                     </div>
-                    <div class="chart-period-btns">
-                        <button class="period-btn" data-period="1d">1D</button>
-                        <button class="period-btn" data-period="1w">1W</button>
-                        <button class="period-btn" data-period="1m">1M</button>
-                        <button class="period-btn active" data-period="ytd">YTD</button>
+                    <div class="chart-canvas-wrap">
+                        <canvas id="timeline-chart" height="320"></canvas>
                     </div>
+                    <div id="chart-tooltip"></div>
                 </div>
-                <div class="chart-canvas-wrap">
-                    <canvas id="timeline-chart" height="320"></canvas>
+
+                <!-- ── Section: Revenue (Beta) ── -->
+                <div class="dash-section" data-section="revenue" draggable="true">
+                    <div class="drag-handle" title="Drag to reorder">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
+                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
+                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
+                        </svg>
+                    </div>
+                    <div class="section-label-row">
+                        <div class="command-label" style="margin-bottom:0;">Revenue</div>
+                        <span class="beta-badge">Beta</span>
+                    </div>
+                    <div class="rev-grid">
+                        <div class="rev-metric">
+                            <div class="rev-label">Gross Volume</div>
+                            <div class="rev-value" id="rev-gross">$0</div>
+                        </div>
+                        <div class="rev-divider"></div>
+                        <div class="rev-metric">
+                            <div class="rev-label">MRR</div>
+                            <div class="rev-value" id="rev-mrr">$0</div>
+                        </div>
+                        <div class="rev-divider"></div>
+                        <div class="rev-metric">
+                            <div class="rev-label">ARR</div>
+                            <div class="rev-value" id="rev-arr">$0</div>
+                        </div>
+                        <div class="rev-divider"></div>
+                        <div class="rev-metric">
+                            <div class="rev-label">ARPU</div>
+                            <div class="rev-value" id="rev-arpu">$0.00</div>
+                        </div>
+                    </div>
+                    <div class="rev-note">Simulated · Based on credit distribution data</div>
                 </div>
-                <div id="chart-tooltip"></div>
+
             </div>
         </div>
 
@@ -235,21 +288,13 @@
 
         <!-- Events View -->
         <div class="view" id="view-events">
-            <div class="section-header">
-                <h2>Event Log</h2>
-                <p>Complete audit trail of all credit dispersal actions</p>
-            </div>
             <div class="events-list" id="events-list">
                 <!-- Populated by JS -->
             </div>
         </div>
 
-        <!-- Tier Analysis View -->
+        <!-- Distribution View -->
         <div class="view" id="view-tiers">
-            <div class="section-header">
-                <h2>Tier Analysis</h2>
-                <p>Deep dive into each intent tier's performance</p>
-            </div>
             <div class="tier-analysis-grid" id="tier-analysis-grid">
                 <!-- Populated by JS -->
             </div>
@@ -257,11 +302,6 @@
 
         <!-- Parameters View -->
         <div class="view" id="view-policy">
-            <div class="section-header">
-                <h2>System Parameters</h2>
-                <p>Adjust intent thresholds and credit sizing variables dynamically</p>
-            </div>
-
             <div class="policy-grid">
                 <!-- Thresholds -->
                 <div class="policy-card">
