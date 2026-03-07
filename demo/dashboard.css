@@ -414,12 +414,14 @@ body {
 }
 
 .command-value-large {
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 52px;
     font-weight: 300;
     color: var(--text-1);
     letter-spacing: -0.04em;
     line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
 }
 
 .command-sublabel {
@@ -441,12 +443,14 @@ body {
 }
 
 .flow-val {
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 32px;
     font-weight: 300;
     color: var(--text-1);
     letter-spacing: -0.03em;
     line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
 }
 
 .flow-lab {
@@ -506,6 +510,40 @@ body {
     color: var(--text-3);
     font-family: 'SF Mono', ui-monospace, monospace;
     letter-spacing: 0.02em;
+}
+
+/* Chart period selector */
+.chart-period-btns {
+    display: flex;
+    gap: 1px;
+    align-items: center;
+}
+
+.period-btn {
+    border: none;
+    background: transparent;
+    padding: 5px 9px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    cursor: pointer;
+    font-family: 'SF Pro Display', -apple-system, sans-serif;
+    border-radius: 3px;
+    transition: color 0.15s ease, background 0.15s ease;
+    -webkit-font-smoothing: antialiased;
+}
+
+.period-btn:hover {
+    color: var(--text-1);
+    background: rgba(10, 22, 40, 0.04);
+}
+
+.period-btn.active {
+    color: var(--text-1);
+    font-weight: 700;
+    background: rgba(10, 22, 40, 0.06);
 }
 
 .chart-legend {

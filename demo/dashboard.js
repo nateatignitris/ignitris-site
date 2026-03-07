@@ -4,6 +4,7 @@ let currentFilter   = 'all';
 let currentSort     = 'intent_score';
 let lastLoadTime    = null;
 let timestampTimer  = null;
+let currentPeriod   = 'ytd';
 
 const viewTitles = {
     overview: { title: 'Command Center',   subtitle: 'Global Intent Index & Credit Velocity' },
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
     initFilters();
     initPolicyButtons();
+    initPeriodButtons();
     loadData();
     setInterval(loadData, 8000);
 });
@@ -105,10 +107,10 @@ function renderKPIs() {
     const avgIntent  = d.users.reduce((a, u) => a + u.intent_score, 0) / totalUsers;
 
     countUpFloat('agg-intent-score', avgIntent, 900, 3);
-    countUp('kpi-credits-dispersed', d.summary.total_credits_dispersed, 900, true);
+    countUp('kpi-credits-dispersed', d.summary.total_credits_dispersed, 900);
 
     const remaining = d.pool ? d.pool.total_remaining : (1000000 - d.summary.total_credits_dispersed);
-    countUp('pool-remaining', remaining, 900, true);
+    countUp('pool-remaining', remaining, 900);
 
     const fillPct = d.pool
         ? d.pool.utilization_pct
@@ -121,15 +123,8 @@ function renderKPIs() {
     }, 200);
 }
 
-/* ─── NUMBER FORMATTING ──────────────────────────────── */
-function formatCompact(n) {
-    if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
-    if (n >= 1_000)     return (n / 1_000).toFixed(1) + 'K';
-    return n.toString();
-}
-
 /* ─── COUNT-UP ANIMATIONS ────────────────────────────── */
-function countUp(elId, end, duration = 800, compact = false) {
+function countUp(elId, end, duration = 800) {
     const el = document.getElementById(elId);
     if (!el) return;
     const start = performance.now();
@@ -138,9 +133,7 @@ function countUp(elId, end, duration = 800, compact = false) {
         const p       = Math.min((now - start) / duration, 1);
         const eased   = 1 - Math.pow(1 - p, 3);
         const current = Math.round(end * eased);
-        el.textContent = compact
-            ? formatCompact(current)
-            : current.toLocaleString();
+        el.textContent = current.toLocaleString();
         if (p < 1) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
@@ -175,6 +168,34 @@ function triggerEntrance() {
     targets.forEach((el, i) => {
         if (!el) return;
         el.classList.add('animate-in', `d${i + 1}`);
+    });
+}
+
+/* ─── CHART PERIOD ───────────────────────────────────── */
+function getChartSlice(period) {
+    const hist = dashboardData?.history || [];
+    const n    = hist.length;
+    // Slice proportions: 1D=10%, 1W=25%, 1M=50%, YTD=100%
+    const sliceMap = { '1d': Math.max(1, Math.round(n * 0.10)),
+                       '1w': Math.max(1, Math.round(n * 0.25)),
+                       '1m': Math.max(1, Math.round(n * 0.50)),
+                       'ytd': n };
+    return hist.slice(-(sliceMap[period] ?? n));
+}
+
+function initPeriodButtons() {
+    document.querySelectorAll('.period-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentPeriod = btn.getAttribute('data-period');
+            if (timelineChart) {
+                const slice = getChartSlice(currentPeriod);
+                timelineChart.data.labels              = slice.map(h => h.tick);
+                timelineChart.data.datasets[0].data    = slice.map(h => h.credits_dispersed);
+                timelineChart.update('active');
+            }
+        });
     });
 }
 
@@ -214,7 +235,7 @@ function customTooltip(context) {
                 <span style="width:6px;height:6px;border-radius:50%;background:${dp.dataset.borderColor};display:inline-block;flex-shrink:0;"></span>
                 ${dp.dataset.label}
             </span>
-            <span class="tooltip-val">${formatCompact(Number(dp.raw))}</span>
+            <span class="tooltip-val">${Number(dp.raw).toLocaleString()}</span>
         </div>
     `).join('');
 
@@ -237,9 +258,10 @@ function renderTimelineChart() {
     const canvas = document.getElementById('timeline-chart');
     if (!canvas || timelineChart) return;
 
-    const hist = dashboardData.history || [];
-    if (!hist.length) return;
+    const allHist = dashboardData.history || [];
+    if (!allHist.length) return;
 
+    const hist   = getChartSlice(currentPeriod);
     const ctx    = canvas.getContext('2d');
     const height = canvas.offsetHeight || 260;
     const labels = hist.map(h => h.tick);
@@ -313,7 +335,7 @@ function renderTimelineChart() {
                         font:          { size: 10, family: "'SF Mono', ui-monospace, monospace" },
                         maxTicksLimit: 5,
                         padding:       10,
-                        callback: v => formatCompact(v),
+                        callback: v => v.toLocaleString(),
                     },
                 },
                 x: {
