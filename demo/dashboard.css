@@ -318,36 +318,49 @@ body {
 .dash-section {
     background: var(--white);
     border: 1px solid var(--border);
+    border-radius: 6px;
     padding: 32px 36px;
     position: relative;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* Compact KPI brick — about half the height */
+/* Compact KPI brick — horizontal single-row layout */
 .dash-section--kpi {
-    padding: 20px 36px;
-}
-
-.dash-section--kpi .command-value-large {
-    font-size: 30px;
-    letter-spacing: -0.03em;
+    padding: 16px 28px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0 16px;
 }
 
 .dash-section--kpi .command-label {
-    margin-bottom: 8px;
+    margin-bottom: 0;
+    flex: 1;
+    min-width: 0;
 }
 
-.dash-section--kpi .flow-val {
-    font-size: 22px;
-    letter-spacing: -0.025em;
+.dash-section--kpi .command-value-large {
+    font-size: 26px;
+    letter-spacing: -0.03em;
+    flex-shrink: 0;
 }
 
 .dash-section--kpi .flow-stats {
     gap: 20px;
+    flex-shrink: 0;
 }
 
+.dash-section--kpi .flow-val {
+    font-size: 20px;
+    letter-spacing: -0.025em;
+}
+
+/* Progress bar drops to its own full-width row */
 .dash-section--kpi .pool-progress-mini {
-    margin-top: 16px;
+    flex-basis: 100%;
+    margin-top: 10px;
 }
 
 .dash-section.drag-over {
@@ -430,6 +443,7 @@ body {
 .coming-soon-card {
     background: var(--white);
     border: 1px solid var(--border-mid);
+    border-radius: 6px;
     padding: 44px 48px;
     max-width: 360px;
     width: 90vw;
