@@ -1,9 +1,8 @@
 let dashboardData = null;
 let timelineChart   = null;
+let todaySparkline  = null;
 let currentFilter   = 'all';
 let currentSort     = 'intent_score';
-let lastLoadTime    = null;
-let timestampTimer  = null;
 const prevValues = {};
 
 const viewTitles = {
@@ -22,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initDragSections();
     initEditMode();
     initAddWidget();
+    initSidebarResize();
     loadData();
     setInterval(loadData, 8000);
 });
@@ -61,7 +61,6 @@ async function loadData() {
     try {
         const res = await fetch('simulation_results.json');
         dashboardData = await res.json();
-        startTimestamp();
         updateUI();
     } catch (err) {
         console.error('Failed to load simulation_results.json', err);
@@ -74,6 +73,7 @@ function updateUI() {
     renderKPIs();
     renderRevenue();
     renderTimelineChart();
+    updateToday();
     renderUsersTable();
     renderEventsList();
     renderTierAnalysis();
@@ -87,22 +87,67 @@ function updateHeader() {
     if (el('user-count')) el('user-count').textContent = `${dashboardData.summary.total_users} users`;
 }
 
-/* ─── CHART TIMESTAMP ────────────────────────────────── */
-function startTimestamp() {
-    lastLoadTime = Date.now();
-    updateTimestampLabel();
-    if (!timestampTimer) {
-        timestampTimer = setInterval(updateTimestampLabel, 1000);
+/* ─── TODAY SECTION ──────────────────────────────────── */
+function updateToday() {
+    const d = dashboardData;
+    if (!d) return;
+
+    // Primary KPI: total credit activity as dollar value
+    const totalActivity = d.summary.total_credits_dispersed * 0.005;
+    countUpDollar('today-total', totalActivity);
+
+    // Set current date
+    const dateEl = document.getElementById('today-date');
+    if (dateEl) {
+        dateEl.textContent = new Date().toLocaleDateString('en-US', {
+            month: 'short', day: 'numeric', year: 'numeric'
+        });
     }
+
+    // Draw sparkline from history
+    renderTodaySparkline();
 }
 
-function updateTimestampLabel() {
-    const el = document.getElementById('chart-timestamp');
-    if (!el || !lastLoadTime) return;
-    const secs = Math.round((Date.now() - lastLoadTime) / 1000);
-    el.textContent = secs <= 1
-        ? 'Updated just now'
-        : `Updated ${secs} seconds ago`;
+function renderTodaySparkline() {
+    const canvas = document.getElementById('today-sparkline');
+    if (!canvas || !dashboardData?.history?.length) return;
+
+    if (todaySparkline) {
+        todaySparkline.destroy();
+        todaySparkline = null;
+    }
+
+    const hist = dashboardData.history;
+    const ctx  = canvas.getContext('2d');
+    const blue = '#0279FD';
+
+    todaySparkline = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: hist.map(h => h.tick),
+            datasets: [{
+                data:        hist.map(h => h.credits_dispersed),
+                borderColor: blue,
+                borderWidth: 1.5,
+                fill:        false,
+                tension:     0.45,
+                pointRadius: 0,
+            }]
+        },
+        options: {
+            responsive:          true,
+            maintainAspectRatio: false,
+            animation:           { duration: 800 },
+            plugins: {
+                legend:  { display: false },
+                tooltip: { enabled: false },
+            },
+            scales: {
+                x: { display: false },
+                y: { display: false },
+            },
+        }
+    });
 }
 
 /* ─── KPIs ───────────────────────────────────────────── */
@@ -715,6 +760,42 @@ function initAddWidget() {
 
     overlay.addEventListener('click', e => {
         if (e.target === overlay) overlay.style.display = 'none';
+    });
+}
+
+/* ─── SIDEBAR RESIZE ─────────────────────────────────── */
+function initSidebarResize() {
+    const resizer = document.getElementById('sidebar-resizer');
+    const sidebar = document.getElementById('sidebar');
+    if (!resizer || !sidebar) return;
+
+    let isResizing = false;
+    let startX     = 0;
+    let startWidth = 232;
+
+    resizer.addEventListener('mousedown', e => {
+        isResizing = true;
+        startX     = e.clientX;
+        startWidth = sidebar.offsetWidth;
+        resizer.classList.add('dragging');
+        document.body.style.cursor     = 'col-resize';
+        document.body.style.userSelect = 'none';
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', e => {
+        if (!isResizing) return;
+        const delta    = e.clientX - startX;
+        const newWidth = Math.max(180, Math.min(340, startWidth + delta));
+        document.documentElement.style.setProperty('--sidebar-w', `${newWidth}px`);
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (!isResizing) return;
+        isResizing = false;
+        resizer.classList.remove('dragging');
+        document.body.style.cursor     = '';
+        document.body.style.userSelect = '';
     });
 }
 

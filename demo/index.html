@@ -118,7 +118,23 @@
                 <span>Parameters</span>
             </a>
         </div>
+
+        <!-- Client Profile Module -->
+        <div class="sidebar-profile">
+            <div class="profile-avatar">NG</div>
+            <div class="profile-info">
+                <div class="profile-name">Nate Gedion</div>
+                <div class="profile-org">Ignitris</div>
+                <div class="profile-meta">ACC-2025-0001 · Enterprise</div>
+                <div class="profile-ts">● Active now</div>
+            </div>
+        </div>
     </nav>
+
+    <!-- Sidebar Resizer -->
+    <div class="sidebar-resizer" id="sidebar-resizer">
+        <div class="sidebar-resizer-handle"></div>
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -132,51 +148,32 @@
 
         <!-- Home View -->
         <div class="view active" id="view-overview">
+
+            <!-- ── TODAY (permanent, non-removable) ── -->
+            <div class="today-section">
+                <div class="today-header-row">
+                    <h1 class="today-heading">Today</h1>
+                    <span class="today-date" id="today-date"></span>
+                </div>
+                <div class="today-body">
+                    <div class="today-primary">
+                        <div class="today-kpi-label">Total Credit Activity</div>
+                        <div class="today-kpi-value" id="today-total">$0</div>
+                    </div>
+                    <div class="today-sparkline-wrap">
+                        <canvas id="today-sparkline"></canvas>
+                    </div>
+                </div>
+            </div>
+
             <div class="dash-controls">
                 <button class="ctrl-btn" id="btn-add-section">+ Add</button>
                 <button class="ctrl-btn" id="btn-edit-sections">&#9881; Edit</button>
             </div>
             <div class="dash-sections" id="sections-container">
 
-                <!-- ── Section: Revenue (Beta) ── -->
-                <div class="dash-section dash-section--full" data-section="revenue" draggable="false">
-                    <div class="drag-handle" title="Drag to reorder">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
-                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
-                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
-                        </svg>
-                    </div>
-                    <div class="section-label-row">
-                        <div class="command-label" style="margin-bottom:0;">Revenue</div>
-                        <span class="beta-badge">Beta</span>
-                    </div>
-                    <div class="rev-grid">
-                        <div class="rev-metric">
-                            <div class="rev-label">Gross Volume</div>
-                            <div class="rev-value" id="rev-gross">$0</div>
-                        </div>
-                        <div class="rev-divider"></div>
-                        <div class="rev-metric">
-                            <div class="rev-label">MRR</div>
-                            <div class="rev-value" id="rev-mrr">$0</div>
-                        </div>
-                        <div class="rev-divider"></div>
-                        <div class="rev-metric">
-                            <div class="rev-label">ARR</div>
-                            <div class="rev-value" id="rev-arr">$0</div>
-                        </div>
-                        <div class="rev-divider"></div>
-                        <div class="rev-metric">
-                            <div class="rev-label">ARPU</div>
-                            <div class="rev-value" id="rev-arpu">$0.00</div>
-                        </div>
-                    </div>
-                    <div class="rev-note">Simulated · Based on credit distribution data</div>
-                </div>
-
-                <!-- ── Section: Credit Velocity Chart ── -->
-                <div class="dash-section dash-section--full" data-section="velocity" draggable="false">
+                <!-- ── Section: Credit Velocity Chart (half-width) ── -->
+                <div class="dash-section" data-section="velocity" draggable="false">
                     <div class="drag-handle" title="Drag to reorder">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
                             <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
@@ -190,17 +187,16 @@
                                 Credit Velocity
                                 <span class="info-icon" data-tooltip="Credits dispersed per simulation tick. Tracks the rate of credit distribution across all active users over time.">i</span>
                             </div>
-                            <div class="chart-timestamp" id="chart-timestamp">Updated just now</div>
                         </div>
                     </div>
                     <div class="chart-canvas-wrap">
-                        <canvas id="timeline-chart" height="320"></canvas>
+                        <canvas id="timeline-chart" height="240"></canvas>
                     </div>
                     <div id="chart-tooltip"></div>
                 </div>
 
-                <!-- ── Section: Aggregate Intent Score ── -->
-                <div class="dash-section dash-section--kpi" data-section="intent" draggable="false">
+                <!-- ── Section: Aggregate Intent Score (dark card) ── -->
+                <div class="dash-section dash-section--dark" data-section="intent" draggable="false">
                     <div class="drag-handle" title="Drag to reorder">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
                             <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
@@ -208,15 +204,15 @@
                             <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
                         </svg>
                     </div>
-                    <div class="command-label">
+                    <div class="command-label" style="margin-bottom: 20px;">
                         Aggregate Intent Score
                         <span class="info-icon" data-tooltip="Weighted average intent across approximately 10,000 users based on recent interaction signals.">i</span>
                     </div>
                     <div class="command-value-large" id="agg-intent-score">0.000</div>
                 </div>
 
-                <!-- ── Section: Credit Flow Summary ── -->
-                <div class="dash-section dash-section--kpi" data-section="flow" draggable="false">
+                <!-- ── Section: Credit Flow Summary (centered title) ── -->
+                <div class="dash-section dash-section--flow" data-section="flow" draggable="false">
                     <div class="drag-handle" title="Drag to reorder">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
                             <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
@@ -224,10 +220,8 @@
                             <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
                         </svg>
                     </div>
-                    <div class="command-label">
-                        Credit Flow Summary
-                        <span class="info-icon" data-tooltip="Current issued and remaining credit across all active users in the simulation pool.">i</span>
-                    </div>
+                    <span class="info-icon flow-info-corner" data-tooltip="Current issued and remaining credit across all active users in the simulation pool.">i</span>
+                    <div class="flow-title">Credit Flow Summary</div>
                     <div class="flow-stats">
                         <div class="flow-item">
                             <span class="flow-val" id="kpi-credits-dispersed">0</span>
@@ -242,6 +236,58 @@
                     <div class="pool-progress-mini">
                         <div class="pool-bar-fill" id="pool-bar-fill"></div>
                     </div>
+                </div>
+
+                <!-- ── Section: Gross Volume ── -->
+                <div class="dash-section dash-section--metric" data-section="metric-gross" draggable="false">
+                    <div class="drag-handle" title="Drag to reorder">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
+                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
+                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
+                        </svg>
+                    </div>
+                    <div class="metric-label">Gross Volume <span class="beta-badge" style="vertical-align:middle;margin-left:4px;">Beta</span></div>
+                    <div class="metric-value" id="rev-gross">$0</div>
+                </div>
+
+                <!-- ── Section: MRR ── -->
+                <div class="dash-section dash-section--metric" data-section="metric-mrr" draggable="false">
+                    <div class="drag-handle" title="Drag to reorder">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
+                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
+                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
+                        </svg>
+                    </div>
+                    <div class="metric-label">MRR</div>
+                    <div class="metric-value" id="rev-mrr">$0</div>
+                </div>
+
+                <!-- ── Section: ARR ── -->
+                <div class="dash-section dash-section--metric" data-section="metric-arr" draggable="false">
+                    <div class="drag-handle" title="Drag to reorder">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
+                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
+                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
+                        </svg>
+                    </div>
+                    <div class="metric-label">ARR</div>
+                    <div class="metric-value" id="rev-arr">$0</div>
+                </div>
+
+                <!-- ── Section: ARPU ── -->
+                <div class="dash-section dash-section--metric" data-section="metric-arpu" draggable="false">
+                    <div class="drag-handle" title="Drag to reorder">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                            <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
+                            <circle cx="4" cy="7"   r="1.2"/><circle cx="10" cy="7"   r="1.2"/>
+                            <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
+                        </svg>
+                    </div>
+                    <div class="metric-label">ARPU</div>
+                    <div class="metric-value" id="rev-arpu">$0.00</div>
                 </div>
 
             </div>
