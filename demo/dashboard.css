@@ -474,9 +474,11 @@ body {
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: 6px;
-    padding: 32px 36px;
+    padding: 28px 32px;
     position: relative;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    align-self: start; /* all cards size to their own content — no grid stretching */
+    box-sizing: border-box;
 }
 
 /* Compact KPI brick — horizontal single-row layout */
@@ -518,14 +520,23 @@ body {
     margin-top: 10px;
 }
 
-.dash-section.drag-over {
-    border-color: rgba(2, 121, 253, 0.28);
-    box-shadow: 0 0 0 3px rgba(2, 121, 253, 0.06);
+.dash-section.dragging {
+    opacity: 0.35;
+    box-shadow: 0 12px 40px rgba(10, 22, 40, 0.12);
+    pointer-events: none;
 }
 
-.dash-section.dragging {
-    opacity: 0.4;
-    box-shadow: 0 8px 32px rgba(10, 22, 40, 0.10);
+/* Placeholder that holds the slot while dragging */
+.drag-placeholder {
+    background: rgba(2, 121, 253, 0.04);
+    border: 1.5px dashed rgba(2, 121, 253, 0.3);
+    border-radius: 6px;
+    /* height is set dynamically by JS to match the dragged card */
+    min-height: 60px;
+    box-sizing: border-box;
+    pointer-events: none;
+    align-self: start;
+    /* no layout transition — instant snap avoids visual stutter */
 }
 
 /* Drag handle — hidden by default, only visible in edit mode */
@@ -625,7 +636,7 @@ body {
     align-items: center;
     text-align: center;
     position: relative;
-    align-self: start; /* don't stretch to match taller grid neighbours */
+    /* align-self: start inherited from .dash-section */
 }
 
 .flow-title {
@@ -664,9 +675,9 @@ body {
     right: 10px;
 }
 
-/* Metric blocks also shouldn't stretch */
+/* Metric blocks — compact, consistent height */
 .dash-section--metric {
-    align-self: start;
+    /* align-self: start inherited from .dash-section */
 }
 
 /* Edit button active state */

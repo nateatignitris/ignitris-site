@@ -603,10 +603,12 @@ function initDragSections() {
     let placeholder = null;
     let rafPending  = false;
 
-    // Placeholder mirrors the dragged card's grid slot
+    // Placeholder mirrors the dragged card's exact height so the grid doesn't jump
     function makePlaceholder(fromEl) {
         const ph = document.createElement('div');
         ph.className = 'drag-placeholder';
+        // Lock height to the dragged element's current rendered height
+        ph.style.height = fromEl.getBoundingClientRect().height + 'px';
         if (fromEl.classList.contains('dash-section--full')) {
             ph.style.gridColumn = '1 / -1';
         }
@@ -614,7 +616,8 @@ function initDragSections() {
     }
 
     // Given a cursor position, find the nearest section and whether to insert before/after it.
-    // Works from anywhere on the page — gaps, empty space, corners, all of it.
+    // Works from anywhere — gaps, empty container space, card corners, all of it.
+    // Uses BOTH X and Y so the 2-column grid responds to left/right movement too.
     function getNearestDropTarget(cursorX, cursorY) {
         const sections = [...container.querySelectorAll('.dash-section')]
             .filter(s => s !== dragEl && !s.classList.contains('drag-placeholder'));
@@ -627,8 +630,7 @@ function initDragSections() {
         for (const s of sections) {
             const r = s.getBoundingClientRect();
 
-            // Clamp cursor to the section's bounding rect, then measure distance.
-            // Distance is 0 when cursor is inside the rect, positive when outside.
+            // Clamp cursor to the section rect — distance is 0 inside, grows outside
             const clampedX = Math.max(r.left, Math.min(r.right,  cursorX));
             const clampedY = Math.max(r.top,  Math.min(r.bottom, cursorY));
             const dist     = Math.hypot(cursorX - clampedX, cursorY - clampedY);
@@ -641,9 +643,23 @@ function initDragSections() {
 
         if (!best) return null;
 
-        const r      = best.getBoundingClientRect();
-        const midY   = r.top + r.height / 2;
-        const before = cursorY < midY;
+        const r    = best.getBoundingClientRect();
+        const midY = r.top  + r.height / 2;
+        const midX = r.left + r.width  / 2;
+
+        // Vertical bias: how far above/below the midpoint, normalized -1 → +1
+        const vBias = (cursorY - midY) / (r.height / 2);
+
+        let before;
+        if (Math.abs(vBias) > 0.35) {
+            // Cursor is clearly in the upper or lower third — use Y to decide row
+            before = cursorY < midY;
+        } else {
+            // Cursor is in the middle vertical zone — use X to pick the column slot
+            // In a 2-col grid: left of midX → "take this card's column" (before)
+            //                  right of midX → "go after this card" (after)
+            before = cursorX < midX;
+        }
 
         return { section: best, before };
     }
