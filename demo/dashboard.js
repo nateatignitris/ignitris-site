@@ -595,70 +595,51 @@ document.getElementById('user-modal')?.addEventListener('click', e => {
 /* ─── DRAG SECTIONS ──────────────────────────────────── */
 function initDragSections() {
     const container = document.getElementById('sections-container');
-    if (!container) return;
+    const colA      = document.getElementById('col-a');
+    const colB      = document.getElementById('col-b');
+    if (!container || !colA || !colB) return;
 
     loadSectionOrder();
 
-    let dragEl         = null;
-    let placeholder    = null;
-    let rafPending     = false;
-    let lastSwapTarget = null;  // prevents re-swapping the same card on micro-movements
+    let dragEl     = null;
+    let placeholder = null;
+    let rafPending  = false;
 
-    // Placeholder matches the dragged card's exact rendered height — no layout jumps
+    // Placeholder matches the dragged card's exact rendered height
     function makePlaceholder(fromEl) {
         const ph = document.createElement('div');
         ph.className = 'drag-placeholder';
         ph.style.height = fromEl.getBoundingClientRect().height + 'px';
-        if (fromEl.classList.contains('dash-section--full')) {
-            ph.style.gridColumn = '1 / -1';
-        }
         return ph;
     }
 
-    // Swap two DOM nodes cleanly. Uses a sentinel comment to handle the
-    // adjacent-sibling edge case without any intermediate state issues.
-    function swapDomElements(a, b) {
-        if (a === b) return;
-        const sentinel = document.createComment('');
-        b.parentNode.insertBefore(sentinel, b); // mark b's original slot
-        a.parentNode.insertBefore(b, a);         // b moves to a's slot
-        sentinel.parentNode.insertBefore(a, sentinel); // a moves to b's old slot
-        sentinel.parentNode.removeChild(sentinel);
+    // Determine which column the cursor is over
+    function getTargetCol(cursorX) {
+        const rA = colA.getBoundingClientRect();
+        const rB = colB.getBoundingClientRect();
+        // Use the gap midpoint between the two columns as the boundary
+        const boundary = (rA.right + rB.left) / 2;
+        return cursorX <= boundary ? colA : colB;
     }
 
-    // Find the card geometrically closest to the cursor.
-    // Works from anywhere — gaps, container background, card edges, all of it.
-    function getNearestSection(cursorX, cursorY) {
-        const sections = [...container.querySelectorAll('.dash-section')]
+    // Within a column, find insertion point by Y midpoint of each item
+    function getInsertBefore(col, cursorY) {
+        const items = [...col.querySelectorAll('.dash-section')]
             .filter(s => s !== dragEl && !s.classList.contains('drag-placeholder'));
-        if (!sections.length) return null;
-
-        let best     = null;
-        let bestDist = Infinity;
-
-        for (const s of sections) {
-            const r  = s.getBoundingClientRect();
-            // Clamped distance: 0 inside the rect, grows as cursor leaves
-            const cx = Math.max(r.left, Math.min(r.right,  cursorX));
-            const cy = Math.max(r.top,  Math.min(r.bottom, cursorY));
-            const d  = Math.hypot(cursorX - cx, cursorY - cy);
-            if (d < bestDist) { bestDist = d; best = s; }
+        for (const item of items) {
+            const r = item.getBoundingClientRect();
+            if (cursorY < r.top + r.height / 2) return item;
         }
-        return best;
+        return null; // append to bottom
     }
 
     container.addEventListener('dragstart', e => {
         dragEl = e.target.closest('.dash-section');
         if (!dragEl) return;
-
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/plain', dragEl.dataset.section);
-
-        placeholder    = makePlaceholder(dragEl);
-        lastSwapTarget = null;
-
-        // One frame delay so the browser captures the native ghost image
-        // before we apply opacity or insert the placeholder
+        placeholder = makePlaceholder(dragEl);
+        // One frame delay so browser captures ghost before opacity change
         requestAnimationFrame(() => {
             if (!dragEl) return;
             dragEl.classList.add('dragging');
@@ -670,41 +651,36 @@ function initDragSections() {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
         if (!dragEl || !placeholder) return;
-
         if (rafPending) return;
         rafPending = true;
-
-        const cursorX = e.clientX;
-        const cursorY = e.clientY;
-
+        const cx = e.clientX, cy = e.clientY;
         requestAnimationFrame(() => {
             rafPending = false;
             if (!dragEl || !placeholder) return;
-
-            const target = getNearestSection(cursorX, cursorY);
-
-            // Only act when the cursor has moved to a NEW card.
-            // This is the swap model: placeholder and target exchange slots.
-            // Nothing else in the grid moves — only the card you hover over.
-            if (!target || target === lastSwapTarget) return;
-            lastSwapTarget = target;
-
-            swapDomElements(placeholder, target);
+            const targetCol   = getTargetCol(cx);
+            const insertBefore = getInsertBefore(targetCol, cy);
+            if (insertBefore) {
+                targetCol.insertBefore(placeholder, insertBefore);
+            } else {
+                targetCol.appendChild(placeholder);
+            }
         });
+    });
+
+    // Also handle dragover on empty column areas
+    [colA, colB].forEach(col => {
+        col.addEventListener('dragover', e => e.preventDefault());
     });
 
     container.addEventListener('dragend', () => {
         if (!dragEl) return;
         dragEl.classList.remove('dragging');
-
         if (placeholder && placeholder.parentNode) {
             placeholder.replaceWith(dragEl);
         }
-
-        dragEl         = null;
-        placeholder    = null;
-        rafPending     = false;
-        lastSwapTarget = null;
+        dragEl     = null;
+        placeholder = null;
+        rafPending  = false;
         saveSectionOrder();
     });
 
@@ -713,31 +689,42 @@ function initDragSections() {
 
 function saveSectionOrder() {
     try {
-        const order = [...document.querySelectorAll('.dash-section')].map(s => s.dataset.section);
-        localStorage.setItem('ignitris_section_order', JSON.stringify(order));
+        const colA = document.getElementById('col-a');
+        const colB = document.getElementById('col-b');
+        const orderA = colA ? [...colA.querySelectorAll('.dash-section[data-section]')].map(s => s.dataset.section) : [];
+        const orderB = colB ? [...colB.querySelectorAll('.dash-section[data-section]')].map(s => s.dataset.section) : [];
+        localStorage.setItem('ignitris_col_order', JSON.stringify({ a: orderA, b: orderB }));
     } catch(e) {}
 }
 
 function loadSectionOrder() {
     try {
-        const saved = localStorage.getItem('ignitris_section_order');
+        const saved = localStorage.getItem('ignitris_col_order');
         if (!saved) return;
-        const order = JSON.parse(saved);
-        if (!Array.isArray(order)) return;
-        const container = document.getElementById('sections-container');
-        if (!container) return;
+        const { a, b } = JSON.parse(saved);
+        if (!Array.isArray(a) || !Array.isArray(b)) return;
 
-        // Validate: all saved IDs must exist in the current DOM.
-        // If any are missing (layout changed), discard the saved order entirely.
-        const allPresent = order.every(id => container.querySelector(`[data-section="${id}"]`));
-        if (!allPresent) {
-            localStorage.removeItem('ignitris_section_order');
+        const colA = document.getElementById('col-a');
+        const colB = document.getElementById('col-b');
+        if (!colA || !colB) return;
+
+        // Validate all saved IDs exist in the DOM; discard if stale
+        const container = document.getElementById('sections-container');
+        const allIds = new Set([...container.querySelectorAll('.dash-section[data-section]')]
+            .map(s => s.dataset.section));
+        const savedAll = [...a, ...b];
+        if (!savedAll.every(id => allIds.has(id)) || savedAll.length !== allIds.size) {
+            localStorage.removeItem('ignitris_col_order');
             return;
         }
 
-        order.forEach(sectionId => {
-            const el = container.querySelector(`[data-section="${sectionId}"]`);
-            if (el) container.appendChild(el);
+        a.forEach(id => {
+            const el = container.querySelector(`[data-section="${id}"]`);
+            if (el) colA.appendChild(el);
+        });
+        b.forEach(id => {
+            const el = container.querySelector(`[data-section="${id}"]`);
+            if (el) colB.appendChild(el);
         });
     } catch(e) {}
 }
