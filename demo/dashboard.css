@@ -247,60 +247,62 @@ body {
 /* ===== SIDEBAR PROFILE ===== */
 .sidebar-profile {
     margin-top: auto;
-    padding-top: 16px;
+    padding-top: 14px;
     border-top: 1px solid var(--border);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 9px;
 }
 
 .profile-avatar {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: var(--navy);
     color: #fff;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
 }
 
-.profile-info { min-width: 0; flex: 1; }
+.profile-info {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
 
 .profile-name {
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 500;
     color: var(--text-1);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    letter-spacing: -0.01em;
 }
 
-.profile-org {
-    font-size: 10px;
-    color: var(--text-3);
-    margin-top: 1px;
-}
-
-.profile-meta {
-    font-size: 9px;
-    color: var(--text-3);
-    font-family: 'SF Mono', ui-monospace, monospace;
-    letter-spacing: 0.02em;
-    margin-top: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.profile-ts {
-    font-size: 9px;
+.profile-status {
+    font-size: 9.5px;
     color: var(--ignitris-blue);
-    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    letter-spacing: -0.01em;
+}
+
+.profile-status::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ignitris-blue);
+    flex-shrink: 0;
 }
 
 /* ===== SIDEBAR RESIZER ===== */
@@ -678,6 +680,121 @@ body {
 /* Metric blocks — compact, consistent height */
 .dash-section--metric {
     /* align-self: start inherited from .dash-section */
+}
+
+/* ===== UNIFORM BRICK WIDGETS ===== */
+/* All small widgets (intent, flow, metrics) use this for identical sizing */
+.dash-section--brick {
+    padding: 0 18px;
+    height: 58px;
+    min-height: 58px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.brick-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-2);
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.brick-value {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text-1);
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+    text-align: right;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+/* Dark brick (intent score) */
+.dash-section--brick.dash-section--dark {
+    background: var(--navy);
+    border-color: transparent;
+}
+.dash-section--brick.dash-section--dark .brick-label {
+    color: rgba(255, 255, 255, 0.4);
+}
+.dash-section--brick.dash-section--dark .brick-value {
+    color: #ffffff;
+    font-size: 18px;
+}
+.dash-section--brick.dash-section--dark .drag-handle {
+    color: rgba(255, 255, 255, 0.2);
+}
+.dash-section--brick.dash-section--dark .info-icon {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* Credit Flow brick — override column centering from --flow */
+.dash-section--brick.dash-section--flow {
+    text-align: left;       /* cancel --flow's text-align: center */
+    flex-direction: row;    /* cancel --flow's flex-direction: column */
+    align-items: center;
+    justify-content: space-between;
+    position: relative;     /* anchor the thin bar at bottom */
+}
+
+.flow-brick-stats {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+.flow-brick-num {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-1);
+    letter-spacing: -0.025em;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+}
+
+.flow-brick-num--dim {
+    font-size: 12px;
+    color: var(--text-3);
+    font-weight: 400;
+}
+
+.flow-brick-sep {
+    font-size: 10px;
+    color: var(--text-3);
+}
+
+/* 2px progress stripe pinned to the bottom edge of the credit flow brick */
+.flow-brick-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--border);
+    border-radius: 0 0 6px 6px;
+    overflow: hidden;
+}
+.flow-brick-bar .pool-bar-fill {
+    height: 100%;
+    background: var(--blue);
+    width: 0%;
+    transition: width 1.2s var(--ease);
+    border-radius: 0;
 }
 
 /* Edit button active state */

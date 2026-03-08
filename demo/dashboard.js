@@ -599,15 +599,15 @@ function initDragSections() {
 
     loadSectionOrder();
 
-    let dragEl      = null;
-    let placeholder = null;
-    let rafPending  = false;
+    let dragEl         = null;
+    let placeholder    = null;
+    let rafPending     = false;
+    let lastSwapTarget = null;  // prevents re-swapping the same card on micro-movements
 
-    // Placeholder mirrors the dragged card's exact height so the grid doesn't jump
+    // Placeholder matches the dragged card's exact rendered height — no layout jumps
     function makePlaceholder(fromEl) {
         const ph = document.createElement('div');
         ph.className = 'drag-placeholder';
-        // Lock height to the dragged element's current rendered height
         ph.style.height = fromEl.getBoundingClientRect().height + 'px';
         if (fromEl.classList.contains('dash-section--full')) {
             ph.style.gridColumn = '1 / -1';
@@ -615,53 +615,36 @@ function initDragSections() {
         return ph;
     }
 
-    // Given a cursor position, find the nearest section and whether to insert before/after it.
-    // Works from anywhere — gaps, empty container space, card corners, all of it.
-    // Uses BOTH X and Y so the 2-column grid responds to left/right movement too.
-    function getNearestDropTarget(cursorX, cursorY) {
+    // Swap two DOM nodes cleanly. Uses a sentinel comment to handle the
+    // adjacent-sibling edge case without any intermediate state issues.
+    function swapDomElements(a, b) {
+        if (a === b) return;
+        const sentinel = document.createComment('');
+        b.parentNode.insertBefore(sentinel, b); // mark b's original slot
+        a.parentNode.insertBefore(b, a);         // b moves to a's slot
+        sentinel.parentNode.insertBefore(a, sentinel); // a moves to b's old slot
+        sentinel.parentNode.removeChild(sentinel);
+    }
+
+    // Find the card geometrically closest to the cursor.
+    // Works from anywhere — gaps, container background, card edges, all of it.
+    function getNearestSection(cursorX, cursorY) {
         const sections = [...container.querySelectorAll('.dash-section')]
             .filter(s => s !== dragEl && !s.classList.contains('drag-placeholder'));
-
         if (!sections.length) return null;
 
         let best     = null;
         let bestDist = Infinity;
 
         for (const s of sections) {
-            const r = s.getBoundingClientRect();
-
-            // Clamp cursor to the section rect — distance is 0 inside, grows outside
-            const clampedX = Math.max(r.left, Math.min(r.right,  cursorX));
-            const clampedY = Math.max(r.top,  Math.min(r.bottom, cursorY));
-            const dist     = Math.hypot(cursorX - clampedX, cursorY - clampedY);
-
-            if (dist < bestDist) {
-                bestDist = dist;
-                best     = s;
-            }
+            const r  = s.getBoundingClientRect();
+            // Clamped distance: 0 inside the rect, grows as cursor leaves
+            const cx = Math.max(r.left, Math.min(r.right,  cursorX));
+            const cy = Math.max(r.top,  Math.min(r.bottom, cursorY));
+            const d  = Math.hypot(cursorX - cx, cursorY - cy);
+            if (d < bestDist) { bestDist = d; best = s; }
         }
-
-        if (!best) return null;
-
-        const r    = best.getBoundingClientRect();
-        const midY = r.top  + r.height / 2;
-        const midX = r.left + r.width  / 2;
-
-        // Vertical bias: how far above/below the midpoint, normalized -1 → +1
-        const vBias = (cursorY - midY) / (r.height / 2);
-
-        let before;
-        if (Math.abs(vBias) > 0.35) {
-            // Cursor is clearly in the upper or lower third — use Y to decide row
-            before = cursorY < midY;
-        } else {
-            // Cursor is in the middle vertical zone — use X to pick the column slot
-            // In a 2-col grid: left of midX → "take this card's column" (before)
-            //                  right of midX → "go after this card" (after)
-            before = cursorX < midX;
-        }
-
-        return { section: best, before };
+        return best;
     }
 
     container.addEventListener('dragstart', e => {
@@ -671,10 +654,11 @@ function initDragSections() {
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/plain', dragEl.dataset.section);
 
-        placeholder = makePlaceholder(dragEl);
+        placeholder    = makePlaceholder(dragEl);
+        lastSwapTarget = null;
 
-        // Wait one frame so the browser captures the native drag ghost
-        // before we apply opacity changes or insert the placeholder
+        // One frame delay so the browser captures the native ghost image
+        // before we apply opacity or insert the placeholder
         requestAnimationFrame(() => {
             if (!dragEl) return;
             dragEl.classList.add('dragging');
@@ -687,7 +671,6 @@ function initDragSections() {
         e.dataTransfer.dropEffect = 'move';
         if (!dragEl || !placeholder) return;
 
-        // Throttle DOM writes to one per animation frame
         if (rafPending) return;
         rafPending = true;
 
@@ -698,24 +681,18 @@ function initDragSections() {
             rafPending = false;
             if (!dragEl || !placeholder) return;
 
-            const drop = getNearestDropTarget(cursorX, cursorY);
-            if (!drop) return;
+            const target = getNearestSection(cursorX, cursorY);
 
-            const { section, before } = drop;
+            // Only act when the cursor has moved to a NEW card.
+            // This is the swap model: placeholder and target exchange slots.
+            // Nothing else in the grid moves — only the card you hover over.
+            if (!target || target === lastSwapTarget) return;
+            lastSwapTarget = target;
 
-            // Only mutate DOM if the placeholder would actually move
-            const nextSibling = before ? section : section.nextSibling;
-            if (placeholder.nextSibling !== nextSibling) {
-                if (before) {
-                    container.insertBefore(placeholder, section);
-                } else {
-                    section.after(placeholder);
-                }
-            }
+            swapDomElements(placeholder, target);
         });
     });
 
-    // On dragend: slot the real element where the placeholder landed
     container.addEventListener('dragend', () => {
         if (!dragEl) return;
         dragEl.classList.remove('dragging');
@@ -724,9 +701,10 @@ function initDragSections() {
             placeholder.replaceWith(dragEl);
         }
 
-        dragEl      = null;
-        placeholder = null;
-        rafPending  = false;
+        dragEl         = null;
+        placeholder    = null;
+        rafPending     = false;
+        lastSwapTarget = null;
         saveSectionOrder();
     });
 

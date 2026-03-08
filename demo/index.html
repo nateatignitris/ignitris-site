@@ -124,9 +124,7 @@
             <div class="profile-avatar">NG</div>
             <div class="profile-info">
                 <div class="profile-name">Nate Gedion</div>
-                <div class="profile-org">Ignitris</div>
-                <div class="profile-meta">ACC-2025-0001 · Enterprise</div>
-                <div class="profile-ts">● Active now</div>
+                <div class="profile-status">Active</div>
             </div>
         </div>
     </nav>
@@ -195,8 +193,8 @@
                     <div id="chart-tooltip"></div>
                 </div>
 
-                <!-- ── Section: Aggregate Intent Score (dark card) ── -->
-                <div class="dash-section dash-section--dark" data-section="intent" draggable="false">
+                <!-- ── Section: Aggregate Intent Score (dark brick) ── -->
+                <div class="dash-section dash-section--brick dash-section--dark" data-section="intent" draggable="false">
                     <div class="drag-handle" title="Drag to reorder">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
                             <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
@@ -204,15 +202,15 @@
                             <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
                         </svg>
                     </div>
-                    <div class="command-label" style="margin-bottom: 20px;">
+                    <span class="brick-label">
                         Aggregate Intent Score
                         <span class="info-icon" data-tooltip="Weighted average intent across approximately 10,000 users based on recent interaction signals.">i</span>
-                    </div>
-                    <div class="command-value-large" id="agg-intent-score">0.000</div>
+                    </span>
+                    <span class="brick-value" id="agg-intent-score">0.000</span>
                 </div>
 
-                <!-- ── Section: Credit Flow Summary (centered title) ── -->
-                <div class="dash-section dash-section--flow" data-section="flow" draggable="false">
+                <!-- ── Section: Credit Flow (brick) ── -->
+                <div class="dash-section dash-section--brick dash-section--flow" data-section="flow" draggable="false">
                     <div class="drag-handle" title="Drag to reorder">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
                             <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
@@ -220,28 +218,22 @@
                             <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
                         </svg>
                     </div>
-                    <div class="flow-title">
-                        Credit Flow Summary
-                        <span class="info-icon" data-tooltip="Current issued and remaining credit across all active users in the simulation pool." style="margin-left:5px;">i</span>
+                    <span class="brick-label">
+                        Credit Flow
+                        <span class="info-icon" data-tooltip="Issued and remaining credits across all active users in the simulation pool.">i</span>
+                    </span>
+                    <div class="flow-brick-stats">
+                        <span class="flow-brick-num" id="kpi-credits-dispersed">0</span>
+                        <span class="flow-brick-sep">·</span>
+                        <span class="flow-brick-num flow-brick-num--dim" id="pool-remaining">0</span>
                     </div>
-                    <div class="flow-stats">
-                        <div class="flow-item">
-                            <span class="flow-val" id="kpi-credits-dispersed">0</span>
-                            <span class="flow-lab">Issued</span>
-                        </div>
-                        <div class="flow-divider"></div>
-                        <div class="flow-item">
-                            <span class="flow-val" id="pool-remaining">0</span>
-                            <span class="flow-lab">Remaining</span>
-                        </div>
-                    </div>
-                    <div class="pool-progress-mini">
+                    <div class="flow-brick-bar">
                         <div class="pool-bar-fill" id="pool-bar-fill"></div>
                     </div>
                 </div>
 
-                <!-- ── Section: Gross Volume ── -->
-                <div class="dash-section dash-section--metric" data-section="metric-gross" draggable="false">
+                <!-- ── Section: Gross Volume (brick) ── -->
+                <div class="dash-section dash-section--brick dash-section--metric" data-section="metric-gross" draggable="false">
                     <div class="drag-handle" title="Drag to reorder">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
                             <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
@@ -249,12 +241,12 @@
                             <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
                         </svg>
                     </div>
-                    <div class="metric-label">Gross Volume <span class="beta-badge" style="vertical-align:middle;margin-left:4px;">Beta</span></div>
-                    <div class="metric-value" id="rev-gross">$0</div>
+                    <span class="brick-label">Gross Volume</span>
+                    <span class="brick-value" id="rev-gross">$0</span>
                 </div>
 
-                <!-- ── Section: MRR ── -->
-                <div class="dash-section dash-section--metric" data-section="metric-mrr" draggable="false">
+                <!-- ── Section: MRR (brick) ── -->
+                <div class="dash-section dash-section--brick dash-section--metric" data-section="metric-mrr" draggable="false">
                     <div class="drag-handle" title="Drag to reorder">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
                             <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
@@ -262,12 +254,12 @@
                             <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
                         </svg>
                     </div>
-                    <div class="metric-label">MRR</div>
-                    <div class="metric-value" id="rev-mrr">$0</div>
+                    <span class="brick-label">MRR</span>
+                    <span class="brick-value" id="rev-mrr">$0</span>
                 </div>
 
-                <!-- ── Section: ARR ── -->
-                <div class="dash-section dash-section--metric" data-section="metric-arr" draggable="false">
+                <!-- ── Section: ARR (brick) ── -->
+                <div class="dash-section dash-section--brick dash-section--metric" data-section="metric-arr" draggable="false">
                     <div class="drag-handle" title="Drag to reorder">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
                             <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
@@ -275,12 +267,12 @@
                             <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
                         </svg>
                     </div>
-                    <div class="metric-label">ARR</div>
-                    <div class="metric-value" id="rev-arr">$0</div>
+                    <span class="brick-label">ARR</span>
+                    <span class="brick-value" id="rev-arr">$0</span>
                 </div>
 
-                <!-- ── Section: ARPU ── -->
-                <div class="dash-section dash-section--metric" data-section="metric-arpu" draggable="false">
+                <!-- ── Section: ARPU (brick) ── -->
+                <div class="dash-section dash-section--brick dash-section--metric" data-section="metric-arpu" draggable="false">
                     <div class="drag-handle" title="Drag to reorder">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
                             <circle cx="4" cy="3.5" r="1.2"/><circle cx="10" cy="3.5" r="1.2"/>
@@ -288,8 +280,8 @@
                             <circle cx="4" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/>
                         </svg>
                     </div>
-                    <div class="metric-label">ARPU</div>
-                    <div class="metric-value" id="rev-arpu">$0.00</div>
+                    <span class="brick-label">ARPU</span>
+                    <span class="brick-value" id="rev-arpu">$0.00</span>
                 </div>
 
             </div>
