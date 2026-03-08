@@ -599,50 +599,122 @@ function initDragSections() {
 
     loadSectionOrder();
 
-    let dragEl     = null;
-    let dragOverEl = null;
+    let dragEl      = null;
+    let placeholder = null;
+    let rafPending  = false;
+
+    // Placeholder mirrors the dragged card's grid slot
+    function makePlaceholder(fromEl) {
+        const ph = document.createElement('div');
+        ph.className = 'drag-placeholder';
+        if (fromEl.classList.contains('dash-section--full')) {
+            ph.style.gridColumn = '1 / -1';
+        }
+        return ph;
+    }
+
+    // Given a cursor position, find the nearest section and whether to insert before/after it.
+    // Works from anywhere on the page — gaps, empty space, corners, all of it.
+    function getNearestDropTarget(cursorX, cursorY) {
+        const sections = [...container.querySelectorAll('.dash-section')]
+            .filter(s => s !== dragEl && !s.classList.contains('drag-placeholder'));
+
+        if (!sections.length) return null;
+
+        let best     = null;
+        let bestDist = Infinity;
+
+        for (const s of sections) {
+            const r = s.getBoundingClientRect();
+
+            // Clamp cursor to the section's bounding rect, then measure distance.
+            // Distance is 0 when cursor is inside the rect, positive when outside.
+            const clampedX = Math.max(r.left, Math.min(r.right,  cursorX));
+            const clampedY = Math.max(r.top,  Math.min(r.bottom, cursorY));
+            const dist     = Math.hypot(cursorX - clampedX, cursorY - clampedY);
+
+            if (dist < bestDist) {
+                bestDist = dist;
+                best     = s;
+            }
+        }
+
+        if (!best) return null;
+
+        const r      = best.getBoundingClientRect();
+        const midY   = r.top + r.height / 2;
+        const before = cursorY < midY;
+
+        return { section: best, before };
+    }
 
     container.addEventListener('dragstart', e => {
-        if (!container.classList.contains('editing')) { e.preventDefault(); return; }
         dragEl = e.target.closest('.dash-section');
         if (!dragEl) return;
+
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/plain', dragEl.dataset.section);
-        setTimeout(() => dragEl && dragEl.classList.add('dragging'), 0);
-    });
 
-    container.addEventListener('dragend', () => {
-        if (dragEl)     dragEl.classList.remove('dragging');
-        if (dragOverEl) dragOverEl.classList.remove('drag-over');
-        dragEl     = null;
-        dragOverEl = null;
-        saveSectionOrder();
+        placeholder = makePlaceholder(dragEl);
+
+        // Wait one frame so the browser captures the native drag ghost
+        // before we apply opacity changes or insert the placeholder
+        requestAnimationFrame(() => {
+            if (!dragEl) return;
+            dragEl.classList.add('dragging');
+            dragEl.after(placeholder);
+        });
     });
 
     container.addEventListener('dragover', e => {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
+        if (!dragEl || !placeholder) return;
 
-        const target = e.target.closest('.dash-section');
-        if (!target || target === dragEl) return;
+        // Throttle DOM writes to one per animation frame
+        if (rafPending) return;
+        rafPending = true;
 
-        if (dragOverEl && dragOverEl !== target) dragOverEl.classList.remove('drag-over');
-        dragOverEl = target;
-        target.classList.add('drag-over');
+        const cursorX = e.clientX;
+        const cursorY = e.clientY;
 
-        const rect     = target.getBoundingClientRect();
-        const midpoint = rect.top + rect.height / 2;
-        if (e.clientY < midpoint) {
-            container.insertBefore(dragEl, target);
-        } else {
-            container.insertBefore(dragEl, target.nextSibling);
+        requestAnimationFrame(() => {
+            rafPending = false;
+            if (!dragEl || !placeholder) return;
+
+            const drop = getNearestDropTarget(cursorX, cursorY);
+            if (!drop) return;
+
+            const { section, before } = drop;
+
+            // Only mutate DOM if the placeholder would actually move
+            const nextSibling = before ? section : section.nextSibling;
+            if (placeholder.nextSibling !== nextSibling) {
+                if (before) {
+                    container.insertBefore(placeholder, section);
+                } else {
+                    section.after(placeholder);
+                }
+            }
+        });
+    });
+
+    // On dragend: slot the real element where the placeholder landed
+    container.addEventListener('dragend', () => {
+        if (!dragEl) return;
+        dragEl.classList.remove('dragging');
+
+        if (placeholder && placeholder.parentNode) {
+            placeholder.replaceWith(dragEl);
         }
+
+        dragEl      = null;
+        placeholder = null;
+        rafPending  = false;
+        saveSectionOrder();
     });
 
-    container.addEventListener('drop', e => {
-        e.preventDefault();
-        if (dragOverEl) dragOverEl.classList.remove('drag-over');
-    });
+    container.addEventListener('drop', e => e.preventDefault());
 }
 
 function saveSectionOrder() {
@@ -660,6 +732,15 @@ function loadSectionOrder() {
         if (!Array.isArray(order)) return;
         const container = document.getElementById('sections-container');
         if (!container) return;
+
+        // Validate: all saved IDs must exist in the current DOM.
+        // If any are missing (layout changed), discard the saved order entirely.
+        const allPresent = order.every(id => container.querySelector(`[data-section="${id}"]`));
+        if (!allPresent) {
+            localStorage.removeItem('ignitris_section_order');
+            return;
+        }
+
         order.forEach(sectionId => {
             const el = container.querySelector(`[data-section="${sectionId}"]`);
             if (el) container.appendChild(el);
