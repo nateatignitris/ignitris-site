@@ -408,90 +408,43 @@
             .science-row-title { padding-right:0; }
         }
 
-        /* ── CREATIVE CAROUSEL ───────────────────────────────────── */
-        .carousel-section {
-            padding: 64px 0 56px;
-            border-bottom: 1px solid rgba(255,255,255,.07);
-            overflow: hidden;
-        }
-        .carousel-header {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 40px 32px;
-        }
-        .carousel-label {
-            font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
-            color: rgba(255,255,255,.36); font-weight: 500;
-        }
-        .carousel-arrows {
-            display: flex; gap: 8px;
-        }
-        .carousel-arrow {
-            width: 36px; height: 36px; border-radius: 50%;
-            border: 1px solid rgba(255,255,255,.14);
-            background: rgba(255,255,255,.04);
-            color: #fff; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: background .18s, border-color .18s;
-            user-select: none;
-        }
-        .carousel-arrow:hover { background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.28); }
-        .carousel-arrow svg { width: 14px; height: 14px; }
-        .carousel-track-wrap {
-            overflow: hidden;
-            cursor: grab;
-        }
-        .carousel-track-wrap:active { cursor: grabbing; }
-        .carousel-track {
-            display: flex;
-            gap: 16px;
-            padding: 0 40px;
-            transition: transform .42s cubic-bezier(0.16,1,0.3,1);
-            will-change: transform;
-        }
-        .creative-card {
-            flex: 0 0 300px;
-            height: 400px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,.09);
-            background: rgba(255,255,255,.03);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 14px;
-            position: relative;
-            overflow: hidden;
-            transition: border-color .2s;
-        }
-        .creative-card:hover { border-color: rgba(255,255,255,.18); }
-        .creative-card img {
-            position: absolute; inset: 0;
-            width: 100%; height: 100%;
-            object-fit: cover; border-radius: 12px;
-        }
-        .creative-card .placeholder-icon {
-            width: 40px; height: 40px; opacity: .18;
-        }
-        .creative-card .placeholder-label {
-            font-size: 11px; color: rgba(255,255,255,.28);
-            letter-spacing: .06em;
-        }
-        .carousel-dots {
-            display: flex; justify-content: center; gap: 6px;
-            padding-top: 28px;
-        }
-        .carousel-dot {
-            width: 5px; height: 5px; border-radius: 50%;
-            background: rgba(255,255,255,.2);
-            cursor: pointer; transition: background .2s, transform .2s;
-        }
-        .carousel-dot.active {
-            background: #fff; transform: scale(1.2);
-        }
-        @media (max-width: 600px) {
-            .creative-card { flex: 0 0 260px; height: 346px; }
             .carousel-header { padding: 0 20px 24px; }
             .carousel-track { padding: 0 20px; }
         }
 
+
+        /* ── CREATIVE SPHERE ─────────────────────────────────────── */
+        .sphere-section {
+            padding: 72px 0 0;
+            border-bottom: 1px solid rgba(255,255,255,.07);
+            overflow: hidden;
+        }
+        .sphere-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 40px 0;
+        }
+        .sphere-label {
+            font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+            color: rgba(255,255,255,.36); font-weight: 500;
+        }
+        .sphere-hint {
+            font-size: 10px; letter-spacing: .06em;
+            color: rgba(255,255,255,.18);
+            animation: pulse-hint 3s ease-in-out infinite;
+        }
+        @keyframes pulse-hint {
+            0%,100% { opacity:.4; } 50% { opacity:1; }
+        }
+        #sphere-canvas {
+            display: block;
+            width: 100%;
+            cursor: grab;
+            touch-action: none;
+        }
+        #sphere-canvas:active { cursor: grabbing; }
+
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
@@ -526,48 +479,14 @@
         <div class="hero-sub">client names are anonymized</div>
     </div>
 
-    <!-- CREATIVE CAROUSEL -->
-    <section class="carousel-section au d2">
-        <div class="carousel-header">
-            <span class="carousel-label">Creative work</span>
-            <div class="carousel-arrows">
-                <button class="carousel-arrow" id="carr-prev" aria-label="Previous">
-                    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11L5 7l4-4"/></svg>
-                </button>
-                <button class="carousel-arrow" id="carr-next" aria-label="Next">
-                    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l4 4-4 4"/></svg>
-                </button>
-            </div>
+
+    <!-- 3D CREATIVE SPHERE -->
+    <section class="sphere-section au d2">
+        <div class="sphere-header">
+            <span class="sphere-label">Creative work</span>
+            <span class="sphere-hint">drag to explore</span>
         </div>
-        <div class="carousel-track-wrap" id="carr-wrap">
-            <div class="carousel-track" id="carr-track">
-                <div class="creative-card">
-                    <svg class="placeholder-icon" viewBox="0 0 40 40" fill="none" stroke="white" stroke-width="1.2"><rect x="4" y="4" width="32" height="32" rx="3"/><circle cx="14" cy="15" r="3"/><path d="M4 28l9-9 6 6 5-5 12 10"/></svg>
-                    <span class="placeholder-label">creative 01</span>
-                </div>
-                <div class="creative-card">
-                    <svg class="placeholder-icon" viewBox="0 0 40 40" fill="none" stroke="white" stroke-width="1.2"><rect x="4" y="4" width="32" height="32" rx="3"/><circle cx="14" cy="15" r="3"/><path d="M4 28l9-9 6 6 5-5 12 10"/></svg>
-                    <span class="placeholder-label">creative 02</span>
-                </div>
-                <div class="creative-card">
-                    <svg class="placeholder-icon" viewBox="0 0 40 40" fill="none" stroke="white" stroke-width="1.2"><rect x="4" y="4" width="32" height="32" rx="3"/><circle cx="14" cy="15" r="3"/><path d="M4 28l9-9 6 6 5-5 12 10"/></svg>
-                    <span class="placeholder-label">creative 03</span>
-                </div>
-                <div class="creative-card">
-                    <svg class="placeholder-icon" viewBox="0 0 40 40" fill="none" stroke="white" stroke-width="1.2"><rect x="4" y="4" width="32" height="32" rx="3"/><circle cx="14" cy="15" r="3"/><path d="M4 28l9-9 6 6 5-5 12 10"/></svg>
-                    <span class="placeholder-label">creative 04</span>
-                </div>
-                <div class="creative-card">
-                    <svg class="placeholder-icon" viewBox="0 0 40 40" fill="none" stroke="white" stroke-width="1.2"><rect x="4" y="4" width="32" height="32" rx="3"/><circle cx="14" cy="15" r="3"/><path d="M4 28l9-9 6 6 5-5 12 10"/></svg>
-                    <span class="placeholder-label">creative 05</span>
-                </div>
-                <div class="creative-card">
-                    <svg class="placeholder-icon" viewBox="0 0 40 40" fill="none" stroke="white" stroke-width="1.2"><rect x="4" y="4" width="32" height="32" rx="3"/><circle cx="14" cy="15" r="3"/><path d="M4 28l9-9 6 6 5-5 12 10"/></svg>
-                    <span class="placeholder-label">creative 06</span>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-dots" id="carr-dots"></div>
+        <canvas id="sphere-canvas"></canvas>
     </section>
 
 
@@ -962,54 +881,171 @@
 </script>
 
 
+
+
     <script>
     (function() {
-        const track   = document.getElementById('carr-track');
-        const wrap    = document.getElementById('carr-wrap');
-        const dotsEl  = document.getElementById('carr-dots');
-        const cards   = Array.from(track.querySelectorAll('.creative-card'));
-        const CARD_W  = () => cards[0].offsetWidth + 16; // card + gap
-        let idx = 0;
+        if (typeof THREE === 'undefined') return;
 
-        // Dots
-        cards.forEach((_, i) => {
-            const d = document.createElement('div');
-            d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-            d.addEventListener('click', () => goTo(i));
-            dotsEl.appendChild(d);
-        });
+        const canvas  = document.getElementById('sphere-canvas');
+        const section = canvas.parentElement;
+        const BLUE    = 0x3e90fd;
+        const N       = 6;
+        const R       = 2.6;      // sphere radius
+        const CW      = 1.05;     // card width
+        const CH      = 1.48;     // card height  (~4:5.6 ad ratio)
 
-        function goTo(n) {
-            idx = Math.max(0, Math.min(n, cards.length - 1));
-            track.style.transform = `translateX(-${idx * CARD_W()}px)`;
-            dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) =>
-                d.classList.toggle('active', i === idx));
+        /* ── renderer ─────────────────────────────────────── */
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x000000, 0);
+
+        const scene  = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 100);
+        camera.position.z = 7;
+
+        /* ── resize ───────────────────────────────────────── */
+        function resize() {
+            const w = section.clientWidth;
+            const h = Math.round(Math.min(w * 0.68, 520));
+            renderer.setSize(w, h, false);
+            canvas.style.height = h + 'px';
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        /* ── placeholder texture factory ─────────────────── */
+        function makePlaceholderTex(num) {
+            const cv = document.createElement('canvas');
+            cv.width = 420; cv.height = 592;
+            const ctx = cv.getContext('2d');
+            ctx.fillStyle = '#0d0d0d';
+            ctx.fillRect(0, 0, cv.width, cv.height);
+            // grid dots
+            ctx.fillStyle = 'rgba(62,144,253,0.08)';
+            for (let x = 30; x < cv.width; x += 30)
+                for (let y = 30; y < cv.height; y += 30)
+                    { ctx.beginPath(); ctx.arc(x,y,1.2,0,Math.PI*2); ctx.fill(); }
+            // center icon
+            ctx.strokeStyle = 'rgba(62,144,253,0.35)';
+            ctx.lineWidth = 2;
+            const cx2 = cv.width/2, cy2 = cv.height/2 - 30;
+            const sz = 52;
+            ctx.strokeRect(cx2-sz/2, cy2-sz/2, sz, sz);
+            // mountain placeholder
+            ctx.beginPath();
+            ctx.moveTo(cx2-sz/2+6, cy2+sz/2-10);
+            ctx.lineTo(cx2-10, cy2-6);
+            ctx.lineTo(cx2+8, cy2+10);
+            ctx.lineTo(cx2+18, cy2-2);
+            ctx.lineTo(cx2+sz/2-6, cy2+sz/2-10);
+            ctx.strokeStyle = 'rgba(62,144,253,0.5)';
+            ctx.stroke();
+            // label
+            ctx.font = '500 13px -apple-system, sans-serif';
+            ctx.fillStyle = 'rgba(255,255,255,0.22)';
+            ctx.textAlign = 'center';
+            ctx.fillText('creative 0' + num, cx2, cy2 + sz/2 + 32);
+            return new THREE.CanvasTexture(cv);
         }
 
-        document.getElementById('carr-prev').addEventListener('click', () => goTo(idx - 1));
-        document.getElementById('carr-next').addEventListener('click', () => goTo(idx + 1));
+        /* ── fibonacci sphere distribution ───────────────── */
+        function fibPoint(i, n, r) {
+            const phi = Math.PI * (3 - Math.sqrt(5));
+            const y   = 1 - (i / (n - 1)) * 2;
+            const rad = Math.sqrt(Math.max(0, 1 - y * y));
+            return new THREE.Vector3(
+                Math.cos(phi * i) * rad * r,
+                y * r,
+                Math.sin(phi * i) * rad * r
+            );
+        }
 
-        // Drag / swipe
-        let startX = 0, dragging = false, startTranslate = 0;
-        wrap.addEventListener('pointerdown', e => {
-            dragging = true; startX = e.clientX;
-            startTranslate = -idx * CARD_W();
-            track.style.transition = 'none';
-            wrap.setPointerCapture(e.pointerId);
+        /* ── scene objects ────────────────────────────────── */
+        const group = new THREE.Group();
+        scene.add(group);
+
+        // Subtle wireframe sphere hint
+        const sphereGeo = new THREE.SphereGeometry(R - 0.05, 20, 14);
+        const sphereMat = new THREE.MeshBasicMaterial({
+            color: BLUE, wireframe: true, transparent: true, opacity: 0.04
         });
-        wrap.addEventListener('pointermove', e => {
+        group.add(new THREE.Mesh(sphereGeo, sphereMat));
+
+        // Cards
+        for (let i = 0; i < N; i++) {
+            const pos = fibPoint(i, N, R);
+            const cardGroup = new THREE.Group();
+
+            // Card face
+            const faceTex = makePlaceholderTex(i + 1);
+            const faceGeo = new THREE.PlaneGeometry(CW, CH);
+            const faceMat = new THREE.MeshBasicMaterial({ map: faceTex, side: THREE.FrontSide });
+            cardGroup.add(new THREE.Mesh(faceGeo, faceMat));
+
+            // Card back (dark)
+            const backMat = new THREE.MeshBasicMaterial({ color: 0x0d0d0d, side: THREE.BackSide });
+            cardGroup.add(new THREE.Mesh(faceGeo.clone(), backMat));
+
+            // Glowing border
+            const borderGeo = new THREE.PlaneGeometry(CW + 0.04, CH + 0.04);
+            const borderMat = new THREE.MeshBasicMaterial({
+                color: BLUE, transparent: true, opacity: 0.22,
+                side: THREE.DoubleSide, depthWrite: false
+            });
+            const border = new THREE.Mesh(borderGeo, borderMat);
+            border.position.z = -0.002;
+            cardGroup.add(border);
+
+            cardGroup.position.copy(pos);
+            // Orient card to face outward from sphere centre
+            cardGroup.quaternion.setFromUnitVectors(
+                new THREE.Vector3(0, 0, 1),
+                pos.clone().normalize()
+            );
+
+            group.add(cardGroup);
+        }
+
+        /* ── ambient glow light ───────────────────────────── */
+        scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+        const pt = new THREE.PointLight(BLUE, 1.4, 14);
+        pt.position.set(4, 4, 4);
+        scene.add(pt);
+
+        /* ── interaction ──────────────────────────────────── */
+        let dragging = false, px = 0, py = 0;
+        let vx = 0, vy = 0;
+
+        canvas.addEventListener('pointerdown', e => {
+            dragging = true; px = e.clientX; py = e.clientY; vx = vy = 0;
+            canvas.setPointerCapture(e.pointerId);
+        });
+        canvas.addEventListener('pointermove', e => {
             if (!dragging) return;
-            track.style.transform = `translateX(${startTranslate + e.clientX - startX}px)`;
+            const dx = e.clientX - px, dy = e.clientY - py;
+            vy += dx * 0.009; vx += dy * 0.009;
+            px = e.clientX; py = e.clientY;
         });
-        wrap.addEventListener('pointerup', e => {
-            if (!dragging) return; dragging = false;
-            track.style.transition = '';
-            const delta = e.clientX - startX;
-            if (Math.abs(delta) > 60) goTo(delta < 0 ? idx + 1 : idx - 1);
-            else goTo(idx);
-        });
+        canvas.addEventListener('pointerup',   () => { dragging = false; });
+        canvas.addEventListener('pointerleave',() => { dragging = false; });
 
-        window.addEventListener('resize', () => goTo(idx));
+        /* ── animation loop ───────────────────────────────── */
+        let rotX = 0.18, rotY = 0;
+        function tick() {
+            requestAnimationFrame(tick);
+            if (!dragging) {
+                vy += 0.0025;          // slow auto-spin Y
+                vx *= 0.94; vy *= 0.94; // damping
+            }
+            rotX += vx; rotY += vy;
+            group.rotation.x = rotX;
+            group.rotation.y = rotY;
+            renderer.render(scene, camera);
+        }
+        tick();
     })();
     </script>
 
