@@ -71,8 +71,8 @@
         /* ── HERO — video stretches to top ───────────────────────── */
         .hero {
             position: relative;
-            border-bottom: 1px solid rgba(255,255,255,.07);
-            overflow: hidden;
+            border-bottom: none;
+            overflow: visible;
             min-height: 640px;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
             display: flex;
@@ -144,19 +144,15 @@
 
         /* ── RESULTS BAR ─────────────────────────────────────────── */
         .results-bar {
-            position: sticky; top: 88px; z-index: 50;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 40px; height: 48px;
-            background: rgba(0,0,0,0.96);
+            position: sticky; top: 68px; z-index: 50;
+            display: flex; align-items: center; justify-content: flex-end;
+            padding: 0 40px; height: 44px;
+            background: rgba(0,0,0,0.92);
             backdrop-filter: blur(24px) saturate(160%);
             -webkit-backdrop-filter: blur(24px) saturate(160%);
-            border-bottom: 1px solid rgba(255,255,255,.08);
+            border-bottom: 1px solid rgba(255,255,255,.06);
         }
-        .results-count {
-            font-size: 11px; font-weight: 500; letter-spacing: .04em;
-            color: rgba(255,255,255,.24);
-        }
-        .results-count b { color: rgba(255,255,255,.55); font-weight: 600; }
+
 
         .toggle-group {
             display: inline-flex;
@@ -415,31 +411,33 @@
 
         /* ── CREATIVE SPHERE ─────────────────────────────────────── */
         .sphere-section {
-            padding: 72px 0 0;
-            border-bottom: 1px solid rgba(255,255,255,.07);
-            overflow: hidden;
+            position: relative;
+            z-index: 2;
+            margin-top: -260px;
+            padding: 0;
+            background: transparent;
+            border: none;
+            overflow: visible;
+            pointer-events: none;
         }
-        .sphere-header {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 40px 0;
-        }
-        .sphere-label {
-            font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
-            color: rgba(255,255,255,.36); font-weight: 500;
-        }
-        .sphere-hint {
-            font-size: 10px; letter-spacing: .06em;
-            color: rgba(255,255,255,.18);
-            animation: pulse-hint 3s ease-in-out infinite;
-        }
-        @keyframes pulse-hint {
-            0%,100% { opacity:.4; } 50% { opacity:1; }
+        .sphere-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 55%;
+            background: linear-gradient(to bottom, transparent 0%, #000 80%);
+            pointer-events: none;
+            z-index: 1;
         }
         #sphere-canvas {
             display: block;
             width: 100%;
+            height: 520px;
             cursor: grab;
             touch-action: none;
+            pointer-events: all;
+            position: relative;
+            z-index: 2;
         }
         #sphere-canvas:active { cursor: grabbing; }
 
@@ -481,16 +479,12 @@
 
 
     <!-- 3D CREATIVE SPHERE -->
-    <section class="sphere-section au d2">
-        <div class="sphere-header">
-            <span class="sphere-label">Creative work</span>
-            <span class="sphere-hint">drag to explore</span>
-        </div>
+    <section class="sphere-section">
         <canvas id="sphere-canvas"></canvas>
     </section>
 
 
-    <div class="stats au d3">
+    <div class="stats au d3" style="margin-top:0; padding-top:72px; padding-bottom:72px;">
         <div class="stat">
             <div class="stat-val">5.8x</div>
             <div class="stat-lbl">Peak ROAS</div>
@@ -514,7 +508,6 @@
     </div>
 
     <div class="results-bar au d3">
-        <div class="results-count" id="results-count">3 consumer campaigns</div>
         <div class="toggle-group">
             <button class="toggle-btn active" onclick="switchTab('consumer', this)">Consumer</button>
             <button class="toggle-btn" onclick="switchTab('b2b', this)">B2B</button>
@@ -798,7 +791,7 @@
         document.getElementById('cases-' + id).classList.add('visible');
         btn.classList.add('active');
 
-        const countEl = document.getElementById('results-count');
+        const countEl = { textContent: '' }; // removed
         countEl.textContent = id === 'consumer' ? '3 consumer campaigns' : '2 B2B campaigns';
 
         const c = ctaCopy[id];
@@ -888,12 +881,11 @@
         if (typeof THREE === 'undefined') return;
 
         const canvas  = document.getElementById('sphere-canvas');
-        const section = canvas.parentElement;
         const BLUE    = 0x3e90fd;
         const N       = 6;
-        const R       = 2.6;      // sphere radius
-        const CW      = 1.05;     // card width
-        const CH      = 1.48;     // card height  (~4:5.6 ad ratio)
+        const R       = 2.6;
+        const CW      = 1.05;
+        const CH      = 1.48;
 
         /* ── renderer ─────────────────────────────────────── */
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -906,35 +898,30 @@
 
         /* ── resize ───────────────────────────────────────── */
         function resize() {
-            const w = section.clientWidth;
-            const h = Math.round(Math.min(w * 0.68, 520));
+            const w = canvas.clientWidth;
+            const h = 520;
             renderer.setSize(w, h, false);
-            canvas.style.height = h + 'px';
             camera.aspect = w / h;
             camera.updateProjectionMatrix();
         }
         resize();
         window.addEventListener('resize', resize);
 
-        /* ── placeholder texture factory ─────────────────── */
-        function makePlaceholderTex(num) {
+        /* ── placeholder texture ──────────────────────────── */
+        function makeTex(num) {
             const cv = document.createElement('canvas');
             cv.width = 420; cv.height = 592;
             const ctx = cv.getContext('2d');
             ctx.fillStyle = '#0d0d0d';
             ctx.fillRect(0, 0, cv.width, cv.height);
-            // grid dots
-            ctx.fillStyle = 'rgba(62,144,253,0.08)';
+            ctx.fillStyle = 'rgba(62,144,253,0.07)';
             for (let x = 30; x < cv.width; x += 30)
                 for (let y = 30; y < cv.height; y += 30)
                     { ctx.beginPath(); ctx.arc(x,y,1.2,0,Math.PI*2); ctx.fill(); }
-            // center icon
-            ctx.strokeStyle = 'rgba(62,144,253,0.35)';
+            ctx.strokeStyle = 'rgba(62,144,253,0.4)';
             ctx.lineWidth = 2;
-            const cx2 = cv.width/2, cy2 = cv.height/2 - 30;
-            const sz = 52;
+            const cx2 = cv.width/2, cy2 = cv.height/2 - 30, sz = 52;
             ctx.strokeRect(cx2-sz/2, cy2-sz/2, sz, sz);
-            // mountain placeholder
             ctx.beginPath();
             ctx.moveTo(cx2-sz/2+6, cy2+sz/2-10);
             ctx.lineTo(cx2-10, cy2-6);
@@ -943,15 +930,14 @@
             ctx.lineTo(cx2+sz/2-6, cy2+sz/2-10);
             ctx.strokeStyle = 'rgba(62,144,253,0.5)';
             ctx.stroke();
-            // label
             ctx.font = '500 13px -apple-system, sans-serif';
-            ctx.fillStyle = 'rgba(255,255,255,0.22)';
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
             ctx.textAlign = 'center';
             ctx.fillText('creative 0' + num, cx2, cy2 + sz/2 + 32);
             return new THREE.CanvasTexture(cv);
         }
 
-        /* ── fibonacci sphere distribution ───────────────── */
+        /* ── fibonacci sphere ─────────────────────────────── */
         function fibPoint(i, n, r) {
             const phi = Math.PI * (3 - Math.sqrt(5));
             const y   = 1 - (i / (n - 1)) * 2;
@@ -963,86 +949,77 @@
             );
         }
 
-        /* ── scene objects ────────────────────────────────── */
+        /* ── scene ────────────────────────────────────────── */
         const group = new THREE.Group();
         scene.add(group);
 
-        // Subtle wireframe sphere hint
-        const sphereGeo = new THREE.SphereGeometry(R - 0.05, 20, 14);
-        const sphereMat = new THREE.MeshBasicMaterial({
-            color: BLUE, wireframe: true, transparent: true, opacity: 0.04
+        const sGeo = new THREE.SphereGeometry(R - 0.05, 20, 14);
+        const sMat = new THREE.MeshBasicMaterial({
+            color: BLUE, wireframe: true, transparent: true, opacity: 0.03
         });
-        group.add(new THREE.Mesh(sphereGeo, sphereMat));
+        group.add(new THREE.Mesh(sGeo, sMat));
 
-        // Cards
         for (let i = 0; i < N; i++) {
             const pos = fibPoint(i, N, R);
-            const cardGroup = new THREE.Group();
+            const cg  = new THREE.Group();
+            const geo = new THREE.PlaneGeometry(CW, CH);
 
-            // Card face
-            const faceTex = makePlaceholderTex(i + 1);
-            const faceGeo = new THREE.PlaneGeometry(CW, CH);
-            const faceMat = new THREE.MeshBasicMaterial({ map: faceTex, side: THREE.FrontSide });
-            cardGroup.add(new THREE.Mesh(faceGeo, faceMat));
+            cg.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: makeTex(i+1) })));
+            cg.add(new THREE.Mesh(geo.clone(), new THREE.MeshBasicMaterial({ color: 0x0d0d0d, side: THREE.BackSide })));
 
-            // Card back (dark)
-            const backMat = new THREE.MeshBasicMaterial({ color: 0x0d0d0d, side: THREE.BackSide });
-            cardGroup.add(new THREE.Mesh(faceGeo.clone(), backMat));
+            const bGeo = new THREE.PlaneGeometry(CW + 0.05, CH + 0.05);
+            const bMat = new THREE.MeshBasicMaterial({ color: BLUE, transparent: true, opacity: 0.18, depthWrite: false });
+            const bdr  = new THREE.Mesh(bGeo, bMat);
+            bdr.position.z = -0.002;
+            cg.add(bdr);
 
-            // Glowing border
-            const borderGeo = new THREE.PlaneGeometry(CW + 0.04, CH + 0.04);
-            const borderMat = new THREE.MeshBasicMaterial({
-                color: BLUE, transparent: true, opacity: 0.22,
-                side: THREE.DoubleSide, depthWrite: false
-            });
-            const border = new THREE.Mesh(borderGeo, borderMat);
-            border.position.z = -0.002;
-            cardGroup.add(border);
-
-            cardGroup.position.copy(pos);
-            // Orient card to face outward from sphere centre
-            cardGroup.quaternion.setFromUnitVectors(
-                new THREE.Vector3(0, 0, 1),
-                pos.clone().normalize()
-            );
-
-            group.add(cardGroup);
+            cg.position.copy(pos);
+            cg.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1), pos.clone().normalize());
+            group.add(cg);
         }
 
-        /* ── ambient glow light ───────────────────────────── */
         scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-        const pt = new THREE.PointLight(BLUE, 1.4, 14);
+        const pt = new THREE.PointLight(BLUE, 1.2, 14);
         pt.position.set(4, 4, 4);
         scene.add(pt);
 
-        /* ── interaction ──────────────────────────────────── */
+        /* ── smooth physics ───────────────────────────────── */
         let dragging = false, px = 0, py = 0;
-        let vx = 0, vy = 0;
+        let vx = 0, vy = 0.0008;   // tiny initial auto-spin
 
         canvas.addEventListener('pointerdown', e => {
-            dragging = true; px = e.clientX; py = e.clientY; vx = vy = 0;
+            dragging = true;
+            px = e.clientX; py = e.clientY;
             canvas.setPointerCapture(e.pointerId);
         });
         canvas.addEventListener('pointermove', e => {
             if (!dragging) return;
-            const dx = e.clientX - px, dy = e.clientY - py;
-            vy += dx * 0.009; vx += dy * 0.009;
+            const dx = e.clientX - px;
+            const dy = e.clientY - py;
+            // Soft accumulation — feels heavy & controllable
+            vy += dx * 0.0018;
+            vx += dy * 0.0018;
+            // Clamp so it never goes crazy
+            vx = Math.max(-0.04, Math.min(0.04, vx));
+            vy = Math.max(-0.04, Math.min(0.04, vy));
             px = e.clientX; py = e.clientY;
         });
-        canvas.addEventListener('pointerup',   () => { dragging = false; });
-        canvas.addEventListener('pointerleave',() => { dragging = false; });
+        canvas.addEventListener('pointerup',    () => { dragging = false; });
+        canvas.addEventListener('pointerleave', () => { dragging = false; });
 
-        /* ── animation loop ───────────────────────────────── */
-        let rotX = 0.18, rotY = 0;
+        /* ── render loop ──────────────────────────────────── */
         function tick() {
             requestAnimationFrame(tick);
+            // Smooth damping — coast to a gentle spin, never fully stop
             if (!dragging) {
-                vy += 0.0025;          // slow auto-spin Y
-                vx *= 0.94; vy *= 0.94; // damping
+                vx *= 0.965;
+                vy *= 0.965;
+                // Ease back to auto-spin when almost stopped
+                if (Math.abs(vy) < 0.0012) vy += (0.0008 - vy) * 0.02;
+                if (Math.abs(vx) < 0.0005) vx *= 0.98;
             }
-            rotX += vx; rotY += vy;
-            group.rotation.x = rotX;
-            group.rotation.y = rotY;
+            group.rotation.x += vx;
+            group.rotation.y += vy;
             renderer.render(scene, camera);
         }
         tick();
