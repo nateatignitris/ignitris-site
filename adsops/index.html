@@ -3,10 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ads Management</title>
+    <title>Ads Management — Ignitris</title>
+    <meta name="description" content="Ignitris delivers documented paid acquisition results for consumer and B2B brands — 5.8x ROAS, $380K pipeline in 75 days, 77% CPI reduction. We run Meta, Google, LinkedIn, and TikTok.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://useignitris.com/adsops">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://useignitris.com/adsops">
+    <meta property="og:title" content="Ads Management — Ignitris">
+    <meta property="og:description" content="Documented results across consumer and B2B brands. 5.8x ROAS, $380K pipeline in 75 days, 77% CPI reduction — built on paid acquisition.">
+    <meta property="og:site_name" content="Ignitris">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ads Management — Ignitris">
+    <meta name="twitter:description" content="5.8x ROAS, $380K pipeline in 75 days, 77% CPI reduction. Documented paid acquisition results for consumer and B2B brands.">
+
     <link rel="icon" type="image/x-icon" href="/adsops/favicon.ico">
     <link rel="icon" type="image/png" sizes="512x512" href="/adsops/favicon.png">
     <link rel="apple-touch-icon" href="/adsops/favicon.png">
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Ignitris",
+      "description": "Paid acquisition agency specializing in Meta, Google, LinkedIn, and TikTok advertising for consumer and B2B brands.",
+      "url": "https://useignitris.com",
+      "email": "hello@useignitris.com",
+      "serviceType": ["Paid Advertising", "Performance Marketing", "Media Buying", "Demand Generation", "B2B Lead Generation"],
+      "knowsAbout": ["Meta Ads", "Google Ads", "TikTok Ads", "LinkedIn Ads", "ROAS Optimization", "CPA Reduction", "Creative Testing", "Paid Social"],
+      "areaServed": { "@type": "Country", "name": "United States" }
+    }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,9 +138,9 @@
             display: flex; flex-direction: column; align-items: center; text-align: center;
         }
         .hero-text h1 {
-            font-size: clamp(16px, 1.4vw, 20px);
-            font-weight: 400; letter-spacing: -.02em; line-height: 1.35;
-            color: #fff; max-width: 560px; margin-bottom: 0;
+            font-size: clamp(22px, 2.4vw, 36px);
+            font-weight: 400; letter-spacing: -.025em; line-height: 1.3;
+            color: #fff; max-width: 640px; margin-bottom: 0;
         }
         .hero-sub {
             position: absolute;
@@ -373,6 +404,29 @@
         }
         .cta-actions { display:flex; gap:10px; justify-content:center; }
 
+        /* ── PLATFORMS STRIP ────────────────────────────────────── */
+        .platforms-strip {
+            border-top: 1px solid rgba(255,255,255,.07);
+            padding: 28px 40px;
+            display: flex; align-items: center; gap: 32px;
+            max-width: 100%; overflow: hidden;
+        }
+        .plat-strip-label {
+            font-size: 9px; font-weight: 600; letter-spacing: .14em;
+            text-transform: uppercase; color: rgba(255,255,255,.18);
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .plat-strip-divider {
+            width: 1px; height: 16px; background: rgba(255,255,255,.1); flex-shrink: 0;
+        }
+        .plat-strip-list {
+            display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
+        }
+        .plat-strip-list span {
+            font-size: 11px; font-weight: 500; letter-spacing: .04em;
+            color: rgba(255,255,255,.32);
+        }
+
         /* ── FOOTER ──────────────────────────────────────────────── */
         footer {
             padding: 24px 40px;
@@ -464,7 +518,7 @@
     </a>
     <div class="nav-spacer"></div>
     <div class="nav-right">
-        <a href="mailto:hello@useignitris.com" class="btn btn-ghost">Work with us</a>
+        <a href="mailto:hello@useignitris.com?subject=Paid Audit Request" class="btn btn-primary">Work with us</a>
     </div>
 </nav>
 
@@ -753,14 +807,27 @@
         </div>
     </div>
 
+    <div class="platforms-strip">
+        <span class="plat-strip-label">Platforms</span>
+        <div class="plat-strip-divider"></div>
+        <div class="plat-strip-list">
+            <span>Meta Ads</span>
+            <span>Google Ads</span>
+            <span>TikTok Ads</span>
+            <span>LinkedIn Ads</span>
+            <span>Northbeam</span>
+            <span>Triple Whale</span>
+        </div>
+    </div>
+
     <div class="cta">
         <div class="cta-label" id="cta-label">For consumer brands</div>
         <h2 id="cta-headline">let's see what you're leaving on the table.</h2>
-        <p id="cta-sub">book a 30-minute paid audit. we'll review your setup and show you exactly where efficiency is breaking down — creative, targeting, offer, or attribution.</p>
+        <p id="cta-sub">book a free 30-minute paid audit. we'll review your setup and tell you exactly where efficiency is breaking down — creative, targeting, offer, or attribution. no pitch, just findings.</p>
         <div class="cta-actions">
-            <a href="mailto:hello@useignitris.com?subject=Paid Audit Request" class="btn btn-primary" id="cta-btn">Book paid audit</a>
-            <a href="https://useignitris.com" class="btn btn-ghost">useignitris.com</a>
+            <a href="mailto:hello@useignitris.com?subject=Paid Audit Request" class="btn btn-primary" id="cta-btn">Book free audit →</a>
         </div>
+        <div style="margin-top:16px; font-size:11px; color:rgba(255,255,255,.18); letter-spacing:.04em;">response within 24 hours &nbsp;·&nbsp; hello@useignitris.com</div>
     </div>
 
     <footer>
@@ -769,7 +836,7 @@
                 <path d="M852.788 0L828.043 114.951C1013.63 149.126 1013.63 133.592 1053.84 167.767C1103.93 210.338 1084.77 314.822 1072.4 375.922L806.391 1749.13C763.088 2003.88 645.551 1985.24 484.711 2003.88L459.967 2121.94H1418.82L1443.57 2010.1C1275.3 1992.7 1155.91 1988.35 1174.47 1848.54L1452.84 363.495C1493.05 164.66 1542.54 130.485 1774.52 118.058L1799.27 0H852.788Z" fill="currentColor"/>
             </svg>
         </a>
-        <span>© 2026 Ignitris — private</span>
+        <span>© 2026 Ignitris &nbsp;·&nbsp; <a href="mailto:hello@useignitris.com" style="color:rgba(255,255,255,.3); text-decoration:none;">hello@useignitris.com</a></span>
     </footer>
 
 </div>
@@ -779,12 +846,12 @@
         consumer: {
             label: 'For consumer brands',
             headline: "let's see what you're leaving on the table.",
-            sub: "book a 30-minute paid audit. we'll review your setup and show you exactly where efficiency is breaking down — creative, targeting, offer, or attribution."
+            sub: "book a free 30-minute paid audit. we'll review your setup and tell you exactly where efficiency is breaking down — creative, targeting, offer, or attribution. no pitch, just findings."
         },
         b2b: {
             label: 'For B2B teams',
             headline: 'ready to build pipeline that actually closes?',
-            sub: "30-minute paid audit of your demand gen setup. we'll show you exactly where qualified pipeline is being left on the table — targeting, creative, or offer architecture."
+            sub: "free 30-minute audit of your demand gen setup. we'll show you exactly where qualified pipeline is being left on the table — targeting, creative, or offer architecture. no pitch, just findings."
         }
     };
 
