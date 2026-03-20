@@ -945,6 +945,7 @@
         /* ── ring group — offset right so carousel overlaps left half ── */
         const ringGroup = new THREE.Group();
         ringGroup.position.x = RING_OFFSET_X;
+        ringGroup.position.y = 0.52;   // raise ring so front card sits centered in viewport
         scene.add(ringGroup);
 
         /* ── build cards ── */
