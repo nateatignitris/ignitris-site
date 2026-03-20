@@ -20,9 +20,9 @@
     <meta name="twitter:title" content="ADS">
     <meta name="twitter:description" content="5.8x ROAS, $380K pipeline in 75 days, 77% CPI reduction. Documented paid acquisition results for consumer and B2B brands.">
 
-    <link rel="icon" type="image/x-icon" href="/adsops/favicon.ico">
-    <link rel="icon" type="image/png" sizes="512x512" href="/adsops/favicon.png">
-    <link rel="apple-touch-icon" href="/adsops/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.png">
 
     <!-- Structured data -->
     <script type="application/ld+json">
@@ -109,7 +109,6 @@
             grid-template-columns: 1fr 1fr;
             min-height: 680px;
             overflow: hidden;
-            border-bottom: 1px solid rgba(255,255,255,.07);
         }
         .hero-left {
             background: #000;
@@ -119,7 +118,6 @@
             position: relative;
             z-index: 1;
             pointer-events: none;
-            border-right: 1px solid rgba(255,255,255,.07);
         }
         .hero-right {
             background: #000;
@@ -379,28 +377,6 @@
             max-width: 540px;
         }
 
-        /* ── CTA ─────────────────────────────────────────────────── */
-        .cta {
-            padding: 80px 40px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,.07);
-        }
-        .cta-label {
-            font-size: 10px; font-weight: 600; letter-spacing: .14em;
-            text-transform: uppercase; color: rgba(255,255,255,.2);
-            margin-bottom: 20px;
-        }
-        .cta h2 {
-            font-size: clamp(16px,1.4vw,20px); font-weight:400;
-            letter-spacing: -.018em; color: #fff; margin-bottom: 12px;
-            line-height: 1.35;
-        }
-        .cta p {
-            font-size: 13px; color: rgba(255,255,255,.28);
-            margin-bottom: 36px; line-height: 1.65; max-width: 440px;
-            margin-left: auto; margin-right: auto;
-        }
-        .cta-actions { display:flex; gap:10px; justify-content:center; }
 
         /* ── PLATFORMS STRIP ────────────────────────────────────── */
         .platforms-strip {
@@ -459,11 +435,89 @@
             .science-row-title { padding-right:0; }
         }
 
-            .carousel-header { padding: 0 20px 24px; }
-            .carousel-track { padding: 0 20px; }
+        /* ── CONTACT FORM ────────────────────────────────────────── */
+        .contact {
+            border-top: 1px solid rgba(255,255,255,.07);
+            border-bottom: 1px solid rgba(255,255,255,.07);
+            padding: 100px 40px;
         }
-
-
+        .contact-inner {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        .contact-label {
+            font-size: 10px; font-weight: 600; letter-spacing: .14em;
+            text-transform: uppercase; color: rgba(255,255,255,.22);
+            margin-bottom: 20px;
+        }
+        .contact-title {
+            font-size: clamp(22px, 2.4vw, 34px); font-weight: 300;
+            letter-spacing: -.03em; color: #fff; line-height: 1.25;
+            margin-bottom: 48px;
+        }
+        .contact-form { display: flex; flex-direction: column; gap: 0; }
+        .cf-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+        }
+        .cf-field {
+            border-bottom: 1px solid rgba(255,255,255,.1);
+            border-right: 1px solid rgba(255,255,255,.06);
+            padding: 20px 24px;
+            position: relative;
+            transition: background .2s ease;
+        }
+        .cf-field:last-child { border-right: none; }
+        .cf-field.full { grid-column: 1 / -1; border-right: none; }
+        .cf-field:focus-within { background: rgba(255,255,255,.03); }
+        .cf-label {
+            display: block;
+            font-size: 9px; font-weight: 600; letter-spacing: .12em;
+            text-transform: uppercase; color: rgba(255,255,255,.28);
+            margin-bottom: 8px;
+        }
+        .cf-field input,
+        .cf-field select,
+        .cf-field textarea {
+            width: 100%; background: transparent; border: none; outline: none;
+            font-family: inherit; font-size: 14px; font-weight: 300;
+            color: #fff; letter-spacing: -.01em;
+            resize: none;
+        }
+        .cf-field select { cursor: pointer; appearance: none; -webkit-appearance: none; }
+        .cf-field select option { background: #111; color: #fff; }
+        .cf-field textarea { min-height: 80px; line-height: 1.6; }
+        .cf-field input::placeholder,
+        .cf-field textarea::placeholder { color: rgba(255,255,255,.18); }
+        .contact-submit {
+            margin-top: 32px;
+            display: flex; align-items: center; gap: 20px;
+        }
+        .contact-submit .btn-primary {
+            padding: 12px 32px; font-size: 11px; letter-spacing: .1em;
+        }
+        .cf-note {
+            font-size: 11px; color: rgba(255,255,255,.2); letter-spacing: .03em;
+        }
+        .cf-success {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+        .cf-success-icon {
+            font-size: 28px; margin-bottom: 16px;
+        }
+        .cf-success h3 {
+            font-size: 18px; font-weight: 300; letter-spacing: -.02em;
+            color: #fff; margin-bottom: 8px;
+        }
+        .cf-success p {
+            font-size: 13px; color: rgba(255,255,255,.32); line-height: 1.6;
+        }
+        .cf-error {
+            display: none;
+            margin-top: 12px;
+            font-size: 12px; color: rgba(255,80,80,.8); letter-spacing: .02em;
+        }
 
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -485,7 +539,7 @@
     </a>
     <div class="nav-spacer"></div>
     <div class="nav-right">
-        <a href="mailto:hello@useignitris.com" class="btn btn-ghost">Work with us</a>
+        <a href="#contact" class="btn btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Work with us</a>
     </div>
 </nav>
 
@@ -777,15 +831,56 @@
         </div>
     </div>
 
-    <div class="cta">
-        <div class="cta-label" id="cta-label">For consumer brands</div>
-        <h2 id="cta-headline">let's see what you're leaving on the table.</h2>
-        <p id="cta-sub">book a free 30-minute paid audit. we'll review your setup and tell you exactly where efficiency is breaking down — creative, targeting, offer, or attribution. no pitch, just findings.</p>
-        <div class="cta-actions">
-            <a href="mailto:hello@useignitris.com?subject=Paid Audit Request" class="btn btn-primary" id="cta-btn">Book free audit →</a>
+    <section class="contact" id="contact">
+        <div class="contact-inner">
+            <div class="contact-label">Get in touch</div>
+            <h2 class="contact-title">let's see what you're leaving on the table.</h2>
+
+            <div id="cf-success" class="cf-success">
+                <div class="cf-success-icon">✦</div>
+                <h3>you're in.</h3>
+                <p>we'll review your setup and reach out within 24 hours.<br>hello@useignitris.com if you need us sooner.</p>
+            </div>
+
+            <form class="contact-form" id="contact-form" novalidate>
+                <div class="cf-row">
+                    <div class="cf-field">
+                        <label class="cf-label" for="cf-name">Name</label>
+                        <input type="text" id="cf-name" placeholder="Your name" autocomplete="name" required>
+                    </div>
+                    <div class="cf-field">
+                        <label class="cf-label" for="cf-email">Email</label>
+                        <input type="email" id="cf-email" placeholder="you@company.com" autocomplete="email" required>
+                    </div>
+                </div>
+                <div class="cf-row">
+                    <div class="cf-field">
+                        <label class="cf-label" for="cf-company">Company</label>
+                        <input type="text" id="cf-company" placeholder="Brand or company name">
+                    </div>
+                    <div class="cf-field">
+                        <label class="cf-label" for="cf-budget">Monthly ad budget</label>
+                        <select id="cf-budget">
+                            <option value="" disabled selected>Select range</option>
+                            <option value="Under $5K">Under $5K</option>
+                            <option value="$5K–$15K">$5K–$15K</option>
+                            <option value="$15K–$50K">$15K–$50K</option>
+                            <option value="$50K+">$50K+</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="cf-field full">
+                    <label class="cf-label" for="cf-message">What are you trying to fix?</label>
+                    <textarea id="cf-message" placeholder="Current challenges, platforms, goals — whatever's relevant"></textarea>
+                </div>
+                <div class="contact-submit">
+                    <button type="submit" class="btn btn-primary">Send it →</button>
+                    <span class="cf-note">response within 24 hours</span>
+                </div>
+                <div class="cf-error" id="cf-error">something went wrong — email us directly at hello@useignitris.com</div>
+            </form>
         </div>
-        <div style="margin-top:16px; font-size:11px; color:rgba(255,255,255,.18); letter-spacing:.04em;">response within 24 hours &nbsp;·&nbsp; hello@useignitris.com</div>
-    </div>
+    </section>
 
     <footer>
         <a href="https://useignitris.com" class="nav-logo" style="opacity:.28;">
@@ -799,33 +894,11 @@
 </div>
 
 <script>
-    const ctaCopy = {
-        consumer: {
-            label: 'For consumer brands',
-            headline: "let's see what you're leaving on the table.",
-            sub: "book a free 30-minute paid audit. we'll review your setup and tell you exactly where efficiency is breaking down — creative, targeting, offer, or attribution. no pitch, just findings."
-        },
-        b2b: {
-            label: 'For B2B teams',
-            headline: 'ready to build pipeline that actually closes?',
-            sub: "free 30-minute audit of your demand gen setup. we'll show you exactly where qualified pipeline is being left on the table — targeting, creative, or offer architecture. no pitch, just findings."
-        }
-    };
-
     function switchTab(id, btn) {
         document.querySelectorAll('.cases-group').forEach(g => g.classList.remove('visible'));
         document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('cases-' + id).classList.add('visible');
         btn.classList.add('active');
-
-        const countEl = { textContent: '' }; // removed
-        countEl.textContent = id === 'consumer' ? '3 consumer campaigns' : '2 B2B campaigns';
-
-        const c = ctaCopy[id];
-        document.getElementById('cta-label').textContent = c.label;
-        document.getElementById('cta-headline').textContent = c.headline;
-        document.getElementById('cta-sub').textContent = c.sub;
-
         if (id === 'b2b') renderB2B();
     }
 
@@ -902,6 +975,49 @@
 
 
 
+
+    <script>
+    (function () {
+        const form = document.getElementById('contact-form');
+        const successEl = document.getElementById('cf-success');
+        const errorEl = document.getElementById('cf-error');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const btn = form.querySelector('button[type="submit"]');
+            const name    = document.getElementById('cf-name').value.trim();
+            const email   = document.getElementById('cf-email').value.trim();
+            const company = document.getElementById('cf-company').value.trim();
+            const budget  = document.getElementById('cf-budget').value;
+            const message = document.getElementById('cf-message').value.trim();
+
+            if (!name || !email) return;
+
+            btn.textContent = 'Sending…';
+            btn.disabled = true;
+            errorEl.style.display = 'none';
+
+            try {
+                const res = await fetch('/api/adsops-contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, company, budget, message }),
+                });
+
+                if (res.ok) {
+                    form.style.display = 'none';
+                    successEl.style.display = 'block';
+                } else {
+                    throw new Error('server error');
+                }
+            } catch {
+                btn.textContent = 'Send it →';
+                btn.disabled = false;
+                errorEl.style.display = 'block';
+            }
+        });
+    })();
+    </script>
 
     <script>
     (function () {
