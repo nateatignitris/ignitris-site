@@ -102,54 +102,52 @@
         /* ── PAGE SHELL ──────────────────────────────────────────── */
         .page { padding-top: 0; }
 
-        /* ── HERO — video stretches to top ───────────────────────── */
+        /* ── HERO — split layout ─────────────────────────────────── */
         .hero {
             position: relative;
-            border-bottom: none;
-            overflow: visible;
-            min-height: 640px;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 680px;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255,255,255,.07);
+        }
+        .hero-left {
+            background: #000;
+        }
+        .hero-right {
+            background: #000;
             display: flex;
             align-items: center;
-        }
-        .hero video {
-            position: absolute;
-            inset: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-        .hero::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(
-                to bottom,
-                rgba(0,0,0,.12) 0%,
-                rgba(0,0,0,.48) 60%,
-                rgba(0,0,0,.86) 100%
-            );
-            z-index: 2;
+            padding: 80px 64px 80px 40px;
+            position: relative;
+            z-index: 3;
+            pointer-events: none;
+            border-left: 1px solid rgba(255,255,255,.07);
         }
         .hero-text {
             position: relative;
-            z-index: 3;
-            padding: 40px;
-            width: 100%;
-            display: flex; flex-direction: column; align-items: center; text-align: center;
         }
         .hero-text h1 {
             font-size: clamp(16px, 1.4vw, 20px);
             font-weight: 400; letter-spacing: -.02em; line-height: 1.35;
-            color: #fff; max-width: 560px; margin-bottom: 0;
+            color: #fff; max-width: 420px; margin-bottom: 0;
         }
         .hero-sub {
-            position: absolute;
-            bottom: 24px;
-            left: 40px;
-            font-size: 10px; 
+            margin-top: 20px;
+            font-size: 10px;
             color: rgba(255,255,255,.28);
             letter-spacing: .04em;
         }
+        #sphere-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            cursor: grab;
+            touch-action: none;
+            z-index: 2;
+            display: block;
+        }
+        #sphere-canvas:active { cursor: grabbing; }
 
         /* ── STATS STRIP ─────────────────────────────────────────── */
         .stats {
@@ -466,37 +464,6 @@
         }
 
 
-        /* ── CREATIVE SPHERE ─────────────────────────────────────── */
-        .sphere-section {
-            position: relative;
-            z-index: 2;
-            margin-top: -260px;
-            padding: 0;
-            background: transparent;
-            border: none;
-            overflow: visible;
-            pointer-events: none;
-        }
-        .sphere-section::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 55%;
-            background: linear-gradient(to bottom, transparent 0%, #000 80%);
-            pointer-events: none;
-            z-index: 1;
-        }
-        #sphere-canvas {
-            display: block;
-            width: 100%;
-            height: 520px;
-            cursor: grab;
-            touch-action: none;
-            pointer-events: all;
-            position: relative;
-            z-index: 2;
-        }
-        #sphere-canvas:active { cursor: grabbing; }
 
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -525,23 +492,19 @@
 <div class="page">
 
     <div class="hero au d1">
-        <video autoplay muted loop playsinline preload="auto">
-            <source src="/adsops/ignitris-reel.mp4" type="video/mp4">
-        </video>
-        <div class="hero-text">
-            <h1>documented results across consumer and B2B brands, built on paid acquisition.</h1>
+        <div class="hero-left"></div>
+        <div class="hero-right">
+            <div class="hero-text">
+                <h1>documented results across consumer and B2B brands, built on paid acquisition.</h1>
+                <div class="hero-sub">client names are anonymized</div>
+            </div>
         </div>
-        <div class="hero-sub">client names are anonymized</div>
+        <!-- Carousel overlays full hero, cards sweep into left half -->
+        <canvas id="sphere-canvas"></canvas>
     </div>
 
 
-    <!-- 3D CREATIVE SPHERE -->
-    <section class="sphere-section">
-        <canvas id="sphere-canvas"></canvas>
-    </section>
-
-
-    <div class="stats au d3" style="margin-top:0; padding-top:72px; padding-bottom:72px;">
+    <div class="stats au d3" style="padding-top:72px; padding-bottom:72px;">
         <div class="stat">
             <div class="stat-val">5.8x</div>
             <div class="stat-lbl">Peak ROAS</div>
@@ -946,13 +909,14 @@
 
         const canvas = document.getElementById('sphere-canvas');
         const BLUE   = 0x3e90fd;
-        const N      = 7;
-        const R      = 3.5;
-        const TILT   = 0.22;
-        const CW     = 1.7;
-        const CH     = CW * (853 / 480); // exact 9:16 match to image dimensions
+        const N    = 7;
+        const R    = 3.5;
+        const TILT = 0.22;
+        const CW   = 1.7;
+        const CH   = CW * (853 / 480);   // exact 9:16
+        const RING_OFFSET_X = 1.5;       // shift ring right so cards sweep into left half
 
-        /* ── renderer ──────────────────────────────────────────────── */
+        /* ── renderer ── */
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setClearColor(0x000000, 0);
@@ -961,99 +925,151 @@
         const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 100);
         camera.position.z = 8.5;
 
-        /* ── resize ─────────────────────────────────────────────────── */
+        /* ── resize — match canvas to hero dimensions ── */
         function resize() {
-            const w = canvas.clientWidth || canvas.offsetWidth || 900;
-            renderer.setSize(w, 540, false);
-            canvas.style.height = '540px';
-            camera.aspect = w / 540;
+            const w = canvas.offsetWidth  || 900;
+            const h = canvas.offsetHeight || 680;
+            renderer.setSize(w, h, false);
+            camera.aspect = w / h;
             camera.updateProjectionMatrix();
         }
         resize();
         window.addEventListener('resize', resize);
 
-        /* ── load real creative textures ───────────────────────────── */
+        /* ── textures ── */
         const loader   = new THREE.TextureLoader();
         const textures = Array.from({ length: N }, (_, i) =>
             loader.load(`/adsops/creative-${String(i + 1).padStart(2, '0')}.png`)
         );
 
-        /* ── build cards ────────────────────────────────────────────── */
-        const cards    = [];
-        const faceMats = [];
-        const _q   = new THREE.Quaternion();
-        const _v0  = new THREE.Vector3(0, 0, 1);
+        /* ── ring group — offset right so carousel overlaps left half ── */
+        const ringGroup = new THREE.Group();
+        ringGroup.position.x = RING_OFFSET_X;
+        scene.add(ringGroup);
+
+        /* ── build cards ── */
+        const cards      = [];
+        const faceMeshes = [];   // for raycasting
+        const _q    = new THREE.Quaternion();
+        const _v0   = new THREE.Vector3(0, 0, 1);
         const _vDir = new THREE.Vector3();
+        const _wp   = new THREE.Vector3();
 
         for (let i = 0; i < N; i++) {
             const g   = new THREE.Group();
             const geo = new THREE.PlaneGeometry(CW, CH);
 
-            const fMat = new THREE.MeshBasicMaterial({
-                map: textures[i], side: THREE.FrontSide,
-                transparent: true, opacity: 1
-            });
-            g.add(new THREE.Mesh(geo, fMat));
-            faceMats.push(fMat);
+            const fMesh = new THREE.Mesh(geo,
+                new THREE.MeshBasicMaterial({ map: textures[i], side: THREE.FrontSide })
+            );
+            g.add(fMesh);
+            faceMeshes.push(fMesh);
 
             g.add(new THREE.Mesh(geo.clone(),
-                new THREE.MeshBasicMaterial({ color: 0x111111, side: THREE.BackSide })));
+                new THREE.MeshBasicMaterial({ color: 0x0a0a0a, side: THREE.BackSide })));
 
-            g.add(new THREE.LineSegments(
-                new THREE.EdgesGeometry(geo),
-                new THREE.LineBasicMaterial({ color: BLUE, transparent: true, opacity: 0.6 })
-            ));
-
-            scene.add(g);
+            ringGroup.add(g);
             cards.push(g);
         }
 
-        /* ── interaction ────────────────────────────────────────────── */
-        let dragging = false, px = 0, vel = 0.0007;
+        /* ── state ── */
+        let dragging    = false;
+        let px          = 0;
+        let dragDist    = 0;
+        let vel         = 0.0007;
+        let ringRot     = 0;
+        let focusedIdx  = -1;
+        let focusTarget = null;   // target ringRot when animating to focused card
 
+        /* ── pointer interaction ── */
         canvas.addEventListener('pointerdown', e => {
-            dragging = true; px = e.clientX; vel = 0;
+            dragging = true; px = e.clientX; dragDist = 0; vel = 0;
             canvas.setPointerCapture(e.pointerId);
         });
         canvas.addEventListener('pointermove', e => {
             if (!dragging) return;
-            vel += (e.clientX - px) * 0.00025;
-            vel  = Math.max(-0.045, Math.min(0.045, vel));
+            const dx = e.clientX - px;
+            dragDist += Math.abs(dx);
+            vel += dx * 0.00022;
+            vel  = Math.max(-0.042, Math.min(0.042, vel));
             px   = e.clientX;
+            // dragging clears any active focus
+            if (dragDist > 6) { focusedIdx = -1; focusTarget = null; }
         });
-        canvas.addEventListener('pointerup',    () => { dragging = false; });
+        canvas.addEventListener('pointerup', e => {
+            dragging = false;
+            if (dragDist < 6) handleClick(e);   // tap / click
+        });
         canvas.addEventListener('pointerleave', () => { dragging = false; });
 
-        /* ── render loop ────────────────────────────────────────────── */
-        let ringRot = 0;
+        /* ── click to focus ── */
+        const raycaster = new THREE.Raycaster();
+        const mouse     = new THREE.Vector2();
 
+        function handleClick(e) {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x =  ((e.clientX - rect.left) / rect.width)  * 2 - 1;
+            mouse.y = -((e.clientY - rect.top)  / rect.height) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObjects(faceMeshes);
+            if (hits.length > 0) {
+                const idx = faceMeshes.indexOf(hits[0].object);
+                if (idx === focusedIdx) {
+                    // tap same card → unfocus, resume spin
+                    focusedIdx  = -1;
+                    focusTarget = null;
+                } else {
+                    focusedIdx = idx;
+                    // bring card to front (angle → 0)
+                    const cardAngle = (idx / N) * Math.PI * 2;
+                    let diff = (-cardAngle - ringRot);
+                    diff = ((diff + Math.PI) % (Math.PI * 2)) - Math.PI;
+                    focusTarget = ringRot + diff;
+                    vel = 0;
+                }
+            } else {
+                focusedIdx  = -1;
+                focusTarget = null;
+            }
+        }
+
+        /* ── render loop ── */
         function tick() {
             requestAnimationFrame(tick);
 
-            if (!dragging) {
+            if (focusTarget !== null) {
+                // smooth lerp to focused card
+                ringRot += (focusTarget - ringRot) * 0.09;
+                if (Math.abs(focusTarget - ringRot) < 0.0008) {
+                    ringRot = focusTarget;
+                    focusTarget = null;
+                }
+            } else if (!dragging) {
                 vel *= 0.972;
-                if (Math.abs(vel) < 0.0012) vel += (0.0007 - vel) * 0.015;
+                if (focusedIdx === -1 && Math.abs(vel) < 0.0012)
+                    vel += (0.0007 - vel) * 0.015;   // restore gentle auto-spin
+                ringRot += vel;
+            } else {
+                ringRot += vel;
             }
-            ringRot += vel;
 
             for (let i = 0; i < N; i++) {
                 const angle = (i / N) * Math.PI * 2 + ringRot;
-                const sinA  = Math.sin(angle);
-                const cosA  = Math.cos(angle);
-
-                const posX =  R * sinA;
-                const posY = -R * cosA * Math.sin(TILT);
-                const posZ =  R * cosA * Math.cos(TILT);
+                const posX  =  R * Math.sin(angle);
+                const posY  = -R * Math.cos(angle) * Math.sin(TILT);
+                const posZ  =  R * Math.cos(angle) * Math.cos(TILT);
                 cards[i].position.set(posX, posY, posZ);
 
-                // Billboard: card front (+Z) always faces camera
-                _vDir.subVectors(camera.position, cards[i].position).normalize();
+                // billboard — always face camera using world position
+                cards[i].getWorldPosition(_wp);
+                _vDir.subVectors(camera.position, _wp).normalize();
                 _q.setFromUnitVectors(_v0, _vDir);
                 cards[i].quaternion.copy(_q);
 
-                // Depth-based opacity
-                const depth = (posZ + R) / (R * 2);
-                faceMats[i].opacity = 0.4 + 0.6 * Math.max(0, depth);
+                // scale up focused card
+                const ts = (focusedIdx === i) ? 1.1 : 1.0;
+                const cs = cards[i].scale.x + (ts - cards[i].scale.x) * 0.1;
+                cards[i].scale.set(cs, cs, cs);
             }
 
             renderer.render(scene, camera);
