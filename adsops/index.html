@@ -1006,7 +1006,8 @@
         const raycaster = new THREE.Raycaster();
         const mouse     = new THREE.Vector2();
 
-        let targetCamZ = 8.5;   // camera dolly target
+        // per-card animated Z-boost (floats toward camera when focused)
+        const cardZBoost = new Array(N).fill(0);
 
         function handleClick(e) {
             const rect = canvas.getBoundingClientRect();
@@ -1020,23 +1021,19 @@
                     // clicking focused card again → unfocus
                     focusedIdx  = -1;
                     focusTarget = null;
-                    targetCamZ  = 8.5;
                 } else {
                     focusedIdx = idx;
-                    // compute shortest-arc rotation to bring card to front (angle 0 = closest to camera)
+                    // rotate ring to bring card front (shortest arc)
                     const cardAngle = (idx / N) * Math.PI * 2 + ringRot;
                     let delta = -cardAngle;
-                    // normalise delta to [-π, π]
                     delta = ((delta % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
                     focusTarget = ringRot + delta;
-                    targetCamZ  = 6.0;   // dolly in
                     vel = 0;
                 }
             } else {
-                // click on empty space → unfocus
+                // click empty space → unfocus
                 focusedIdx  = -1;
                 focusTarget = null;
-                targetCamZ  = 8.5;
             }
         }
 
@@ -1044,11 +1041,7 @@
         function tick() {
             requestAnimationFrame(tick);
 
-            // camera dolly
-            camera.position.z += (targetCamZ - camera.position.z) * 0.055;
-
             if (focusTarget !== null) {
-                // smooth lerp to focused card
                 ringRot += (focusTarget - ringRot) * 0.09;
                 if (Math.abs(focusTarget - ringRot) < 0.0008) {
                     ringRot = focusTarget;
@@ -1056,8 +1049,13 @@
                 }
             } else if (!dragging) {
                 vel *= 0.972;
-                if (focusedIdx === -1 && Math.abs(vel) < 0.0012)
-                    vel += (0.0007 - vel) * 0.015;   // restore gentle auto-spin
+                if (focusedIdx === -1) {
+                    // normal auto-spin when nothing focused
+                    if (Math.abs(vel) < 0.0012) vel += (0.0007 - vel) * 0.015;
+                } else {
+                    // slow ambient drift so ring stays alive while a card is focused
+                    vel += (0.00018 - vel) * 0.025;
+                }
                 ringRot += vel;
             } else {
                 ringRot += vel;
@@ -1065,10 +1063,15 @@
 
             for (let i = 0; i < N; i++) {
                 const angle = (i / N) * Math.PI * 2 + ringRot;
-                const posX  =  R * Math.sin(angle);
-                const posY  = -R * Math.cos(angle) * Math.sin(TILT);
-                const posZ  =  R * Math.cos(angle) * Math.cos(TILT);
-                cards[i].position.set(posX, posY, posZ);
+                const baseX = R * Math.sin(angle);
+                const baseY = -R * Math.cos(angle) * Math.sin(TILT);
+                const baseZ =  R * Math.cos(angle) * Math.cos(TILT);
+
+                // Z-boost: focused card floats out of ring toward viewer
+                const tgtZ = (i === focusedIdx) ? 2.4 : 0;
+                cardZBoost[i] += (tgtZ - cardZBoost[i]) * 0.08;
+
+                cards[i].position.set(baseX, baseY, baseZ + cardZBoost[i]);
 
                 // billboard — always face camera using world position
                 cards[i].getWorldPosition(_wp);
@@ -1076,16 +1079,16 @@
                 _q.setFromUnitVectors(_v0, _vDir);
                 cards[i].quaternion.copy(_q);
 
-                // scale: focused card grows, others shrink slightly
+                // scale: focused card slightly larger, others smaller
                 const tgtScale = focusedIdx === -1 ? 1.0
-                               : i === focusedIdx  ? 1.55
-                               : 0.82;
-                cards[i].scale.lerp(new THREE.Vector3(tgtScale, tgtScale, tgtScale), 0.1);
+                               : i === focusedIdx  ? 1.35
+                               : 0.80;
+                cards[i].scale.lerp(new THREE.Vector3(tgtScale, tgtScale, tgtScale), 0.09);
 
-                // opacity: dim non-focused cards
+                // opacity: background cards dim hard
                 const tgtOpacity = focusedIdx === -1 ? 1.0
                                  : i === focusedIdx  ? 1.0
-                                 : 0.45;
+                                 : 0.28;
                 cards[i].children.forEach(mesh => {
                     if (mesh.material && mesh.material.side !== THREE.BackSide) {
                         mesh.material.transparent = true;
