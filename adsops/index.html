@@ -149,6 +149,55 @@
         }
         #sphere-canvas:active { cursor: grabbing; }
 
+        /* ── CARD LIGHTBOX ───────────────────────────────────────── */
+        #card-lightbox {
+            position: fixed; inset: 0; z-index: 900;
+            background: rgba(0,0,0,0.82);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            display: none; align-items: center; justify-content: center;
+            cursor: pointer;
+        }
+        #card-lightbox.open {
+            display: flex;
+            animation: lbIn 0.22s cubic-bezier(0.16,1,0.3,1) forwards;
+        }
+        @keyframes lbIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        #card-lightbox-inner {
+            position: relative;
+            animation: lbScale 0.28s cubic-bezier(0.16,1,0.3,1) forwards;
+            cursor: default;
+        }
+        @keyframes lbScale {
+            from { transform: scale(0.88); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+        #card-lightbox img {
+            display: block;
+            max-height: 78vh;
+            max-width: 38vw;
+            min-width: 260px;
+            object-fit: contain;
+            border-radius: 3px;
+            box-shadow: 0 32px 96px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
+            pointer-events: none;
+        }
+        #lightbox-close {
+            position: absolute; top: -14px; right: -14px;
+            width: 28px; height: 28px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: rgba(255,255,255,0.7);
+            font-size: 13px; line-height: 1;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+        #lightbox-close:hover { background: rgba(255,255,255,0.18); color: #fff; }
+
         /* ── STATS STRIP ─────────────────────────────────────────── */
         .stats {
             display: grid; grid-template-columns: repeat(4,1fr);
@@ -1014,22 +1063,8 @@
             const hits = raycaster.intersectObjects(faceMeshes);
             if (hits.length > 0) {
                 const idx = faceMeshes.indexOf(hits[0].object);
-                if (idx === focusedIdx) {
-                    // tap same card → unfocus, resume spin
-                    focusedIdx  = -1;
-                    focusTarget = null;
-                } else {
-                    focusedIdx = idx;
-                    // bring card to front (angle → 0)
-                    const cardAngle = (idx / N) * Math.PI * 2;
-                    let diff = (-cardAngle - ringRot);
-                    diff = ((diff + Math.PI) % (Math.PI * 2)) - Math.PI;
-                    focusTarget = ringRot + diff;
-                    vel = 0;
-                }
-            } else {
-                focusedIdx  = -1;
-                focusTarget = null;
+                const src = `/adsops/creative-${String(idx + 1).padStart(2, '0')}.png`;
+                openLightbox(src);
             }
         }
 
@@ -1066,10 +1101,6 @@
                 _q.setFromUnitVectors(_v0, _vDir);
                 cards[i].quaternion.copy(_q);
 
-                // scale up focused card
-                const ts = (focusedIdx === i) ? 1.1 : 1.0;
-                const cs = cards[i].scale.x + (ts - cards[i].scale.x) * 0.1;
-                cards[i].scale.set(cs, cs, cs);
             }
 
             renderer.render(scene, camera);
@@ -1077,6 +1108,27 @@
         tick();
     })();
     </script>
+
+<!-- Card lightbox -->
+<div id="card-lightbox" onclick="if(event.target===this)closeLightbox()">
+    <div id="card-lightbox-inner">
+        <img id="lightbox-img" src="" alt="Creative">
+        <div id="lightbox-close" onclick="closeLightbox()">✕</div>
+    </div>
+</div>
+<script>
+function openLightbox(src) {
+    const lb = document.getElementById('card-lightbox');
+    document.getElementById('lightbox-img').src = src;
+    lb.classList.add('open');
+    document.addEventListener('keydown', lbKeyHandler);
+}
+function closeLightbox() {
+    document.getElementById('card-lightbox').classList.remove('open');
+    document.removeEventListener('keydown', lbKeyHandler);
+}
+function lbKeyHandler(e) { if (e.key === 'Escape') closeLightbox(); }
+</script>
 
 </body>
 </html>
