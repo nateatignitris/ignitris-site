@@ -1025,10 +1025,10 @@
 
         const canvas = document.getElementById('sphere-canvas');
         const BLUE   = 0x3e90fd;
-        const N    = 7;
+        const N    = 14;   // 14 slots, looping 7 unique textures
         const R    = 3.5;
         const TILT = 0.22;
-        const CW   = 1.7;
+        const CW   = 0.85;               // 50% of original 1.7
         const CH   = CW * (853 / 480);   // exact 9:16
         const RING_OFFSET_X = 2.8;       // ring centered in right half, ~20% bleeds into left text area
 
@@ -1052,11 +1052,15 @@
         resize();
         window.addEventListener('resize', resize);
 
-        /* ── textures ── */
+        /* ── textures — load 7 unique, loop across 14 cards ── */
         const loader   = new THREE.TextureLoader();
-        const textures = Array.from({ length: N }, (_, i) =>
-            loader.load(`/adsops/creative-${String(i + 1).padStart(2, '0')}.png`)
-        );
+        const textures = Array.from({ length: 7 }, (_, i) => {
+            const t = loader.load(`/adsops/creative-${String(i + 1).padStart(2, '0')}.png`);
+            t.minFilter = THREE.LinearFilter;   // disable mipmap blur on close-up
+            t.magFilter = THREE.LinearFilter;
+            t.generateMipmaps = false;
+            return t;
+        });
 
         /* ── ring group — offset right so carousel overlaps left half ── */
         const ringGroup = new THREE.Group();
@@ -1079,15 +1083,15 @@
 
             // white border plane — slightly larger, sits just behind face
             const bMesh = new THREE.Mesh(
-                new THREE.PlaneGeometry(CW + 0.09, CH + 0.09),
+                new THREE.PlaneGeometry(CW + 0.05, CH + 0.05),
                 new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, side: THREE.FrontSide })
             );
-            bMesh.position.z = -0.012;
+            bMesh.position.z = -0.01;
             g.add(bMesh);
             borderMeshes.push(bMesh);
 
             const fMesh = new THREE.Mesh(geo,
-                new THREE.MeshBasicMaterial({ map: textures[i], side: THREE.FrontSide })
+                new THREE.MeshBasicMaterial({ map: textures[i % 7], side: THREE.FrontSide })
             );
             g.add(fMesh);
             faceMeshes.push(fMesh);
