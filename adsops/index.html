@@ -1025,7 +1025,7 @@
 
         const canvas = document.getElementById('sphere-canvas');
         const BLUE   = 0x3e90fd;
-        const N    = 14;   // 14 slots, looping 7 unique textures
+        const N    = 11;   // one slot per unique creative
         const R    = 3.5;
         const TILT = 0.22;
         const CW   = 0.85;               // 50% of original 1.7
@@ -1052,11 +1052,11 @@
         resize();
         window.addEventListener('resize', resize);
 
-        /* ── textures — load 7 unique, loop across 14 cards ── */
+        /* ── textures — 11 unique creatives ── */
         const loader   = new THREE.TextureLoader();
-        const textures = Array.from({ length: 7 }, (_, i) => {
+        const textures = Array.from({ length: N }, (_, i) => {
             const t = loader.load(`/adsops/creative-${String(i + 1).padStart(2, '0')}.png`);
-            t.minFilter = THREE.LinearFilter;   // disable mipmap blur on close-up
+            t.minFilter = THREE.LinearFilter;
             t.magFilter = THREE.LinearFilter;
             t.generateMipmaps = false;
             return t;
@@ -1091,7 +1091,7 @@
             borderMeshes.push(bMesh);
 
             const fMesh = new THREE.Mesh(geo,
-                new THREE.MeshBasicMaterial({ map: textures[i % 7], side: THREE.FrontSide })
+                new THREE.MeshBasicMaterial({ map: textures[i], side: THREE.FrontSide })
             );
             g.add(fMesh);
             faceMeshes.push(fMesh);
