@@ -107,16 +107,16 @@
             position: relative;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            min-height: 680px;
+            min-height: 100vh;
             overflow: hidden;
         }
         .hero-left {
             background: #000;
             display: flex;
             align-items: center;
-            padding: 80px 40px 80px 64px;
+            padding: 100px 40px 100px 64px;
             position: relative;
-            z-index: 1;
+            z-index: 3;
             pointer-events: none;
         }
         .hero-right {
@@ -124,6 +124,7 @@
         }
         .hero-text {
             position: relative;
+            pointer-events: auto;
         }
         .hero-text h1 {
             font-size: clamp(36px, 3.6vw, 58px);
@@ -133,6 +134,7 @@
         .hero-cta {
             margin-top: 36px;
             display: flex; align-items: center; gap: 16px;
+            pointer-events: auto;
         }
         .hero-cta .btn-primary {
             padding: 13px 28px; font-size: 11px; letter-spacing: .1em;
