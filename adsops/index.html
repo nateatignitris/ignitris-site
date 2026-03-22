@@ -1023,13 +1023,13 @@
     (function () {
         if (typeof THREE === 'undefined') return;
 
-        const canvas = document.getElementById('sphere-canvas');
-        const BLUE   = 0x3e90fd;
-        const N    = 11;
-        const R    = 3.2;                // sphere radius
-        const CW   = 0.85;
-        const CH   = CW * (853 / 480);   // exact 9:16
-        const RING_OFFSET_X = 2.8;
+        const canvas      = document.getElementById('sphere-canvas');
+        const N_UNIQUE    = 11;          // unique textures
+        const N           = 44;          // total cards on sphere (4x)
+        const R           = 3.4;         // sphere radius
+        const CW          = 0.78;
+        const CH          = CW * (853 / 480);
+        const SPHERE_X    = 2.8;
 
         // Fibonacci sphere — evenly distribute N points on sphere surface
         const goldenAngle = Math.PI * (3 - Math.sqrt(5));
@@ -1040,16 +1040,14 @@
             return [ R * r * Math.cos(theta), R * y, R * r * Math.sin(theta) ];
         });
 
-        /* ── renderer ── */
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setClearColor(0x000000, 0);
 
         const scene  = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 100);
+        const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 100);
         camera.position.z = 8.5;
 
-        /* ── resize — match canvas to hero dimensions ── */
         function resize() {
             const w = canvas.offsetWidth  || 900;
             const h = canvas.offsetHeight || 680;
@@ -1060,9 +1058,9 @@
         resize();
         window.addEventListener('resize', resize);
 
-        /* ── textures — 11 unique creatives ── */
+        // Load 11 unique textures, reuse across 44 cards
         const loader   = new THREE.TextureLoader();
-        const textures = Array.from({ length: N }, (_, i) => {
+        const textures = Array.from({ length: N_UNIQUE }, (_, i) => {
             const t = loader.load(`/adsops/creative-${String(i + 1).padStart(2, '0')}.png`);
             t.minFilter = THREE.LinearFilter;
             t.magFilter = THREE.LinearFilter;
@@ -1070,18 +1068,16 @@
             return t;
         });
 
-        /* ── ring group — offset right so carousel overlaps left half ── */
-        const ringGroup = new THREE.Group();
-        ringGroup.position.x = RING_OFFSET_X;
-        ringGroup.position.y = 0.1;
-        scene.add(ringGroup);
+        const sphereGroup = new THREE.Group();
+        sphereGroup.position.x = SPHERE_X;
+        sphereGroup.position.y = 0.1;
+        scene.add(sphereGroup);
 
-        /* ── build cards ── */
         const cards        = [];
-        const faceMeshes   = [];   // for raycasting
-        const borderMeshes = [];   // white frame shown on focus
-        const _q    = new THREE.Quaternion();
-        const _v0   = new THREE.Vector3(0, 0, 1);
+        const faceMeshes   = [];
+        const borderMeshes = [];
+        const _q  = new THREE.Quaternion();
+        const _v0 = new THREE.Vector3(0, 0, 1);
         const _vDir = new THREE.Vector3();
         const _wp   = new THREE.Vector3();
 
@@ -1089,7 +1085,6 @@
             const g   = new THREE.Group();
             const geo = new THREE.PlaneGeometry(CW, CH);
 
-            // white border plane — slightly larger, sits just behind face
             const bMesh = new THREE.Mesh(
                 new THREE.PlaneGeometry(CW + 0.05, CH + 0.05),
                 new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, side: THREE.FrontSide })
@@ -1099,45 +1094,53 @@
             borderMeshes.push(bMesh);
 
             const fMesh = new THREE.Mesh(geo,
-                new THREE.MeshBasicMaterial({ map: textures[i], side: THREE.FrontSide })
+                new THREE.MeshBasicMaterial({ map: textures[i % N_UNIQUE], side: THREE.FrontSide })
             );
             g.add(fMesh);
             faceMeshes.push(fMesh);
 
             g.add(new THREE.Mesh(geo.clone(),
-                new THREE.MeshBasicMaterial({ color: 0x0a0a0a, side: THREE.BackSide })));
+                new THREE.MeshBasicMaterial({ color: 0x080808, side: THREE.BackSide })));
 
-            ringGroup.add(g);
+            sphereGroup.add(g);
             cards.push(g);
         }
 
         /* ── state ── */
-        let dragging    = false;
-        let px          = 0;
-        let dragDist    = 0;
-        let vel         = 0.0004;   // slower auto-spin for sphere
-        let ringRot     = 0;
+        let dragging = false;
+        let px = 0, py = 0, dragDist = 0;
+        let velY = 0.0004;   // horizontal auto-spin
+        let velX = 0;         // vertical momentum
+        let rotY = 0;         // Y-axis angle (horizontal drag)
+        let rotX = 0;         // X-axis angle (vertical drag)
         let focusedIdx  = -1;
-        let focusTarget = null;   // target ringRot when animating to focused card
+        let focusTargetY = null;
+        let focusTargetX = null;
 
-        /* ── pointer interaction ── */
+        /* ── pointer ── */
         canvas.addEventListener('pointerdown', e => {
-            dragging = true; px = e.clientX; dragDist = 0; vel = 0;
+            dragging = true;
+            px = e.clientX; py = e.clientY;
+            dragDist = 0; velY = 0; velX = 0;
             canvas.setPointerCapture(e.pointerId);
         });
+
         canvas.addEventListener('pointermove', e => {
             if (!dragging) return;
             const dx = e.clientX - px;
-            dragDist += Math.abs(dx);
-            vel += dx * 0.00022;
-            vel  = Math.max(-0.042, Math.min(0.042, vel));
-            px   = e.clientX;
-            // dragging clears any active focus
-            if (dragDist > 6) { focusedIdx = -1; focusTarget = null; }
+            const dy = e.clientY - py;
+            dragDist += Math.sqrt(dx * dx + dy * dy);
+            velY += dx * 0.00022;
+            velX -= dy * 0.00022;
+            velY = Math.max(-0.045, Math.min(0.045, velY));
+            velX = Math.max(-0.045, Math.min(0.045, velX));
+            px = e.clientX; py = e.clientY;
+            if (dragDist > 6) { focusedIdx = -1; focusTargetY = null; focusTargetX = null; }
         });
+
         canvas.addEventListener('pointerup', e => {
             dragging = false;
-            if (dragDist < 6) handleClick(e);   // tap / click
+            if (dragDist < 6) handleClick(e);
         });
         canvas.addEventListener('pointerleave', () => { dragging = false; });
 
@@ -1154,21 +1157,23 @@
             if (hits.length > 0) {
                 const idx = faceMeshes.indexOf(hits[0].object);
                 if (idx === focusedIdx) {
-                    focusedIdx  = -1;
-                    focusTarget = null;
+                    focusedIdx = -1; focusTargetY = null; focusTargetX = null;
                 } else {
                     focusedIdx = idx;
-                    // rotate sphere (Y axis) so card's XZ position faces camera
-                    const [bx, , bz] = basePos[idx];
-                    const targetRot = -Math.atan2(bx, bz);
-                    let delta = targetRot - ringRot;
-                    delta = ((delta % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
-                    focusTarget = ringRot + delta;
-                    vel = 0;
+                    const [bx, by, bz] = basePos[idx];
+                    // Y target: bring card's XZ to face camera
+                    let dY = -Math.atan2(bx, bz) - rotY;
+                    dY = ((dY % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
+                    focusTargetY = rotY + dY;
+                    // X target: bring card's Y elevation to center
+                    const xzRadius = Math.sqrt(bx * bx + bz * bz);
+                    let dX = -Math.atan2(by, xzRadius) - rotX;
+                    dX = ((dX % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
+                    focusTargetX = rotX + dX;
+                    velY = 0; velX = 0;
                 }
             } else {
-                focusedIdx  = -1;
-                focusTarget = null;
+                focusedIdx = -1; focusTargetY = null; focusTargetX = null;
             }
         }
 
@@ -1176,33 +1181,49 @@
         function tick() {
             requestAnimationFrame(tick);
 
-            if (focusTarget !== null) {
-                ringRot += (focusTarget - ringRot) * 0.085;
-                if (Math.abs(focusTarget - ringRot) < 0.0006) {
-                    ringRot = focusTarget;
-                    focusTarget = null;
+            const hasFocus = focusTargetY !== null;
+
+            if (hasFocus) {
+                rotY += (focusTargetY - rotY) * 0.085;
+                rotX += (focusTargetX - rotX) * 0.085;
+                if (Math.abs(focusTargetY - rotY) + Math.abs(focusTargetX - rotX) < 0.001) {
+                    rotY = focusTargetY; rotX = focusTargetX;
+                    focusTargetY = null; focusTargetX = null;
                 }
             } else if (!dragging) {
-                vel *= 0.968;
+                // Y: auto-spin or near-stop
+                velY *= 0.968;
                 if (focusedIdx === -1) {
-                    if (Math.abs(vel) < 0.0008) vel += (0.0004 - vel) * 0.015;
+                    if (Math.abs(velY) < 0.0008) velY += (0.0004 - velY) * 0.015;
                 } else {
-                    vel += (0.00006 - vel) * 0.03;
+                    velY += (0.00006 - velY) * 0.03;
                 }
-                ringRot += vel;
+                rotY += velY;
+                // X: damp momentum, sphere stays where tilted
+                velX *= 0.94;
+                rotX += velX;
             } else {
-                ringRot += vel;
+                rotY += velY;
+                rotX += velX;
             }
 
-            // rotate base sphere positions around Y axis
-            const cosR = Math.cos(ringRot);
-            const sinR = Math.sin(ringRot);
+            // Combined rotation: Y then X
+            const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+            const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
 
             for (let i = 0; i < N; i++) {
                 const [bx, by, bz] = basePos[i];
-                const posX =  bx * cosR + bz * sinR;
-                const posY =  by;
-                const posZ = -bx * sinR + bz * cosR;
+
+                // Rotate around Y axis
+                const x1 =  bx * cosY + bz * sinY;
+                const y1 =  by;
+                const z1 = -bx * sinY + bz * cosY;
+
+                // Rotate around X axis
+                const posX = x1;
+                const posY = y1 * cosX - z1 * sinX;
+                const posZ = y1 * sinX + z1 * cosX;
+
                 cards[i].position.set(posX, posY, posZ);
 
                 // billboard — always face camera
@@ -1211,20 +1232,19 @@
                 _q.setFromUnitVectors(_v0, _vDir);
                 cards[i].quaternion.copy(_q);
 
-                // depth factor: 0 = back of sphere, 1 = front
+                // depth: 0 = back, 1 = front
                 const depth = (posZ + R) / (2 * R);
 
                 let tgtScale, tgtFaceOp;
                 if (focusedIdx === -1) {
-                    // sphere idle: scale + fade by depth for 3D illusion
-                    tgtScale  = 0.65 + depth * 0.42;
-                    tgtFaceOp = 0.38 + depth * 0.62;
+                    tgtScale  = 0.58 + depth * 0.48;
+                    tgtFaceOp = 0.28 + depth * 0.72;
                 } else if (i === focusedIdx) {
-                    tgtScale  = 1.18;
+                    tgtScale  = 1.22;
                     tgtFaceOp = 1.0;
                 } else {
-                    tgtScale  = (0.65 + depth * 0.42) * 0.6;
-                    tgtFaceOp = 0.12;
+                    tgtScale  = (0.58 + depth * 0.48) * 0.5;
+                    tgtFaceOp = 0.09;
                 }
 
                 cards[i].scale.lerp(new THREE.Vector3(tgtScale, tgtScale, tgtScale), 0.08);
@@ -1232,7 +1252,7 @@
                 faceMeshes[i].material.transparent = true;
                 faceMeshes[i].material.opacity += (tgtFaceOp - faceMeshes[i].material.opacity) * 0.09;
 
-                const tgtBorder = (focusedIdx !== -1 && i === focusedIdx) ? 0.75 : 0.0;
+                const tgtBorder = (focusedIdx !== -1 && i === focusedIdx) ? 0.78 : 0.0;
                 borderMeshes[i].material.opacity += (tgtBorder - borderMeshes[i].material.opacity) * 0.09;
             }
 
