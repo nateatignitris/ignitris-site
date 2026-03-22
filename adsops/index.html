@@ -1025,12 +1025,20 @@
 
         const canvas = document.getElementById('sphere-canvas');
         const BLUE   = 0x3e90fd;
-        const N    = 11;   // one slot per unique creative
-        const R    = 3.5;
-        const TILT = 0.22;
-        const CW   = 0.85;               // 50% of original 1.7
+        const N    = 11;
+        const R    = 3.2;                // sphere radius
+        const CW   = 0.85;
         const CH   = CW * (853 / 480);   // exact 9:16
-        const RING_OFFSET_X = 2.8;       // ring centered in right half, ~20% bleeds into left text area
+        const RING_OFFSET_X = 2.8;
+
+        // Fibonacci sphere — evenly distribute N points on sphere surface
+        const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+        const basePos = Array.from({ length: N }, (_, i) => {
+            const y     = 1 - (i / (N - 1)) * 2;
+            const r     = Math.sqrt(Math.max(0, 1 - y * y));
+            const theta = goldenAngle * i;
+            return [ R * r * Math.cos(theta), R * y, R * r * Math.sin(theta) ];
+        });
 
         /* ── renderer ── */
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -1065,7 +1073,7 @@
         /* ── ring group — offset right so carousel overlaps left half ── */
         const ringGroup = new THREE.Group();
         ringGroup.position.x = RING_OFFSET_X;
-        ringGroup.position.y = 0.52;   // raise ring so front card sits centered in viewport
+        ringGroup.position.y = 0.1;
         scene.add(ringGroup);
 
         /* ── build cards ── */
@@ -1107,7 +1115,7 @@
         let dragging    = false;
         let px          = 0;
         let dragDist    = 0;
-        let vel         = 0.0007;
+        let vel         = 0.0004;   // slower auto-spin for sphere
         let ringRot     = 0;
         let focusedIdx  = -1;
         let focusTarget = null;   // target ringRot when animating to focused card
@@ -1150,9 +1158,10 @@
                     focusTarget = null;
                 } else {
                     focusedIdx = idx;
-                    // rotate ring shortest-arc to bring card to front
-                    const cardAngle = (idx / N) * Math.PI * 2 + ringRot;
-                    let delta = -cardAngle;
+                    // rotate sphere (Y axis) so card's XZ position faces camera
+                    const [bx, , bz] = basePos[idx];
+                    const targetRot = -Math.atan2(bx, bz);
+                    let delta = targetRot - ringRot;
                     delta = ((delta % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
                     focusTarget = ringRot + delta;
                     vel = 0;
@@ -1176,42 +1185,54 @@
             } else if (!dragging) {
                 vel *= 0.968;
                 if (focusedIdx === -1) {
-                    if (Math.abs(vel) < 0.0012) vel += (0.0007 - vel) * 0.015;
+                    if (Math.abs(vel) < 0.0008) vel += (0.0004 - vel) * 0.015;
                 } else {
-                    // near-stop while card is selected — ring barely breathes
-                    vel += (0.00008 - vel) * 0.03;
+                    vel += (0.00006 - vel) * 0.03;
                 }
                 ringRot += vel;
             } else {
                 ringRot += vel;
             }
 
+            // rotate base sphere positions around Y axis
+            const cosR = Math.cos(ringRot);
+            const sinR = Math.sin(ringRot);
+
             for (let i = 0; i < N; i++) {
-                const angle = (i / N) * Math.PI * 2 + ringRot;
-                const posX  =  R * Math.sin(angle);
-                const posY  = -R * Math.cos(angle) * Math.sin(TILT);
-                const posZ  =  R * Math.cos(angle) * Math.cos(TILT);
+                const [bx, by, bz] = basePos[i];
+                const posX =  bx * cosR + bz * sinR;
+                const posY =  by;
+                const posZ = -bx * sinR + bz * cosR;
                 cards[i].position.set(posX, posY, posZ);
 
-                // billboard
+                // billboard — always face camera
                 cards[i].getWorldPosition(_wp);
                 _vDir.subVectors(camera.position, _wp).normalize();
                 _q.setFromUnitVectors(_v0, _vDir);
                 cards[i].quaternion.copy(_q);
 
-                // scale — focused card very slight lift, others untouched
-                const tgtScale = (focusedIdx !== -1 && i === focusedIdx) ? 1.12 : 1.0;
+                // depth factor: 0 = back of sphere, 1 = front
+                const depth = (posZ + R) / (2 * R);
+
+                let tgtScale, tgtFaceOp;
+                if (focusedIdx === -1) {
+                    // sphere idle: scale + fade by depth for 3D illusion
+                    tgtScale  = 0.65 + depth * 0.42;
+                    tgtFaceOp = 0.38 + depth * 0.62;
+                } else if (i === focusedIdx) {
+                    tgtScale  = 1.18;
+                    tgtFaceOp = 1.0;
+                } else {
+                    tgtScale  = (0.65 + depth * 0.42) * 0.6;
+                    tgtFaceOp = 0.12;
+                }
+
                 cards[i].scale.lerp(new THREE.Vector3(tgtScale, tgtScale, tgtScale), 0.08);
 
-                // face opacity — non-focused cards dim cleanly
-                const tgtFaceOp = focusedIdx === -1 ? 1.0
-                                : i === focusedIdx  ? 1.0
-                                : 0.18;
                 faceMeshes[i].material.transparent = true;
                 faceMeshes[i].material.opacity += (tgtFaceOp - faceMeshes[i].material.opacity) * 0.09;
 
-                // white border — glows on focused card only
-                const tgtBorder = (focusedIdx !== -1 && i === focusedIdx) ? 0.72 : 0.0;
+                const tgtBorder = (focusedIdx !== -1 && i === focusedIdx) ? 0.75 : 0.0;
                 borderMeshes[i].material.opacity += (tgtBorder - borderMeshes[i].material.opacity) * 0.09;
             }
 
