@@ -473,85 +473,51 @@
         .contact {
             border-top: 1px solid rgba(255,255,255,.07);
             border-bottom: 1px solid rgba(255,255,255,.07);
-            padding: 100px 40px;
+            padding: 120px 40px 140px;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: -120px; left: 50%; transform: translateX(-50%);
+            width: 700px; height: 500px;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,.022) 0%, transparent 70%);
+            pointer-events: none;
         }
         .contact-inner {
-            max-width: 560px;
+            max-width: 900px;
             margin: 0 auto;
+            position: relative; z-index: 1;
         }
         .contact-label {
             font-size: 10px; font-weight: 600; letter-spacing: .14em;
             text-transform: uppercase; color: rgba(255,255,255,.22);
-            margin-bottom: 20px;
+            margin-bottom: 28px;
         }
         .contact-title {
-            font-size: clamp(22px, 2.4vw, 34px); font-weight: 400;
-            letter-spacing: -.03em; color: #fff; line-height: 1.25;
-            margin-bottom: 48px;
+            font-size: clamp(32px, 4.5vw, 62px); font-weight: 400;
+            letter-spacing: -.035em; color: #fff; line-height: 1.08;
+            margin-bottom: 22px; max-width: 720px;
         }
-        .contact-form { display: flex; flex-direction: column; gap: 0; }
-        .cf-row {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+        .contact-sub {
+            font-size: clamp(13px, 1.1vw, 16px); font-weight: 400;
+            color: rgba(255,255,255,.38); letter-spacing: -.01em;
+            line-height: 1.45; max-width: 440px; margin-bottom: 48px;
         }
-        .cf-field {
-            border-bottom: 1px solid rgba(255,255,255,.1);
-            border-right: 1px solid rgba(255,255,255,.06);
-            padding: 20px 24px;
-            position: relative;
-            transition: background .2s ease;
+        .contact-actions {
+            display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
         }
-        .cf-field:last-child { border-right: none; }
-        .cf-field.full { grid-column: 1 / -1; border-right: none; }
-        .cf-field:focus-within { background: rgba(255,255,255,.03); }
-        .cf-label {
-            display: block;
-            font-size: 9px; font-weight: 600; letter-spacing: .12em;
-            text-transform: uppercase; color: rgba(255,255,255,.28);
-            margin-bottom: 8px;
+        .contact-detail {
+            font-size: 11px; color: rgba(255,255,255,.22);
+            letter-spacing: .03em; line-height: 1.6;
         }
-        .cf-field input,
-        .cf-field select,
-        .cf-field textarea {
-            width: 100%; background: transparent; border: none; outline: none;
-            font-family: inherit; font-size: 14px; font-weight: 400;
-            color: #fff; letter-spacing: -.01em;
-            resize: none;
+        .contact-detail a {
+            color: rgba(255,255,255,.38); text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,.12);
+            transition: color .2s ease;
         }
-        .cf-field select { cursor: pointer; appearance: none; -webkit-appearance: none; }
-        .cf-field select option { background: #111; color: #fff; }
-        .cf-field textarea { min-height: 80px; line-height: 1.6; }
-        .cf-field input::placeholder,
-        .cf-field textarea::placeholder { color: rgba(255,255,255,.18); }
-        .contact-submit {
-            margin-top: 32px;
-            display: flex; align-items: center; gap: 20px;
-        }
-        .contact-submit .btn-primary {
-            padding: 12px 32px; font-size: 11px; letter-spacing: .1em;
-        }
-        .cf-note {
-            font-size: 11px; color: rgba(255,255,255,.2); letter-spacing: .03em;
-        }
-        .cf-success {
-            display: none;
-            text-align: center;
-            padding: 40px 0;
-        }
-        .cf-success-icon {
-            font-size: 28px; margin-bottom: 16px;
-        }
-        .cf-success h3 {
-            font-size: 18px; font-weight: 400; letter-spacing: -.02em;
-            color: #fff; margin-bottom: 8px;
-        }
-        .cf-success p {
-            font-size: 13px; color: rgba(255,255,255,.32); line-height: 1.6;
-        }
-        .cf-error {
-            display: none;
-            margin-top: 12px;
-            font-size: 12px; color: rgba(255,80,80,.8); letter-spacing: .02em;
-        }
+        .contact-detail a:hover { color: rgba(255,255,255,.7); }
 
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -897,50 +863,14 @@
         <div class="contact-inner">
             <div class="contact-label">Get in touch</div>
             <h2 class="contact-title">let's see what you're leaving on the table.</h2>
-
-            <div id="cf-success" class="cf-success">
-                <div class="cf-success-icon">✦</div>
-                <h3>you're in.</h3>
-                <p>we'll review your setup and reach out within 24 hours.<br>hello@useignitris.com if you need us sooner.</p>
+            <p class="contact-sub">we work with a small number of brands at a time. if you're spending on paid and not seeing the returns, let's talk.</p>
+            <div class="contact-actions">
+                <a href="mailto:nate@useignitris.com?subject=Paid%20acquisition%20inquiry&body=Hi%20Nate%2C%0A%0ACompany%3A%20%0AMonthly%20ad%20budget%3A%20%0AWhat%20I%27m%20trying%20to%20fix%3A%20%0A" class="btn btn-primary">Email us →</a>
+                <div class="contact-detail">
+                    response within an hour<br>
+                    <a href="mailto:nate@useignitris.com?subject=Paid%20acquisition%20inquiry&body=Hi%20Nate%2C%0A%0ACompany%3A%20%0AMonthly%20ad%20budget%3A%20%0AWhat%20I%27m%20trying%20to%20fix%3A%20%0A">hello@useignitris.com</a>
+                </div>
             </div>
-
-            <form class="contact-form" id="contact-form" novalidate>
-                <div class="cf-row">
-                    <div class="cf-field">
-                        <label class="cf-label" for="cf-name">Name</label>
-                        <input type="text" id="cf-name" placeholder="Your name" autocomplete="name" required>
-                    </div>
-                    <div class="cf-field">
-                        <label class="cf-label" for="cf-email">Email</label>
-                        <input type="email" id="cf-email" placeholder="you@company.com" autocomplete="email" required>
-                    </div>
-                </div>
-                <div class="cf-row">
-                    <div class="cf-field">
-                        <label class="cf-label" for="cf-company">Company</label>
-                        <input type="text" id="cf-company" placeholder="Brand or company name">
-                    </div>
-                    <div class="cf-field">
-                        <label class="cf-label" for="cf-budget">Monthly ad budget</label>
-                        <select id="cf-budget">
-                            <option value="" disabled selected>Select range</option>
-                            <option value="Under $5K">Under $5K</option>
-                            <option value="$5K–$15K">$5K–$15K</option>
-                            <option value="$15K–$50K">$15K–$50K</option>
-                            <option value="$50K+">$50K+</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="cf-field full">
-                    <label class="cf-label" for="cf-message">What are you trying to fix?</label>
-                    <textarea id="cf-message" placeholder="Current challenges, platforms, goals — whatever's relevant"></textarea>
-                </div>
-                <div class="contact-submit">
-                    <button type="submit" class="btn btn-primary">Send it →</button>
-                    <span class="cf-note">response within 24 hours</span>
-                </div>
-                <div class="cf-error" id="cf-error">something went wrong — email us directly at hello@useignitris.com</div>
-            </form>
         </div>
     </section>
 
@@ -1037,49 +967,6 @@
 
 
 
-
-    <script>
-    (function () {
-        const form = document.getElementById('contact-form');
-        const successEl = document.getElementById('cf-success');
-        const errorEl = document.getElementById('cf-error');
-
-        form.addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const btn = form.querySelector('button[type="submit"]');
-            const name    = document.getElementById('cf-name').value.trim();
-            const email   = document.getElementById('cf-email').value.trim();
-            const company = document.getElementById('cf-company').value.trim();
-            const budget  = document.getElementById('cf-budget').value;
-            const message = document.getElementById('cf-message').value.trim();
-
-            if (!name || !email) return;
-
-            btn.textContent = 'Sending…';
-            btn.disabled = true;
-            errorEl.style.display = 'none';
-
-            try {
-                const res = await fetch('/api/adsops-contact', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, company, budget, message }),
-                });
-
-                if (res.ok) {
-                    form.style.display = 'none';
-                    successEl.style.display = 'block';
-                } else {
-                    throw new Error('server error');
-                }
-            } catch {
-                btn.textContent = 'Send it →';
-                btn.disabled = false;
-                errorEl.style.display = 'block';
-            }
-        });
-    })();
-    </script>
 
     <script>
     /* ── Stat counter animation ── */
