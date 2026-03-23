@@ -111,115 +111,131 @@
         /* ── PAGE SHELL ──────────────────────────────────────────── */
         .page { padding-top: 0; }
 
-        /* ── HERO — full-bleed ───────────────────────────────────── */
+        /* ── HERO — centered ─────────────────────────────────────── */
         .hero {
             position: relative;
             min-height: 100vh;
             overflow: hidden;
-            display: grid;
-            grid-template-columns: 1fr auto;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            padding: 120px 64px 96px;
-            gap: 48px;
+            justify-content: center;
+            padding: 140px 40px 100px;
+            text-align: center;
         }
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            pointer-events: auto;
-            max-width: 680px;
+        /* Ambient background glow */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -15%; left: 50%;
+            transform: translateX(-50%);
+            width: 900px; height: 700px;
+            background: radial-gradient(ellipse at 50% 30%, rgba(255,255,255,.032) 0%, transparent 65%);
+            pointer-events: none; z-index: 0;
+            animation: ambientTop 12s ease-in-out infinite;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%; right: -5%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,.014) 0%, transparent 70%);
+            pointer-events: none; z-index: 0;
+            animation: ambientBottom 18s ease-in-out infinite reverse;
+        }
+        @keyframes ambientTop {
+            0%, 100% { opacity: .55; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.18); }
+        }
+        @keyframes ambientBottom {
+            0%, 100% { opacity: .4; transform: scale(1) translate(0,0); }
+            50% { opacity: .9; transform: scale(1.12) translate(-30px, -20px); }
+        }
+        .hero-inner {
+            position: relative; z-index: 2;
+            display: flex; flex-direction: column; align-items: center;
+            max-width: 860px; width: 100%;
         }
         .hero-eyebrow {
-            font-size: 10px; font-weight: 600; letter-spacing: .18em;
-            text-transform: uppercase; color: rgba(255,255,255,.25);
-            margin-bottom: 28px;
+            font-size: 10px; font-weight: 600; letter-spacing: .2em;
+            text-transform: uppercase; color: rgba(255,255,255,.22);
+            margin-bottom: 36px;
         }
         .hero-h1 {
-            font-size: clamp(44px, 6.5vw, 92px);
-            font-weight: 300; letter-spacing: -.04em; line-height: 1.0;
-            color: #fff; margin-bottom: 48px;
+            font-size: clamp(44px, 7.2vw, 104px);
+            font-weight: 300; letter-spacing: -.04em; line-height: 0.96;
+            color: #fff; margin-bottom: 32px;
+        }
+        .hero-sub {
+            font-size: clamp(13px, 1vw, 15px);
+            color: rgba(255,255,255,.32); letter-spacing: -.01em; line-height: 1.5;
+            max-width: 380px; margin-bottom: 48px; font-weight: 400;
         }
         .hero-cta {
             display: flex; align-items: center; gap: 20px;
-            pointer-events: auto;
-            margin-bottom: 24px;
+            margin-bottom: 72px;
         }
         .hero-cta .btn-primary {
-            padding: 14px 32px; font-size: 11px; letter-spacing: .1em;
+            padding: 14px 36px; font-size: 11px; letter-spacing: .1em;
         }
         .hero-cta-note {
-            font-size: 10px; color: rgba(255,255,255,.22); letter-spacing: .04em;
+            font-size: 10px; color: rgba(255,255,255,.2); letter-spacing: .04em;
         }
-        .hero-note {
-            font-size: 10px; color: rgba(255,255,255,.16);
-            letter-spacing: .06em; text-transform: uppercase;
-        }
-        .hero-chips {
-            position: relative;
-            z-index: 3;
-            display: flex; flex-direction: column; gap: 10px;
+        .hero-metrics {
+            display: flex; gap: 10px; justify-content: center;
+            flex-wrap: wrap; width: 100%;
         }
         .hero-chip {
-            background: rgba(8,8,8,.6);
+            background: rgba(10,10,10,.7);
             backdrop-filter: blur(32px) saturate(160%);
             -webkit-backdrop-filter: blur(32px) saturate(160%);
-            border: 1px solid rgba(255,255,255,.11);
+            border: 1px solid rgba(255,255,255,.1);
             box-shadow:
                 inset 0 1px 0 rgba(255,255,255,.09),
                 inset 0 -1px 0 rgba(255,255,255,.03),
-                0 20px 60px rgba(0,0,0,.45);
+                0 16px 48px rgba(0,0,0,.4);
             padding: 20px 28px;
-            min-width: 180px;
-            position: relative;
-            overflow: hidden;
-            transition: border-color .3s ease, box-shadow .3s ease, transform .4s cubic-bezier(.16,1,.3,1);
+            text-align: left; flex: 1; min-width: 150px; max-width: 220px;
+            position: relative; overflow: hidden;
+            transition: border-color .3s ease, transform .4s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;
         }
         .hero-chip::before {
             content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,.055) 0%, transparent 55%);
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,.06) 0%, transparent 55%);
             pointer-events: none;
         }
         .hero-chip:hover {
-            border-color: rgba(255,255,255,.22);
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,.14),
-                inset 0 -1px 0 rgba(255,255,255,.04),
-                0 24px 72px rgba(0,0,0,.5);
-            transform: translateY(-2px);
+            border-color: rgba(255,255,255,.2);
+            transform: translateY(-3px);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 24px 64px rgba(0,0,0,.5);
         }
         .hc-val {
-            font-size: 34px; font-weight: 300; letter-spacing: -.04em;
+            font-size: 32px; font-weight: 300; letter-spacing: -.04em;
             color: #fff; line-height: 1; margin-bottom: 7px;
         }
         .hc-lbl {
             font-size: 10px; font-weight: 500; letter-spacing: .07em;
-            text-transform: uppercase; color: rgba(255,255,255,.32);
+            text-transform: uppercase; color: rgba(255,255,255,.3);
         }
         .hero-scroll {
             position: absolute;
-            bottom: 40px; left: 64px;
-            display: flex; align-items: center; gap: 12px;
-            font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
-            color: rgba(255,255,255,.16); z-index: 3;
+            bottom: 36px; left: 50%;
+            transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+            color: rgba(255,255,255,.15); z-index: 3;
         }
         .hero-scroll-line {
-            width: 40px; height: 1px;
-            background: linear-gradient(90deg, rgba(255,255,255,.3), rgba(255,255,255,0));
-            transform-origin: left;
-            animation: scrollPulse 2.4s cubic-bezier(.4,0,.6,1) infinite;
+            width: 1px; height: 36px;
+            background: linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0));
+            transform-origin: top;
+            animation: scrollPulse 2.6s ease-in-out infinite;
         }
         @keyframes scrollPulse {
-            0%, 100% { opacity: .25; transform: scaleX(.5); }
-            50% { opacity: 1; transform: scaleX(1); }
+            0%, 100% { opacity: .2; transform: scaleY(.4); }
+            50% { opacity: 1; transform: scaleY(1); }
         }
-        #sphere-canvas {
-            position: absolute; inset: 0;
-            width: 100%; height: 100%;
-            cursor: grab; touch-action: none;
-            z-index: 1; display: block;
-        }
-        #sphere-canvas:active { cursor: grabbing; }
 
         /* ── SCROLL REVEAL ───────────────────────────────────────── */
         .reveal {
@@ -637,7 +653,6 @@
         .contact-detail a:hover { color: rgba(255,255,255,.7); }
 
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
@@ -662,20 +677,40 @@
 
 <div class="page">
 
-    <div class="hero au d1">
-        <div class="hero-left">
-            <div class="hero-text">
-                <h1>documented results across consumer and B2B brands, built on paid acquisition.</h1>
-                <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Work with us</a>
-                    <span class="hero-cta-note">No retainers. Results first.</span>
+    <div class="hero">
+
+        <div class="hero-inner">
+            <div class="hero-eyebrow au d1">Ignitris &nbsp;·&nbsp; paid acquisition</div>
+            <h1 class="hero-h1 au d2">documented results,<br>built on paid.</h1>
+            <p class="hero-sub au d3">we work with a small number of brands at a time. if you're spending on paid and not seeing the returns, let's talk.</p>
+            <div class="hero-cta au d4">
+                <a href="#contact" class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Work with us</a>
+                <span class="hero-cta-note">no retainers. results first.</span>
+            </div>
+            <div class="hero-metrics au d5">
+                <div class="hero-chip">
+                    <div class="hc-val">5.8x</div>
+                    <div class="hc-lbl">Peak ROAS &nbsp;·&nbsp; 90 days</div>
                 </div>
-                <div class="hero-sub">client names are anonymized</div>
+                <div class="hero-chip">
+                    <div class="hc-val">$380K</div>
+                    <div class="hc-lbl">Pipeline built &nbsp;·&nbsp; 75 days</div>
+                </div>
+                <div class="hero-chip">
+                    <div class="hc-val">77%</div>
+                    <div class="hc-lbl">CPI reduction</div>
+                </div>
+                <div class="hero-chip">
+                    <div class="hc-val">31%</div>
+                    <div class="hc-lbl">SQL rate &nbsp;·&nbsp; B2B</div>
+                </div>
             </div>
         </div>
-        <div class="hero-right"></div>
-        <!-- Carousel overlays full hero, cards sweep into left half -->
-        <canvas id="sphere-canvas"></canvas>
+
+        <div class="hero-scroll">
+            <div class="hero-scroll-line"></div>
+            <span>scroll</span>
+        </div>
     </div>
 
 
@@ -1170,250 +1205,6 @@
             });
         }, { threshold: 0.07, rootMargin: '0px 0px -48px 0px' });
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    })();
-    </script>
-
-    <script>
-    (function () {
-        if (typeof THREE === 'undefined') return;
-
-        const canvas      = document.getElementById('sphere-canvas');
-        const N_UNIQUE    = 11;          // unique textures
-        const N           = 44;          // total cards on sphere (4x)
-        const R           = 4.0;         // sphere radius — larger = more spread
-        const CW          = 0.58;        // card width — smaller for true-sphere feel
-        const CH          = CW * (853 / 480);
-        const SPHERE_X    = 2.8;
-
-        // Fibonacci sphere — evenly distribute N points on sphere surface
-        const goldenAngle = Math.PI * (3 - Math.sqrt(5));
-        const basePos = Array.from({ length: N }, (_, i) => {
-            const y     = 1 - (i / (N - 1)) * 2;
-            const r     = Math.sqrt(Math.max(0, 1 - y * y));
-            const theta = goldenAngle * i;
-            return [ R * r * Math.cos(theta), R * y, R * r * Math.sin(theta) ];
-        });
-
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.setClearColor(0x000000, 0);
-
-        const scene  = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 100);
-        camera.position.z = 8.5;
-
-        function resize() {
-            const w = canvas.offsetWidth  || 900;
-            const h = canvas.offsetHeight || 680;
-            renderer.setSize(w, h, false);
-            camera.aspect = w / h;
-            camera.updateProjectionMatrix();
-        }
-        resize();
-        window.addEventListener('resize', resize);
-
-        // Load 11 unique textures, reuse across 44 cards
-        const loader   = new THREE.TextureLoader();
-        const textures = Array.from({ length: N_UNIQUE }, (_, i) => {
-            const t = loader.load(`/adsops/creative-${String(i + 1).padStart(2, '0')}.png`);
-            t.minFilter = THREE.LinearFilter;
-            t.magFilter = THREE.LinearFilter;
-            t.generateMipmaps = false;
-            return t;
-        });
-
-        const sphereGroup = new THREE.Group();
-        sphereGroup.position.x = SPHERE_X;
-        sphereGroup.position.y = 0.1;
-        scene.add(sphereGroup);
-
-        const cards        = [];
-        const faceMeshes   = [];
-        const borderMeshes = [];
-        const _q  = new THREE.Quaternion();
-        const _v0 = new THREE.Vector3(0, 0, 1);
-        const _vDir = new THREE.Vector3();
-        const _wp   = new THREE.Vector3();
-
-        for (let i = 0; i < N; i++) {
-            const g   = new THREE.Group();
-            const geo = new THREE.PlaneGeometry(CW, CH);
-
-            const bMesh = new THREE.Mesh(
-                new THREE.PlaneGeometry(CW + 0.05, CH + 0.05),
-                new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, side: THREE.FrontSide })
-            );
-            bMesh.position.z = -0.01;
-            g.add(bMesh);
-            borderMeshes.push(bMesh);
-
-            const fMesh = new THREE.Mesh(geo,
-                new THREE.MeshBasicMaterial({ map: textures[i % N_UNIQUE], side: THREE.FrontSide })
-            );
-            g.add(fMesh);
-            faceMeshes.push(fMesh);
-
-            g.add(new THREE.Mesh(geo.clone(),
-                new THREE.MeshBasicMaterial({ color: 0x080808, side: THREE.BackSide })));
-
-            sphereGroup.add(g);
-            cards.push(g);
-        }
-
-        /* ── state ── */
-        let dragging = false;
-        let px = 0, py = 0, dragDist = 0;
-        let velY = 0.00015;  // horizontal auto-spin — slow, deliberate
-        let velX = 0;         // vertical momentum
-        let rotY = 0;         // Y-axis angle (horizontal drag)
-        let rotX = 0;         // X-axis angle (vertical drag)
-        let focusedIdx  = -1;
-        let focusTargetY = null;
-        let focusTargetX = null;
-
-        /* ── pointer ── */
-        canvas.addEventListener('pointerdown', e => {
-            dragging = true;
-            px = e.clientX; py = e.clientY;
-            dragDist = 0; velY = 0; velX = 0;
-            canvas.setPointerCapture(e.pointerId);
-        });
-
-        canvas.addEventListener('pointermove', e => {
-            if (!dragging) return;
-            const dx = e.clientX - px;
-            const dy = e.clientY - py;
-            dragDist += Math.sqrt(dx * dx + dy * dy);
-            velY += dx * 0.00017;
-            velX -= dy * 0.00017;
-            velY = Math.max(-0.03, Math.min(0.03, velY));
-            velX = Math.max(-0.025, Math.min(0.025, velX));
-            px = e.clientX; py = e.clientY;
-            if (dragDist > 6) { focusedIdx = -1; focusTargetY = null; focusTargetX = null; }
-        });
-
-        canvas.addEventListener('pointerup', e => {
-            dragging = false;
-            if (dragDist < 6) handleClick(e);
-        });
-        canvas.addEventListener('pointerleave', () => { dragging = false; });
-
-        /* ── click to focus ── */
-        const raycaster = new THREE.Raycaster();
-        const mouse     = new THREE.Vector2();
-
-        function handleClick(e) {
-            const rect = canvas.getBoundingClientRect();
-            mouse.x =  ((e.clientX - rect.left) / rect.width)  * 2 - 1;
-            mouse.y = -((e.clientY - rect.top)  / rect.height) * 2 + 1;
-            raycaster.setFromCamera(mouse, camera);
-            const hits = raycaster.intersectObjects(faceMeshes);
-            if (hits.length > 0) {
-                const idx = faceMeshes.indexOf(hits[0].object);
-                if (idx === focusedIdx) {
-                    focusedIdx = -1; focusTargetY = null; focusTargetX = null;
-                } else {
-                    focusedIdx = idx;
-                    const [bx, by, bz] = basePos[idx];
-                    // Y target: bring card's XZ to face camera
-                    let dY = -Math.atan2(bx, bz) - rotY;
-                    dY = ((dY % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
-                    focusTargetY = rotY + dY;
-                    // X target: bring card's Y elevation to center
-                    const xzRadius = Math.sqrt(bx * bx + bz * bz);
-                    let dX = -Math.atan2(by, xzRadius) - rotX;
-                    dX = ((dX % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
-                    focusTargetX = rotX + dX;
-                    velY = 0; velX = 0;
-                }
-            } else {
-                focusedIdx = -1; focusTargetY = null; focusTargetX = null;
-            }
-        }
-
-        /* ── render loop ── */
-        function tick() {
-            requestAnimationFrame(tick);
-
-            const hasFocus = focusTargetY !== null;
-
-            if (hasFocus) {
-                rotY += (focusTargetY - rotY) * 0.085;
-                rotX += (focusTargetX - rotX) * 0.085;
-                if (Math.abs(focusTargetY - rotY) + Math.abs(focusTargetX - rotX) < 0.001) {
-                    rotY = focusTargetY; rotX = focusTargetX;
-                    focusTargetY = null; focusTargetX = null;
-                }
-            } else if (!dragging) {
-                // Y: auto-spin or near-stop
-                velY *= 0.978;
-                if (focusedIdx === -1) {
-                    if (Math.abs(velY) < 0.0005) velY += (0.00015 - velY) * 0.01;
-                } else {
-                    velY += (0.00005 - velY) * 0.025;
-                }
-                rotY += velY;
-                // X: smooth natural decay — no snap-back
-                velX *= 0.968;
-                rotX += velX;
-            } else {
-                rotY += velY;
-                rotX += velX;
-            }
-
-            // Combined rotation: Y then X
-            const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
-            const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
-
-            for (let i = 0; i < N; i++) {
-                const [bx, by, bz] = basePos[i];
-
-                // Rotate around Y axis
-                const x1 =  bx * cosY + bz * sinY;
-                const y1 =  by;
-                const z1 = -bx * sinY + bz * cosY;
-
-                // Rotate around X axis
-                const posX = x1;
-                const posY = y1 * cosX - z1 * sinX;
-                const posZ = y1 * sinX + z1 * cosX;
-
-                cards[i].position.set(posX, posY, posZ);
-
-                // billboard — always face camera
-                cards[i].getWorldPosition(_wp);
-                _vDir.subVectors(camera.position, _wp).normalize();
-                _q.setFromUnitVectors(_v0, _vDir);
-                cards[i].quaternion.copy(_q);
-
-                // depth: 0 = back, 1 = front
-                const depth = (posZ + R) / (2 * R);
-
-                let tgtScale, tgtFaceOp;
-                if (focusedIdx === -1) {
-                    // aggressive depth falloff = convincing sphere shape
-                    tgtScale  = 0.28 + depth * 0.78;
-                    tgtFaceOp = 0.10 + depth * 0.90;
-                } else if (i === focusedIdx) {
-                    tgtScale  = 1.18;
-                    tgtFaceOp = 1.0;
-                } else {
-                    tgtScale  = (0.28 + depth * 0.78) * 0.45;
-                    tgtFaceOp = 0.06;
-                }
-
-                cards[i].scale.lerp(new THREE.Vector3(tgtScale, tgtScale, tgtScale), 0.08);
-
-                faceMeshes[i].material.transparent = true;
-                faceMeshes[i].material.opacity += (tgtFaceOp - faceMeshes[i].material.opacity) * 0.09;
-
-                const tgtBorder = (focusedIdx !== -1 && i === focusedIdx) ? 0.78 : 0.0;
-                borderMeshes[i].material.opacity += (tgtBorder - borderMeshes[i].material.opacity) * 0.09;
-            }
-
-            renderer.render(scene, camera);
-        }
-        tick();
     })();
     </script>
 
