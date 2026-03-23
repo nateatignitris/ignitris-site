@@ -38,7 +38,7 @@
       "areaServed": { "@type": "Country", "name": "United States" }
     }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { background: #000; }
@@ -111,63 +111,145 @@
         /* ── PAGE SHELL ──────────────────────────────────────────── */
         .page { padding-top: 0; }
 
-        /* ── HERO — split layout ─────────────────────────────────── */
+        /* ── HERO — full-bleed ───────────────────────────────────── */
         .hero {
             position: relative;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
             min-height: 100vh;
             overflow: hidden;
-        }
-        .hero-left {
-            background: #000;
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr auto;
             align-items: center;
-            padding: 100px 40px 100px 64px;
+            padding: 120px 64px 96px;
+            gap: 48px;
+        }
+        .hero-content {
             position: relative;
             z-index: 3;
-            pointer-events: none;
-        }
-        .hero-right {
-            background: #000;
-        }
-        .hero-text {
-            position: relative;
             pointer-events: auto;
+            max-width: 680px;
         }
-        .hero-text h1 {
-            font-size: clamp(16px, 1.4vw, 20px);
-            font-weight: 400; letter-spacing: -.02em; line-height: 1.2;
-            color: #fff; max-width: 420px; margin-bottom: 0;
+        .hero-eyebrow {
+            font-size: 10px; font-weight: 600; letter-spacing: .18em;
+            text-transform: uppercase; color: rgba(255,255,255,.25);
+            margin-bottom: 28px;
+        }
+        .hero-h1 {
+            font-size: clamp(44px, 6.5vw, 92px);
+            font-weight: 300; letter-spacing: -.04em; line-height: 1.0;
+            color: #fff; margin-bottom: 48px;
         }
         .hero-cta {
-            margin-top: 36px;
-            display: flex; align-items: center; gap: 16px;
+            display: flex; align-items: center; gap: 20px;
             pointer-events: auto;
+            margin-bottom: 24px;
         }
         .hero-cta .btn-primary {
-            padding: 13px 28px; font-size: 11px; letter-spacing: .1em;
+            padding: 14px 32px; font-size: 11px; letter-spacing: .1em;
         }
         .hero-cta-note {
             font-size: 10px; color: rgba(255,255,255,.22); letter-spacing: .04em;
         }
-        .hero-sub {
-            margin-top: 22px;
-            font-size: 11px;
-            color: rgba(255,255,255,.22);
-            letter-spacing: .06em;
-            text-transform: uppercase;
+        .hero-note {
+            font-size: 10px; color: rgba(255,255,255,.16);
+            letter-spacing: .06em; text-transform: uppercase;
+        }
+        .hero-chips {
+            position: relative;
+            z-index: 3;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .hero-chip {
+            background: rgba(8,8,8,.6);
+            backdrop-filter: blur(32px) saturate(160%);
+            -webkit-backdrop-filter: blur(32px) saturate(160%);
+            border: 1px solid rgba(255,255,255,.11);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.09),
+                inset 0 -1px 0 rgba(255,255,255,.03),
+                0 20px 60px rgba(0,0,0,.45);
+            padding: 20px 28px;
+            min-width: 180px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .3s ease, box-shadow .3s ease, transform .4s cubic-bezier(.16,1,.3,1);
+        }
+        .hero-chip::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,.055) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .hero-chip:hover {
+            border-color: rgba(255,255,255,.22);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.14),
+                inset 0 -1px 0 rgba(255,255,255,.04),
+                0 24px 72px rgba(0,0,0,.5);
+            transform: translateY(-2px);
+        }
+        .hc-val {
+            font-size: 34px; font-weight: 300; letter-spacing: -.04em;
+            color: #fff; line-height: 1; margin-bottom: 7px;
+        }
+        .hc-lbl {
+            font-size: 10px; font-weight: 500; letter-spacing: .07em;
+            text-transform: uppercase; color: rgba(255,255,255,.32);
+        }
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px; left: 64px;
+            display: flex; align-items: center; gap: 12px;
+            font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+            color: rgba(255,255,255,.16); z-index: 3;
+        }
+        .hero-scroll-line {
+            width: 40px; height: 1px;
+            background: linear-gradient(90deg, rgba(255,255,255,.3), rgba(255,255,255,0));
+            transform-origin: left;
+            animation: scrollPulse 2.4s cubic-bezier(.4,0,.6,1) infinite;
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: .25; transform: scaleX(.5); }
+            50% { opacity: 1; transform: scaleX(1); }
         }
         #sphere-canvas {
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             width: 100%; height: 100%;
-            cursor: grab;
-            touch-action: none;
-            z-index: 2;
-            display: block;
+            cursor: grab; touch-action: none;
+            z-index: 1; display: block;
         }
         #sphere-canvas:active { cursor: grabbing; }
+
+        /* ── SCROLL REVEAL ───────────────────────────────────────── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition:
+                opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+                transform 0.8s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+        .rv2 { transition-delay: .12s; }
+        .rv3 { transition-delay: .22s; }
+        .rv4 { transition-delay: .32s; }
+        .rv5 { transition-delay: .42s; }
+
+        /* ── LIQUID GLASS DIVIDERS ───────────────────────────────── */
+        .glass-line {
+            height: 1px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(255,255,255,.05) 15%,
+                rgba(255,255,255,.15) 35%,
+                rgba(255,255,255,.22) 50%,
+                rgba(255,255,255,.15) 65%,
+                rgba(255,255,255,.05) 85%,
+                transparent 100%
+            );
+            box-shadow: 0 0 18px rgba(255,255,255,.07);
+            border: none;
+        }
 
         /* ── STATS STRIP ─────────────────────────────────────────── */
         .stats {
@@ -232,12 +314,18 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .case {
-            border: 1px solid rgba(255,255,255,.1);
-            margin-bottom: 16px;
-            background: rgba(255,255,255,.022);
-            transition: border-color .22s ease;
+            border: 1px solid rgba(255,255,255,.09);
+            margin-bottom: 14px;
+            background: linear-gradient(160deg, rgba(255,255,255,.028) 0%, rgba(255,255,255,.012) 100%);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.07), inset 0 -1px 0 rgba(255,255,255,.02);
+            transition: border-color .3s ease, box-shadow .3s ease, transform .4s cubic-bezier(.16,1,.3,1);
         }
-        .case:hover { border-color: rgba(255,255,255,.17); }
+        .case:hover {
+            border-color: rgba(255,255,255,.18);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.12), inset 0 -1px 0 rgba(255,255,255,.04),
+                        0 24px 64px rgba(0,0,0,.32);
+            transform: translateY(-1px);
+        }
 
         .case-top {
             padding: 32px 36px 28px;
@@ -354,7 +442,6 @@
 
         /* ── SCIENCE SECTION ─────────────────────────────────────── */
         .science {
-            border-top: 1px solid rgba(255,255,255,.07);
             border-bottom: 1px solid rgba(255,255,255,.07);
             padding: 80px 40px;
         }
@@ -409,7 +496,6 @@
 
         /* ── PLATFORMS STRIP ────────────────────────────────────── */
         .platforms-strip {
-            border-top: 1px solid rgba(255,255,255,.07);
             border-bottom: 1px solid rgba(255,255,255,.07);
             padding: 80px 40px;
         }
@@ -593,7 +679,7 @@
     </div>
 
 
-    <div class="stats au d3" style="padding-top:48px; padding-bottom:48px;">
+    <div class="stats reveal" style="padding-top:48px; padding-bottom:48px;">
         <div class="stat">
             <div class="stat-val" data-count="5.8" data-prefix="" data-suffix="x">5.8x</div>
             <div class="stat-lbl">Peak ROAS</div>
@@ -621,7 +707,7 @@
 
         <div class="cases-group visible" id="cases-consumer">
 
-            <div class="case au d4">
+            <div class="case reveal">
                 <div class="case-top">
                     <div>
                         <div class="case-index">01 — DTC Beauty</div>
@@ -655,7 +741,7 @@
                 </div>
             </div>
 
-            <div class="case au d5">
+            <div class="case reveal rv2">
                 <div class="case-top">
                     <div>
                         <div class="case-index">02 — Consumer Wellness</div>
@@ -693,7 +779,7 @@
                 </div>
             </div>
 
-            <div class="case au d6">
+            <div class="case reveal rv3">
                 <div class="case-top">
                     <div>
                         <div class="case-index">03 — Consumer App</div>
@@ -730,7 +816,7 @@
 
         <div class="cases-group" id="cases-b2b">
 
-            <div class="case">
+            <div class="case reveal">
                 <div class="case-top">
                     <div>
                         <div class="case-index">01 — B2B SaaS</div>
@@ -763,7 +849,7 @@
                 </div>
             </div>
 
-            <div class="case">
+            <div class="case reveal rv2">
                 <div class="case-top">
                     <div>
                         <div class="case-index">02 — B2B Fintech</div>
@@ -817,7 +903,7 @@
 
     </div>
 
-    <div class="science au d4">
+    <div class="science reveal">
         <div class="science-inner">
             <div class="science-title-row">
                 <div>
@@ -829,22 +915,22 @@
                 </div>
             </div>
             <div class="science-rows">
-                <div class="science-row">
+                <div class="science-row reveal">
                     <div class="science-row-num">01</div>
                     <div class="science-row-title">Hypothesis-driven creative</div>
                     <div class="science-row-body">every ad starts with a written hypothesis: target persona, psychological trigger, success metric. example: "wellness buyers aged 35–50 respond to authority positioning (doctor endorsement) → success = sub-$30 CPA." we test with purpose, not guesses.</div>
                 </div>
-                <div class="science-row">
+                <div class="science-row reveal">
                     <div class="science-row-num">02</div>
                     <div class="science-row-title">Intent-signal audience layering</div>
                     <div class="science-row-body">we build audiences around behaviors and intent signals, not demographics. this means ads hit people when they're already considering a purchase — not just matching a profile. example: retarget cart abandoners who viewed pricing 2x in 7 days with an urgency-based offer.</div>
                 </div>
-                <div class="science-row">
+                <div class="science-row reveal">
                     <div class="science-row-num">03</div>
                     <div class="science-row-title">Offer engineering before scale</div>
                     <div class="science-row-body">the ad is rarely the problem — the offer is. we test offer structures (discount vs. free shipping vs. bundle), risk reversals (money-back guarantee positioning), and urgency mechanics before scaling spend. a 2x better offer beats a 2x bigger budget every time.</div>
                 </div>
-                <div class="science-row">
+                <div class="science-row reveal">
                     <div class="science-row-num">04</div>
                     <div class="science-row-title">High-velocity testing cadence</div>
                     <div class="science-row-body">we run 12–20 new creative variants per week across most accounts. faster test cycles = find winners sooner, kill losers before they drain budget, scale with data instead of guesswork. most agencies test 3–5 variants per month. we do that in 2 days.</div>
@@ -853,7 +939,8 @@
         </div>
     </div>
 
-    <div class="platforms-strip">
+    <hr class="glass-line">
+    <div class="platforms-strip reveal">
         <div class="logo-wall-inner">
             <div class="logo-wall-label">Platforms we run</div>
             <div class="logo-wall-row">
@@ -924,7 +1011,7 @@
         </div>
     </div>
 
-    <section class="contact" id="contact">
+    <section class="contact reveal" id="contact">
         <div class="contact-inner">
             <div class="contact-label">Get in touch</div>
             <h2 class="contact-title">let's see what you're leaving on the table.</h2>
@@ -1068,6 +1155,21 @@
         }, { threshold: 0.5 });
 
         io.observe(statsEl);
+    })();
+    </script>
+
+    <script>
+    /* ── Scroll reveal ── */
+    (function () {
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('in');
+                    obs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.07, rootMargin: '0px 0px -48px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
     })();
     </script>
 
