@@ -107,8 +107,8 @@
         .w-hero {
             position: absolute; inset: 0;
             display: flex; flex-direction: column;
-            justify-content: flex-end;
-            padding: 0 8vw 88px;
+            justify-content: center;
+            padding: 0 8vw;
             z-index: 2;
         }
         .w-eyebrow {
@@ -185,6 +185,23 @@
         .section-stmt {
             background: #000; min-height: 100vh; position: relative;
             overflow: hidden; display: flex; align-items: center;
+        }
+        /* Entrance animations for statement section */
+        .stmt-h1, .stmt-divider, .stmt-copy, .stmt-cta-row {
+            opacity: 0;
+            transform: translateY(22px);
+            transition:
+                opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+                transform 0.9s cubic-bezier(0.16,1,0.3,1);
+        }
+        .stmt-divider { transition-delay: .12s; }
+        .stmt-copy    { transition-delay: .22s; }
+        .stmt-cta-row { transition-delay: .34s; }
+        .section-stmt.stmt-visible .stmt-h1,
+        .section-stmt.stmt-visible .stmt-divider,
+        .section-stmt.stmt-visible .stmt-copy,
+        .section-stmt.stmt-visible .stmt-cta-row {
+            opacity: 1; transform: translateY(0);
         }
         .stmt-inner {
             position:relative; z-index:2; width:100%; max-width:980px;
@@ -821,18 +838,6 @@
                 <h1 class="w-headline" id="w-headline">
                     <span id="hl-line1">documented<br>results, </span><span id="built-word" class="w-blue">built</span><span id="hl-after"><br><span class="w-dim">on paid.</span></span>
                 </h1>
-                <div class="w-cta-row">
-                    <a href="#contact" class="btn-light" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Work with us</a>
-                </div>
-            </div>
-            <div class="w-stats-bar" id="w-stats-bar">
-                <div class="w-stat-cell"><span class="w-stat-val">5.8x</span><span class="w-stat-lbl">Peak ROAS · 90d</span></div>
-                <div class="w-stat-cell"><span class="w-stat-val">$380K</span><span class="w-stat-lbl">Pipeline · 75d</span></div>
-                <div class="w-stat-cell"><span class="w-stat-val">77%</span><span class="w-stat-lbl">CPI reduction</span></div>
-                <div class="w-stat-cell"><span class="w-stat-val">31%</span><span class="w-stat-lbl">SQL rate · B2B</span></div>
-            </div>
-            <div class="w-scroll-hint" id="w-scroll-hint">
-                <div class="w-scroll-dot"></div><span>scroll</span>
             </div>
         </div>
 
@@ -845,7 +850,7 @@
 <!-- ══ STATEMENT SECTION (pure black) ════════════════════════ -->
 <section class="section-stmt">
     <div class="stmt-inner">
-        <h1 class="stmt-h1">the results aren't luck.<br><em>they're engineered.</em></h1>
+        <h1 class="stmt-h1">built on systems<br>your competitors<br><em>can't replicate.</em></h1>
         <div class="stmt-divider"></div>
         <div class="stmt-body">
             <p class="stmt-copy">
@@ -1328,12 +1333,11 @@
         const zoomInner   = document.getElementById('hero-zoom-inner');
         const overlay     = document.getElementById('zoom-overlay');
         const wHero       = document.getElementById('w-hero');
-        const wStats      = document.getElementById('w-stats-bar');
-        const wScroll     = document.getElementById('w-scroll-hint');
         const nav         = document.querySelector('nav');
         const builtWord   = document.getElementById('built-word');
         const hlLine1     = document.getElementById('hl-line1');
         const hlAfter     = document.getElementById('hl-after');
+        const stmtSection = document.querySelector('.section-stmt');
 
         function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
         function remap(v,i0,i1,o0,o1){return o0+(o1-o0)*clamp((v-i0)/(i1-i0),0,1);}
@@ -1356,35 +1360,31 @@
             const tr  = tunnel.getBoundingClientRect();
             const raw = clamp(-tr.top / (tunnel.offsetHeight - window.innerHeight), 0, 1);
 
-            /* Phase 1 (0→0.30): surrounding content dissolves, "built" stays sharp */
-            const d = easeIO(remap(raw, 0, 0.30, 0, 1));
-            /* Fade & blur the non-"built" headline lines independently */
-            const hlFade = Math.max(0, 1 - easeIO(remap(raw, 0.02, 0.28, 0, 1)));
-            const hlBlur = easeIO(remap(raw, 0.02, 0.28, 0, 1)) * 12;
+            /* Phase 1 (0→0.25): surrounding text dissolves, "built" stays sharp */
+            const hlFade = Math.max(0, 1 - easeIO(remap(raw, 0.02, 0.25, 0, 1)));
+            const hlBlur = easeIO(remap(raw, 0.02, 0.25, 0, 1)) * 14;
             if (hlLine1) { hlLine1.style.opacity = hlFade; hlLine1.style.filter = 'blur(' + hlBlur + 'px)'; }
             if (hlAfter) { hlAfter.style.opacity = hlFade; hlAfter.style.filter = 'blur(' + hlBlur + 'px)'; }
             /* Keep "built" word sharp — no opacity or blur */
             builtWord.style.opacity = '1';
             builtWord.style.filter  = 'none';
-            /* Fade cta row */
-            const ctaRow = wHero.querySelector('.w-cta-row');
-            if (ctaRow) { ctaRow.style.opacity = Math.max(0, 1 - easeIO(remap(raw, 0, 0.22, 0, 1))); }
-            wStats.style.opacity  = Math.max(0, 1 - easeIO(remap(raw, 0.04, 0.28, 0, 1)));
-            if (wScroll) wScroll.style.opacity = Math.max(0, 1 - remap(raw, 0, 0.12, 0, 1));
 
-            /* Phase 2 (0.15→0.80): hero-zoom-inner scales toward "built" — NO blur on the container */
-            const zp    = easeIn(remap(raw, 0.15, 0.80, 0, 1));
-            const scale = 1 + zp * 16;
+            /* Phase 2 (0.12→0.82): scale toward "built", no blur on container */
+            const zp    = easeIn(remap(raw, 0.12, 0.82, 0, 1));
+            const scale = 1 + zp * 18;
             zoomInner.style.transform = 'scale(' + scale + ')';
             zoomInner.style.filter    = 'none';
 
-            /* Phase 3 (0.25→0.78): BLACK overlay fades in (sibling — not affected by scale) */
-            const darkP = easeIO(remap(raw, 0.25, 0.78, 0, 1));
+            /* Phase 3 (0.20→0.72): BLACK overlay fades in — completes before scroll ends */
+            const darkP = easeIO(remap(raw, 0.20, 0.72, 0, 1));
             overlay.style.opacity = darkP;
 
+            /* Trigger statement section entrance once overlay is mostly opaque */
+            if (darkP > 0.85 && stmtSection) stmtSection.classList.add('stmt-visible');
+
             /* Nav switches */
-            if (darkP > 0.4) nav.classList.add('nav-dark');
-            else              nav.classList.remove('nav-dark');
+            if (darkP > 0.35) nav.classList.add('nav-dark');
+            else               nav.classList.remove('nav-dark');
 
             ticking = false;
         }
@@ -1393,6 +1393,13 @@
             if (!ticking) { requestAnimationFrame(update); ticking = true; }
         }, { passive: true });
         update();
+
+        /* Fallback: IntersectionObserver fires stmt entrance if user scrolls fast */
+        if (stmtSection) {
+            new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) stmtSection.classList.add('stmt-visible');
+            }, { threshold: 0.08 }).observe(stmtSection);
+        }
     })();
 
     /* ── Stat counter animation ── */
