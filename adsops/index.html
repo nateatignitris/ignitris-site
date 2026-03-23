@@ -247,6 +247,29 @@
         .btn-primary:active { transform: translateY(0); box-shadow: none; }
         .btn-ghost { border-color:transparent; color:rgba(255,255,255,.5); }
         .btn-ghost:hover { color:#fff; background:rgba(255,255,255,.07); border-color:transparent; }
+        /* Nav "Work with us" — blue corner brackets */
+        .btn-nav-cta {
+            position:relative; display:inline-flex; align-items:center;
+            padding:8px 20px; font-size:10px; font-weight:600;
+            letter-spacing:.1em; text-transform:uppercase; text-decoration:none;
+            color:rgba(10,22,40,.85); background:rgba(10,22,40,.04);
+            border:1px solid rgba(10,22,40,.12); cursor:pointer; font-family:inherit;
+            transition:all .3s cubic-bezier(.16,1,.3,1);
+        }
+        .btn-nav-cta::before,.btn-nav-cta::after {
+            content:''; position:absolute; width:6px; height:6px;
+            border:1px solid #0279FD; transition:all .3s ease;
+        }
+        .btn-nav-cta::before { top:-1px; left:-1px; border-right:none; border-bottom:none; }
+        .btn-nav-cta::after  { bottom:-1px; right:-1px; border-left:none; border-top:none; }
+        .btn-nav-cta:hover { background:rgba(10,22,40,.08); transform:translateY(-1px); }
+        .btn-nav-cta:hover::before,.btn-nav-cta:hover::after { width:10px; height:10px; }
+        nav.nav-dark .btn-nav-cta {
+            color:rgba(255,255,255,.82); background:rgba(255,255,255,.05);
+            border-color:rgba(255,255,255,.12);
+        }
+        nav.nav-dark .btn-nav-cta::before,
+        nav.nav-dark .btn-nav-cta::after { border-color:#0279FD; }
 
         /* ── PAGE SHELL ──────────────────────────────────────────── */
         .page { padding-top: 0; }
@@ -547,11 +570,13 @@
         .chart-cell {
             padding: 24px 32px;
             border-right: 1px solid rgba(255,255,255,.06);
+            background: #fff;
+            border-radius: 0;
         }
         .chart-cell:last-child { border-right: none; }
         .chart-lbl {
             font-size: 9px; font-weight: 600; letter-spacing: .12em;
-            text-transform: uppercase; color: rgba(255,255,255,.22); margin-bottom: 16px;
+            text-transform: uppercase; color: rgba(10,22,40,.35); margin-bottom: 16px;
         }
         .chart-wrap { position:relative; height:130px; }
         .chart-wrap.tall { height:200px; }
@@ -782,7 +807,7 @@
     </a>
     <div class="nav-spacer"></div>
     <div class="nav-right">
-        <a href="#contact" class="btn btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Work with us</a>
+        <a href="#contact" class="btn-nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Work with us</a>
     </div>
 </nav>
 
@@ -793,11 +818,8 @@
         <!-- Scaled element (zooms in) -->
         <div class="hero-zoom-inner" id="hero-zoom-inner">
             <div class="w-hero" id="w-hero">
-                <div class="w-eyebrow">Ignitris &nbsp;·&nbsp; paid acquisition</div>
                 <h1 class="w-headline" id="w-headline">
-                    documented<br>
-                    results, <span id="built-word" class="w-blue">built</span><br>
-                    <span class="w-dim">on paid.</span>
+                    <span id="hl-line1">documented<br>results, </span><span id="built-word" class="w-blue">built</span><span id="hl-after"><br><span class="w-dim">on paid.</span></span>
                 </h1>
                 <div class="w-cta-row">
                     <a href="#contact" class="btn-light" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Work with us</a>
@@ -823,7 +845,6 @@
 <!-- ══ STATEMENT SECTION (pure black) ════════════════════════ -->
 <section class="section-stmt">
     <div class="stmt-inner">
-        <div class="stmt-eyebrow">How it works</div>
         <h1 class="stmt-h1">the results aren't luck.<br><em>they're engineered.</em></h1>
         <div class="stmt-divider"></div>
         <div class="stmt-body">
@@ -831,15 +852,9 @@
                 Ignitris runs on <strong>proprietary software built in-house</strong> by engineers from Cornell and Harvard. It identifies the exact intent signals your competitors are missing — the moments when a user is most likely to convert — and turns them into paid acquisition that compounds.<br><br>
                 No guesswork. No bloated retainers. Just a system built to find the apex and press on it.
             </p>
-            <div class="stmt-right">
-                <div class="stmt-badge"><div class="stmt-badge-dot"></div><span class="stmt-badge-txt">Cornell University</span></div>
-                <div class="stmt-badge"><div class="stmt-badge-dot"></div><span class="stmt-badge-txt">Harvard University</span></div>
-                <div class="stmt-badge"><div class="stmt-badge-dot"></div><span class="stmt-badge-txt">Proprietary software</span></div>
-            </div>
         </div>
         <div class="stmt-cta-row">
             <a href="#contact" class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Work with us</a>
-            <span class="stmt-note">limited spots available</span>
         </div>
     </div>
 </section>
@@ -1214,45 +1229,63 @@
         if (id === 'b2b') renderB2B();
     }
 
-    Chart.defaults.color = 'rgba(255,255,255,0.18)';
+    Chart.defaults.color = 'rgba(10,22,40,0.32)';
     Chart.defaults.font.family = "'SF Pro Display',-apple-system,sans-serif";
     Chart.defaults.font.size = 10;
 
-    const G  = { color:'rgba(255,255,255,0.05)', borderColor:'transparent' };
-    const TK = { color:'rgba(255,255,255,0.18)', padding:4 };
+    /* Light theme grid + tick styles */
+    const G  = { color:'rgba(10,22,40,0.06)', borderColor:'transparent' };
+    const TK = { color:'rgba(10,22,40,0.32)', padding:4 };
     const TT = {
-        backgroundColor:'rgba(5,5,8,0.97)',
-        titleColor:'rgba(255,255,255,.75)', bodyColor:'rgba(255,255,255,.38)',
-        padding:10, cornerRadius:2,
-        borderColor:'rgba(255,255,255,.08)', borderWidth:1
+        backgroundColor:'#fff',
+        titleColor:'rgba(10,22,40,.85)', bodyColor:'rgba(10,22,40,.5)',
+        padding:10, cornerRadius:3,
+        borderColor:'rgba(10,22,40,.1)', borderWidth:1,
+        callbacks: {
+            labelPointStyle: () => ({ pointStyle: 'circle', rotation: 0 })
+        }
     };
 
-    const line = (id, labels, data, color) => new Chart(document.getElementById(id), {
-        type:'line',
-        data:{ labels, datasets:[{
-            data,
-            borderColor: color || 'rgba(255,255,255,0.75)',
-            backgroundColor: color
-                ? color.replace(/[\d.]+\)$/, '0.06)')
-                : 'rgba(255,255,255,0.04)',
-            fill:true, tension:.38,
-            pointRadius:2.5, pointBackgroundColor:'#fff',
-            pointBorderColor:'transparent', borderWidth:1.8
-        }] },
-        options:{ responsive:true, maintainAspectRatio:false,
-            plugins:{ legend:{ display:false }, tooltip:TT },
-            scales:{ x:{grid:G,ticks:TK}, y:{grid:G,ticks:TK,border:{display:false}} } }
-    });
+    /* Blue dot on tooltip */
+    const pointDot = {
+        usePointStyle: true,
+        pointStyle: 'circle',
+        boxWidth: 6, boxHeight: 6
+    };
+
+    const line = (id, labels, data, color) => {
+        const c = color || '#0279FD';
+        /* Build a semi-transparent fill from the hex/rgba color */
+        const fill = c.startsWith('#')
+            ? c + '14'   /* hex + 8% alpha */
+            : c.replace(/[\d.]+\)$/, '0.08)');
+        return new Chart(document.getElementById(id), {
+            type:'line',
+            data:{ labels, datasets:[{
+                data,
+                borderColor: c,
+                backgroundColor: fill,
+                fill:true, tension:.38,
+                pointRadius:3, pointBackgroundColor: c,
+                pointBorderColor:'#fff', pointBorderWidth:1.5, borderWidth:2
+            }] },
+            options:{ responsive:true, maintainAspectRatio:false,
+                plugins:{ legend:{ display:false }, tooltip:{ ...TT, callbacks:{
+                    labelColor: () => ({ borderColor:'transparent', backgroundColor: c, borderRadius:50 })
+                } } },
+                scales:{ x:{grid:G,ticks:TK,border:{display:false}}, y:{grid:G,ticks:TK,border:{display:false}} } }
+        });
+    };
 
     const bar = (id, labels, spend, rev) => new Chart(document.getElementById(id), {
         type:'bar',
         data:{ labels, datasets:[
-            { label:'Spend', data:spend, backgroundColor:'rgba(255,255,255,.06)', borderRadius:2, barPercentage:.75 },
-            { label:'Revenue', data:rev, backgroundColor:'rgba(255,255,255,.52)', borderRadius:2, barPercentage:.75 }
+            { label:'Spend', data:spend, backgroundColor:'rgba(10,22,40,.07)', borderRadius:2, barPercentage:.75 },
+            { label:'Revenue', data:rev, backgroundColor:'rgba(2,121,253,.65)', borderRadius:2, barPercentage:.75 }
         ]},
         options:{ responsive:true, maintainAspectRatio:false,
-            plugins:{ legend:{ display:true, labels:{ color:'rgba(255,255,255,.2)', boxWidth:6, boxHeight:6, font:{size:9} } }, tooltip:TT },
-            scales:{ x:{grid:G,ticks:TK}, y:{grid:G,ticks:TK,border:{display:false}} } }
+            plugins:{ legend:{ display:true, labels:{ color:'rgba(10,22,40,.35)', boxWidth:6, boxHeight:6, font:{size:9} } }, tooltip:TT },
+            scales:{ x:{grid:G,ticks:TK,border:{display:false}}, y:{grid:G,ticks:TK,border:{display:false}} } }
     });
 
     const w12 = ['W1','W2','W3','W4','W5','W6','W7','W8','W9','W10','W11','W12'];
@@ -1299,7 +1332,8 @@
         const wScroll     = document.getElementById('w-scroll-hint');
         const nav         = document.querySelector('nav');
         const builtWord   = document.getElementById('built-word');
-        const wHeadline   = document.getElementById('w-headline');
+        const hlLine1     = document.getElementById('hl-line1');
+        const hlAfter     = document.getElementById('hl-after');
 
         function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
         function remap(v,i0,i1,o0,o1){return o0+(o1-o0)*clamp((v-i0)/(i1-i0),0,1);}
@@ -1322,20 +1356,27 @@
             const tr  = tunnel.getBoundingClientRect();
             const raw = clamp(-tr.top / (tunnel.offsetHeight - window.innerHeight), 0, 1);
 
-            /* Phase 1 (0→0.30): content dissolves */
+            /* Phase 1 (0→0.30): surrounding content dissolves, "built" stays sharp */
             const d = easeIO(remap(raw, 0, 0.30, 0, 1));
-            wHero.style.opacity   = 1 - d;
-            wHero.style.transform = 'translateY(' + (d * -18) + 'px)';
-            wHero.style.filter    = 'blur(' + (d * 10) + 'px)';
+            /* Fade & blur the non-"built" headline lines independently */
+            const hlFade = Math.max(0, 1 - easeIO(remap(raw, 0.02, 0.28, 0, 1)));
+            const hlBlur = easeIO(remap(raw, 0.02, 0.28, 0, 1)) * 12;
+            if (hlLine1) { hlLine1.style.opacity = hlFade; hlLine1.style.filter = 'blur(' + hlBlur + 'px)'; }
+            if (hlAfter) { hlAfter.style.opacity = hlFade; hlAfter.style.filter = 'blur(' + hlBlur + 'px)'; }
+            /* Keep "built" word sharp — no opacity or blur */
+            builtWord.style.opacity = '1';
+            builtWord.style.filter  = 'none';
+            /* Fade cta row */
+            const ctaRow = wHero.querySelector('.w-cta-row');
+            if (ctaRow) { ctaRow.style.opacity = Math.max(0, 1 - easeIO(remap(raw, 0, 0.22, 0, 1))); }
             wStats.style.opacity  = Math.max(0, 1 - easeIO(remap(raw, 0.04, 0.28, 0, 1)));
             if (wScroll) wScroll.style.opacity = Math.max(0, 1 - remap(raw, 0, 0.12, 0, 1));
 
-            /* Phase 2 (0.15→0.80): hero-zoom-inner scales toward "built" */
+            /* Phase 2 (0.15→0.80): hero-zoom-inner scales toward "built" — NO blur on the container */
             const zp    = easeIn(remap(raw, 0.15, 0.80, 0, 1));
-            const scale = 1 + zp * 14;
-            const blurZ = easeIn(remap(raw, 0.35, 0.80, 0, 1)) * 22;
+            const scale = 1 + zp * 16;
             zoomInner.style.transform = 'scale(' + scale + ')';
-            zoomInner.style.filter    = 'blur(' + blurZ + 'px)';
+            zoomInner.style.filter    = 'none';
 
             /* Phase 3 (0.25→0.78): BLACK overlay fades in (sibling — not affected by scale) */
             const darkP = easeIO(remap(raw, 0.25, 0.78, 0, 1));
