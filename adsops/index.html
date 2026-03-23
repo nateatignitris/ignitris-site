@@ -278,7 +278,13 @@
             transition: border-color .2s ease, color .2s ease;
         }
         .plat[data-p="meta"]     { border-color: rgba(24,119,242,.4);  color: rgba(100,160,255,.85); }
-        .plat[data-p="google"]   { border-color: rgba(66,133,244,.4);  color: rgba(120,170,255,.85); }
+        .plat[data-p="google"]   {
+            background: linear-gradient(90deg, #4285F4 0%, #EA4335 33%, #FBBC05 66%, #34A853 100%);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; color: transparent;
+            border-color: transparent;
+            border-image: linear-gradient(90deg, rgba(66,133,244,.55), rgba(234,67,53,.55), rgba(251,188,5,.55), rgba(52,168,83,.55)) 1;
+        }
         .plat[data-p="tiktok"]   { border-color: rgba(255,0,80,.35);   color: rgba(255,110,140,.85); }
         .plat[data-p="linkedin"] { border-color: rgba(10,102,194,.4);  color: rgba(80,155,235,.85); }
 
