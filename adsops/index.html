@@ -93,9 +93,18 @@
         .btn::after  { bottom:-1px; right:-1px; border-left:none; border-top:none; }
         .btn:hover { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.28); transform:translateY(-1px); }
         .btn:hover::before,.btn:hover::after { border-color:rgba(255,255,255,.5); width:8px; height:8px; }
-        .btn-primary { background:#fff; color:#000; border-color:transparent; font-weight:700; }
-        .btn-primary:hover { background:rgba(255,255,255,.9); transform:translateY(-1px); }
-        .btn-primary::before,.btn-primary::after { border-color:rgba(0,0,0,.12); }
+        .btn-primary {
+            background: #fff; color: #000; border-color: transparent; font-weight: 700;
+            overflow: hidden;
+            transition: transform 0.28s cubic-bezier(0.16,1,0.3,1), box-shadow 0.28s ease;
+        }
+        .btn-primary::before,.btn-primary::after { border-color: rgba(0,0,0,.1); }
+        .btn-primary:hover {
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(255,255,255,0.16), 0 2px 8px rgba(255,255,255,0.10);
+        }
+        .btn-primary:active { transform: translateY(0); box-shadow: none; }
         .btn-ghost { border-color:transparent; color:rgba(255,255,255,.5); }
         .btn-ghost:hover { color:#fff; background:rgba(255,255,255,.07); border-color:transparent; }
 
@@ -266,7 +275,12 @@
             font-size: 9px; font-weight: 600; letter-spacing: .1em;
             text-transform: uppercase; padding: 4px 10px;
             border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.35);
+            transition: border-color .2s ease, color .2s ease;
         }
+        .plat[data-p="meta"]     { border-color: rgba(24,119,242,.4);  color: rgba(100,160,255,.85); }
+        .plat[data-p="google"]   { border-color: rgba(66,133,244,.4);  color: rgba(120,170,255,.85); }
+        .plat[data-p="tiktok"]   { border-color: rgba(255,0,80,.35);   color: rgba(255,110,140,.85); }
+        .plat[data-p="linkedin"] { border-color: rgba(10,102,194,.4);  color: rgba(80,155,235,.85); }
 
         /* ── METRICS ─────────────────────────────────────────────── */
         .metrics {
@@ -404,7 +418,7 @@
             white-space: nowrap; flex-shrink: 0;
         }
         .plat-strip-divider {
-            width: 1px; height: 16px; background: rgba(255,255,255,.1); flex-shrink: 0;
+            width: 1px; height: 20px; background: rgba(255,255,255,.18); flex-shrink: 0;
         }
         .plat-strip-list {
             display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
@@ -584,24 +598,24 @@
 
     <div class="stats au d3" style="padding-top:48px; padding-bottom:48px;">
         <div class="stat">
-            <div class="stat-val">5.8x</div>
+            <div class="stat-val" data-count="5.8" data-prefix="" data-suffix="x">5.8x</div>
             <div class="stat-lbl">Peak ROAS</div>
             <div class="stat-ref">in 90 days</div>
         </div>
         <div class="stat">
-            <div class="stat-val">$380K</div>
+            <div class="stat-val" data-count="380" data-prefix="$" data-suffix="K">$380K</div>
             <div class="stat-lbl">Pipeline built</div>
             <div class="stat-ref">75 days, $0 baseline</div>
         </div>
         <div class="stat">
-            <div class="stat-val">77%</div>
+            <div class="stat-val" data-count="77" data-prefix="" data-suffix="%">77%</div>
             <div class="stat-lbl">CPI reduction</div>
             <div class="stat-ref">$6.20 to $1.40</div>
         </div>
         <div class="stat">
-            <div class="stat-val">31%</div>
+            <div class="stat-val" data-count="31" data-prefix="" data-suffix="%">31%</div>
             <div class="stat-lbl">SQL rate</div>
-            <div class="stat-ref">B2B fintech — from 8%</div>
+            <div class="stat-ref">B2B fintech, from 8%</div>
         </div>
     </div>
 
@@ -621,9 +635,9 @@
                                 <div class="case-hero-from">from 1.4x &nbsp;·&nbsp; 90 days</div>
                             </div>
                         </div>
-                        <div class="case-body">Strong organic brand stuck at break-even on paid. We rebuilt the creative strategy around user-generated content, consolidated six loose audiences into three intent-based segments, and mapped retargeting to specific on-site behaviors. CPA dropped 72% while spend scaled 2.75x.</div>
+                        <div class="case-body">Strong organic brand stuck at break-even on paid. We rebuilt the creative strategy around UGC, consolidated six loose audiences into three intent-based segments, and mapped retargeting to specific on-site behaviors. CPA fell 72% as spend scaled 2.75x.</div>
                     </div>
-                    <div class="plats"><span class="plat">Meta</span><span class="plat">Google</span></div>
+                    <div class="plats"><span class="plat" data-p="meta">Meta</span><span class="plat" data-p="google">Google</span></div>
                 </div>
                 <div class="metrics">
                     <div class="m"><div class="m-lbl">ROAS</div><div class="m-val">5.8x</div><div class="m-was">was 1.4x</div></div>
@@ -655,9 +669,9 @@
                                 <div class="case-hero-from">1.9x → 4.3x ROAS &nbsp;·&nbsp; 60 days</div>
                             </div>
                         </div>
-                        <div class="case-body">Supplement brand burning $15K/mo with zero attribution clarity and inconsistent creative. We introduced a structured UGC testing system (15 new variants per week), rebuilt Google Shopping feed with custom labels, and implemented Northbeam for proper attribution. CPA cut in half before scaling to $40K/mo.</div>
+                        <div class="case-body">Supplement brand burning $15K/mo with no attribution clarity and inconsistent creative. We introduced a structured UGC testing system (15 new variants per week), rebuilt the Google Shopping feed with custom labels, and implemented Northbeam for clean attribution. CPA cut in half before scaling to $40K/mo.</div>
                     </div>
-                    <div class="plats"><span class="plat">Meta</span><span class="plat">Google</span></div>
+                    <div class="plats"><span class="plat" data-p="meta">Meta</span><span class="plat" data-p="google">Google</span></div>
                 </div>
                 <div class="metrics" style="grid-template-columns: 1fr 1fr 1fr 1.1fr;">
                     <div class="m"><div class="m-lbl">ROAS</div><div class="m-val">4.3x</div><div class="m-was">was 1.9x</div></div>
@@ -693,9 +707,9 @@
                                 <div class="case-hero-from">from $6.20 &nbsp;·&nbsp; ↓77% &nbsp;·&nbsp; 45 days</div>
                             </div>
                         </div>
-                        <div class="case-body">Subscription app with no paid playbook — just a founder running $200/day with no structure. We built the full stack: offer hierarchy (freemium entry → paid upsell), creative briefs (15-sec hooks optimized for TikTok), audience layering (lookalikes + interest stacks), and daily bid optimization. Hit lowest-ever CPI in week 3, doubled budget in week 6 with efficiency holding.</div>
+                        <div class="case-body">Subscription app with no paid playbook. Just a founder running $200/day with no structure. We built the full stack: offer hierarchy (freemium entry to paid upsell), creative briefs (15-sec hooks built for TikTok), audience layering (lookalikes and interest stacks), and daily bid optimization. Hit lowest-ever CPI in week 3. Doubled budget in week 6 with efficiency holding.</div>
                     </div>
-                    <div class="plats"><span class="plat">Meta</span><span class="plat">TikTok</span></div>
+                    <div class="plats"><span class="plat" data-p="meta">Meta</span><span class="plat" data-p="tiktok">TikTok</span></div>
                 </div>
                 <div class="metrics" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
                     <div class="m"><div class="m-lbl">ROAS</div><div class="m-val">6.2x</div><div class="m-was">was 2.1x</div></div>
@@ -730,9 +744,9 @@
                                 <div class="case-hero-from">from $0 &nbsp;·&nbsp; 75 days</div>
                             </div>
                         </div>
-                        <div class="case-body">Mid-market SaaS running 100% outbound with no paid demand gen infrastructure. We built a full LinkedIn + Meta B2B funnel: job-title targeting (VP Ops, Dir Product) layered with company signals (revenue band, tech stack), creative tailored by funnel stage (awareness video → demo-focused landing pages), and a lead nurture sequence synced to HubSpot. Generated $380K qualified pipeline in under 11 weeks.</div>
+                        <div class="case-body">Mid-market SaaS running 100% outbound with no paid infrastructure. We built a full LinkedIn and Meta B2B funnel: job-title targeting (VP Ops, Dir Product) layered with company signals (revenue band, tech stack), creative tailored by funnel stage (awareness video to demo-focused landing pages), and a lead nurture sequence synced to HubSpot. $380K in qualified pipeline in under 11 weeks.</div>
                     </div>
-                    <div class="plats"><span class="plat">LinkedIn</span><span class="plat">Meta</span></div>
+                    <div class="plats"><span class="plat" data-p="linkedin">LinkedIn</span><span class="plat" data-p="meta">Meta</span></div>
                 </div>
                 <div class="metrics">
                     <div class="m"><div class="m-lbl">Pipeline generated</div><div class="m-val">$380K</div><div class="m-lift up">in 75 days</div></div>
@@ -763,9 +777,9 @@
                                 <div class="case-hero-from">from 8% &nbsp;·&nbsp; CPL down 64% &nbsp;·&nbsp; 8 weeks</div>
                             </div>
                         </div>
-                        <div class="case-body">Fintech platform spending $20K/mo with leads converting to sales conversations at under 8%. We rebuilt targeting around high-intent firmographic signals (company size, funding stage, job function), rewrote all creative for the CFO buyer persona (ROI-focused, compliance angle), and restructured the landing page offer (calculator tool → demo request). Same budget, entirely different lead quality.</div>
+                        <div class="case-body">Fintech platform spending $20K/mo with leads converting to sales conversations at under 8%. We rebuilt targeting around high-intent firmographic signals (company size, funding stage, job function), rewrote all creative for the CFO buyer persona (ROI-focused, compliance angle), and restructured the landing page offer from a calculator tool to a direct demo request. Same budget. Entirely different lead quality.</div>
                     </div>
-                    <div class="plats"><span class="plat">LinkedIn</span><span class="plat">Google</span></div>
+                    <div class="plats"><span class="plat" data-p="linkedin">LinkedIn</span><span class="plat" data-p="google">Google</span></div>
                 </div>
                 <div class="metrics">
                     <div class="m">
@@ -1068,14 +1082,52 @@
     </script>
 
     <script>
+    /* ── Stat counter animation ── */
+    (function () {
+        const statsEl = document.querySelector('.stats');
+        const statVals = document.querySelectorAll('.stat-val[data-count]');
+        if (!statsEl || !statVals.length) return;
+
+        let fired = false;
+        const io = new IntersectionObserver((entries) => {
+            if (fired || !entries[0].isIntersecting) return;
+            fired = true;
+            io.disconnect();
+
+            statVals.forEach((el, i) => {
+                const target  = parseFloat(el.dataset.count);
+                const prefix  = el.dataset.prefix || '';
+                const suffix  = el.dataset.suffix || '';
+                const decimal = target % 1 !== 0;
+                const delay   = i * 80;
+                const dur     = 1600;
+
+                setTimeout(() => {
+                    const t0 = performance.now();
+                    (function step(now) {
+                        const p    = Math.min((now - t0) / dur, 1);
+                        const ease = 1 - Math.pow(1 - p, 3);
+                        const val  = target * ease;
+                        el.textContent = prefix + (decimal ? val.toFixed(1) : Math.round(val)) + suffix;
+                        if (p < 1) requestAnimationFrame(step);
+                    })(performance.now());
+                }, delay);
+            });
+        }, { threshold: 0.5 });
+
+        io.observe(statsEl);
+    })();
+    </script>
+
+    <script>
     (function () {
         if (typeof THREE === 'undefined') return;
 
         const canvas      = document.getElementById('sphere-canvas');
         const N_UNIQUE    = 11;          // unique textures
         const N           = 44;          // total cards on sphere (4x)
-        const R           = 3.4;         // sphere radius
-        const CW          = 0.78;
+        const R           = 4.0;         // sphere radius — larger = more spread
+        const CW          = 0.58;        // card width — smaller for true-sphere feel
         const CH          = CW * (853 / 480);
         const SPHERE_X    = 2.8;
 
@@ -1157,7 +1209,7 @@
         /* ── state ── */
         let dragging = false;
         let px = 0, py = 0, dragDist = 0;
-        let velY = 0.0004;   // horizontal auto-spin
+        let velY = 0.00015;  // horizontal auto-spin — slow, deliberate
         let velX = 0;         // vertical momentum
         let rotY = 0;         // Y-axis angle (horizontal drag)
         let rotX = 0;         // X-axis angle (vertical drag)
@@ -1178,10 +1230,10 @@
             const dx = e.clientX - px;
             const dy = e.clientY - py;
             dragDist += Math.sqrt(dx * dx + dy * dy);
-            velY += dx * 0.00022;
-            velX -= dy * 0.00022;
-            velY = Math.max(-0.045, Math.min(0.045, velY));
-            velX = Math.max(-0.045, Math.min(0.045, velX));
+            velY += dx * 0.00017;
+            velX -= dy * 0.00017;
+            velY = Math.max(-0.03, Math.min(0.03, velY));
+            velX = Math.max(-0.025, Math.min(0.025, velX));
             px = e.clientX; py = e.clientY;
             if (dragDist > 6) { focusedIdx = -1; focusTargetY = null; focusTargetX = null; }
         });
@@ -1240,15 +1292,15 @@
                 }
             } else if (!dragging) {
                 // Y: auto-spin or near-stop
-                velY *= 0.968;
+                velY *= 0.978;
                 if (focusedIdx === -1) {
-                    if (Math.abs(velY) < 0.0008) velY += (0.0004 - velY) * 0.015;
+                    if (Math.abs(velY) < 0.0005) velY += (0.00015 - velY) * 0.01;
                 } else {
-                    velY += (0.00006 - velY) * 0.03;
+                    velY += (0.00005 - velY) * 0.025;
                 }
                 rotY += velY;
-                // X: damp momentum, sphere stays where tilted
-                velX *= 0.94;
+                // X: smooth natural decay — no snap-back
+                velX *= 0.968;
                 rotX += velX;
             } else {
                 rotY += velY;
@@ -1285,14 +1337,15 @@
 
                 let tgtScale, tgtFaceOp;
                 if (focusedIdx === -1) {
-                    tgtScale  = 0.58 + depth * 0.48;
-                    tgtFaceOp = 0.28 + depth * 0.72;
+                    // aggressive depth falloff = convincing sphere shape
+                    tgtScale  = 0.28 + depth * 0.78;
+                    tgtFaceOp = 0.10 + depth * 0.90;
                 } else if (i === focusedIdx) {
-                    tgtScale  = 1.22;
+                    tgtScale  = 1.18;
                     tgtFaceOp = 1.0;
                 } else {
-                    tgtScale  = (0.58 + depth * 0.48) * 0.5;
-                    tgtFaceOp = 0.09;
+                    tgtScale  = (0.28 + depth * 0.78) * 0.45;
+                    tgtFaceOp = 0.06;
                 }
 
                 cards[i].scale.lerp(new THREE.Vector3(tgtScale, tgtScale, tgtScale), 0.08);
