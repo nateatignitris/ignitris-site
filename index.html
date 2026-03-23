@@ -4,29 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ignitris</title>
-    <meta name="description" content="Documented results, built on paid. Ignitris is a paid acquisition agency powered by proprietary software built by engineers from Cornell and Harvard.">
+    <meta name="description" content="Find the exact moment a user is most likely to pay for your product. Join 30+ startups.">
     <meta name="robots" content="index, follow">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
     <link rel="apple-touch-icon" href="favicon-64.png">
     <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        :root {
-            --blue: #0279FD;
-            --navy: #0A1628;
+        html {
+            height: 100vh;
+            overflow: hidden;
+            background: #ffffff;
+            touch-action: manipulation;
         }
 
-        html { overflow-x: hidden; }
-
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #fff;
-            color: var(--navy);
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #0A1628;
+            height: 100vh;
+            overflow: hidden;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-            animation: pageIn .08s ease forwards;
+            animation: pageIn 0.08s ease forwards;
         }
 
         @keyframes pageIn {
@@ -34,357 +35,489 @@
             to   { opacity: 1; }
         }
 
-        /* ── NAV ──────────────────────────────────────────── */
+        body.page-transitioning {
+            
+        }
+
+        @keyframes pageOut {
+            from { opacity: 1; }
+            to   { opacity: 0; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0);    }
+        }
+
+        .animate-up {
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.5s; }
+        .delay-4 { animation-delay: 0.65s; }
+        .delay-5 { animation-delay: 0.8s; }
+
+        /* NAV */
         nav {
             position: fixed;
-            top: 20px; left: 20px; right: 20px;
-            z-index: 3000;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 24px;
             height: 48px;
             border-radius: 100px;
-            background: rgba(255,255,255,0.82);
+            background: rgba(255, 255, 255, 0.82);
             backdrop-filter: blur(40px) saturate(180%);
             -webkit-backdrop-filter: blur(40px) saturate(180%);
-            border: 1px solid rgba(10,22,40,0.10);
-            transition: background 0.5s ease, border-color 0.5s ease;
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            box-shadow: none;
         }
-        nav.dark-nav {
-            background: rgba(10,22,40,0.75);
-            border-color: rgba(255,255,255,0.1);
-        }
-        nav.dark-nav .nav-logo { color: #fff; }
-        nav.dark-nav .btn { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.07); }
-        nav.dark-nav .btn::before,
-        nav.dark-nav .btn::after { border-color: rgba(255,255,255,0.2); }
-        nav.dark-nav .btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); }
-        nav.dark-nav .btn:hover::before,
-        nav.dark-nav .btn:hover::after { border-color: rgba(255,255,255,0.6); }
 
         .nav-logo {
             display: flex;
             align-items: center;
             text-decoration: none;
-            color: var(--navy);
-            transition: opacity 0.2s, color 0.4s;
+            color: rgba(10, 22, 40, 0.9);
+            transition: opacity 0.2s;
+            position: relative;
+            z-index: 2;
         }
         .nav-logo:hover { opacity: 0.7; }
-        .nav-logo svg { height: 18px; width: auto; display: block; }
+        .nav-logo svg {
+            height: 18px;
+            width: auto;
+            display: block;
 
-        /* ── CORNER-BRACKET BUTTON (signature style) ──────── */
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
         .btn {
             position: relative;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 9px 22px;
+            padding: 8px 20px;
             font-size: 10px;
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             text-decoration: none;
-            color: rgba(10,22,40,0.85);
-            background: rgba(10,22,40,0.04);
-            border: 1px solid rgba(10,22,40,0.1);
+            color: rgba(10, 22, 40, 0.85);
+            background: rgba(10, 22, 40, 0.04);
+            border: 1px solid rgba(10, 22, 40, 0.1);
             cursor: pointer;
-            font-family: inherit;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         .btn::before, .btn::after {
-            content: '';
-            position: absolute;
-            width: 6px; height: 6px;
-            border: 1px solid rgba(10,22,40,0.18);
-            transition: all 0.3s ease;
+            content: ''; position: absolute; width: 6px; height: 6px;
+            border: 1px solid rgba(10, 22, 40, 0.18); transition: all 0.3s ease;
         }
         .btn::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
         .btn::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
         .btn:hover {
-            background: rgba(10,22,40,0.08);
-            border-color: rgba(10,22,40,0.18);
+            background: rgba(10, 22, 40, 0.07);
+            border-color: rgba(10, 22, 40, 0.18);
             transform: translateY(-1px);
         }
-        .btn:hover::before, .btn:hover::after {
-            border-color: rgba(10,22,40,0.5);
-            width: 10px; height: 10px;
+        .btn:hover::before, .btn:hover::after { border-color: rgba(10, 22, 40, 0.5); width: 10px; height: 10px; }
+        .btn-ghost {
+            border-color: transparent;
+            background: transparent;
+            color: rgba(10, 22, 40, 0.55);
         }
+        .btn-ghost:hover {
+            color: rgba(10, 22, 40, 1);
+            background: rgba(10, 22, 40, 0.05);
+        }
+        .btn-primary {
+            background: #ffffff;
+            color: #ffffff;
+            border-color: transparent;
+            font-weight: 700;
+        }
+        .btn-primary:hover {
+            background: rgba(10, 22, 40, 0.88);
+            transform: translateY(-1px);
+        }
+        .btn-primary::before, .btn-primary::after { border-color: rgba(0,0,0,0.15); }
 
-        /* white variant for dark section */
-        .btn-w {
-            color: rgba(255,255,255,0.82);
-            background: rgba(255,255,255,0.06);
-            border-color: rgba(255,255,255,0.15);
-        }
-        .btn-w::before, .btn-w::after { border-color: rgba(255,255,255,0.2); }
-        .btn-w:hover {
-            background: rgba(255,255,255,0.12);
-            border-color: rgba(255,255,255,0.32);
-            color: #fff;
-        }
-        .btn-w:hover::before, .btn-w:hover::after { border-color: rgba(255,255,255,0.6); }
-
-        /* ── SCROLL TUNNEL ────────────────────────────────── */
-        .tunnel {
+        /* HERO: ignitris blue */
+        .hero {
             position: relative;
-            height: 320vh;
-        }
-
-        .hero-sticky {
-            position: sticky;
-            top: 0;
             height: 100vh;
             width: 100%;
-            overflow: hidden;
-            background: #fff;
+            background: #ffffff;
         }
 
-        /* inner — this is what gets scaled on zoom */
-        .hero-inner {
-            position: absolute;
-            inset: 0;
-            will-change: transform, filter, opacity;
-        }
-
-        /* Dark overlay floods in behind zoom */
-        .dark-overlay {
-            position: absolute;
-            inset: 0;
-            background: var(--navy);
-            z-index: 6;
-            opacity: 0;
-            pointer-events: none;
-            will-change: opacity;
-        }
-
-        /* ── HERO COPY ────────────────────────────────────── */
+        /* Center content: horizontally and vertically */
         .hero-content {
             position: absolute;
-            inset: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95vw;
+            max-width: 1400px;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(16px, 1.5vw, 22px);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.0;
+            color: #0A1628;
+            white-space: nowrap;
+            margin-bottom: 36px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-content h1 {
+                white-space: normal;
+                font-size: clamp(18px, 4.5vw, 26px);
+                line-height: 1.25;
+            }
+            .hero-content {
+                width: 90vw;
+                padding: 0 24px;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: rgba(10, 22, 40, 0.38);
+            max-width: 380px;
+            line-height: 1.38;
+            letter-spacing: 0.005em;
+            margin: 0 auto 36px;
+        }
+
+        /* WAITLIST FORM — liquid glass pill container */
+        .waitlist {
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            padding: 0 8vw 88px;
-            z-index: 2;
+            align-items: center;
+            gap: 0;
+            max-width: 440px;
+            margin: 0 auto;
         }
 
-        .h-eyebrow {
-            font-size: 9px; font-weight: 600; letter-spacing: .22em;
-            text-transform: uppercase; color: rgba(10,22,40,.25);
-            margin-bottom: 32px;
-            opacity: 0;
-            animation: fadeUp .7s .1s cubic-bezier(.16,1,.3,1) forwards;
-        }
-
-        .h-headline {
-            font-size: clamp(44px, 7vw, 96px);
-            font-weight: 500;
-            letter-spacing: -.045em;
-            line-height: .97;
-            color: var(--navy);
-            margin-bottom: 0;
-            opacity: 0;
-            animation: fadeUp .7s .2s cubic-bezier(.16,1,.3,1) forwards;
-        }
-        .h-dim  { color: rgba(10,22,40,.18); }
-        .accent { color: var(--blue); }
-
-        .h-cta-row {
+        /* The glass pill row — mimics the nav bar */
+        .waitlist-row {
+            position: relative;
             display: flex;
             align-items: center;
-            gap: 20px;
-            margin-top: 40px;
-            padding-top: 28px;
-            border-top: 1px solid rgba(10,22,40,.07);
-            opacity: 0;
-            animation: fadeUp .7s .34s cubic-bezier(.16,1,.3,1) forwards;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            box-shadow: none;
+            border-radius: 100px;
+            padding: 5px 5px 5px 22px;
+            gap: 0;
+            overflow: visible;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
-        /* ── STATS BAR ────────────────────────────────────── */
-        .stats-bar {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
+        .waitlist-row.shake {
+            animation: pillShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards !important;
+            border-color: rgba(255, 90, 90, 0.5) !important;
+        }
+
+        @keyframes pillShake {
+            0%, 100% { transform: translateX(0); }
+            15%      { transform: translateX(-7px); }
+            35%      { transform: translateX(7px); }
+            55%      { transform: translateX(-4px); }
+            75%      { transform: translateX(4px); }
+            90%      { transform: translateX(-2px); }
+        }
+
+        @keyframes fadeOnly {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* Breakout success state */
+        .waitlist-confirmed {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+            opacity: 0;
+        }
+        .waitlist-confirmed.visible {
             display: flex;
-            border-top: 1px solid rgba(10,22,40,.07);
-            z-index: 3;
-            background: #fff;
+            animation: fadeOnly 0.1s ease forwards;
+        }
+        .confirmed-line {
+            width: 40px;
+            height: 1px;
+            background: rgba(10, 22, 40, 0.12);
+            transform: scaleX(0);
+            transform-origin: center;
+        }
+        .confirmed-line.draw {
+            animation: drawLine 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+        }
+        @keyframes drawLine {
+            from { transform: scaleX(0); opacity: 0; }
+            to   { transform: scaleX(1); opacity: 1; }
+        }
+        .confirmed-label {
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 0.03em;
+            color: rgba(10, 22, 40, 0.85);
             opacity: 0;
-            animation: fadeUp .7s .46s cubic-bezier(.16,1,.3,1) forwards;
         }
-        .stat-cell {
-            flex: 1; padding: 16px 0; text-align: center;
-            border-right: 1px solid rgba(10,22,40,.07);
-            display: flex; flex-direction: column; gap: 4px; align-items: center;
-            transition: background .2s;
+        .confirmed-label.reveal {
+            animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .stat-cell:last-child { border-right: none; }
-        .stat-cell:hover { background: rgba(2,121,253,.03); }
-        .stat-val {
-            font-size: 16px; font-weight: 400; letter-spacing: -.025em;
-            color: var(--navy); line-height: 1;
+        .confirmed-sub {
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            color: rgba(10, 22, 40, 0.35);
+            opacity: 0;
         }
-        .stat-lbl {
-            font-size: 9px; font-weight: 500; letter-spacing: .1em;
-            text-transform: uppercase; color: rgba(10,22,40,.25);
+        .confirmed-sub.reveal {
+            animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* ── SOCIALS ──────────────────────────────────────── */
+        /* iMessage dot loader */
+        @keyframes imessageDot {
+            0%, 60%, 100% { transform: translateY(0);   opacity: 0.35; }
+            30%            { transform: translateY(-4px); opacity: 1;    }
+        }
+        .dot-loader { display: inline-flex; align-items: center; gap: 3px; }
+        .dot-loader span {
+            display: inline-block; width: 4px; height: 4px;
+            border-radius: 50%; background: currentColor;
+            animation: imessageDot 0.9s infinite ease-in-out;
+        }
+        .dot-loader span:nth-child(1) { animation-delay: 0s; }
+        .dot-loader span:nth-child(2) { animation-delay: 0.15s; }
+        .dot-loader span:nth-child(3) { animation-delay: 0.3s; }
+
+        .waitlist-error-text {
+            font-size: 11px;
+            font-weight: 400;
+            color: rgba(180, 30, 30, 0.85);
+            padding: 10px 0 0;
+            letter-spacing: 0.01em;
+            opacity: 0;
+            animation: fadeUp 0.3s ease forwards;
+        }
+
+        .waitlist-input {
+            flex: 1;
+            height: 38px;
+            padding: 0;
+            font-size: 13px;
+            font-weight: 300;
+            color: #0A1628;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: inherit;
+            -webkit-font-smoothing: antialiased;
+            min-width: 0;
+        }
+
+        .waitlist-input::placeholder {
+            color: rgba(10, 22, 40, 0.32);
+        }
+
+        /* Button sits inside the pill — its own inner pill */
+        .waitlist-btn {
+            display: inline-flex;
+            align-items: center;
+            height: 38px;
+            padding: 0 20px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(10, 22, 40, 0.85);
+            background: rgba(10, 22, 40, 0.06);
+            border: 1px solid rgba(10, 22, 40, 0.12);
+            border-radius: 100px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            -webkit-font-smoothing: antialiased;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            flex-shrink: 0;
+        }
+
+        .waitlist-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(10, 22, 40, 0.2);
+        }
+
+        .waitlist-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .waitlist-success {
+            display: none;
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(10, 22, 40, 0.5);
+            padding: 14px 0 0;
+            letter-spacing: 0.01em;
+        }
+
+        .waitlist-success.visible {
+            display: block;
+        }
+
+        .waitlist-error {
+            display: none;
+            font-size: 11px;
+            font-weight: 400;
+            color: rgba(180, 30, 30, 0.9);
+            padding: 10px 0 0;
+            letter-spacing: 0.01em;
+        }
+
+        .waitlist-error.visible {
+            display: block;
+        }
+
+        /* Social proof + Reassurance — unified micro-text */
+        .waitlist-social-proof,
+        .waitlist-reassurance {
+            font-size: 11px;
+            font-weight: 400;
+            color: rgba(10, 22, 40, 0.35);
+            letter-spacing: 0.06em;
+            text-align: center;
+        }
+        .waitlist-social-proof { padding: 10px 0 0; }
+        .waitlist-reassurance  { padding: 5px 0 0; }
+
+        /* Exit intent bar */
+        .exit-bar {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 20px 12px 24px;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            border-radius: 100px;
+            box-shadow: 0 4px 24px rgba(10, 22, 40, 0.09);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
+            z-index: 999;
+        }
+        .exit-bar.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .exit-bar-text {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(10, 22, 40, 0.55);
+            letter-spacing: 0.01em;
+        }
+        .exit-bar-cta {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #0A1628;
+            background: rgba(10, 22, 40, 0.06);
+            border: 1px solid rgba(10, 22, 40, 0.12);
+            border-radius: 100px;
+            padding: 6px 14px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s ease;
+        }
+        .exit-bar-cta:hover { background: rgba(10, 22, 40, 0.12); }
+        .exit-bar-dismiss {
+            font-size: 16px;
+            color: rgba(10, 22, 40, 0.35);
+            cursor: pointer;
+            line-height: 1;
+            background: none;
+            border: none;
+            font-family: inherit;
+            padding: 0 0 0 4px;
+            transition: color 0.2s ease;
+        }
+        .exit-bar-dismiss:hover { color: rgba(10, 22, 40, 0.5); }
+
+        /* SOCIALS: bottom-right — sharp square style */
         .hero-socials {
             position: absolute;
-            bottom: 44px; right: 8vw;
+            bottom: 44px;
+            right: 44px;
             display: flex;
             align-items: center;
             gap: 8px;
-            opacity: 0;
-            animation: fadeUp .7s .58s cubic-bezier(.16,1,.3,1) forwards;
-            z-index: 4;
         }
+
         .hero-socials a {
-            display: flex; align-items: center; justify-content: center;
-            width: 32px; height: 32px;
-            border-radius: 2px;
-            border: 1px solid rgba(10,22,40,.1);
-            color: rgba(10,22,40,.36);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            background: rgba(10,22,40,.02);
-        }
-        .hero-socials a:hover {
-            border-color: rgba(10,22,40,.28);
-            color: rgba(10,22,40,1);
-            background: rgba(10,22,40,.06);
-        }
-        .hero-socials svg { width: 13px; height: 13px; fill: currentColor; }
-
-        /* ── SCROLL HINT ──────────────────────────────────── */
-        .scroll-hint {
-            position: absolute; bottom: 62px; left: 8vw;
-            display: flex; align-items: center; gap: 10px;
-            font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
-            color: rgba(10,22,40,.2);
-            opacity: 0;
-            animation: fadeUp .7s .6s cubic-bezier(.16,1,.3,1) forwards;
-            pointer-events: none; z-index: 4;
-        }
-        .scroll-dot {
-            width: 4px; height: 4px; border-radius: 50%;
-            background: rgba(10,22,40,.25);
-            animation: dotPulse 1.8s ease-in-out infinite;
-        }
-        @keyframes dotPulse {
-            0%,100% { transform: scale(1); opacity:.4; }
-            50%      { transform: scale(1.6); opacity:1; }
-        }
-
-        /* ══ STATEMENT SECTION ────────────────────────────── */
-        .section-statement {
-            background: var(--navy);
-            min-height: 100vh;
-            position: relative;
-            overflow: hidden;
             display: flex;
             align-items: center;
-        }
-        .stmt-glow {
-            position: absolute; inset: 0; pointer-events: none;
-            background: radial-gradient(ellipse 65% 55% at 50% 65%, rgba(2,121,253,.11) 0%, transparent 70%);
-        }
-        .stmt-rule { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: rgba(255,255,255,.06); }
-        .stmt-inner {
-            position: relative; z-index: 2;
-            width: 100%; max-width: 980px;
-            margin: 0 auto;
-            padding: 120px 8vw 100px;
-        }
-        .stmt-eyebrow {
-            font-size: 9px; font-weight: 600; letter-spacing: .22em;
-            text-transform: uppercase; color: rgba(255,255,255,.2);
-            margin-bottom: 40px;
-            display: flex; align-items: center; gap: 14px;
-        }
-        .stmt-eyebrow::after {
-            content: ''; flex: 0 0 36px; height: 1px; background: rgba(255,255,255,.12);
-        }
-        .stmt-h1 {
-            font-size: clamp(34px, 5.2vw, 68px);
-            font-weight: 400;
-            letter-spacing: -.04em;
-            line-height: 1.06;
-            color: #fff;
-            margin-bottom: 52px;
-        }
-        .stmt-h1 em { font-style: normal; color: rgba(255,255,255,.22); }
-        .stmt-divider { width: 100%; height: 1px; background: rgba(255,255,255,.07); margin-bottom: 52px; }
-        .stmt-body {
-            display: flex;
-            gap: 7vw;
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
-        .stmt-copy {
-            flex: 1; min-width: 260px;
-            font-size: 15px;
-            color: rgba(255,255,255,.4);
-            line-height: 1.7;
-            font-weight: 400;
-        }
-        .stmt-copy strong { color: rgba(255,255,255,.82); font-weight: 500; }
-        .stmt-right {
-            flex-shrink: 0;
-            display: flex; flex-direction: column; gap: 10px;
-        }
-        .stmt-badge {
-            display: flex; align-items: center; gap: 12px;
-            padding: 11px 16px;
-            border: 1px solid rgba(255,255,255,.09);
-            background: rgba(255,255,255,.03);
-        }
-        .stmt-badge-dot {
-            width: 5px; height: 5px; border-radius: 50%;
-            background: var(--blue); flex-shrink: 0;
-        }
-        .stmt-badge-text {
-            font-size: 11px; font-weight: 500; letter-spacing: .05em;
-            color: rgba(255,255,255,.45);
-        }
-        .stmt-cta-row {
-            margin-top: 56px;
-            display: flex; align-items: center; gap: 18px;
-        }
-        .stmt-note {
-            font-size: 11px; color: rgba(255,255,255,.2); letter-spacing: .03em;
-        }
-
-        /* ── SOCIALS on dark section ──────────────────────── */
-        .stmt-socials {
-            position: absolute; bottom: 44px; right: 8vw;
-            display: flex; align-items: center; gap: 8px;
-            z-index: 4;
-        }
-        .stmt-socials a {
-            display: flex; align-items: center; justify-content: center;
-            width: 32px; height: 32px;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
             border-radius: 2px;
-            border: 1px solid rgba(255,255,255,.1);
-            color: rgba(255,255,255,.3);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            color: rgba(10, 22, 40, 0.36);
             text-decoration: none;
             transition: all 0.2s ease;
+            background: rgba(10, 22, 40, 0.02);
         }
-        .stmt-socials a:hover { border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.8); }
-        .stmt-socials svg { width: 13px; height: 13px; fill: currentColor; }
 
-        /* ── ANIMATIONS ───────────────────────────────────── */
-        @keyframes fadeUp {
-            from { opacity:0; transform:translateY(20px); filter:blur(4px); }
-            to   { opacity:1; transform:none; filter:none; }
+        .hero-socials a:hover {
+            border-color: rgba(10, 22, 40, 0.28);
+            color: rgba(10, 22, 40, 1);
+            background: rgba(10, 22, 40, 0.06);
+        }
+
+        .hero-socials svg {
+            width: 13px;
+            height: 13px;
+            fill: currentColor;
         }
     </style>
 </head>
 <body>
 
-    <!-- ── NAV ─────────────────────────────────────────── -->
-    <nav id="main-nav">
+    <nav>
         <a href="/" class="nav-logo">
             <svg viewBox="0 0 8042 2511" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2103.12 2510.57C1996.16 2510.57 1902.57 2495.6 1822.35 2465.68C1742.89 2436.51 1679.48 2396.23 1632.11 2344.81C1584.74 2293.39 1555.32 2235.84 1543.86 2172.14L1541.57 2161.78H1821.2L1825.78 2170.99C1841.06 2206.29 1872.39 2235.45 1919.76 2258.48C1967.89 2282.27 2028.63 2294.16 2101.97 2294.16C2195.18 2294.16 2266.62 2271.14 2316.28 2225.1C2365.94 2179.05 2390.77 2117.28 2390.77 2039.77V1863.65H2385.04C2362.89 1907.39 2333.09 1944.99 2295.65 1976.46C2258.98 2007.92 2215.81 2032.48 2166.15 2050.13C2117.26 2067.78 2063.77 2076.6 2005.71 2076.6C1904.1 2076.6 1815.47 2051.66 1739.83 2001.78C1664.96 1951.9 1606.89 1881.3 1565.64 1789.98C1525.14 1697.89 1504.9 1588.53 1504.9 1461.91V1460.76C1504.9 1331.84 1525.53 1221.33 1566.78 1129.24C1608.8 1036.39 1667.63 964.637 1743.27 913.988C1818.91 863.339 1907.92 838.015 2010.29 838.015C2067.59 838.015 2120.31 847.991 2168.44 867.944C2216.58 887.129 2258.6 913.988 2294.51 948.521C2331.18 983.054 2360.98 1023.73 2383.9 1070.54H2390.77V863.339H2676.13V2048.98C2676.13 2141.06 2652.83 2221.64 2606.22 2290.71C2559.62 2360.54 2493.53 2414.64 2407.96 2453.01C2322.39 2491.38 2220.78 2510.57 2103.12 2510.57ZM2095.1 1855.59C2154.69 1855.59 2206.64 1839.86 2250.96 1808.4C2295.27 1776.16 2329.65 1730.89 2354.1 1672.57C2379.31 1614.24 2391.92 1545.94 2391.92 1467.67V1466.52C2391.92 1387.48 2379.31 1319.18 2354.1 1261.62C2328.89 1203.3 2294.12 1158.41 2249.81 1126.94C2205.5 1095.48 2153.93 1079.75 2095.1 1079.75C2033.98 1079.75 1980.88 1095.48 1935.8 1126.94C1890.72 1158.41 1855.96 1202.92 1831.51 1260.47C1807.07 1318.03 1794.84 1386.71 1794.84 1466.52V1467.67C1794.84 1547.48 1807.07 1616.54 1831.51 1674.87C1855.96 1732.42 1890.72 1776.93 1935.8 1808.4C1980.88 1839.86 2033.98 1855.59 2095.1 1855.59Z" fill="currentColor"/>
@@ -397,222 +530,212 @@
                 <path d="M852.788 0L828.043 114.951C1013.63 149.126 1013.63 133.592 1053.84 167.767C1103.93 210.338 1084.77 314.822 1072.4 375.922L806.391 1749.13C763.088 2003.88 645.551 1985.24 484.711 2003.88L459.967 2121.94H1418.82L1443.57 2010.1C1275.3 1992.7 1155.91 1988.35 1174.47 1848.54L1452.84 363.495C1493.05 164.66 1542.54 130.485 1774.52 118.058L1799.27 0H852.788Z" fill="currentColor"/>
             </svg>
         </a>
-        <div>
-            <a href="/careers" class="btn">Careers</a>
+        <div class="nav-actions">
+            <a href="/careers" class="btn btn-ghost">Careers</a>
         </div>
     </nav>
 
-    <!-- ══ SCROLL TUNNEL ════════════════════════════════ -->
-    <div class="tunnel" id="tunnel">
-        <div class="hero-sticky" id="hero-sticky">
-            <div class="hero-inner" id="hero-inner">
+    <section class="hero">
 
-                <!-- Dark flood overlay -->
-                <div class="dark-overlay" id="dark-overlay"></div>
+        <div class="hero-content">
+            <h1 class="animate-up delay-1">mapping user intent in real time, finding the <span style="color:#0279FD;">apex</span> in which a user is most likely to pay for a product.</h1>
 
-                <!-- Hero copy -->
-                <div class="hero-content" id="hero-content">
-                    <div class="h-eyebrow">Ignitris &nbsp;·&nbsp; paid acquisition</div>
-                    <h1 class="h-headline" id="h-headline">
-                        documented<br>
-                        results, <span id="built-word" class="accent">built</span><br>
-                        <span class="h-dim">on paid.</span>
-                    </h1>
-                    <div class="h-cta-row">
-                        <a href="/apply" class="btn">Work with us</a>
-                    </div>
+            <div class="waitlist animate-up delay-2">
+                <div class="waitlist-row" id="waitlist-row">
+                    <input
+                        type="email"
+                        class="waitlist-input"
+                        id="waitlist-email"
+                        placeholder="tim@useignitris.com"
+                        autocomplete="email"
+                        spellcheck="false"
+                    >
+                    <button class="waitlist-btn" id="waitlist-submit" type="button">Join Waitlist</button>
                 </div>
-
-                <!-- Stats bar -->
-                <div class="stats-bar" id="stats-bar">
-                    <div class="stat-cell">
-                        <span class="stat-val">5.8x</span>
-                        <span class="stat-lbl">Peak ROAS · 90d</span>
-                    </div>
-                    <div class="stat-cell">
-                        <span class="stat-val">$380K</span>
-                        <span class="stat-lbl">Pipeline · 75d</span>
-                    </div>
-                    <div class="stat-cell">
-                        <span class="stat-val">77%</span>
-                        <span class="stat-lbl">CPI reduction</span>
-                    </div>
-                    <div class="stat-cell">
-                        <span class="stat-val">31%</span>
-                        <span class="stat-lbl">SQL rate · B2B</span>
-                    </div>
+                <span id="waitlist-error" style="display:none;"></span>
+                <div class="waitlist-confirmed" id="waitlist-confirmed">
+                    <span class="confirmed-line" id="confirmed-line"></span>
+                    <p class="confirmed-label" id="confirmed-label">you're in.</p>
+                    <p class="confirmed-sub" id="confirmed-sub">we'll reach out before launch.</p>
                 </div>
-
-                <!-- Socials -->
-                <div class="hero-socials">
-                    <a href="https://x.com/ignitris" target="_blank" rel="noopener" aria-label="X">
-                        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/company/ignitris/?viewAsMember=true" target="_blank" rel="noopener" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    </a>
-                    <a href="https://www.instagram.com/ignitris/" target="_blank" rel="noopener" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-                    </a>
-                </div>
-
-                <!-- Scroll hint -->
-                <div class="scroll-hint" id="scroll-hint">
-                    <div class="scroll-dot"></div>
-                    <span>scroll</span>
-                </div>
-
-            </div><!-- /hero-inner -->
-        </div><!-- /hero-sticky -->
-    </div><!-- /tunnel -->
-
-    <!-- ══ STATEMENT SECTION ════════════════════════════ -->
-    <section class="section-statement">
-        <div class="stmt-glow"></div>
-        <div class="stmt-rule"></div>
-        <div class="stmt-inner">
-            <div class="stmt-eyebrow">How it works</div>
-            <h1 class="stmt-h1">
-                the results aren't luck.<br>
-                <em>they're engineered.</em>
-            </h1>
-            <div class="stmt-divider"></div>
-            <div class="stmt-body">
-                <p class="stmt-copy">
-                    Ignitris runs on <strong>proprietary software built in-house</strong> by engineers from Cornell and Harvard. It identifies the exact intent signals your competitors are missing — the moments when a user is most likely to convert — and turns them into paid acquisition that compounds over time.<br><br>
-                    No guesswork. No bloated retainers. Just a system that was built to find the apex and press on it.
-                </p>
-                <div class="stmt-right">
-                    <div class="stmt-badge">
-                        <div class="stmt-badge-dot"></div>
-                        <span class="stmt-badge-text">Cornell University</span>
-                    </div>
-                    <div class="stmt-badge">
-                        <div class="stmt-badge-dot"></div>
-                        <span class="stmt-badge-text">Harvard University</span>
-                    </div>
-                    <div class="stmt-badge">
-                        <div class="stmt-badge-dot"></div>
-                        <span class="stmt-badge-text">Proprietary software</span>
-                    </div>
-                </div>
-            </div>
-            <div class="stmt-cta-row">
-                <a href="/apply" class="btn btn-w">Work with us</a>
-                <span class="stmt-note">limited spots available</span>
             </div>
         </div>
 
-        <!-- Socials repeated on dark section -->
-        <div class="stmt-socials">
+        <div class="hero-socials animate-up delay-5">
             <a href="https://x.com/ignitris" target="_blank" rel="noopener" aria-label="X">
-                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
             <a href="https://www.linkedin.com/company/ignitris/?viewAsMember=true" target="_blank" rel="noopener" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </a>
             <a href="https://www.instagram.com/ignitris/" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
             </a>
         </div>
+
     </section>
 
+    <!-- Exit intent bar -->
+    <div class="exit-bar" id="exit-bar">
+        <span class="exit-bar-text">early access is limited.</span>
+        <button class="exit-bar-cta" id="exit-bar-cta">join the waitlist</button>
+        <button class="exit-bar-dismiss" id="exit-bar-dismiss" aria-label="Dismiss">×</button>
+    </div>
+
     <script>
-    // ── Page transitions ─────────────────────────────────────
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('a[href^="/"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = this.getAttribute('href');
+        // Page transitions
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="/"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    
+                    window.location.href = href;
+                });
             });
         });
-    });
 
-    // ── Scroll-driven zoom transition ─────────────────────────
-    (function() {
-        const tunnel     = document.getElementById('tunnel');
-        const heroInner  = document.getElementById('hero-inner');
-        const darkOverlay= document.getElementById('dark-overlay');
-        const heroContent= document.getElementById('hero-content');
-        const statsBar   = document.getElementById('stats-bar');
-        const scrollHint = document.getElementById('scroll-hint');
-        const nav        = document.getElementById('main-nav');
-        const builtWord  = document.getElementById('built-word');
-        const hHeadline  = document.getElementById('h-headline');
+        // Waitlist form
+        const emailInput = document.getElementById('waitlist-email');
+        const submitBtn  = document.getElementById('waitlist-submit');
+        const errorMsg   = document.getElementById('waitlist-error');
 
-        function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
-        function remap(v, i0, i1, o0, o1) {
-            return o0 + (o1 - o0) * clamp((v - i0) / (i1 - i0), 0, 1);
-        }
-        function easeIn(t)  { return t * t * t; }
-        function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-        function easeIO(t)  { return t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2; }
+        const BLOCKED_DOMAINS = ['gmail.com'];
 
-        // ── Set transform-origin to center of "built" ─────────
-        // Done after initial animations settle (1s)
-        function calibrate() {
-            const bRect = builtWord.getBoundingClientRect();
-            const iRect = heroInner.getBoundingClientRect();
-            const ox = (bRect.left + bRect.width  / 2 - iRect.left) / iRect.width  * 100;
-            const oy = (bRect.top  + bRect.height / 2 - iRect.top)  / iRect.height * 100;
-            heroInner.style.transformOrigin = ox + '% ' + oy + '%';
+        function shakePill(msg) {
+            const row = document.getElementById('waitlist-row');
+            row.classList.remove('shake');
+            void row.offsetWidth; // reflow to restart animation
+            row.classList.add('shake');
+            // Show inline error below pill
+            let existing = document.getElementById('waitlist-inline-error');
+            if (existing) existing.remove();
+            const err = document.createElement('p');
+            err.id = 'waitlist-inline-error';
+            err.className = 'waitlist-error-text';
+            err.textContent = msg;
+            row.parentElement.appendChild(err);
+            setTimeout(() => { row.classList.remove('shake'); row.style.borderColor = ''; }, 500);
+            setTimeout(() => err.remove(), 3500);
         }
 
-        setTimeout(calibrate, 900);
-        window.addEventListener('resize', calibrate);
 
-        let ticking = false;
+        submitBtn.addEventListener('click', async function() {
+            const email  = emailInput.value.trim();
+            const domain = email.split('@')[1]?.toLowerCase();
 
-        function update() {
-            const tunnelRect = tunnel.getBoundingClientRect();
-            const scrollable = tunnel.offsetHeight - window.innerHeight;
-            const scrolled   = -tunnelRect.top;
-            const raw        = clamp(scrolled / scrollable, 0, 1);
-
-            // ─ Phase 1 (0 → 0.3): content dissolves first ───
-            const dissolve = easeIO(remap(raw, 0, 0.30, 0, 1));
-            const dissolveOp  = 1 - dissolve;
-            const dissolveBlr = dissolve * 10;
-            const dissolveY   = dissolve * -18;
-
-            heroContent.style.opacity   = dissolveOp;
-            heroContent.style.filter    = 'blur(' + dissolveBlr + 'px)';
-            heroContent.style.transform = 'translateY(' + dissolveY + 'px)';
-
-            statsBar.style.opacity      = Math.max(0, 1 - easeIO(remap(raw, 0.04, 0.28, 0, 1)));
-            scrollHint.style.opacity    = Math.max(0, 1 - remap(raw, 0, 0.15, 0, 1));
-
-            // ─ Phase 2 (0.15 → 0.80): hero-inner zooms in ───
-            const zoomP  = easeIn(remap(raw, 0.15, 0.80, 0, 1));
-            const scale  = 1 + zoomP * 14;   // zooms to 15× centered on "built"
-            const blurZ  = easeIn(remap(raw, 0.35, 0.80, 0, 1)) * 22;
-
-            heroInner.style.transform = 'scale(' + scale + ')';
-            heroInner.style.filter    = 'blur(' + blurZ + 'px)';
-
-            // ─ Dark overlay ───────────────────────────────────
-            const darkP = easeIO(remap(raw, 0.25, 0.78, 0, 1));
-            darkOverlay.style.opacity = darkP;
-
-            // ─ Nav switches to dark ───────────────────────────
-            if (darkP > 0.45) {
-                nav.classList.add('dark-nav');
-            } else {
-                nav.classList.remove('dark-nav');
+            if (!email) {
+                shakePill('Please enter your work email.');
+                emailInput.focus();
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                shakePill('Please enter a valid email address.');
+                emailInput.focus();
+                return;
             }
 
-            ticking = false;
+            if (BLOCKED_DOMAINS.includes(domain)) {
+                shakePill('Please use a work email.');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="dot-loader"><span></span><span></span><span></span></span>';
+            const existing = document.getElementById('waitlist-inline-error');
+            if (existing) existing.remove();
+
+            try {
+                const res = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                if (res.ok) {
+                    const row         = document.getElementById('waitlist-row');
+                    const socialProof = document.getElementById('social-proof');
+                    const reassurance = document.querySelector('.waitlist-reassurance');
+                    const confirmed   = document.getElementById('waitlist-confirmed');
+                    const line        = document.getElementById('confirmed-line');
+                    const label       = document.getElementById('confirmed-label');
+                    const sub         = document.getElementById('confirmed-sub');
+
+                    // Fade out pill + sub-text together
+                    [row, socialProof, reassurance].forEach(el => {
+                        if (!el) return;
+                        el.style.transition = 'opacity 0.2s ease';
+                        el.style.opacity = '0';
+                    });
+
+                    setTimeout(() => {
+                        [row, socialProof, reassurance].forEach(el => { if (el) el.style.display = 'none'; });
+                        // Show confirmed block
+                        confirmed.classList.add('visible');
+                        // Staggered reveal
+                        setTimeout(() => line.classList.add('draw'), 30);
+                        setTimeout(() => label.classList.add('reveal'), 220);
+                        setTimeout(() => sub.classList.add('reveal'), 380);
+                    }, 220);
+                } else {
+                    throw new Error('failed');
+                }
+            } catch (err) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Join Waitlist';
+                shakePill('Something went wrong. Try again.');
+            }
+        });
+
+        emailInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') submitBtn.click();
+        });
+
+        // --- Live waitlist count ---
+        (async function() {
+            try {
+                const res  = await fetch('/api/count');
+                const data = await res.json();
+                const el   = document.getElementById('social-proof');
+                if (el && data.count) {
+                    el.textContent = 'join ' + data.count + '+ teams on the waitlist';
+                }
+            } catch (_) {}
+        })();
+
+        // --- Exit intent ---
+        const exitBar     = document.getElementById('exit-bar');
+        const exitCta     = document.getElementById('exit-bar-cta');
+        const exitDismiss = document.getElementById('exit-bar-dismiss');
+        let exitShown     = false;
+
+        function showExitBar() {
+            if (exitShown) return;
+            exitShown = true;
+            exitBar.classList.add('visible');
         }
 
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                requestAnimationFrame(update);
-                ticking = true;
-            }
-        }, { passive: true });
+        // Desktop: cursor leaves toward top of viewport
+        document.addEventListener('mouseleave', function(e) {
+            if (e.clientY <= 8) showExitBar();
+        });
 
-        update();
-    })();
+        // Mobile: tab/app switch
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') showExitBar();
+        });
+
+        // CTA scrolls/focuses the waitlist input
+        exitCta.addEventListener('click', function() {
+            exitBar.classList.remove('visible');
+            emailInput.focus();
+            emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        exitDismiss.addEventListener('click', function() {
+            exitBar.classList.remove('visible');
+        });
     </script>
 
 </body>
