@@ -84,7 +84,7 @@
         .nav-spacer { flex: 1; }
 
         /* ── SCROLL TUNNEL (white hero) ──────────────────────────── */
-        .tunnel { position: relative; height: 320vh; }
+        .tunnel { position: relative; height: 320vh; background: #fff; }
         .hero-sticky {
             position: sticky; top: 0;
             height: 100vh; width: 100%;
@@ -118,9 +118,8 @@
             opacity: 0; animation: wFadeUp .7s .1s cubic-bezier(.16,1,.3,1) forwards;
         }
         .w-headline {
-            font-size: clamp(44px, 7vw, 96px); font-weight: 500;
+            font-size: clamp(60px, 9.5vw, 140px); font-weight: 500;
             letter-spacing: -.045em; line-height: .97; color: #0A1628;
-            will-change: transform;
         }
         #hl-line1, #hl-after, #built-word {
             display: inline;
@@ -129,7 +128,16 @@
         }
         #hl-line1 { animation-delay: .08s; }
         #built-word { animation-delay: .18s; }
-        #hl-after { animation-delay: .18s; }
+        #hl-after  { animation-delay: .18s; }
+        /* Maximum render quality for "built" — promoted to own GPU layer */
+        #built-word {
+            display: inline-block;
+            transform: translateZ(0);
+            will-change: opacity, filter;
+            text-rendering: geometricPrecision;
+            -webkit-font-smoothing: antialiased;
+            backface-visibility: hidden;
+        }
         .w-dim   { color: rgba(10,22,40,.18); }
         .w-blue  { color: #0279FD; }
         .w-cta-row {
@@ -1379,16 +1387,19 @@
             zoomInner.style.transform = 'scale(' + scale + ')';
             zoomInner.style.filter    = 'none';
 
-            /* Surrounding text blurs as a by-product of zooming —
-               same start point so it feels like one continuous motion */
+            /* Surrounding text: fades + blurs dramatically as zoom fires */
             const hlFade = Math.max(0, 1 - easeIO(remap(raw, 0, 0.40, 0, 1)));
-            const hlBlur = easeIO(remap(raw, 0, 0.40, 0, 1)) * 16;
+            const hlBlur = easeIO(remap(raw, 0, 0.40, 0, 1)) * 30;
             if (hlLine1) { hlLine1.style.opacity = hlFade; hlLine1.style.filter = 'blur(' + hlBlur + 'px)'; }
             if (hlAfter) { hlAfter.style.opacity = hlFade; hlAfter.style.filter = 'blur(' + hlBlur + 'px)'; }
 
-            /* "built" stays sharp — the word we're zooming into */
+            /* Motion blur on the whole container — speed/zoom feel.
+               "built" has its own GPU layer so it stays crisper than surroundings. */
+            const motionBlur = easeIn(remap(raw, 0.30, 0.80, 0, 1)) * 12;
+            zoomInner.style.filter = motionBlur > 0 ? 'blur(' + motionBlur + 'px)' : 'none';
+
+            /* "built" gets counteracted to remain relatively sharper */
             builtWord.style.opacity = '1';
-            builtWord.style.filter  = 'none';
 
             /* Overlay: only kicks in after zoom is well past halfway */
             const darkP = easeIO(remap(raw, 0.52, 0.87, 0, 1));
@@ -1397,17 +1408,8 @@
             /* Trigger statement entrance once overlay is opaque */
             if (darkP > 0.85 && stmtSection) stmtSection.classList.add('stmt-visible');
 
-            /* Nav: fades out as zoom begins, reappears once in dark section */
-            const navVisible = raw < 0.04
-                ? 1
-                : raw < 0.22
-                    ? 1 - easeIO(remap(raw, 0.04, 0.22, 0, 1))
-                    : darkP > 0.5
-                        ? easeIO(remap(darkP, 0.5, 1.0, 0, 1))
-                        : 0;
-            nav.style.opacity = navVisible;
-
-            /* Nav color switches to dark when back in the dark section */
+            /* Nav: always visible, just switches color */
+            nav.style.opacity = '1';
             if (darkP > 0.35) nav.classList.add('nav-dark');
             else               nav.classList.remove('nav-dark');
 
