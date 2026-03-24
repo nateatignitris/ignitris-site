@@ -768,6 +768,7 @@
         @media (max-width: 900px) {
             .stats { grid-template-columns: repeat(2,1fr); }
             .stat { border-right:none; border-bottom:1px solid rgba(255,255,255,.07); }
+            .stat:nth-child(odd) { border-right:1px solid rgba(255,255,255,.07); }
             .metrics { grid-template-columns: repeat(2,1fr); }
             .metrics.cols-3 { grid-template-columns: repeat(2,1fr); }
             .m,.m-featured { border-right:none; border-bottom:1px solid rgba(255,255,255,.06); }
@@ -789,6 +790,88 @@
             .science-row { grid-template-columns:1fr; gap:8px; }
             .science-row-num { margin-bottom:4px; }
             .science-row-title { padding-right:0; }
+        }
+
+        /* ── MOBILE (≤768px) — hero, nav, tunnel, statement ─────── */
+        @media (max-width: 768px) {
+            /* Nav — tighter, smaller logo */
+            nav { top:12px; left:12px; right:12px; height:44px; padding:0 14px; }
+            .nav-logo svg { height:13px; }
+            .btn-nav-cta { padding:7px 14px; font-size:9px; }
+
+            /* Hero headline — 60px min is too large on a phone */
+            .w-headline { font-size: clamp(36px, 10vw, 60px); letter-spacing:-.04em; }
+            .w-hero { padding: 0 6vw; padding-top: 72px; }
+
+            /* Hide bars that crowd a small screen */
+            .w-stats-bar { display: none; }
+            .w-scroll-hint { display: none; }
+
+            /* Tunnel — svh excludes iOS URL-bar so sticky fills the visible screen */
+            .hero-sticky { height: 100svh; }
+            .tunnel { height: 200svh; }
+
+            /* Statement headline inside sticky */
+            #stmt-hero { padding: 0 6vw; }
+            #stmt-hero .stmt-inner { padding: 0 0 12px; }
+
+            /* Statement section below tunnel */
+            .section-stmt { min-height: auto; }
+            .stmt-inner { padding: 64px 6vw 56px; }
+            .stmt-h1 { font-size: clamp(26px, 7vw, 48px); }
+            .stmt-body { flex-direction: column; gap: 20px; }
+            .stmt-right { flex-direction: row; flex-wrap: wrap; }
+            .stmt-cta-row { margin-top: 32px; }
+
+            /* Stats strip — fix border pattern for 2-col */
+            .stat { padding: 24px 18px; }
+            .stat-val { font-size: 30px; }
+
+            /* Results / toggle bar */
+            .results-bar { top: 56px; padding: 0 14px; height: 40px; }
+            .toggle-btn { padding: 5px 12px; font-size: 9px; }
+
+            /* Case studies */
+            .cases-wrap { padding: 16px 14px 36px; }
+            .case-top { padding: 18px 16px 16px; }
+
+            /* Logo wall — 3 columns on tablet */
+            .logo-wall-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .platforms-strip { padding: 56px 18px; }
+            .logo-tile { padding: 28px 10px 22px; gap: 14px; }
+            .logo-tile svg { height: 28px; }
+
+            /* Contact */
+            .contact { padding: 72px 20px 88px; }
+
+            /* Footer */
+            footer { padding: 20px 20px; flex-direction: column; gap: 6px; text-align: center; }
+        }
+
+        /* ── SMALL PHONE (≤480px) ────────────────────────────────── */
+        @media (max-width: 480px) {
+            nav { top:10px; left:10px; right:10px; height:42px; }
+            .btn-nav-cta { padding:6px 12px; letter-spacing:.06em; }
+
+            /* Headline — more compact minimum */
+            .w-headline { font-size: clamp(32px, 9.5vw, 50px); }
+
+            /* Stats — single column on very small phones */
+            .stats { grid-template-columns: 1fr; }
+            .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,.07); }
+            .stat:nth-child(odd) { border-right: none; }
+            .stat:last-child { border-bottom: none; }
+
+            /* Logo wall — 2 columns */
+            .logo-wall-row { grid-template-columns: repeat(2, 1fr); }
+
+            /* Metric values */
+            .case-hero-num { font-size: 36px; }
+            .m-val { font-size: 22px; }
+            .m-featured .m-val { font-size: 28px; }
+
+            /* Contact */
+            .contact { padding: 56px 18px 72px; }
         }
 
         /* ── CONTACT FORM ────────────────────────────────────────── */
