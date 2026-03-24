@@ -1397,7 +1397,8 @@
             const oy = (b.top  + b.height/2 - z.top)  / z.height * 100;
             zoomInner.style.transformOrigin = ox + '% ' + oy + '%';
         }
-        setTimeout(calibrate, 900);
+        calibrate();                          /* immediate — no delay */
+        document.fonts.ready.then(calibrate); /* re-calibrate once fonts are measured */
         window.addEventListener('resize', calibrate);
 
         let ticking = false;
@@ -1411,21 +1412,20 @@
                Overlay only arrives once zoom is well underway.
             ──────────────────────────────────────────────────────── */
 
-            /* Zoom: fires immediately on first scroll pixel */
-            const zp    = easeIn(remap(raw, 0, 0.85, 0, 1));
+            /* easeIO is symmetric — identical feel scrolling forward and back */
+            const zp    = easeIO(remap(raw, 0, 0.85, 0, 1));
             const scale = 1 + zp * 18;
             zoomInner.style.transform = 'scale(' + scale + ')';
-            zoomInner.style.filter    = 'none';
 
-            /* Surrounding text: fades + blurs dramatically as zoom fires */
-            const hlFade = Math.max(0, 1 - easeIO(remap(raw, 0, 0.40, 0, 1)));
-            const hlBlur = easeIO(remap(raw, 0, 0.40, 0, 1)) * 30;
+            /* Text blur: also symmetric so reverse scroll mirrors forward */
+            const hlP    = easeIO(remap(raw, 0, 0.42, 0, 1));
+            const hlFade = 1 - hlP;
+            const hlBlur = hlP * 30;
             if (hlLine1) { hlLine1.style.opacity = hlFade; hlLine1.style.filter = 'blur(' + hlBlur + 'px)'; }
             if (hlAfter) { hlAfter.style.opacity = hlFade; hlAfter.style.filter = 'blur(' + hlBlur + 'px)'; }
 
-            /* Motion blur on the whole container — speed/zoom feel.
-               "built" has its own GPU layer so it stays crisper than surroundings. */
-            const motionBlur = easeIn(remap(raw, 0.30, 0.80, 0, 1)) * 12;
+            /* Motion blur: symmetric */
+            const motionBlur = easeIO(remap(raw, 0.28, 0.82, 0, 1)) * 12;
             zoomInner.style.filter = motionBlur > 0 ? 'blur(' + motionBlur + 'px)' : 'none';
 
             /* "built" gets counteracted to remain relatively sharper */
