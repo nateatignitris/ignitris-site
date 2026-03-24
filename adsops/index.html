@@ -84,7 +84,7 @@
         .nav-spacer { flex: 1; }
 
         /* ── SCROLL TUNNEL (white hero) ──────────────────────────── */
-        .tunnel { position: relative; height: 320vh; background: #fff; }
+        .tunnel { position: relative; height: 200vh; background: #fff; }
         .hero-sticky {
             position: sticky; top: 0;
             height: 100vh; width: 100%;
@@ -121,14 +121,11 @@
             font-size: clamp(60px, 9.5vw, 140px); font-weight: 500;
             letter-spacing: -.045em; line-height: .97; color: #0A1628;
         }
-        /* Surrounding spans animate in on load */
+        /* Surrounding spans — JS controls opacity/filter, no CSS animation */
         #hl-line1, #hl-after {
             display: inline;
             opacity: 0;
-            animation: wFadeUp .8s cubic-bezier(.16,1,.3,1) forwards;
         }
-        #hl-line1 { animation-delay: .08s; }
-        #hl-after  { animation-delay: .22s; }
         /* built — no CSS animation (JS owns its opacity), pure GPU layer */
         #built-word {
             display: inline-block;
@@ -1374,6 +1371,10 @@
     <script>
     /* ── Scroll-driven zoom transition ────────────────────── */
     (function() {
+        /* Prevent browser restoring a mid-scroll position on load */
+        if (history.scrollRestoration) history.scrollRestoration = 'manual';
+        window.scrollTo(0, 0);
+
         const tunnel      = document.getElementById('tunnel');
         const zoomInner   = document.getElementById('hero-zoom-inner');
         const overlay     = document.getElementById('zoom-overlay');
@@ -1402,6 +1403,7 @@
         window.addEventListener('resize', calibrate);
 
         let ticking = false;
+        let entranceDone = false; /* entrance animation owns opacity until complete */
         function update() {
             const tr  = tunnel.getBoundingClientRect();
             const raw = clamp(-tr.top / (tunnel.offsetHeight - window.innerHeight), 0, 1);
@@ -1419,19 +1421,20 @@
 
             /* Text disappears BEFORE scale gets large (gone by raw=0.18, scale≈2x).
                On scroll-back, text only returns once scale is back near 1x.
-               This prevents the clipped/distorted look when reversing. */
-            const hlP    = easeIO(remap(raw, 0, 0.18, 0, 1));
-            const hlFade = 1 - hlP;
-            const hlBlur = hlP * 24;
-            if (hlLine1) { hlLine1.style.opacity = hlFade; hlLine1.style.filter = 'blur(' + hlBlur + 'px)'; }
-            if (hlAfter) { hlAfter.style.opacity = hlFade; hlAfter.style.filter = 'blur(' + hlBlur + 'px)'; }
+               Only override opacity once entrance animation has completed — CSS
+               animation forwards-fill was the root cause of the distortion bug. */
+            if (entranceDone) {
+                const hlP    = easeIO(remap(raw, 0, 0.18, 0, 1));
+                const hlFade = 1 - hlP;
+                const hlBlur = hlP * 24;
+                if (hlLine1) { hlLine1.style.opacity = hlFade; hlLine1.style.filter = 'blur(' + hlBlur + 'px)'; }
+                if (hlAfter) { hlAfter.style.opacity = hlFade; hlAfter.style.filter = 'blur(' + hlBlur + 'px)'; }
+                builtWord.style.opacity = '1';
+            }
 
             /* Motion blur: symmetric */
             const motionBlur = easeIO(remap(raw, 0.28, 0.82, 0, 1)) * 12;
             zoomInner.style.filter = motionBlur > 0 ? 'blur(' + motionBlur + 'px)' : 'none';
-
-            /* "built" gets counteracted to remain relatively sharper */
-            builtWord.style.opacity = '1';
 
             /* Overlay: only kicks in after zoom is well past halfway */
             const darkP = easeIO(remap(raw, 0.52, 0.87, 0, 1));
@@ -1455,6 +1458,33 @@
             if (!ticking) { requestAnimationFrame(update); ticking = true; }
         }, { passive: true });
         update();
+
+        /* JS entrance animation — replaces removed CSS wFadeUp on #hl-line1 / #hl-after.
+           Sets initial state explicitly, then transitions to visible.
+           entranceDone flag prevents update() from fighting the animation. */
+        (function() {
+            var ease = 'cubic-bezier(.16,1,.3,1)';
+            /* Ensure starting state (CSS already has opacity:0, add blur+shift) */
+            if (hlLine1)  { hlLine1.style.filter  = 'blur(4px)'; hlLine1.style.transform  = 'translateY(18px)'; }
+            if (hlAfter)  { hlAfter.style.filter   = 'blur(4px)'; hlAfter.style.transform   = 'translateY(18px)'; }
+            if (builtWord){ builtWord.style.filter = 'blur(4px)'; builtWord.style.transform = 'translateY(10px)'; }
+
+            setTimeout(function() {
+                var tr = 'opacity .8s '+ease+', filter .8s '+ease+', transform .8s '+ease;
+                if (hlLine1) { hlLine1.style.transition = tr; hlLine1.style.opacity='1'; hlLine1.style.filter='none'; hlLine1.style.transform='none'; }
+                setTimeout(function() {
+                    if (hlAfter)  { hlAfter.style.transition  = tr; hlAfter.style.opacity='1';  hlAfter.style.filter='none';  hlAfter.style.transform='none'; }
+                    if (builtWord){ builtWord.style.transition = tr; builtWord.style.opacity='1'; builtWord.style.filter='none'; builtWord.style.transform='none'; }
+                    /* After animation completes, remove transitions so scroll JS has instant control */
+                    setTimeout(function() {
+                        [hlLine1, hlAfter, builtWord].forEach(function(el) {
+                            if (el) { el.style.transition = 'none'; el.style.transform = ''; }
+                        });
+                        entranceDone = true;
+                    }, 900);
+                }, 140);
+            }, 80);
+        })();
 
         /* Fallback: IntersectionObserver fires stmt entrance if user scrolls fast */
         if (stmtSection) {
