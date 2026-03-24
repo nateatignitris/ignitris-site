@@ -1417,10 +1417,12 @@
             const scale = 1 + zp * 18;
             zoomInner.style.transform = 'scale(' + scale + ')';
 
-            /* Text blur: also symmetric so reverse scroll mirrors forward */
-            const hlP    = easeIO(remap(raw, 0, 0.42, 0, 1));
+            /* Text disappears BEFORE scale gets large (gone by raw=0.18, scale≈2x).
+               On scroll-back, text only returns once scale is back near 1x.
+               This prevents the clipped/distorted look when reversing. */
+            const hlP    = easeIO(remap(raw, 0, 0.18, 0, 1));
             const hlFade = 1 - hlP;
-            const hlBlur = hlP * 30;
+            const hlBlur = hlP * 24;
             if (hlLine1) { hlLine1.style.opacity = hlFade; hlLine1.style.filter = 'blur(' + hlBlur + 'px)'; }
             if (hlAfter) { hlAfter.style.opacity = hlFade; hlAfter.style.filter = 'blur(' + hlBlur + 'px)'; }
 
