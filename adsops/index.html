@@ -121,22 +121,21 @@
             font-size: clamp(60px, 9.5vw, 140px); font-weight: 500;
             letter-spacing: -.045em; line-height: .97; color: #0A1628;
         }
-        #hl-line1, #hl-after, #built-word {
+        /* Surrounding spans animate in on load */
+        #hl-line1, #hl-after {
             display: inline;
             opacity: 0;
             animation: wFadeUp .8s cubic-bezier(.16,1,.3,1) forwards;
         }
         #hl-line1 { animation-delay: .08s; }
-        #built-word { animation-delay: .18s; }
-        #hl-after  { animation-delay: .18s; }
-        /* Maximum render quality for "built" — promoted to own GPU layer */
+        #hl-after  { animation-delay: .22s; }
+        /* built — no CSS animation (JS owns its opacity), pure GPU layer */
         #built-word {
             display: inline-block;
-            transform: translateZ(0);
-            will-change: opacity, filter;
+            opacity: 0; /* JS sets to 1 on first frame */
+            will-change: transform;
             text-rendering: geometricPrecision;
             -webkit-font-smoothing: antialiased;
-            backface-visibility: hidden;
         }
         .w-dim   { color: rgba(10,22,40,.18); }
         .w-blue  { color: #0279FD; }
@@ -400,22 +399,53 @@
         /* ── SCROLL REVEAL ───────────────────────────────────────── */
         .reveal {
             opacity: 0;
-            transform: translateY(14px) scale(0.98);
-            filter: blur(7px);
+            transform: translateY(22px) scale(0.97);
+            filter: blur(8px);
             transition:
-                opacity 0.65s cubic-bezier(0.16,1,0.3,1),
-                transform 0.65s cubic-bezier(0.16,1,0.3,1),
-                filter 0.45s cubic-bezier(0.16,1,0.3,1);
+                opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+                transform 0.8s cubic-bezier(0.16,1,0.3,1),
+                filter 0.55s cubic-bezier(0.16,1,0.3,1);
         }
         .reveal.in {
             opacity: 1;
             transform: translateY(0) scale(1);
             filter: blur(0px);
         }
-        .rv2 { transition-delay: .1s; }
-        .rv3 { transition-delay: .18s; }
-        .rv4 { transition-delay: .26s; }
-        .rv5 { transition-delay: .34s; }
+        .rv2 { transition-delay: .12s; }
+        .rv3 { transition-delay: .22s; }
+        .rv4 { transition-delay: .32s; }
+        .rv5 { transition-delay: .42s; }
+
+        /* ── STAGGER GRID ITEMS ──────────────────────────────────── */
+        /* Applied via JS to: .stat, .m/.m-featured, .science-row, .logo-tile, .chart-cell */
+        .s-item {
+            opacity: 0;
+            transform: translateY(18px) scale(0.97);
+            filter: blur(6px);
+            transition:
+                opacity   0.7s  var(--sd, 0s) cubic-bezier(0.16,1,0.3,1),
+                transform 0.7s  var(--sd, 0s) cubic-bezier(0.16,1,0.3,1),
+                filter    0.5s  var(--sd, 0s) ease;
+        }
+        .s-item.s-in {
+            opacity: 1; transform: none; filter: none;
+        }
+        /* Chart cells slide up from bottom */
+        .chart-cell.s-item {
+            transform: translateY(28px);
+            filter: none;
+        }
+        /* Science rows come from left */
+        .science-row.s-item {
+            transform: translateX(-24px) translateY(0);
+        }
+        .science-row.s-item.s-in {
+            transform: none;
+        }
+        /* Logo tiles scale up */
+        .logo-tile.s-item {
+            transform: scale(0.88) translateY(10px);
+        }
 
         /* ── LIQUID GLASS DIVIDERS ───────────────────────────────── */
         .glass-line {
@@ -1405,8 +1435,11 @@
             const darkP = easeIO(remap(raw, 0.52, 0.87, 0, 1));
             overlay.style.opacity = darkP;
 
-            /* Trigger statement entrance once overlay is opaque */
-            if (darkP > 0.85 && stmtSection) stmtSection.classList.add('stmt-visible');
+            /* Statement entrance — add AND remove so scroll-back works */
+            if (stmtSection) {
+                if (darkP > 0.85) stmtSection.classList.add('stmt-visible');
+                else if (darkP < 0.3) stmtSection.classList.remove('stmt-visible');
+            }
 
             /* Nav: always visible, just switches color */
             nav.style.opacity = '1';
@@ -1467,17 +1500,71 @@
     </script>
 
     <script>
-    /* ── Scroll reveal ── */
+    /* ── Cinematic scroll reveals ── */
     (function () {
-        const obs = new IntersectionObserver((entries) => {
+        /* 1. Basic .reveal (case cards, stats block, contact) */
+        const revObs = new IntersectionObserver((entries) => {
             entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('in');
-                    obs.unobserve(e.target);
-                }
+                if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); }
             });
-        }, { threshold: 0.07, rootMargin: '0px 0px -48px 0px' });
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+        /* 2. Staggered grid items — stat, metric, science-row, logo-tile, chart-cell */
+        const STAGGER_DELAY = 72; /* ms between each child */
+        const groups = [
+            { parent: '.stats',          items: '.stat'                    },
+            { parent: '.metrics',        items: '.m, .m-featured'          },
+            { parent: '.science-rows',   items: '.science-row'             },
+            { parent: '.logo-wall-row',  items: '.logo-tile'               },
+            { parent: '.chart-row',      items: '.chart-cell'              },
+        ];
+
+        groups.forEach(({ parent, items }) => {
+            document.querySelectorAll(parent).forEach(container => {
+                const children = Array.from(container.querySelectorAll(items));
+                /* Mark as stagger items + set per-child delay via CSS var */
+                children.forEach((el, i) => {
+                    el.classList.add('s-item');
+                    el.style.setProperty('--sd', (i * STAGGER_DELAY) + 'ms');
+                });
+
+                const obs = new IntersectionObserver((entries) => {
+                    if (!entries[0].isIntersecting) return;
+                    children.forEach(el => el.classList.add('s-in'));
+                    obs.disconnect();
+                }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+                obs.observe(container);
+            });
+        });
+
+        /* 3. Metric value count-up — fires when the metrics grid enters view */
+        document.querySelectorAll('.metrics').forEach(container => {
+            const vals = Array.from(container.querySelectorAll('.m-val, .m-ba-before'));
+            const obs = new IntersectionObserver((entries) => {
+                if (!entries[0].isIntersecting) return;
+                obs.disconnect();
+                vals.forEach((el, i) => {
+                    const raw = el.textContent.trim();
+                    const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
+                    if (!num || isNaN(num)) return;
+                    const prefix = raw.match(/^[^0-9]*/)[0];
+                    const suffix = raw.match(/[^0-9.]+$/)?.[0] || '';
+                    const isDecimal = raw.includes('.');
+                    const dur = 1100, delay = i * 60;
+                    setTimeout(() => {
+                        const t0 = performance.now();
+                        (function step(now) {
+                            const p = Math.min((now - t0) / dur, 1);
+                            const ease = 1 - Math.pow(1 - p, 3);
+                            el.textContent = prefix + (isDecimal ? (num * ease).toFixed(1) : Math.round(num * ease)) + suffix;
+                            if (p < 1) requestAnimationFrame(step);
+                        })(performance.now());
+                    }, delay);
+                });
+            }, { threshold: 0.2 });
+            obs.observe(container);
+        });
     })();
     </script>
 
