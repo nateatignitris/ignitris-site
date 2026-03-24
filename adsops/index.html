@@ -67,7 +67,7 @@
             backdrop-filter: blur(40px) saturate(180%);
             -webkit-backdrop-filter: blur(40px) saturate(180%);
             border: 1px solid rgba(10,22,40,0.10);
-            transition: background 0.5s ease, border-color 0.5s ease;
+            transition: background 0.5s ease, border-color 0.5s ease, opacity 0.1s linear;
         }
         nav.nav-dark {
             background: rgba(0,0,0,0.75);
@@ -120,9 +120,16 @@
         .w-headline {
             font-size: clamp(44px, 7vw, 96px); font-weight: 500;
             letter-spacing: -.045em; line-height: .97; color: #0A1628;
-            opacity: 0; animation: wFadeUp .7s .2s cubic-bezier(.16,1,.3,1) forwards;
-            will-change: opacity, transform;
+            will-change: transform;
         }
+        #hl-line1, #hl-after, #built-word {
+            display: inline;
+            opacity: 0;
+            animation: wFadeUp .8s cubic-bezier(.16,1,.3,1) forwards;
+        }
+        #hl-line1 { animation-delay: .08s; }
+        #built-word { animation-delay: .18s; }
+        #hl-after { animation-delay: .18s; }
         .w-dim   { color: rgba(10,22,40,.18); }
         .w-blue  { color: #0279FD; }
         .w-cta-row {
@@ -1390,7 +1397,17 @@
             /* Trigger statement entrance once overlay is opaque */
             if (darkP > 0.85 && stmtSection) stmtSection.classList.add('stmt-visible');
 
-            /* Nav switches to dark */
+            /* Nav: fades out as zoom begins, reappears once in dark section */
+            const navVisible = raw < 0.04
+                ? 1
+                : raw < 0.22
+                    ? 1 - easeIO(remap(raw, 0.04, 0.22, 0, 1))
+                    : darkP > 0.5
+                        ? easeIO(remap(darkP, 0.5, 1.0, 0, 1))
+                        : 0;
+            nav.style.opacity = navVisible;
+
+            /* Nav color switches to dark when back in the dark section */
             if (darkP > 0.35) nav.classList.add('nav-dark');
             else               nav.classList.remove('nav-dark');
 
