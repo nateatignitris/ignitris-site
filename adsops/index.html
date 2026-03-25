@@ -84,159 +84,116 @@
         .nav-right { display:flex; align-items:center; gap:10px; }
         .nav-spacer { flex: 1; }
 
-        /* ── SCROLL TUNNEL (white hero) ──────────────────────────── */
-        .tunnel { position: relative; height: 200vh; background: #fff; }
+        /* ── HERO TUNNEL (black, scroll-assembled) ───────────────── */
+        .hero-tunnel { position: relative; height: 320vh; background: #000; }
         .hero-sticky {
-            position: sticky; top: 0;
-            height: 100vh; width: 100%;
-            overflow: hidden; background: #fff;
+            position: sticky; top: 0; height: 100vh; width: 100%;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; background: #000;
         }
-        /* This is the element that gets scaled — overlay is its sibling */
-        .hero-zoom-inner {
-            position: absolute; inset: 0;
-            will-change: transform, filter;
-        }
-        /* Statement headline — absolutely positioned over the black overlay.
-           Fades in via JS (darkP) so it appears as part of the zoom scroll,
-           with zero extra scrolling required to find it. */
-        #stmt-hero {
-            position: absolute; inset: 0; z-index: 20;
-            opacity: 0; pointer-events: none;
-            display: flex; align-items: center;
-            padding: 0 8vw;
-        }
-        /* Dark overlay is a sibling — NOT inside the scaled element */
-        .zoom-overlay {
-            position: absolute; inset: 0;
-            background: #000;
-            z-index: 10; opacity: 0;
-            pointer-events: none;
-            will-change: opacity;
-        }
-        /* White hero content */
-        .w-hero {
+        /* Outgoing headline — drifts up and dissolves */
+        .h-out {
             position: absolute; inset: 0;
             display: flex; flex-direction: column;
-            justify-content: center;
-            padding: 0 8vw;
-            z-index: 2;
+            align-items: center; justify-content: center; text-align: center;
+            will-change: transform, opacity;
         }
-        .w-eyebrow {
-            font-size: 9px; font-weight: 600; letter-spacing: .22em;
-            text-transform: uppercase; color: rgba(10,22,40,.25);
-            margin-bottom: 32px;
-            opacity: 0; animation: wFadeUp .7s .1s cubic-bezier(.16,1,.3,1) forwards;
+        .h-out-label {
+            font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+            color: rgba(255,255,255,.28); margin-bottom: 28px;
         }
-        .w-headline {
-            font-size: clamp(60px, 9.5vw, 140px); font-weight: 500;
-            letter-spacing: -.045em; line-height: .97; color: #0A1628;
+        .h-out-line {
+            font-size: clamp(42px, 6vw, 86px); font-weight: 300;
+            letter-spacing: -.03em; line-height: 1.08; color: #fff;
         }
-        /* Surrounding spans — JS controls opacity/filter, no CSS animation */
-        #hl-line1, #hl-after {
-            display: inline;
-            opacity: 0;
+        .h-out-line em { font-style: italic; color: rgba(255,255,255,.42); }
+        /* Incoming headline — assembles line by line */
+        .h-in {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            pointer-events: none;
         }
-        /* built — no CSS animation (JS owns its opacity), pure GPU layer */
-        #built-word {
-            display: inline-block;
-            opacity: 0; /* JS sets to 1 on first frame */
-            will-change: transform;
-            text-rendering: geometricPrecision;
-            -webkit-font-smoothing: antialiased;
+        .h-in-line {
+            font-size: clamp(42px, 6vw, 86px); font-weight: 300;
+            letter-spacing: -.03em; line-height: 1.08; color: #fff;
+            opacity: 0; transform: translateY(32px); filter: blur(12px);
+            will-change: transform, opacity, filter;
         }
-        .w-dim   { color: rgba(10,22,40,.18); }
-        .w-blue  { color: #0279FD; }
-        .w-cta-row {
-            display: flex; align-items: center; gap: 20px;
-            margin-top: 40px; padding-top: 28px;
-            border-top: 1px solid rgba(10,22,40,.07);
-            opacity: 0; animation: wFadeUp .7s .34s cubic-bezier(.16,1,.3,1) forwards;
+        .h-in-line em { font-style: italic; color: rgba(255,255,255,.5); }
+        /* Lock-phase subtext */
+        .h-lock-copy {
+            position: absolute; inset: 0; pointer-events: none;
+            display: flex; align-items: center; justify-content: center;
         }
-        /* Corner bracket button — light */
-        .btn-light {
-            position: relative; display: inline-flex; align-items: center;
-            padding: 9px 22px; font-size: 10px; font-weight: 600;
-            letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
-            color: rgba(10,22,40,.85); background: rgba(10,22,40,.04);
-            border: 1px solid rgba(10,22,40,.12); cursor: pointer; font-family: inherit;
-            transition: all .3s cubic-bezier(.16,1,.3,1);
-        }
-        .btn-light::before,.btn-light::after {
-            content:''; position:absolute; width:5px; height:5px;
-            border:1px solid rgba(10,22,40,.2); transition:all .25s ease;
-        }
-        .btn-light::before { top:-1px; left:-1px; border-right:none; border-bottom:none; }
-        .btn-light::after  { bottom:-1px; right:-1px; border-left:none; border-top:none; }
-        .btn-light:hover { background:rgba(10,22,40,.08); border-color:rgba(10,22,40,.2); transform:translateY(-1px); }
-        .btn-light:hover::before,.btn-light:hover::after { border-color:rgba(10,22,40,.5); width:8px; height:8px; }
-
-        .w-stats-bar {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            display: flex; border-top: 1px solid rgba(10,22,40,.07);
-            z-index: 3; background: #fff;
-            opacity: 0; animation: wFadeUp .7s .46s cubic-bezier(.16,1,.3,1) forwards;
-        }
-        .w-stat-cell {
-            flex:1; padding:16px 0; text-align:center;
-            border-right:1px solid rgba(10,22,40,.07);
-            display:flex; flex-direction:column; gap:4px; align-items:center;
-        }
-        .w-stat-cell:last-child { border-right:none; }
-        .w-stat-val { font-size:16px; font-weight:400; letter-spacing:-.025em; color:#0A1628; line-height:1; }
-        .w-stat-lbl { font-size:9px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:rgba(10,22,40,.25); }
-        .w-scroll-hint {
-            position:absolute; bottom:62px; left:8vw;
-            display:flex; align-items:center; gap:10px;
-            font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:rgba(10,22,40,.2);
-            opacity:0; animation:wFadeUp .7s .6s cubic-bezier(.16,1,.3,1) forwards;
-            pointer-events:none; z-index:4;
-        }
-        .w-scroll-dot {
-            width:4px; height:4px; border-radius:50%;
-            background:rgba(10,22,40,.25);
-            animation:dotPulse2 1.8s ease-in-out infinite;
-        }
-        @keyframes dotPulse2 { 0%,100%{transform:scale(1);opacity:.4} 50%{transform:scale(1.6);opacity:1} }
-        @keyframes wFadeUp {
-            from { opacity:0; transform:translateY(20px); filter:blur(4px); }
-            to   { opacity:1; transform:none; filter:none; }
+        .h-lock-sub {
+            font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
+            color: rgba(255,255,255,.28); opacity: 0; text-align: center;
+            line-height: 1.7; max-width: 360px;
+            margin-top: calc(clamp(42px,6vw,86px) * 3.4 + 56px);
+            will-change: opacity;
         }
 
-        /* ── STATEMENT SECTION (pure black) ─────────────────────── */
-        .section-stmt {
-            background: #000; min-height: 100vh; position: relative;
-            overflow: hidden; display: flex; align-items: center;
+        /* ── TICKER ──────────────────────────────────────────────── */
+        .ticker-wrap {
+            border-top: 1px solid rgba(255,255,255,.07);
+            border-bottom: 1px solid rgba(255,255,255,.07);
+            padding: 22px 0 8px; overflow: hidden;
         }
-        /* Statement section content — always visible, no entrance delay */
-        .stmt-h1, .stmt-divider, .stmt-copy, .stmt-cta-row { opacity: 1; transform: none; }
-        .stmt-inner {
-            position:relative; z-index:2; width:100%; max-width:980px;
-            margin:0 auto; padding:120px 8vw 100px;
+        .ticker-track {
+            display: flex; align-items: center; gap: 32px;
+            white-space: nowrap;
+            animation: ticker-scroll 30s linear infinite;
+            width: max-content;
         }
-        .stmt-eyebrow {
-            font-size:9px; font-weight:600; letter-spacing:.22em;
-            text-transform:uppercase; color:rgba(255,255,255,.2);
-            margin-bottom:40px; display:flex; align-items:center; gap:14px;
+        @keyframes ticker-scroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
         }
-        .stmt-eyebrow::after { content:''; flex:0 0 36px; height:1px; background:rgba(255,255,255,.1); }
-        .stmt-h1 {
-            font-size:clamp(34px,5.2vw,68px); font-weight:400;
-            letter-spacing:-.04em; line-height:1.06; color:#fff; margin-bottom:52px;
+        .ticker-item {
+            font-size: 20px; font-weight: 300; letter-spacing: -.02em;
+            color: rgba(255,255,255,.65);
         }
-        .stmt-h1 em { font-style:normal; color:rgba(255,255,255,.2); }
-        .stmt-divider { width:100%; height:1px; background:rgba(255,255,255,.07); margin-bottom:52px; }
-        .stmt-body { display:flex; gap:7vw; align-items:flex-start; flex-wrap:wrap; }
-        .stmt-copy { flex:1; min-width:260px; font-size:15px; color:rgba(255,255,255,.38); line-height:1.7; font-weight:400; }
-        .stmt-copy strong { color:rgba(255,255,255,.8); font-weight:500; }
-        .stmt-right { flex-shrink:0; display:flex; flex-direction:column; gap:10px; }
-        .stmt-badge {
-            display:flex; align-items:center; gap:12px;
-            padding:11px 16px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.02);
+        .ticker-dot { font-size: 12px; color: rgba(255,255,255,.18); flex-shrink: 0; }
+        .ticker-label {
+            text-align: center; font-size: 10px; letter-spacing: .1em;
+            text-transform: uppercase; color: rgba(255,255,255,.16);
+            padding: 14px 0 20px;
         }
-        .stmt-badge-dot { width:5px; height:5px; border-radius:50%; background:#0279FD; flex-shrink:0; }
-        .stmt-badge-txt { font-size:11px; font-weight:500; letter-spacing:.05em; color:rgba(255,255,255,.4); }
-        .stmt-cta-row { margin-top:56px; display:flex; align-items:center; gap:18px; }
-        .stmt-note { font-size:11px; color:rgba(255,255,255,.18); letter-spacing:.03em; }
+
+        /* ── CASE DIVIDERS ───────────────────────────────────────── */
+        .case-rule { padding: 0; overflow: hidden; }
+        .case-rule-line {
+            height: 1px; background: rgba(255,255,255,.07);
+            width: 0%; transition: width 0.8s cubic-bezier(0.16,1,0.3,1);
+        }
+        .case-rule-line.wiped { width: 100%; }
+
+        /* ── SCIENCE ROW BORDER DRAW ─────────────────────────────── */
+        .science-row { position: relative; padding-left: 20px; }
+        .science-row-border {
+            position: absolute; left: 0; top: 0;
+            width: 1.5px; height: 0%;
+            background: rgba(255,255,255,.3);
+            transition: height 0.65s cubic-bezier(0.16,1,0.3,1);
+        }
+        .science-row.border-drawn .science-row-border { height: 100%; }
+        .science-row.row-past { opacity: 0.4; transition: opacity 0.4s ease; }
+        .science-row.row-active { opacity: 1; transition: opacity 0.3s ease; }
+
+        /* ── CONTACT SEQUENTIAL REVEAL ───────────────────────────── */
+        .form-reveal .contact-label,
+        .form-reveal .contact-title,
+        .form-reveal .contact-sub,
+        .form-reveal .contact-form-wrap {
+            opacity: 0; transform: translateY(18px);
+            transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+                        transform 0.75s cubic-bezier(0.16,1,0.3,1);
+        }
+        .form-reveal.form-in .contact-label      { opacity:1; transform:none; transition-delay:0s; }
+        .form-reveal.form-in .contact-title      { opacity:1; transform:none; transition-delay:.1s; }
+        .form-reveal.form-in .contact-sub        { opacity:1; transform:none; transition-delay:.2s; }
+        .form-reveal.form-in .contact-form-wrap  { opacity:1; transform:none; transition-delay:.32s; }
 
         /* ── BUTTONS ─────────────────────────────────────────────── */
         .btn {
@@ -293,6 +250,7 @@
         }
         nav.nav-dark .btn-nav-cta::before,
         nav.nav-dark .btn-nav-cta::after { border-color:#0279FD; }
+        nav.nav-tight { height: 42px; border-color: rgba(255,255,255,0.15); }
 
         /* ── PAGE SHELL ──────────────────────────────────────────── */
         .page { padding-top: 0; }
@@ -793,36 +751,18 @@
             .science-row-title { padding-right:0; }
         }
 
-        /* ── MOBILE (≤768px) — hero, nav, tunnel, statement ─────── */
+        /* ── MOBILE (≤768px) ────────────────────────────────────── */
         @media (max-width: 768px) {
             /* Nav — tighter, smaller logo */
             nav { top:12px; left:12px; right:12px; height:44px; padding:0 14px; }
             .nav-logo svg { height:13px; }
             .btn-nav-cta { padding:7px 14px; font-size:9px; }
 
-            /* Hero headline — 60px min is too large on a phone */
-            .w-headline { font-size: clamp(36px, 10vw, 60px); letter-spacing:-.04em; }
-            .w-hero { padding: 0 6vw; padding-top: 72px; }
-
-            /* Hide bars that crowd a small screen */
-            .w-stats-bar { display: none; }
-            .w-scroll-hint { display: none; }
-
-            /* Tunnel — svh excludes iOS URL-bar so sticky fills the visible screen */
+            /* Hero tunnel — svh excludes iOS URL-bar */
+            .hero-tunnel { height: 260svh; }
             .hero-sticky { height: 100svh; }
-            .tunnel { height: 200svh; }
-
-            /* Statement headline inside sticky */
-            #stmt-hero { padding: 0 6vw; }
-            #stmt-hero .stmt-inner { padding: 0 0 12px; }
-
-            /* Statement section below tunnel */
-            .section-stmt { min-height: auto; }
-            .stmt-inner { padding: 64px 6vw 56px; }
-            .stmt-h1 { font-size: clamp(26px, 7vw, 48px); }
-            .stmt-body { flex-direction: column; gap: 20px; }
-            .stmt-right { flex-direction: row; flex-wrap: wrap; }
-            .stmt-cta-row { margin-top: 32px; }
+            .h-out-line, .h-in-line { font-size: clamp(32px, 9vw, 60px); }
+            .h-lock-sub { font-size: 11px; }
 
             /* Stats strip — fix border pattern for 2-col */
             .stat { padding: 24px 18px; }
@@ -994,77 +934,63 @@
     </div>
 </nav>
 
-<!-- ══ WHITE HERO TUNNEL ════════════════════════════════════ -->
-<div class="tunnel" id="tunnel">
+<!-- ══ HERO TUNNEL ══════════════════════════════════════════ -->
+<div class="hero-tunnel" id="hero-tunnel">
     <div class="hero-sticky" id="hero-sticky">
 
-        <!-- Scaled element (zooms in) -->
-        <div class="hero-zoom-inner" id="hero-zoom-inner">
-            <div class="w-hero" id="w-hero">
-                <h1 class="w-headline" id="w-headline">
-                    <span id="hl-line1">documented<br>results, </span><span id="built-word" class="w-blue">built</span><span id="hl-after"><br><span class="w-dim">on paid.</span></span>
-                </h1>
-            </div>
+        <!-- Outgoing: fades + drifts up as you scroll -->
+        <div class="h-out" id="h-out">
+            <div class="h-out-label">Ignitris</div>
+            <div class="h-out-line">paid acquisition</div>
+            <div class="h-out-line"><em>that compounds.</em></div>
         </div>
 
-        <!-- Dark overlay — sibling of scaled element, NOT inside it -->
-        <div class="zoom-overlay" id="zoom-overlay"></div>
+        <!-- Incoming: assembles line by line on scroll progress -->
+        <div class="h-in" id="h-in">
+            <div class="h-in-line" id="in-l1">built on systems</div>
+            <div class="h-in-line" id="in-l2">your competitors</div>
+            <div class="h-in-line" id="in-l3"><em>can't replicate.</em></div>
+        </div>
 
-        <!-- Statement headline — fades in over the black overlay as scroll completes.
-             Appears immediately as part of the zoom; no extra scrolling needed. -->
-        <div id="stmt-hero">
-            <div class="stmt-inner" style="padding:0 0 40px;">
-                <h1 class="stmt-h1">built on systems<br>your competitors<br><em>can't replicate.</em></h1>
-                <div class="stmt-cta-row" style="margin-top:40px;">
-                    <a href="#contact" class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Work with us</a>
-                </div>
-            </div>
+        <!-- Subtext — fades in after statement locks -->
+        <div class="h-lock-copy">
+            <div class="h-lock-sub" id="h-lock-sub">No retainers. No guesswork.<br>Just paid that compounds.</div>
         </div>
 
     </div>
 </div>
 
-<!-- ══ STATEMENT SECTION (pure black) ════════════════════════ -->
-<section class="section-stmt">
-    <div class="stmt-inner">
-        <h1 class="stmt-h1">built on systems<br>your competitors<br><em>can't replicate.</em></h1>
-        <div class="stmt-divider"></div>
-        <div class="stmt-body">
-            <p class="stmt-copy">
-                Most paid acquisition misses the window. We built <strong>proprietary software</strong> that identifies the exact moment a customer is ready to convert — and capitalizes on it before your competitors see it coming.<br><br>
-                No retainers. No guesswork. Just paid that compounds.
-            </p>
-        </div>
-        <div class="stmt-cta-row">
-            <a href="#contact" class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Work with us</a>
-        </div>
-    </div>
-</section>
-
 <div class="page">
 
 
-    <div class="stats reveal" style="padding-top:48px; padding-bottom:48px;">
-        <div class="stat">
-            <div class="stat-val" data-count="5.8" data-prefix="" data-suffix="x">5.8x</div>
-            <div class="stat-lbl">Peak ROAS</div>
-            <div class="stat-ref">in 90 days</div>
+    <div class="ticker-wrap">
+        <div class="ticker-track">
+            <span class="ticker-item">5.8x ROAS</span>
+            <span class="ticker-dot">·</span>
+            <span class="ticker-item">77% CPI reduction</span>
+            <span class="ticker-dot">·</span>
+            <span class="ticker-item">$380K pipeline in 75 days</span>
+            <span class="ticker-dot">·</span>
+            <span class="ticker-item">2.75x spend scaled</span>
+            <span class="ticker-dot">·</span>
+            <span class="ticker-item">$172K revenue attributed</span>
+            <span class="ticker-dot">·</span>
+            <span class="ticker-item">31% SQL rate</span>
+            <span class="ticker-dot">·</span>
+            <span class="ticker-item">5.8x ROAS</span>
+            <span class="ticker-dot">·</span>
+            <span class="ticker-item">77% CPI reduction</span>
+            <span class="ticker-dot">·</span>
+            <span class="ticker-item">$380K pipeline in 75 days</span>
+            <span class="ticker-dot">·</span>
+            <span class="ticker-item">2.75x spend scaled</span>
+            <span class="ticker-dot">·</span>
+            <span class="ticker-item">$172K revenue attributed</span>
+            <span class="ticker-dot">·</span>
+            <span class="ticker-item">31% SQL rate</span>
+            <span class="ticker-dot">·</span>
         </div>
-        <div class="stat">
-            <div class="stat-val" data-count="380" data-prefix="$" data-suffix="K">$380K</div>
-            <div class="stat-lbl">Pipeline built</div>
-            <div class="stat-ref">75 days, $0 baseline</div>
-        </div>
-        <div class="stat">
-            <div class="stat-val" data-count="77" data-prefix="" data-suffix="%">77%</div>
-            <div class="stat-lbl">CPI reduction</div>
-            <div class="stat-ref">$6.20 to $1.40</div>
-        </div>
-        <div class="stat">
-            <div class="stat-val" data-count="31" data-prefix="" data-suffix="%">31%</div>
-            <div class="stat-lbl">SQL rate</div>
-            <div class="stat-ref">B2B fintech, from 8%</div>
-        </div>
+        <div class="ticker-label">documented results, 2023–2025</div>
     </div>
 
 
@@ -1106,6 +1032,8 @@
                 </div>
             </div>
 
+            <div class="case-rule"><div class="case-rule-line"></div></div>
+
             <div class="case reveal rv2">
                 <div class="case-top">
                     <div>
@@ -1143,6 +1071,8 @@
                     </div>
                 </div>
             </div>
+
+            <div class="case-rule"><div class="case-rule-line"></div></div>
 
             <div class="case reveal rv3">
                 <div class="case-top">
@@ -1214,6 +1144,8 @@
                 </div>
             </div>
 
+            <div class="case-rule"><div class="case-rule-line"></div></div>
+
             <div class="case reveal rv2">
                 <div class="case-top">
                     <div>
@@ -1281,21 +1213,25 @@
             </div>
             <div class="science-rows">
                 <div class="science-row reveal">
+                    <div class="science-row-border"></div>
                     <div class="science-row-num">01</div>
                     <div class="science-row-title">Hypothesis-driven creative</div>
                     <div class="science-row-body">every ad starts with a written hypothesis: target persona, psychological trigger, success metric. example: "wellness buyers aged 35–50 respond to authority positioning (doctor endorsement) → success = sub-$30 CPA." we test with purpose, not guesses.</div>
                 </div>
                 <div class="science-row reveal">
+                    <div class="science-row-border"></div>
                     <div class="science-row-num">02</div>
                     <div class="science-row-title">Intent-signal audience layering</div>
                     <div class="science-row-body">we build audiences around behaviors and intent signals, not demographics. this means ads hit people when they're already considering a purchase — not just matching a profile. example: retarget cart abandoners who viewed pricing 2x in 7 days with an urgency-based offer.</div>
                 </div>
                 <div class="science-row reveal">
+                    <div class="science-row-border"></div>
                     <div class="science-row-num">03</div>
                     <div class="science-row-title">Offer engineering before scale</div>
                     <div class="science-row-body">the ad is rarely the problem — the offer is. we test offer structures (discount vs. free shipping vs. bundle), risk reversals (money-back guarantee positioning), and urgency mechanics before scaling spend. a 2x better offer beats a 2x bigger budget every time.</div>
                 </div>
                 <div class="science-row reveal">
+                    <div class="science-row-border"></div>
                     <div class="science-row-num">04</div>
                     <div class="science-row-title">High-velocity testing cadence</div>
                     <div class="science-row-body">we run 12–20 new creative variants per week across most accounts. faster test cycles = find winners sooner, kill losers before they drain budget, scale with data instead of guesswork. most agencies test 3–5 variants per month. we do that in 2 days.</div>
@@ -1552,132 +1488,77 @@
         window.__lenis = lenis;
     })();
 
-    /* ── Scroll-driven zoom transition ────────────────────── */
+    /* ── Hero handoff scroll ───────────────────────────────── */
     (function() {
-        /* Prevent browser restoring a mid-scroll position on load */
         if (history.scrollRestoration) history.scrollRestoration = 'manual';
         if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
         else window.scrollTo(0, 0);
 
-        const tunnel      = document.getElementById('tunnel');
-        const zoomInner   = document.getElementById('hero-zoom-inner');
-        const overlay     = document.getElementById('zoom-overlay');
-        const wHero       = document.getElementById('w-hero');
-        const nav         = document.querySelector('nav');
-        const builtWord   = document.getElementById('built-word');
-        const hlLine1     = document.getElementById('hl-line1');
-        const hlAfter     = document.getElementById('hl-after');
-        const stmtSection = document.querySelector('.section-stmt');
-        const stmtHero    = document.getElementById('stmt-hero');
+        var tunnel   = document.getElementById('hero-tunnel');
+        var hOut     = document.getElementById('h-out');
+        var inL1     = document.getElementById('in-l1');
+        var inL2     = document.getElementById('in-l2');
+        var inL3     = document.getElementById('in-l3');
+        var hLockSub = document.getElementById('h-lock-sub');
+        var nav      = document.querySelector('nav');
 
         function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
         function remap(v,i0,i1,o0,o1){return o0+(o1-o0)*clamp((v-i0)/(i1-i0),0,1);}
-        function easeIn(t){return t*t*t;}
-        function easeIO(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
 
-        /* Set transform-origin to center of "built" word */
-        function calibrate() {
-            const b = builtWord.getBoundingClientRect();
-            const z = zoomInner.getBoundingClientRect();
-            const ox = (b.left + b.width/2  - z.left) / z.width  * 100;
-            const oy = (b.top  + b.height/2 - z.top)  / z.height * 100;
-            zoomInner.style.transformOrigin = ox + '% ' + oy + '%';
+        function applyLine(el, prog) {
+            el.style.opacity   = prog;
+            el.style.transform = 'translateY(' + ((1-prog)*32) + 'px)';
+            el.style.filter    = 'blur(' + ((1-prog)*12) + 'px)';
         }
-        calibrate();                          /* immediate — no delay */
-        document.fonts.ready.then(calibrate); /* re-calibrate once fonts are measured */
-        window.addEventListener('resize', calibrate);
 
-        let ticking = false;
-        let entranceDone = false; /* entrance animation owns opacity until complete */
+        var ticking = false;
         function update() {
-            const tr  = tunnel.getBoundingClientRect();
-            const raw = clamp(-tr.top / (tunnel.offsetHeight - window.innerHeight), 0, 1);
+            if (!tunnel) return;
+            var rect  = tunnel.getBoundingClientRect();
+            var total = tunnel.offsetHeight - window.innerHeight;
+            var p     = clamp(-rect.top / total, 0, 1);
 
-            /* ── ONE FLUID DIVE ───────────────────────────────────────
-               Zoom + blur start together at scroll=0 as one action.
-               "built" stays razor sharp — it's the target.
-               Overlay only arrives once zoom is well underway.
-            ──────────────────────────────────────────────────────── */
+            /* Outgoing: drift up + fade (0→0.38) */
+            var outP = remap(p, 0, 0.38, 0, 1);
+            hOut.style.transform = 'translateY(' + (outP * -90) + 'px)';
+            hOut.style.opacity   = 1 - outP;
 
-            /* easeIO is symmetric — identical feel scrolling forward and back */
-            const zp    = easeIO(remap(raw, 0, 0.85, 0, 1));
-            const scale = 1 + zp * 18;
-            zoomInner.style.transform = 'scale(' + scale + ')';
+            /* Incoming lines — staggered */
+            applyLine(inL1, remap(p, 0.15, 0.40, 0, 1));
+            applyLine(inL2, remap(p, 0.28, 0.53, 0, 1));
+            applyLine(inL3, remap(p, 0.41, 0.66, 0, 1));
 
-            /* Text disappears BEFORE scale gets large (gone by raw=0.18, scale≈2x).
-               On scroll-back, text only returns once scale is back near 1x.
-               Only override opacity once entrance animation has completed — CSS
-               animation forwards-fill was the root cause of the distortion bug. */
-            if (entranceDone) {
-                const hlP    = easeIO(remap(raw, 0, 0.18, 0, 1));
-                const hlFade = 1 - hlP;
-                const hlBlur = hlP * 24;
-                if (hlLine1) { hlLine1.style.opacity = hlFade; hlLine1.style.filter = 'blur(' + hlBlur + 'px)'; }
-                if (hlAfter) { hlAfter.style.opacity = hlFade; hlAfter.style.filter = 'blur(' + hlBlur + 'px)'; }
-                builtWord.style.opacity = '1';
+            /* Lock-phase subtext */
+            if (hLockSub) hLockSub.style.opacity = remap(p, 0.62, 0.82, 0, 1);
+
+            /* Nav always dark on black hero; tighten at 80px */
+            if (nav) {
+                nav.classList.add('nav-dark');
+                if (window.scrollY > 80) nav.classList.add('nav-tight');
+                else nav.classList.remove('nav-tight');
             }
-
-            /* Motion blur: symmetric */
-            const motionBlur = easeIO(remap(raw, 0.28, 0.82, 0, 1)) * 12;
-            zoomInner.style.filter = motionBlur > 0 ? 'blur(' + motionBlur + 'px)' : 'none';
-
-            /* Overlay: only kicks in after zoom is well past halfway */
-            const darkP = easeIO(remap(raw, 0.52, 0.87, 0, 1));
-            overlay.style.opacity = darkP;
-
-            /* Statement headline fades in over the black overlay — no extra scrolling needed.
-               Starts at darkP=0.55 and is fully visible by darkP=1. */
-            if (stmtHero) {
-                const sp = Math.max(0, (darkP - 0.55) / 0.45);
-                stmtHero.style.opacity = sp;
-                stmtHero.style.pointerEvents = sp > 0.85 ? 'auto' : 'none';
-            }
-
-            /* Nav: always visible, just switches color */
-            nav.style.opacity = '1';
-            if (darkP > 0.35) nav.classList.add('nav-dark');
-            else               nav.classList.remove('nav-dark');
-
             ticking = false;
         }
 
         window.addEventListener('scroll', function() {
             if (!ticking) { requestAnimationFrame(update); ticking = true; }
         }, { passive: true });
+        if (window.__lenis) window.__lenis.on('scroll', update);
         update();
 
-        /* JS entrance animation — replaces removed CSS wFadeUp on #hl-line1 / #hl-after.
-           Sets initial state explicitly, then transitions to visible.
-           entranceDone flag prevents update() from fighting the animation. */
-        (function() {
-            var ease = 'cubic-bezier(.16,1,.3,1)';
-            /* Ensure starting state (CSS already has opacity:0, add blur+shift) */
-            if (hlLine1)  { hlLine1.style.filter  = 'blur(4px)'; hlLine1.style.transform  = 'translateY(18px)'; }
-            if (hlAfter)  { hlAfter.style.filter   = 'blur(4px)'; hlAfter.style.transform   = 'translateY(18px)'; }
-            if (builtWord){ builtWord.style.filter = 'blur(4px)'; builtWord.style.transform = 'translateY(10px)'; }
-
+        /* Load entrance: outgoing headline fades in on load */
+        if (hOut) {
+            hOut.style.opacity   = '0';
+            hOut.style.transform = 'translateY(20px)';
+            hOut.style.filter    = 'blur(6px)';
             setTimeout(function() {
-                var tr = 'opacity .8s '+ease+', filter .8s '+ease+', transform .8s '+ease;
-                if (hlLine1) { hlLine1.style.transition = tr; hlLine1.style.opacity='1'; hlLine1.style.filter='none'; hlLine1.style.transform='none'; }
-                setTimeout(function() {
-                    if (hlAfter)  { hlAfter.style.transition  = tr; hlAfter.style.opacity='1';  hlAfter.style.filter='none';  hlAfter.style.transform='none'; }
-                    if (builtWord){ builtWord.style.transition = tr; builtWord.style.opacity='1'; builtWord.style.filter='none'; builtWord.style.transform='none'; }
-                    /* After animation completes, remove transitions so scroll JS has instant control */
-                    setTimeout(function() {
-                        [hlLine1, hlAfter, builtWord].forEach(function(el) {
-                            if (el) { el.style.transition = 'none'; el.style.transform = ''; }
-                        });
-                        entranceDone = true;
-                    }, 900);
-                }, 140);
+                var tr = 'opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1), filter .7s ease';
+                hOut.style.transition = tr;
+                hOut.style.opacity    = '1';
+                hOut.style.transform  = 'none';
+                hOut.style.filter     = 'none';
+                setTimeout(function() { hOut.style.transition = 'none'; }, 950);
             }, 80);
-        })();
-
-        /* Fallback: IntersectionObserver fires stmt entrance if user scrolls fast */
-        if (stmtSection) {
-            new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting) stmtSection.classList.add('stmt-visible');
-            }, { threshold: 0.08 }).observe(stmtSection);
         }
     })();
 
@@ -1703,41 +1584,7 @@
         });
     })();
 
-    /* ── Stat counter animation ── */
-    (function () {
-        const statsEl = document.querySelector('.stats');
-        const statVals = document.querySelectorAll('.stat-val[data-count]');
-        if (!statsEl || !statVals.length) return;
-
-        let fired = false;
-        const io = new IntersectionObserver((entries) => {
-            if (fired || !entries[0].isIntersecting) return;
-            fired = true;
-            io.disconnect();
-
-            statVals.forEach((el, i) => {
-                const target  = parseFloat(el.dataset.count);
-                const prefix  = el.dataset.prefix || '';
-                const suffix  = el.dataset.suffix || '';
-                const decimal = target % 1 !== 0;
-                const delay   = i * 80;
-                const dur     = 1600;
-
-                setTimeout(() => {
-                    const t0 = performance.now();
-                    (function step(now) {
-                        const p    = Math.min((now - t0) / dur, 1);
-                        const ease = 1 - Math.pow(1 - p, 3);
-                        const val  = target * ease;
-                        el.textContent = prefix + (decimal ? val.toFixed(1) : Math.round(val)) + suffix;
-                        if (p < 1) requestAnimationFrame(step);
-                    })(performance.now());
-                }, delay);
-            });
-        }, { threshold: 0.5 });
-
-        io.observe(statsEl);
-    })();
+    /* stat counter removed — replaced by ticker */
     </script>
 
     <script>
@@ -1779,7 +1626,50 @@
             });
         });
 
-        /* 3. Metric value count-up — fires when the metrics grid enters view */
+        /* 3. Case rule wipe */
+        document.querySelectorAll('.case-rule-line').forEach(function(el) {
+            var obs = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) { el.classList.add('wiped'); obs.disconnect(); }
+            }, { threshold: 0.5 });
+            obs.observe(el);
+        });
+
+        /* 4. Science row border draw + active row tracking */
+        var scienceRows = Array.from(document.querySelectorAll('.science-row'));
+        scienceRows.forEach(function(row) {
+            var obs = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) { row.classList.add('border-drawn'); obs.disconnect(); }
+            }, { threshold: 0.25 });
+            obs.observe(row);
+        });
+        if (scienceRows.length) {
+            window.addEventListener('scroll', function() {
+                var mid = window.innerHeight * 0.5;
+                var activeIdx = -1;
+                scienceRows.forEach(function(row, i) {
+                    var r = row.getBoundingClientRect();
+                    if (r.top < mid && r.bottom > mid) activeIdx = i;
+                });
+                scienceRows.forEach(function(row, i) {
+                    if (activeIdx === -1) { row.classList.remove('row-past','row-active'); return; }
+                    if (i < activeIdx) { row.classList.add('row-past'); row.classList.remove('row-active'); }
+                    else if (i === activeIdx) { row.classList.add('row-active'); row.classList.remove('row-past'); }
+                    else { row.classList.remove('row-past','row-active'); }
+                });
+            }, { passive: true });
+        }
+
+        /* 5. Contact sequential reveal */
+        var contactInner = document.querySelector('.contact-inner');
+        if (contactInner) {
+            contactInner.classList.add('form-reveal');
+            var cObs = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) { contactInner.classList.add('form-in'); cObs.disconnect(); }
+            }, { threshold: 0.12 });
+            cObs.observe(contactInner);
+        }
+
+        /* 6. Metric value count-up — fires when the metrics grid enters view */
         document.querySelectorAll('.metrics').forEach(container => {
             const vals = Array.from(container.querySelectorAll('.m-val, .m-ba-before'));
             const obs = new IntersectionObserver((entries) => {
