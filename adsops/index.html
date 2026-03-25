@@ -624,13 +624,13 @@
         .chart-cell {
             padding: 24px 32px;
             border-right: 1px solid rgba(255,255,255,.06);
-            background: #fff;
+            background: transparent;
             border-radius: 0;
         }
         .chart-cell:last-child { border-right: none; }
         .chart-lbl {
             font-size: 9px; font-weight: 600; letter-spacing: .12em;
-            text-transform: uppercase; color: rgba(10,22,40,.35); margin-bottom: 16px;
+            text-transform: uppercase; color: rgba(255,255,255,.28); margin-bottom: 16px;
         }
         .chart-wrap { position:relative; height:130px; }
         .chart-wrap.tall { height:200px; }
@@ -1442,18 +1442,18 @@
         if (id === 'b2b') renderB2B();
     }
 
-    Chart.defaults.color = 'rgba(10,22,40,0.32)';
+    Chart.defaults.color = 'rgba(255,255,255,0.25)';
     Chart.defaults.font.family = "'SF Pro Display',-apple-system,sans-serif";
     Chart.defaults.font.size = 10;
 
-    /* Light theme grid + tick styles */
-    const G  = { color:'rgba(10,22,40,0.06)', borderColor:'transparent' };
-    const TK = { color:'rgba(10,22,40,0.32)', padding:4 };
+    /* Dark theme grid + tick styles */
+    const G  = { color:'rgba(255,255,255,0.06)', borderColor:'transparent' };
+    const TK = { color:'rgba(255,255,255,0.25)', padding:4 };
     const TT = {
-        backgroundColor:'#fff',
-        titleColor:'rgba(10,22,40,.85)', bodyColor:'rgba(10,22,40,.5)',
+        backgroundColor:'rgba(10,14,20,0.92)',
+        titleColor:'rgba(255,255,255,.85)', bodyColor:'rgba(255,255,255,.5)',
         padding:10, cornerRadius:3,
-        borderColor:'rgba(10,22,40,.1)', borderWidth:1,
+        borderColor:'rgba(255,255,255,.1)', borderWidth:1,
         callbacks: {
             labelPointStyle: () => ({ pointStyle: 'circle', rotation: 0 })
         }
@@ -1470,8 +1470,8 @@
         const c = color || '#0279FD';
         /* Build a semi-transparent fill from the hex/rgba color */
         const fill = c.startsWith('#')
-            ? c + '14'   /* hex + 8% alpha */
-            : c.replace(/[\d.]+\)$/, '0.08)');
+            ? c + '1a'   /* hex + ~10% alpha — visible on dark bg */
+            : c.replace(/[\d.]+\)$/, '0.10)');
         return new Chart(document.getElementById(id), {
             type:'line',
             data:{ labels, datasets:[{
