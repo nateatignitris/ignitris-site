@@ -911,19 +911,65 @@
             color: rgba(255,255,255,.38); letter-spacing: -.01em;
             line-height: 1.25; max-width: 420px; margin-bottom: 48px;
         }
-        .contact-actions {
-            display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
-        }
         .contact-detail {
             font-size: 11px; color: rgba(255,255,255,.22);
             letter-spacing: .03em; line-height: 1.45;
         }
-        .contact-detail a {
-            color: rgba(255,255,255,.38); text-decoration: none;
-            border-bottom: 1px solid rgba(255,255,255,.12);
-            transition: color .2s ease;
+
+        /* ── Contact form ─────────────────────────────────── */
+        .contact-form { display: flex; flex-direction: column; gap: 0; width: 100%; max-width: 560px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; }
+        .form-field { display: flex; flex-direction: column; padding: 0; }
+        .form-field label {
+            font-size: 9px; font-weight: 600; letter-spacing: .12em;
+            text-transform: uppercase; color: rgba(255,255,255,.28);
+            padding: 18px 18px 8px;
         }
-        .contact-detail a:hover { color: rgba(255,255,255,.7); }
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            background: rgba(255,255,255,.03);
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            border-right: 1px solid rgba(255,255,255,.08);
+            color: #fff; font-family: inherit; font-size: 13px;
+            padding: 0 18px 16px; outline: none;
+            transition: background .2s ease, border-color .2s ease;
+            -webkit-appearance: none; appearance: none;
+        }
+        .form-field textarea { resize: none; min-height: 88px; line-height: 1.55; padding-top: 2px; }
+        .form-field input::placeholder,
+        .form-field textarea::placeholder { color: rgba(255,255,255,.18); }
+        .form-field:focus-within input,
+        .form-field:focus-within select,
+        .form-field:focus-within textarea {
+            background: rgba(255,255,255,.055);
+            border-color: rgba(255,255,255,.2);
+        }
+        .form-field select option { background: #111; color: #fff; }
+        .form-field.full { grid-column: 1 / -1; }
+        .form-field.full input,
+        .form-field.full select,
+        .form-field.full textarea { border-right: none; }
+        .form-actions {
+            display: flex; align-items: center; gap: 20px;
+            padding: 20px 0 0;
+        }
+        .form-note { font-size: 11px; color: rgba(255,255,255,.2); letter-spacing:.03em; }
+        .contact-form-wrap {
+            border: 1px solid rgba(255,255,255,.08);
+            margin-top: 40px;
+        }
+        /* Success state */
+        .form-success {
+            display: none; padding: 40px 28px;
+            font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.6;
+        }
+        .form-success strong { color: #fff; font-weight: 500; }
+        @media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; }
+            .form-field input, .form-field select, .form-field textarea { border-right: none; }
+        }
 
     </style>
 </head>
@@ -1335,11 +1381,42 @@
             <div class="contact-label">Get in touch</div>
             <h2 class="contact-title">let's see what you're leaving on the table.</h2>
             <p class="contact-sub">we work with a small number of brands at a time. if you're spending on paid and not owning the channel, let's find out why.</p>
-            <div class="contact-actions">
-                <a href="mailto:nate@useignitris.com?subject=Paid%20acquisition%20inquiry&body=Hi%20Nate%2C%0A%0ACompany%3A%20%0AMonthly%20ad%20budget%3A%20%0AWhat%20I%27m%20trying%20to%20fix%3A%20%0A" class="btn btn-primary">Email us →</a>
-                <div class="contact-detail">
-                    response within an hour<br>
-                    <a href="mailto:nate@useignitris.com?subject=Paid%20acquisition%20inquiry&body=Hi%20Nate%2C%0A%0ACompany%3A%20%0AMonthly%20ad%20budget%3A%20%0AWhat%20I%27m%20trying%20to%20fix%3A%20%0A">hello@useignitris.com</a>
+            <div class="contact-form-wrap">
+                <form class="contact-form" id="contact-form" novalidate>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="cf-company">Company</label>
+                            <input id="cf-company" name="company" type="text" placeholder="Acme Inc." autocomplete="organization">
+                        </div>
+                        <div class="form-field">
+                            <label for="cf-budget">Monthly ad spend</label>
+                            <select id="cf-budget" name="budget">
+                                <option value="" disabled selected>Select range</option>
+                                <option>Under $5k</option>
+                                <option>$5k – $15k</option>
+                                <option>$15k – $50k</option>
+                                <option>$50k – $150k</option>
+                                <option>$150k+</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field full">
+                            <label for="cf-msg">What are you trying to fix?</label>
+                            <textarea id="cf-msg" name="message" placeholder="High CPAs, low ROAS, can't scale a winning creative…"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row" style="border-top:1px solid rgba(255,255,255,.06);">
+                        <div class="form-field full" style="padding:0;">
+                            <div class="form-actions" style="padding: 18px 18px;">
+                                <button type="submit" class="btn btn-primary">Send →</button>
+                                <span class="form-note">response within an hour</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-success" id="form-success">
+                    <strong>Got it.</strong> We'll be back within the hour.
                 </div>
             </div>
         </div>
@@ -1401,15 +1478,19 @@
                 data,
                 borderColor: c,
                 backgroundColor: fill,
-                fill:true, tension:.38,
-                pointRadius:3, pointBackgroundColor: c,
-                pointBorderColor:'#fff', pointBorderWidth:1.5, borderWidth:2
+                fill:true, tension:.45,
+                pointRadius:0, pointHoverRadius:5,
+                pointBackgroundColor: c,
+                pointBorderColor:'#fff', pointBorderWidth:1.5, borderWidth:2.5
             }] },
             options:{ responsive:true, maintainAspectRatio:false,
                 plugins:{ legend:{ display:false }, tooltip:{ ...TT, callbacks:{
                     labelColor: () => ({ borderColor:'transparent', backgroundColor: c, borderRadius:50 })
                 } } },
-                scales:{ x:{grid:G,ticks:TK,border:{display:false}}, y:{grid:G,ticks:TK,border:{display:false}} } }
+                scales:{
+                    x:{ grid:{ display:false }, ticks:TK, border:{ display:false } },
+                    y:{ grid:G, ticks:TK, border:{ display:false } }
+                } }
         });
     };
 
@@ -1598,6 +1679,28 @@
                 if (entries[0].isIntersecting) stmtSection.classList.add('stmt-visible');
             }, { threshold: 0.08 }).observe(stmtSection);
         }
+    })();
+
+    /* ── Contact form ── */
+    (function() {
+        var form    = document.getElementById('contact-form');
+        var success = document.getElementById('form-success');
+        if (!form) return;
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var company = (form.company.value || '').trim();
+            var budget  = (form.budget.value  || '').trim();
+            var message = (form.message.value || '').trim();
+            if (!company && !message) return;
+            var body = 'Company: ' + company +
+                       '\nMonthly ad spend: ' + budget +
+                       '\nWhat I\'m trying to fix:\n' + message;
+            window.open('mailto:nate@useignitris.com?subject=' +
+                encodeURIComponent('Paid acquisition inquiry') +
+                '&body=' + encodeURIComponent(body));
+            form.style.display = 'none';
+            success.style.display = 'block';
+        });
     })();
 
     /* ── Stat counter animation ── */
