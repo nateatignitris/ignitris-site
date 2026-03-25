@@ -438,65 +438,60 @@
             letter-spacing: .02em; line-height: 1.3;
         }
 
-        /* ── RESULTS BAR ─────────────────────────────────────────── */
-        .results-bar {
-            position: sticky; top: 68px; z-index: 50;
-            display: flex; align-items: center; justify-content: flex-end;
-            padding: 0 40px; height: 44px;
-            background: rgba(0,0,0,0.92);
-            backdrop-filter: blur(24px) saturate(160%);
-            -webkit-backdrop-filter: blur(24px) saturate(160%);
-            border-bottom: 1px solid rgba(255,255,255,.06);
+        /* ── CASES SECTION HEADER ────────────────────────────────── */
+        .cases-header {
+            max-width: 1100px; margin: 0 auto;
+            padding: 80px 40px 0;
+            display: flex; align-items: flex-end; justify-content: space-between;
+            border-top: 1px solid rgba(255,255,255,.07);
         }
-
-
-        .toggle-group {
-            display: inline-flex;
-            background: rgba(255,255,255,.04);
-            border: 1px solid rgba(255,255,255,.1);
-            border-radius: 3px;
-            overflow: hidden;
+        .cases-header-left {}
+        .cases-section-label {
+            font-size: 10px; font-weight: 600; letter-spacing: .16em;
+            text-transform: uppercase; color: rgba(255,255,255,.22);
+            margin-bottom: 18px;
         }
-        .toggle-btn {
-            padding: 6px 20px;
-            font-size: 10px; font-weight: 600; letter-spacing: .1em;
-            text-transform: uppercase; color: rgba(255,255,255,.3);
-            background: transparent; border: none; cursor: pointer;
-            font-family: inherit; transition: all .18s ease;
-            border-right: 1px solid rgba(255,255,255,.08);
+        .cases-section-title {
+            font-size: clamp(28px, 3vw, 44px); font-weight: 300;
+            letter-spacing: -.03em; color: #fff; line-height: 1.1;
         }
-        .toggle-btn:last-child { border-right: none; }
-        .toggle-btn.active { background: #fff; color: #000; font-weight: 700; }
-        .toggle-btn:not(.active):hover { color: rgba(255,255,255,.65); background: rgba(255,255,255,.06); }
+        .cases-tab-row {
+            display: flex; align-items: center; gap: 0;
+            padding-bottom: 4px;
+        }
+        .tab-btn {
+            font-size: 13px; font-weight: 400; letter-spacing: .01em;
+            color: rgba(255,255,255,.22); background: none; border: none;
+            cursor: pointer; font-family: inherit; padding: 8px 0;
+            margin-left: 32px;
+            border-bottom: 1px solid transparent;
+            transition: color .2s ease, border-color .2s ease;
+        }
+        .tab-btn.active { color: #fff; border-bottom-color: rgba(255,255,255,.5); }
+        .tab-btn:not(.active):hover { color: rgba(255,255,255,.55); }
 
         /* ── CASES ───────────────────────────────────────────────── */
-        .cases-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 40px 60px; }
+        .cases-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 40px 80px; }
         .cases-group { display: none; opacity: 0; }
-        .cases-group.visible { display: block; animation: fadeIn .2s ease forwards; }
+        .cases-group.visible { display: block; animation: fadeIn .25s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .case {
-            border: 1px solid rgba(255,255,255,.09);
-            margin-bottom: 14px;
-            background: linear-gradient(160deg, rgba(255,255,255,.028) 0%, rgba(255,255,255,.012) 100%);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,.07), inset 0 -1px 0 rgba(255,255,255,.02);
-            transition: border-color .3s ease, box-shadow .3s ease, transform .4s cubic-bezier(.16,1,.3,1);
+            border-top: 1px solid rgba(255,255,255,.08);
+            margin-bottom: 0;
+            background: none;
+            transition: background .3s ease;
         }
-        .case:hover {
-            border-color: rgba(255,255,255,.18);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,.12), inset 0 -1px 0 rgba(255,255,255,.04),
-                        0 24px 64px rgba(0,0,0,.32);
-            transform: translateY(-1px);
-        }
+        .case:last-child { border-bottom: 1px solid rgba(255,255,255,.08); }
 
         .case-top {
-            padding: 32px 36px 28px;
-            border-bottom: 1px solid rgba(255,255,255,.06);
+            padding: 40px 0 32px;
+            border-bottom: 1px solid rgba(255,255,255,.05);
             display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start;
         }
         .case-index {
             font-size: 10px; font-weight: 500; letter-spacing: .12em;
-            text-transform: uppercase; color: rgba(255,255,255,.22); margin-bottom: 20px;
+            text-transform: uppercase; color: rgba(255,255,255,.18); margin-bottom: 24px;
         }
 
         .case-hero {
@@ -644,7 +639,15 @@
         .science-row-num {
             font-size: 11px; font-weight: 600; letter-spacing: .1em;
             text-transform: uppercase; color: rgba(255,255,255,.18);
-            padding-top: 2px;
+            padding-top: 3px;
+        }
+        /* Ghost number — large, sits behind the row */
+        .science-row::before {
+            content: attr(data-num);
+            position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+            font-size: clamp(80px, 10vw, 140px); font-weight: 300;
+            letter-spacing: -.05em; color: rgba(255,255,255,.03);
+            line-height: 1; pointer-events: none; user-select: none;
         }
         .science-row-title {
             font-size: 14px; font-weight: 600; letter-spacing: -.01em;
@@ -718,10 +721,35 @@
 
         /* ── FOOTER ──────────────────────────────────────────────── */
         footer {
-            padding: 24px 40px;
-            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid rgba(255,255,255,.07);
         }
-        footer span { font-size: 11px; color: rgba(255,255,255,.14); letter-spacing:.04em; }
+        .footer-inner {
+            max-width: 1100px; margin: 0 auto;
+            padding: 80px 40px 48px;
+        }
+        .footer-top {
+            padding-bottom: 64px;
+        }
+        .footer-pre {
+            font-size: 11px; font-weight: 500; letter-spacing: .14em;
+            text-transform: uppercase; color: rgba(255,255,255,.2);
+            margin-bottom: 20px;
+        }
+        .footer-email {
+            display: block;
+            font-size: clamp(28px, 4.5vw, 64px); font-weight: 300;
+            letter-spacing: -.03em; line-height: 1;
+            color: rgba(255,255,255,.65); text-decoration: none;
+            transition: color .3s ease;
+        }
+        .footer-email:hover { color: #fff; }
+        .footer-bottom {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,.07);
+        }
+        .footer-copy { font-size: 11px; color: rgba(255,255,255,.18); letter-spacing: .04em; }
+        .footer-tag  { font-size: 11px; color: rgba(255,255,255,.14); letter-spacing: .04em; }
 
         /* ── RESPONSIVE ──────────────────────────────────────────── */
         @media (max-width: 900px) {
@@ -785,8 +813,14 @@
             /* Contact */
             .contact { padding: 72px 20px 88px; }
 
+            /* Cases header */
+            .cases-header { padding: 60px 20px 0; flex-direction: column; gap: 20px; align-items: flex-start; }
+            .cases-tab-row { padding-bottom: 0; }
+            .tab-btn { margin-left: 0; margin-right: 24px; }
+
             /* Footer */
-            footer { padding: 20px 20px; flex-direction: column; gap: 6px; text-align: center; }
+            .footer-inner { padding: 60px 20px 36px; }
+            .footer-bottom { flex-direction: column; gap: 8px; align-items: flex-start; }
         }
 
         /* ── SMALL PHONE (≤480px) ────────────────────────────────── */
@@ -915,7 +949,7 @@
 </head>
 <body>
 
-<nav>
+<nav class="nav-dark">
     <a href="https://useignitris.com" class="nav-logo">
         <svg viewBox="0 0 8042 2511" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2103.12 2510.57C1996.16 2510.57 1902.57 2495.6 1822.35 2465.68C1742.89 2436.51 1679.48 2396.23 1632.11 2344.81C1584.74 2293.39 1555.32 2235.84 1543.86 2172.14L1541.57 2161.78H1821.2L1825.78 2170.99C1841.06 2206.29 1872.39 2235.45 1919.76 2258.48C1967.89 2282.27 2028.63 2294.16 2101.97 2294.16C2195.18 2294.16 2266.62 2271.14 2316.28 2225.1C2365.94 2179.05 2390.77 2117.28 2390.77 2039.77V1863.65H2385.04C2362.89 1907.39 2333.09 1944.99 2295.65 1976.46C2258.98 2007.92 2215.81 2032.48 2166.15 2050.13C2117.26 2067.78 2063.77 2076.6 2005.71 2076.6C1904.1 2076.6 1815.47 2051.66 1739.83 2001.78C1664.96 1951.9 1606.89 1881.3 1565.64 1789.98C1525.14 1697.89 1504.9 1588.53 1504.9 1461.91V1460.76C1504.9 1331.84 1525.53 1221.33 1566.78 1129.24C1608.8 1036.39 1667.63 964.637 1743.27 913.988C1818.91 863.339 1907.92 838.015 2010.29 838.015C2067.59 838.015 2120.31 847.991 2168.44 867.944C2216.58 887.129 2258.6 913.988 2294.51 948.521C2331.18 983.054 2360.98 1023.73 2383.9 1070.54H2390.77V863.339H2676.13V2048.98C2676.13 2141.06 2652.83 2221.64 2606.22 2290.71C2559.62 2360.54 2493.53 2414.64 2407.96 2453.01C2322.39 2491.38 2220.78 2510.57 2103.12 2510.57ZM2095.1 1855.59C2154.69 1855.59 2206.64 1839.86 2250.96 1808.4C2295.27 1776.16 2329.65 1730.89 2354.1 1672.57C2379.31 1614.24 2391.92 1545.94 2391.92 1467.67V1466.52C2391.92 1387.48 2379.31 1319.18 2354.1 1261.62C2328.89 1203.3 2294.12 1158.41 2249.81 1126.94C2205.5 1095.48 2153.93 1079.75 2095.1 1079.75C2033.98 1079.75 1980.88 1095.48 1935.8 1126.94C1890.72 1158.41 1855.96 1202.92 1831.51 1260.47C1807.07 1318.03 1794.84 1386.71 1794.84 1466.52V1467.67C1794.84 1547.48 1807.07 1616.54 1831.51 1674.87C1855.96 1732.42 1890.72 1776.93 1935.8 1808.4C1980.88 1839.86 2033.98 1855.59 2095.1 1855.59Z" fill="currentColor"/>
@@ -993,6 +1027,17 @@
         <div class="ticker-label">documented results, 2023–2025</div>
     </div>
 
+
+    <div class="cases-header reveal">
+        <div class="cases-header-left">
+            <div class="cases-section-label">Case studies</div>
+            <div class="cases-section-title">documented results.</div>
+        </div>
+        <div class="cases-tab-row">
+            <button class="tab-btn active" onclick="switchTab('consumer', this)">Consumer</button>
+            <button class="tab-btn" onclick="switchTab('b2b', this)">B2B</button>
+        </div>
+    </div>
 
     <div class="cases-wrap">
 
@@ -1212,25 +1257,25 @@
                 </div>
             </div>
             <div class="science-rows">
-                <div class="science-row reveal">
+                <div class="science-row reveal" data-num="01">
                     <div class="science-row-border"></div>
                     <div class="science-row-num">01</div>
                     <div class="science-row-title">Hypothesis-driven creative</div>
                     <div class="science-row-body">every ad starts with a written hypothesis: target persona, psychological trigger, success metric. example: "wellness buyers aged 35–50 respond to authority positioning (doctor endorsement) → success = sub-$30 CPA." we test with purpose, not guesses.</div>
                 </div>
-                <div class="science-row reveal">
+                <div class="science-row reveal" data-num="02">
                     <div class="science-row-border"></div>
                     <div class="science-row-num">02</div>
                     <div class="science-row-title">Intent-signal audience layering</div>
                     <div class="science-row-body">we build audiences around behaviors and intent signals, not demographics. this means ads hit people when they're already considering a purchase — not just matching a profile. example: retarget cart abandoners who viewed pricing 2x in 7 days with an urgency-based offer.</div>
                 </div>
-                <div class="science-row reveal">
+                <div class="science-row reveal" data-num="03">
                     <div class="science-row-border"></div>
                     <div class="science-row-num">03</div>
                     <div class="science-row-title">Offer engineering before scale</div>
                     <div class="science-row-body">the ad is rarely the problem — the offer is. we test offer structures (discount vs. free shipping vs. bundle), risk reversals (money-back guarantee positioning), and urgency mechanics before scaling spend. a 2x better offer beats a 2x bigger budget every time.</div>
                 </div>
-                <div class="science-row reveal">
+                <div class="science-row reveal" data-num="04">
                     <div class="science-row-border"></div>
                     <div class="science-row-num">04</div>
                     <div class="science-row-title">High-velocity testing cadence</div>
@@ -1359,12 +1404,16 @@
     </section>
 
     <footer>
-        <a href="https://useignitris.com" class="nav-logo" style="opacity:.55;">
-            <svg viewBox="0 0 8042 2511" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:14px; width:auto;">
-                <path d="M2103.12 2510.57C1996.16 2510.57 1902.57 2495.6 1822.35 2465.68C1742.89 2436.51 1679.48 2396.23 1632.11 2344.81C1584.74 2293.39 1555.32 2235.84 1543.86 2172.14L1541.57 2161.78H1821.2L1825.78 2170.99C1841.06 2206.29 1872.39 2235.45 1919.76 2258.48C1967.89 2282.27 2028.63 2294.16 2101.97 2294.16C2195.18 2294.16 2266.62 2271.14 2316.28 2225.1C2365.94 2179.05 2390.77 2117.28 2390.77 2039.77V1863.65H2385.04C2362.89 1907.39 2333.09 1944.99 2295.65 1976.46C2258.98 2007.92 2215.81 2032.48 2166.15 2050.13C2117.26 2067.78 2063.77 2076.6 2005.71 2076.6C1904.1 2076.6 1815.47 2051.66 1739.83 2001.78C1664.96 1951.9 1606.89 1881.3 1565.64 1789.98C1525.14 1697.89 1504.9 1588.53 1504.9 1461.91V1460.76C1504.9 1331.84 1525.53 1221.33 1566.78 1129.24C1608.8 1036.39 1667.63 964.637 1743.27 913.988C1818.91 863.339 1907.92 838.015 2010.29 838.015C2067.59 838.015 2120.31 847.991 2168.44 867.944C2216.58 887.129 2258.6 913.988 2294.51 948.521C2331.18 983.054 2360.98 1023.73 2383.9 1070.54H2390.77V863.339H2676.13V2048.98C2676.13 2141.06 2652.83 2221.64 2606.22 2290.71C2559.62 2360.54 2493.53 2414.64 2407.96 2453.01C2322.39 2491.38 2220.78 2510.57 2103.12 2510.57ZM2095.1 1855.59C2154.69 1855.59 2206.64 1839.86 2250.96 1808.4C2295.27 1776.16 2329.65 1730.89 2354.1 1672.57C2379.31 1614.24 2391.92 1545.94 2391.92 1467.67V1466.52C2391.92 1387.48 2379.31 1319.18 2354.1 1261.62C2328.89 1203.3 2294.12 1158.41 2249.81 1126.94C2205.5 1095.48 2153.93 1079.75 2095.1 1079.75C2033.98 1079.75 1980.88 1095.48 1935.8 1126.94C1890.72 1158.41 1855.96 1202.92 1831.51 1260.47C1807.07 1318.03 1794.84 1386.71 1794.84 1466.52V1467.67C1794.84 1547.48 1807.07 1616.54 1831.51 1674.87C1855.96 1732.42 1890.72 1776.93 1935.8 1808.4C1980.88 1839.86 2033.98 1855.59 2095.1 1855.59Z" fill="currentColor"/><path d="M2862.98 2083.51V863.339H3147.19V1054.42H3154.07C3185.39 988.426 3232 935.859 3293.88 896.721C3356.53 857.584 3433.7 838.015 3525.38 838.015C3659.08 838.015 3762.22 878.688 3834.8 960.032C3908.15 1041.38 3944.82 1152.65 3944.82 1293.85V2083.51H3659.46V1351.41C3659.46 1264.69 3639.22 1197.93 3598.72 1151.12C3558.23 1103.54 3497.49 1079.75 3416.51 1079.75C3362.26 1079.75 3314.89 1092.41 3274.4 1117.73C3233.91 1142.29 3202.58 1176.82 3180.43 1221.33C3158.27 1265.07 3147.19 1316.49 3147.19 1375.58V2083.51H2862.98Z" fill="currentColor"/><path d="M4135.11 2083.51V863.339H4420.47V2083.51H4135.11ZM4277.21 688.372C4232.9 688.372 4195.46 673.024 4164.9 642.328C4134.34 611.631 4119.06 574.796 4119.06 531.822C4119.06 488.08 4134.34 451.244 4164.9 421.316C4195.46 390.62 4232.9 375.271 4277.21 375.271C4322.29 375.271 4360.11 390.62 4390.67 421.316C4421.23 451.244 4436.51 488.08 4436.51 531.822C4436.51 574.796 4421.23 611.631 4390.67 642.328C4360.11 673.024 4322.29 688.372 4277.21 688.372Z" fill="currentColor"/><path d="M5066.87 2107.68C4940.81 2107.68 4846.83 2080.06 4784.95 2024.8C4723.83 1969.55 4693.27 1879 4693.27 1753.14V1084.35H4521.36V863.339H4693.27V553.693H4983.21V863.339H5208.97V1084.35H4983.21V1730.12C4983.21 1789.21 4996.2 1830.27 5022.17 1853.29C5048.91 1875.54 5087.88 1886.67 5139.07 1886.67C5153.58 1886.67 5166.19 1886.29 5176.89 1885.52C5188.35 1883.98 5199.04 1882.83 5208.97 1882.07V2097.32C5192.17 2099.62 5171.54 2101.93 5147.09 2104.23C5123.4 2106.53 5096.66 2107.68 5066.87 2107.68Z" fill="currentColor"/><path d="M5358 2083.51V863.339H5642.22V1073.99H5649.09C5667.43 1000.32 5700.66 942.766 5748.8 901.326C5797.69 859.119 5857.29 838.015 5927.58 838.015C5945.15 838.015 5961.96 839.166 5978 841.468C5994.04 843.771 6007.41 846.457 6018.11 849.526V1108.52C6006.65 1103.92 5990.22 1100.08 5968.83 1097.01C5948.2 1093.94 5925.66 1092.41 5901.22 1092.41C5847.74 1092.41 5801.51 1103.54 5762.55 1125.79C5723.58 1147.28 5693.79 1179.13 5673.16 1221.33C5652.53 1263.54 5642.22 1314.96 5642.22 1375.58V2083.51H5358Z" fill="currentColor"/><path d="M6125.88 2083.51V863.339H6411.24V2083.51H6125.88ZM6267.99 688.372C6223.68 688.372 6186.24 673.024 6155.68 642.328C6125.12 611.631 6109.84 574.796 6109.84 531.822C6109.84 488.08 6125.12 451.244 6155.68 421.316C6186.24 390.62 6223.68 375.271 6267.99 375.271C6313.07 375.271 6350.88 390.62 6381.45 421.316C6412.01 451.244 6427.29 488.08 6427.29 531.822C6427.29 574.796 6412.01 611.631 6381.45 642.328C6350.88 673.024 6313.07 688.372 6267.99 688.372Z" fill="currentColor"/><path d="M7081.71 2107.68C6975.51 2107.68 6884.59 2091.95 6808.96 2060.49C6734.08 2029.02 6675.25 1984.9 6632.47 1928.11C6590.45 1870.56 6564.85 1804.17 6555.69 1728.97L6554.54 1718.61H6835.32L6837.61 1728.97C6848.3 1781.92 6873.52 1822.98 6913.24 1852.14C6953.74 1881.3 7010.27 1895.88 7082.86 1895.88C7129.46 1895.88 7169.19 1890.12 7202.04 1878.61C7234.89 1867.1 7260.11 1850.22 7277.68 1827.96C7296.02 1805.71 7305.18 1779.62 7305.18 1749.69V1748.54C7305.18 1712.47 7292.96 1683.31 7268.51 1661.05C7244.06 1638.03 7200.13 1619.23 7136.72 1604.65L6935.02 1559.76C6857.85 1542.11 6793.29 1517.93 6741.34 1487.24C6689.39 1456.54 6650.42 1418.56 6624.45 1373.28C6598.47 1327.23 6585.48 1273.9 6585.48 1213.27V1212.12C6585.48 1137.69 6605.73 1072.46 6646.22 1016.44C6686.71 960.416 6743.63 916.674 6816.98 885.21C6890.32 853.747 6975.51 838.015 7072.54 838.015C7173.39 838.015 7259.72 854.898 7331.54 888.664C7403.36 922.429 7458.75 967.706 7497.71 1024.49C7537.44 1081.28 7558.84 1144.98 7561.89 1215.58L7563.04 1228.24H7297.16L7296.02 1219.03C7289.9 1169.92 7267.75 1129.63 7229.55 1098.16C7191.35 1065.93 7139.01 1049.82 7072.54 1049.82C7030.52 1049.82 6993.85 1055.96 6962.52 1068.24C6931.96 1080.51 6908.28 1097.78 6891.47 1120.04C6875.43 1142.29 6867.4 1168.38 6867.4 1198.31V1199.46C6867.4 1222.48 6873.13 1243.2 6884.59 1261.62C6896.05 1280.04 6914.39 1296.15 6939.6 1309.97C6964.82 1323.01 6998.43 1334.52 7040.45 1344.5L7242.15 1389.39C7368.21 1417.79 7457.99 1458.46 7511.47 1511.41C7564.95 1563.59 7591.69 1633.81 7591.69 1722.06V1723.21C7591.69 1799.95 7569.91 1867.49 7526.37 1925.81C7482.82 1983.36 7422.46 2028.26 7345.29 2060.49C7268.89 2091.95 7181.03 2107.68 7081.71 2107.68Z" fill="currentColor"/><path d="M852.788 0L828.043 114.951C1013.63 149.126 1013.63 133.592 1053.84 167.767C1103.93 210.338 1084.77 314.822 1072.4 375.922L806.391 1749.13C763.088 2003.88 645.551 1985.24 484.711 2003.88L459.967 2121.94H1418.82L1443.57 2010.1C1275.3 1992.7 1155.91 1988.35 1174.47 1848.54L1452.84 363.495C1493.05 164.66 1542.54 130.485 1774.52 118.058L1799.27 0H852.788Z" fill="currentColor"/>
-            </svg>
-        </a>
-        <span>© 2026 Ignitris &nbsp;·&nbsp; <a href="mailto:nate@useignitris.com" style="color:rgba(255,255,255,.3); text-decoration:none;">hello@useignitris.com</a></span>
+        <div class="footer-inner">
+            <div class="footer-top reveal">
+                <div class="footer-pre">Ready to stop leaving money on the table?</div>
+                <a href="mailto:hello@useignitris.com" class="footer-email">hello@useignitris.com</a>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copy">© 2026 Ignitris</span>
+                <span class="footer-tag">Paid acquisition that compounds.</span>
+            </div>
+        </div>
     </footer>
 
 </div>
