@@ -942,39 +942,6 @@
             .form-field input, .form-field select, .form-field textarea { border-right: none; }
         }
 
-
-        /* ── Case wipe sections ──────────────────────────────── */
-        .case-wipe-outer { height: 300vh; position: relative; }
-        .case-wipe-sticky {
-            position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden;
-        }
-        .case-wipe-dark {
-            position: absolute; inset: 0; background: #000;
-            display: flex; align-items: center; justify-content: center;
-            padding: 0 clamp(24px, 8vw, 120px);
-        }
-        .case-wipe-light {
-            position: absolute; inset: 0; background: #f4f4f4;
-            display: flex; align-items: center; justify-content: center;
-            padding: 0 clamp(24px, 8vw, 120px);
-            transform: translateX(100vw); will-change: transform;
-        }
-        .case-wipe-inner { max-width: 1100px; width: 100%; }
-        /* Light slide metric overrides */
-        .case-wipe-light .m-lbl { color: rgba(10,14,20,.42); }
-        .case-wipe-light .m-val { color: #0a0e14; }
-        .case-wipe-light .m-was { color: rgba(10,14,20,.38); }
-        .case-wipe-light .m-lift { color: rgba(10,14,20,.38); }
-        .case-wipe-light .m-ba-before { color: rgba(10,14,20,.38); }
-        .case-wipe-light .m-ba-arrow { color: rgba(10,14,20,.22); }
-        .case-wipe-light .m { border-color: rgba(10,14,20,.1); }
-        .case-wipe-light .metrics { border-color: rgba(10,14,20,.1); }
-        .case-wipe-light .q-mark { color: rgba(10,14,20,.15); }
-        .case-wipe-light .q-text { color: rgba(10,14,20,.72); }
-        .case-wipe-light .q-attr { color: rgba(10,14,20,.35); }
-        .case-wipe-light .case-quote { border-color: rgba(10,14,20,.1); }
-        .case-wipe-light .chart-lbl { color: rgba(10,14,20,.38); }
-        .case-wipe-light .case-index { color: rgba(10,14,20,.32); }
     </style>
 </head>
 <body>
@@ -1073,11 +1040,8 @@
 
         <div class="cases-group visible" id="cases-consumer">
 
-        <div class="case-wipe-outer">
-            <div class="case-wipe-sticky">
-                <div class="case-wipe-dark">
-                    <div class="case-wipe-inner">
-                        <div class="case-top">
+            <div class="case reveal">
+                <div class="case-top">
                     <div>
                         <div class="case-index">01 — DTC Beauty</div>
                         <div class="case-hero">
@@ -1091,12 +1055,7 @@
                     </div>
                     <div class="plats"><span class="plat" data-p="meta"><svg viewBox="1000 1000 1516 1010" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#1877F2" d="M2079.9949,1000c-123.3911,0-219.8478,92.936-307.164,210.9931C1652.8424,1058.2153,1552.4949,1000,1432.4089,1000c-244.8276,0-432.4138,318.6207-432.4138,655.8621,0,211.0344,102.0956,344.1379,273.1035,344.1379,123.0805,0,211.6-58.0259,368.9655-333.1034,0,0,65.5973-115.8413,110.7249-195.6386q23.72,38.2978,49.9647,82.5351l73.7931,124.1379C2020.294,1918.4789,2100.3854,2000,2245.5123,2000c166.5959,0,259.31-134.9233,259.31-350.3448C2504.8227,1296.5517,2313.0069,1000,2079.9949,1000Zm-557.9308,592.4138c-127.5862,200-171.7242,244.8276-242.7587,244.8276-73.1034,0-116.5517-64.1784-116.5517-178.6207,0-244.8276,122.069-495.1724,267.5862-495.1724,78.8013,0,144.6539,45.51,245.5224,189.9131C1580.0831,1500.2723,1522.0641,1592.4138,1522.0641,1592.4138Zm481.5283-25.178-88.23-147.1481q-35.8152-58.2482-68.8384-107.23c79.52-122.7353,145.1135-183.8919,223.1261-183.8919,162.0691,0,291.7243,238.6207,291.7243,531.7241,0,111.7242-36.5935,176.5518-112.4139,176.5518C2176.29,1837.2414,2141.5738,1789.2474,2003.5924,1567.2358Z"/></svg></span><span class="plat" data-p="google"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></span></div>
                 </div>
-                    </div>
-                </div>
-                <div class="case-wipe-light">
-                    <div class="case-wipe-inner">
-                        <div class="case-index">01 — DTC Beauty</div>
-                        <div class="metrics">
+                <div class="metrics">
                     <div class="m"><div class="m-lbl">ROAS</div><div class="m-val">5.8x</div><div class="m-was">was 1.4x</div></div>
                     <div class="m"><div class="m-lbl">CPA</div><div class="m-val">$18</div><div class="m-was">was $64 &nbsp;·&nbsp; ↓72%</div></div>
                     <div class="m"><div class="m-lbl">Monthly spend</div><div class="m-val">$22K</div><div class="m-lift up">scaled from $8K</div></div>
@@ -1113,16 +1072,12 @@
                         <div class="q-attr">— Founder, DTC apparel brand</div>
                     </div>
                 </div>
-                    </div>
-                </div>
             </div>
-        </div>
 
-        <div class="case-wipe-outer">
-            <div class="case-wipe-sticky">
-                <div class="case-wipe-dark">
-                    <div class="case-wipe-inner">
-                        <div class="case-top">
+            <div class="case-rule"><div class="case-rule-line"></div></div>
+
+            <div class="case reveal rv2">
+                <div class="case-top">
                     <div>
                         <div class="case-index">02 — Consumer Wellness</div>
                         <div class="case-hero">
@@ -1136,12 +1091,7 @@
                     </div>
                     <div class="plats"><span class="plat" data-p="meta"><svg viewBox="1000 1000 1516 1010" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#1877F2" d="M2079.9949,1000c-123.3911,0-219.8478,92.936-307.164,210.9931C1652.8424,1058.2153,1552.4949,1000,1432.4089,1000c-244.8276,0-432.4138,318.6207-432.4138,655.8621,0,211.0344,102.0956,344.1379,273.1035,344.1379,123.0805,0,211.6-58.0259,368.9655-333.1034,0,0,65.5973-115.8413,110.7249-195.6386q23.72,38.2978,49.9647,82.5351l73.7931,124.1379C2020.294,1918.4789,2100.3854,2000,2245.5123,2000c166.5959,0,259.31-134.9233,259.31-350.3448C2504.8227,1296.5517,2313.0069,1000,2079.9949,1000Zm-557.9308,592.4138c-127.5862,200-171.7242,244.8276-242.7587,244.8276-73.1034,0-116.5517-64.1784-116.5517-178.6207,0-244.8276,122.069-495.1724,267.5862-495.1724,78.8013,0,144.6539,45.51,245.5224,189.9131C1580.0831,1500.2723,1522.0641,1592.4138,1522.0641,1592.4138Zm481.5283-25.178-88.23-147.1481q-35.8152-58.2482-68.8384-107.23c79.52-122.7353,145.1135-183.8919,223.1261-183.8919,162.0691,0,291.7243,238.6207,291.7243,531.7241,0,111.7242-36.5935,176.5518-112.4139,176.5518C2176.29,1837.2414,2141.5738,1789.2474,2003.5924,1567.2358Z"/></svg></span><span class="plat" data-p="google"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></span></div>
                 </div>
-                    </div>
-                </div>
-                <div class="case-wipe-light">
-                    <div class="case-wipe-inner">
-                        <div class="case-index">02 — Consumer Wellness</div>
-                        <div class="metrics" style="grid-template-columns: 1fr 1fr 1fr 1.1fr;">
+                <div class="metrics" style="grid-template-columns: 1fr 1fr 1fr 1.1fr;">
                     <div class="m"><div class="m-lbl">ROAS</div><div class="m-val">4.3x</div><div class="m-was">was 1.9x</div></div>
                     <div class="m"><div class="m-lbl">Monthly spend</div><div class="m-val">$40K</div><div class="m-lift up">scaled from $15K</div></div>
                     <div class="m"><div class="m-lbl">Revenue, 60 days</div><div class="m-val">$172K</div><div class="m-lift">attributed</div></div>
@@ -1162,16 +1112,12 @@
                         <div class="q-attr">— CMO, health & supplement brand</div>
                     </div>
                 </div>
-                    </div>
-                </div>
             </div>
-        </div>
 
-        <div class="case-wipe-outer">
-            <div class="case-wipe-sticky">
-                <div class="case-wipe-dark">
-                    <div class="case-wipe-inner">
-                        <div class="case-top">
+            <div class="case-rule"><div class="case-rule-line"></div></div>
+
+            <div class="case reveal rv3">
+                <div class="case-top">
                     <div>
                         <div class="case-index">03 — Consumer App</div>
                         <div class="case-hero">
@@ -1185,12 +1131,7 @@
                     </div>
                     <div class="plats"><span class="plat" data-p="meta"><svg viewBox="1000 1000 1516 1010" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#1877F2" d="M2079.9949,1000c-123.3911,0-219.8478,92.936-307.164,210.9931C1652.8424,1058.2153,1552.4949,1000,1432.4089,1000c-244.8276,0-432.4138,318.6207-432.4138,655.8621,0,211.0344,102.0956,344.1379,273.1035,344.1379,123.0805,0,211.6-58.0259,368.9655-333.1034,0,0,65.5973-115.8413,110.7249-195.6386q23.72,38.2978,49.9647,82.5351l73.7931,124.1379C2020.294,1918.4789,2100.3854,2000,2245.5123,2000c166.5959,0,259.31-134.9233,259.31-350.3448C2504.8227,1296.5517,2313.0069,1000,2079.9949,1000Zm-557.9308,592.4138c-127.5862,200-171.7242,244.8276-242.7587,244.8276-73.1034,0-116.5517-64.1784-116.5517-178.6207,0-244.8276,122.069-495.1724,267.5862-495.1724,78.8013,0,144.6539,45.51,245.5224,189.9131C1580.0831,1500.2723,1522.0641,1592.4138,1522.0641,1592.4138Zm481.5283-25.178-88.23-147.1481q-35.8152-58.2482-68.8384-107.23c79.52-122.7353,145.1135-183.8919,223.1261-183.8919,162.0691,0,291.7243,238.6207,291.7243,531.7241,0,111.7242-36.5935,176.5518-112.4139,176.5518C2176.29,1837.2414,2141.5738,1789.2474,2003.5924,1567.2358Z"/></svg></span><span class="plat" data-p="tiktok"><svg viewBox="210 0 560 610" xmlns="http://www.w3.org/2000/svg"><path fill="#EE1D52" d="M665.3,120.1C624.7,93.6,600.1,48.5,600.1,0h-103l-0.2,412.7c-1.8,47.7-42,85-89.7,83.1c-47.7-1.8-85-42-83.1-89.7c1.8-46.5,40-83.2,86.5-83.2c8.7,0,17.3,1.4,25.5,4V221.7c-8.5-1.2-17-1.8-25.5-1.9c-104.5,0-189.5,85-189.5,189.5c0.2,104.6,84.9,189.4,189.6,189.5c104.5,0,189.5-85,189.5-189.5V200.1c41.7,30,91.8,46.2,143.2,46.1v-103C715.6,143.3,688.5,135.2,665.3,120.1z" transform="translate(-10,10)"/><path fill="#69C9D0" d="M665.3,120.1C624.7,93.6,600.1,48.5,600.1,0h-103l-0.2,412.7c-1.8,47.7-42,85-89.7,83.1c-47.7-1.8-85-42-83.1-89.7c1.8-46.5,40-83.2,86.5-83.2c8.7,0,17.3,1.4,25.5,4V221.7c-8.5-1.2-17-1.8-25.5-1.9c-104.5,0-189.5,85-189.5,189.5c0.2,104.6,84.9,189.4,189.6,189.5c104.5,0,189.5-85,189.5-189.5V200.1c41.7,30,91.8,46.2,143.2,46.1v-103C715.6,143.3,688.5,135.2,665.3,120.1z" transform="translate(10,-10)"/><path fill="white" d="M665.3,120.1C624.7,93.6,600.1,48.5,600.1,0h-103l-0.2,412.7c-1.8,47.7-42,85-89.7,83.1c-47.7-1.8-85-42-83.1-89.7c1.8-46.5,40-83.2,86.5-83.2c8.7,0,17.3,1.4,25.5,4V221.7c-8.5-1.2-17-1.8-25.5-1.9c-104.5,0-189.5,85-189.5,189.5c0.2,104.6,84.9,189.4,189.6,189.5c104.5,0,189.5-85,189.5-189.5V200.1c41.7,30,91.8,46.2,143.2,46.1v-103C715.6,143.3,688.5,135.2,665.3,120.1z"/></svg></span></div>
                 </div>
-                    </div>
-                </div>
-                <div class="case-wipe-light">
-                    <div class="case-wipe-inner">
-                        <div class="case-index">03 — Consumer App</div>
-                        <div class="metrics" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
+                <div class="metrics" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
                     <div class="m"><div class="m-lbl">ROAS</div><div class="m-val">6.2x</div><div class="m-was">was 2.1x</div></div>
                     <div class="m"><div class="m-lbl">Cost per install</div><div class="m-val">$1.40</div><div class="m-was">was $6.20 &nbsp;·&nbsp; ↓77%</div></div>
                     <div class="m"><div class="m-lbl">Monthly spend</div><div class="m-val">$18K</div><div class="m-lift up">scaled from $5K</div></div>
@@ -1206,19 +1147,14 @@
                         <div class="q-attr">— Head of Growth, mobile subscription app</div>
                     </div>
                 </div>
-                    </div>
-                </div>
             </div>
-        </div>
+
         </div>
 
         <div class="cases-group" id="cases-b2b">
 
-        <div class="case-wipe-outer">
-            <div class="case-wipe-sticky">
-                <div class="case-wipe-dark">
-                    <div class="case-wipe-inner">
-                        <div class="case-top">
+            <div class="case reveal">
+                <div class="case-top">
                     <div>
                         <div class="case-index">01 — B2B SaaS</div>
                         <div class="case-hero">
@@ -1232,12 +1168,7 @@
                     </div>
                     <div class="plats"><span class="plat" data-p="linkedin"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="3.5" fill="#0A66C2"/><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z" fill="white"/></svg></span><span class="plat" data-p="meta"><svg viewBox="1000 1000 1516 1010" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#1877F2" d="M2079.9949,1000c-123.3911,0-219.8478,92.936-307.164,210.9931C1652.8424,1058.2153,1552.4949,1000,1432.4089,1000c-244.8276,0-432.4138,318.6207-432.4138,655.8621,0,211.0344,102.0956,344.1379,273.1035,344.1379,123.0805,0,211.6-58.0259,368.9655-333.1034,0,0,65.5973-115.8413,110.7249-195.6386q23.72,38.2978,49.9647,82.5351l73.7931,124.1379C2020.294,1918.4789,2100.3854,2000,2245.5123,2000c166.5959,0,259.31-134.9233,259.31-350.3448C2504.8227,1296.5517,2313.0069,1000,2079.9949,1000Zm-557.9308,592.4138c-127.5862,200-171.7242,244.8276-242.7587,244.8276-73.1034,0-116.5517-64.1784-116.5517-178.6207,0-244.8276,122.069-495.1724,267.5862-495.1724,78.8013,0,144.6539,45.51,245.5224,189.9131C1580.0831,1500.2723,1522.0641,1592.4138,1522.0641,1592.4138Zm481.5283-25.178-88.23-147.1481q-35.8152-58.2482-68.8384-107.23c79.52-122.7353,145.1135-183.8919,223.1261-183.8919,162.0691,0,291.7243,238.6207,291.7243,531.7241,0,111.7242-36.5935,176.5518-112.4139,176.5518C2176.29,1837.2414,2141.5738,1789.2474,2003.5924,1567.2358Z"/></svg></span></div>
                 </div>
-                    </div>
-                </div>
-                <div class="case-wipe-light">
-                    <div class="case-wipe-inner">
-                        <div class="case-index">01 — B2B SaaS</div>
-                        <div class="metrics">
+                <div class="metrics">
                     <div class="m"><div class="m-lbl">Pipeline generated</div><div class="m-val">$380K</div><div class="m-lift up">in 75 days</div></div>
                     <div class="m"><div class="m-lbl">Cost per lead</div><div class="m-val">$42</div><div class="m-was">was $210 &nbsp;·&nbsp; ↓80%</div></div>
                     <div class="m"><div class="m-lbl">Demo qualified rate</div><div class="m-val">38%</div><div class="m-was">was 11%</div></div>
@@ -1253,16 +1184,12 @@
                         <div class="q-attr">— VP Marketing, mid-market SaaS</div>
                     </div>
                 </div>
-                    </div>
-                </div>
             </div>
-        </div>
 
-        <div class="case-wipe-outer">
-            <div class="case-wipe-sticky">
-                <div class="case-wipe-dark">
-                    <div class="case-wipe-inner">
-                        <div class="case-top">
+            <div class="case-rule"><div class="case-rule-line"></div></div>
+
+            <div class="case reveal rv2">
+                <div class="case-top">
                     <div>
                         <div class="case-index">02 — B2B Fintech</div>
                         <div class="case-hero">
@@ -1276,12 +1203,7 @@
                     </div>
                     <div class="plats"><span class="plat" data-p="linkedin"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="3.5" fill="#0A66C2"/><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z" fill="white"/></svg></span><span class="plat" data-p="google"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></span></div>
                 </div>
-                    </div>
-                </div>
-                <div class="case-wipe-light">
-                    <div class="case-wipe-inner">
-                        <div class="case-index">02 — B2B Fintech</div>
-                        <div class="metrics">
+                <div class="metrics">
                     <div class="m">
                         <div class="m-lbl">CPL</div>
                         <div class="m-ba-wrap">
@@ -1314,10 +1236,8 @@
                         <div class="q-attr">— Head of Growth, fintech platform</div>
                     </div>
                 </div>
-                    </div>
-                </div>
             </div>
-        </div>
+
         </div>
 
     </div>
@@ -1823,29 +1743,7 @@
             obs.observe(container);
         });
     })();
-    
-    /* ── Case wipe scroll animation ─────────────────────────── */
-    (function() {
-        function updateCaseWipes() {
-            document.querySelectorAll('.case-wipe-outer').forEach(function(outer) {
-                var light = outer.querySelector('.case-wipe-light');
-                if (!light) return;
-                var rect  = outer.getBoundingClientRect();
-                var total = outer.offsetHeight - window.innerHeight;
-                if (total <= 0) return;
-                var scrolled  = -rect.top;
-                var progress  = Math.max(0, Math.min(1, scrolled / total));
-                var tx        = (1 - progress) * window.innerWidth;
-                light.style.transform = 'translateX(' + tx + 'px)';
-            });
-        }
-        window.addEventListener('scroll', function() {
-            requestAnimationFrame(updateCaseWipes);
-        }, { passive: true });
-        if (window.__lenis) window.__lenis.on('scroll', updateCaseWipes);
-        updateCaseWipes();
-    })();
-</script>
+    </script>
 
 
 </body>
