@@ -1730,7 +1730,7 @@
         document.getElementById('cases-' + id).classList.add('visible');
         btn.classList.add('active');
         if (id === 'b2b') renderB2B();
-        if (id === 'dtc') renderDTC();
+        if (id === 'consumer') renderDTC();
     }
 
     Chart.defaults.color = 'rgba(255,255,255,0.25)';
@@ -1847,7 +1847,7 @@
         line('c2b', w8, [86,79,72,64,54,44,35,26]);
         line('c3b', w6, [6.20,5.30,4.10,2.90,2.10,1.40]);
     }
-    const dtcSection = document.getElementById('cases-dtc');
+    const dtcSection = document.getElementById('cases-consumer');
     if (dtcSection) {
         new IntersectionObserver(function(entries) {
             if (entries[0].isIntersecting) renderDTC();
