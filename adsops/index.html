@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paid Acquisition Results — Meta, Google, TikTok & LinkedIn | Ignitris</title>
-    <meta name="description" content="Ignitris delivers documented paid acquisition results for consumer and B2B brands — 5.8x ROAS, $380K pipeline in 75 days, 77% CPI reduction. We run Meta, Google, LinkedIn, and TikTok.">
+    <title>Paid Acquisition Results - Meta, Google, TikTok & LinkedIn | Ignitris</title>
+    <meta name="description" content="Ignitris delivers documented paid acquisition results for consumer and B2B brands - 5.8x ROAS, $380K pipeline in 75 days, 77% CPI reduction. We run Meta, Google, LinkedIn, and TikTok.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://useignitris.com/adsops">
 
@@ -12,7 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://useignitris.com/adsops">
     <meta property="og:title" content="Paid Acquisition Results | Ignitris">
-    <meta property="og:description" content="Documented results across consumer and B2B brands. 5.8x ROAS, $380K pipeline in 75 days, 77% CPI reduction — built on paid acquisition.">
+    <meta property="og:description" content="Documented results across consumer and B2B brands. 5.8x ROAS, $380K pipeline in 75 days, 77% CPI reduction - built on paid acquisition.">
     <meta property="og:site_name" content="Ignitris">
 
     <!-- Twitter Card -->
@@ -24,6 +24,8 @@
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
     <!-- Structured data -->
     <script type="application/ld+json">
@@ -39,8 +41,6 @@
       "areaServed": { "@type": "Country", "name": "United States" }
     }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.20/dist/lenis.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { background: #000; }
@@ -92,7 +92,7 @@
             display: flex; align-items: center; justify-content: center;
             overflow: hidden; background: #000;
         }
-        /* Outgoing headline — drifts up and dissolves */
+        /* Outgoing headline - drifts up and dissolves */
         .h-out {
             position: absolute; inset: 0;
             display: flex; flex-direction: column;
@@ -104,11 +104,11 @@
             color: rgba(255,255,255,.28); margin-bottom: 28px;
         }
         .h-out-line {
-            font-size: clamp(42px, 6vw, 86px); font-weight: 300;
+            font-size: clamp(42px, 6vw, 86px); font-weight: 400;
             letter-spacing: -.03em; line-height: 1.08; color: #fff;
         }
-        .h-out-line em { font-style: italic; color: rgba(255,255,255,.42); }
-        /* Incoming headline — assembles line by line */
+        .h-out-line em { font-style: italic; color: #fff; }
+        /* Incoming headline - assembles line by line */
         .h-in {
             position: absolute; inset: 0;
             display: flex; flex-direction: column;
@@ -116,12 +116,12 @@
             pointer-events: none;
         }
         .h-in-line {
-            font-size: clamp(42px, 6vw, 86px); font-weight: 300;
+            font-size: clamp(42px, 6vw, 86px); font-weight: 400;
             letter-spacing: -.03em; line-height: 1.08; color: #fff;
             opacity: 0; transform: translateY(32px); filter: blur(12px);
             will-change: transform, opacity, filter;
         }
-        .h-in-line em { font-style: italic; color: rgba(255,255,255,.5); }
+        .h-in-line em { font-style: italic; color: #fff; }
         /* Lock-phase subtext */
         .h-lock-copy {
             position: absolute; inset: 0; pointer-events: none;
@@ -139,7 +139,7 @@
         .ticker-wrap {
             border-top: 1px solid rgba(255,255,255,.07);
             border-bottom: 1px solid rgba(255,255,255,.07);
-            padding: 22px 0 8px; overflow: hidden;
+            padding: 32px 0; overflow: hidden;
         }
         .ticker-track {
             display: flex; align-items: center; gap: 32px;
@@ -152,7 +152,7 @@
             to   { transform: translateX(-50%); }
         }
         .ticker-item {
-            font-size: 20px; font-weight: 300; letter-spacing: -.02em;
+            font-size: 26px; font-weight: 400; letter-spacing: -.02em;
             color: rgba(255,255,255,.65);
         }
         .ticker-dot { font-size: 12px; color: rgba(255,255,255,.18); flex-shrink: 0; }
@@ -228,7 +228,7 @@
         .btn-primary:active { transform: translateY(0); box-shadow: none; }
         .btn-ghost { border-color:transparent; color:rgba(255,255,255,.5); }
         .btn-ghost:hover { color:#fff; background:rgba(255,255,255,.07); border-color:transparent; }
-        /* Nav "Work with us" — blue corner brackets */
+        /* Nav "Work with us" - blue corner brackets */
         .btn-nav-cta {
             position:relative; display:inline-flex; align-items:center;
             padding:8px 20px; font-size:10px; font-weight:600;
@@ -239,7 +239,7 @@
         }
         .btn-nav-cta::before,.btn-nav-cta::after {
             content:''; position:absolute; width:6px; height:6px;
-            border:1px solid #0279FD; transition:all .3s ease;
+            border:1px solid #007BFF; transition:all .3s ease;
         }
         .btn-nav-cta::before { top:-1px; left:-1px; border-right:none; border-bottom:none; }
         .btn-nav-cta::after  { bottom:-1px; right:-1px; border-left:none; border-top:none; }
@@ -250,7 +250,7 @@
             border-color:rgba(255,255,255,.12);
         }
         nav.nav-dark .btn-nav-cta::before,
-        nav.nav-dark .btn-nav-cta::after { border-color:#0279FD; }
+        nav.nav-dark .btn-nav-cta::after { border-color:#007BFF; }
         nav.nav-tight { height: 42px; border-color: rgba(255,255,255,0.15); }
 
         /* ── PAGE SHELL ──────────────────────────────────────────── */
@@ -259,7 +259,7 @@
         /* ── HERO ────────────────────────────────────────────────── */
         .hero {
             position: relative;
-            min-height: 100vh;
+            min-height: 82vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -286,7 +286,7 @@
         }
         .hero-h1 {
             font-size: clamp(32px, 3.6vw, 52px);
-            font-weight: 500; letter-spacing: -.035em; line-height: 1.08;
+            font-weight: 400; letter-spacing: -.035em; line-height: 1.08;
             color: #fff; margin-bottom: 20px;
         }
         .hero-sub {
@@ -430,7 +430,7 @@
             line-height: 1; color: #fff; margin-bottom: 10px;
         }
         .stat-lbl {
-            font-size: 10px; font-weight: 500; letter-spacing: .1em;
+            font-size: 10px; font-weight: 600; letter-spacing: .1em;
             text-transform: uppercase; color: rgba(255,255,255,.28);
             margin-bottom: 7px;
         }
@@ -453,8 +453,8 @@
             margin-bottom: 18px;
         }
         .cases-section-title {
-            font-size: clamp(28px, 3vw, 44px); font-weight: 300;
-            letter-spacing: -.03em; color: #fff; line-height: 1.1;
+            font-size: clamp(28px, 3vw, 44px); font-weight: 400;
+            letter-spacing: -.03em; color: #fff; line-height: 1.08;
         }
         .cases-tab-row {
             display: flex; align-items: center; gap: 0;
@@ -469,7 +469,7 @@
             transition: color .2s ease, border-color .2s ease;
         }
         .tab-btn.active { color: #fff; border-bottom-color: rgba(255,255,255,.5); }
-        .tab-btn:not(.active):hover { color: rgba(255,255,255,.55); }
+        .tab-btn:not(.active):hover { color: #fff; }
 
         /* ── CASES ───────────────────────────────────────────────── */
         .cases-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 40px 80px; }
@@ -538,17 +538,56 @@
         }
         .metrics.cols-3 { grid-template-columns: repeat(3,1fr); }
         .m {
-            padding: 24px 28px;
+            padding: 22px 28px;
             border-right: 1px solid rgba(255,255,255,.06);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         .m:last-child { border-right: none; }
         .m-lbl {
             font-size: 9px; font-weight: 600; letter-spacing: .12em;
-            text-transform: uppercase; color: rgba(255,255,255,.22); margin-bottom: 10px;
+            text-transform: uppercase; color: rgba(255,255,255,.22);
+        }
+        /* Before/after row */
+        .m-ba {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .m-before {
+            font-size: 16px; font-weight: 400; letter-spacing: -.02em;
+            color: rgba(255,255,255,.2);
+            text-decoration: line-through;
+            text-decoration-color: rgba(255,255,255,.15);
+        }
+        .m-arrow {
+            font-size: 11px;
+            color: rgba(255,255,255,.15);
         }
         .m-val {
-            font-size: 32px; font-weight: 400; letter-spacing: -.03em;
-            color: #fff; line-height: 1; margin-bottom: 6px;
+            font-size: 28px; font-weight: 400; letter-spacing: -.03em;
+            color: #fff; line-height: 1;
+        }
+        /* Delta badge */
+        .m-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 9px; font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: 3px 7px;
+            border-radius: 2px;
+            width: fit-content;
+        }
+        .m-delta.down {
+            background: rgba(0,200,100,.1);
+            color: rgba(0,220,110,.8);
+        }
+        .m-delta.up {
+            background: rgba(0,123,255,.1);
+            color: rgba(0,150,255,.8);
         }
         .m-was { font-size: 11px; color: rgba(255,255,255,.2); }
         .m-lift { font-size: 11px; color: rgba(255,255,255,.4); }
@@ -570,6 +609,112 @@
             letter-spacing: -.01em;
         }
         .m-ba-arrow { font-size: 12px; color: rgba(255,255,255,.18); }
+
+        .h-in-cta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 44px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .6s ease, transform .6s ease;
+            will-change: opacity, transform;
+        }
+        .h-in-cta.visible {
+            opacity: 1;
+            transform: none;
+        }
+        @keyframes cta-breathe {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+            50%       { box-shadow: 0 0 28px 6px rgba(255,255,255,0.10); }
+        }
+        .h-in-cta .btn-primary {
+            animation: cta-breathe 3.5s ease-in-out infinite;
+        }
+        .h-in-cta .btn-primary:hover {
+            animation: none;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 44px rgba(255,255,255,0.24), 0 4px 14px rgba(255,255,255,0.14);
+        }
+        .btn-ghost {
+            font-size: 11px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.55);
+            text-decoration: none;
+            font-family: inherit;
+            transition: color .25s;
+            position: relative;
+        }
+        .btn-ghost::after {
+            content: '';
+            position: absolute;
+            bottom: -3px; left: 0;
+            width: 0; height: 1px;
+            background: rgba(255,255,255,.4);
+            transition: width .35s cubic-bezier(.16,1,.3,1);
+        }
+        .btn-ghost:hover { color: rgba(255,255,255,.88); }
+        .btn-ghost:hover::after { width: 100%; }
+
+        /* ── FAQ ────────────────────────────────────────────────────── */
+        .faq-section {
+            padding: 96px 40px;
+            border-top: 1px solid rgba(255,255,255,.06);
+        }
+        .faq-inner {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        .faq-label {
+            font-size: 9px; font-weight: 600; letter-spacing: .16em;
+            text-transform: uppercase; color: rgba(255,255,255,.22);
+            margin-bottom: 40px;
+        }
+        .faq-item {
+            border-bottom: 1px solid rgba(255,255,255,.07);
+            padding: 0;
+            overflow: hidden;
+        }
+        .faq-q {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 24px 0;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: -.01em;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+        .faq-q:hover { color: rgba(255,255,255,.75); }
+        .faq-icon {
+            font-size: 18px;
+            color: rgba(255,255,255,.25);
+            flex-shrink: 0;
+            transition: transform .3s ease;
+            line-height: 1;
+        }
+        .faq-item.open .faq-icon { transform: rotate(45deg); color: #007BFF; }
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .35s ease;
+        }
+        .faq-item.open .faq-a { max-height: 300px; }
+        .faq-a-inner {
+            padding: 0 0 24px;
+            font-size: 14px;
+            line-height: 1.75;
+            color: rgba(255,255,255,.45);
+            max-width: 600px;
+        }
 
         /* ── CHARTS ──────────────────────────────────────────────── */
         .chart-row {
@@ -643,7 +788,7 @@
             text-transform: uppercase; color: rgba(255,255,255,.18);
             padding-top: 3px;
         }
-        /* Ghost number — large, sits behind the row */
+        /* Ghost number - large, sits behind the row */
         .science-row::before {
             content: attr(data-num);
             position: absolute; right: 0; top: 50%; transform: translateY(-50%);
@@ -782,18 +927,18 @@
 
         /* ── MOBILE (≤768px) ────────────────────────────────────── */
         @media (max-width: 768px) {
-            /* Nav — tighter, smaller logo */
+            /* Nav - tighter, smaller logo */
             nav { top:12px; left:12px; right:12px; height:44px; padding:0 14px; }
             .nav-logo svg { height:13px; }
             .btn-nav-cta { padding:7px 14px; font-size:9px; }
 
-            /* Hero tunnel — svh excludes iOS URL-bar */
+            /* Hero tunnel - svh excludes iOS URL-bar */
             .hero-tunnel { height: 260svh; }
             .hero-sticky { height: 100svh; }
             .h-out-line, .h-in-line { font-size: clamp(32px, 9vw, 60px); }
             .h-lock-sub { font-size: 11px; }
 
-            /* Stats strip — fix border pattern for 2-col */
+            /* Stats strip - fix border pattern for 2-col */
             .stat { padding: 24px 18px; }
             .stat-val { font-size: 30px; }
 
@@ -801,7 +946,7 @@
             .cases-wrap { padding: 16px 14px 36px; }
             .case-top { padding: 18px 16px 16px; }
 
-            /* Logo wall — 3 columns on tablet */
+            /* Logo wall - 3 columns on tablet */
             .logo-wall-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
             .platforms-strip { padding: 56px 18px; }
             .logo-tile { padding: 28px 10px 22px; gap: 14px; }
@@ -825,16 +970,16 @@
             nav { top:10px; left:10px; right:10px; height:42px; }
             .btn-nav-cta { padding:6px 12px; letter-spacing:.06em; }
 
-            /* Headline — more compact minimum */
+            /* Headline - more compact minimum */
             .w-headline { font-size: clamp(32px, 9.5vw, 50px); }
 
-            /* Stats — single column on very small phones */
+            /* Stats - single column on very small phones */
             .stats { grid-template-columns: 1fr; }
             .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,.07); }
             .stat:nth-child(odd) { border-right: none; }
             .stat:last-child { border-bottom: none; }
 
-            /* Logo wall — 2 columns */
+            /* Logo wall - 2 columns */
             .logo-wall-row { grid-template-columns: repeat(2, 1fr); }
 
             /* Metric values */
@@ -942,6 +1087,108 @@
             .form-field input, .form-field select, .form-field textarea { border-right: none; }
         }
 
+        /* ■■ V2 OVERRIDES — simplification + case cards ■■■■■■■■■■■■■■■■ */
+        .cases-wrap { padding: 48px 32px 96px !important; }
+        .case {
+            border: 1px solid rgba(255,255,255,.08) !important;
+            border-radius: 12px !important;
+            margin-bottom: 36px !important;
+            background: linear-gradient(180deg, rgba(255,255,255,.022) 0%, rgba(255,255,255,.005) 100%) !important;
+            overflow: hidden;
+            position: relative;
+            transition: border-color .35s ease, transform .35s ease, box-shadow .35s ease;
+        }
+        .case::before {
+            content: ''; position: absolute; left: 0; top: 0; height: 84px;
+            width: 3px; pointer-events: none;
+            background: linear-gradient(180deg, #007BFF 0%, rgba(0,123,255,0) 100%);
+        }
+        .case:hover {
+            border-color: rgba(255,255,255,.16) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 18px 50px rgba(0,0,0,.35);
+        }
+        .case:last-child { margin-bottom: 0 !important; border-bottom: 1px solid rgba(255,255,255,.08) !important; }
+        .case-top { padding: 38px 36px 30px !important; border-bottom: 1px solid rgba(255,255,255,.05); }
+        .case-body { font-size: 13.5px !important; color: rgba(255,255,255,.62) !important; line-height: 1.6 !important; max-width: 520px; }
+        .case-index { color: rgba(255,255,255,.32) !important; margin-bottom: 18px !important; }
+        .case-quote { padding: 22px 36px 30px !important; }
+        .case-rule { display: none !important; }
+        .m { padding: 24px 28px !important; }
+        .chart-cell { padding: 26px 32px 28px !important; }
+
+        /* Cases header — more breathing room */
+        .cases-header { padding: 88px 40px 0 !important; }
+        .cases-section-title { font-size: clamp(30px, 3.2vw, 46px) !important; }
+        .cases-section-sub { font-size: 12px !important; color: rgba(255,255,255,.4) !important; margin-top: 16px !important; }
+
+        /* Science section — calmer */
+        .science { padding: 96px 40px !important; }
+        .science-title-row { gap: 64px !important; padding-bottom: 48px !important; }
+        .science-row { padding: 32px 0 !important; }
+        .science-row-body { font-size: 13.5px !important; line-height: 1.6 !important; color: rgba(255,255,255,.6) !important; }
+        .science-intro { font-size: 13.5px !important; line-height: 1.65 !important; color: rgba(255,255,255,.6) !important; max-width: 460px; }
+
+        /* Hero — simpler, less vertical drag */
+        .hero-simple { padding: 96px 24px 60px !important; min-height: 80vh !important; }
+        .hero-simple-inner { gap: 28px !important; }
+        .hero-simple-h1 { font-size: clamp(42px, 6vw, 84px) !important; }
+
+        /* Ticker — slightly tighter */
+        .ticker-wrap { padding: 28px 0 !important; }
+        .ticker-item { font-size: 22px !important; color: rgba(255,255,255,.55) !important; }
+
+        /* ■■ CLIENT WALL ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+        .clients-strip {
+            border-top: 1px solid rgba(255,255,255,.06);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+            padding: 64px 40px;
+            background: rgba(255,255,255,.008);
+        }
+        .clients-inner { max-width: 1100px; margin: 0 auto; }
+        .clients-label {
+            font-size: 9px; font-weight: 600; letter-spacing: .2em;
+            text-transform: uppercase; color: rgba(255,255,255,.28);
+            text-align: center; margin-bottom: 36px;
+        }
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0;
+            border-left: 1px solid rgba(255,255,255,.05);
+            border-top: 1px solid rgba(255,255,255,.05);
+        }
+        .client-cell {
+            display: flex; align-items: center; justify-content: center;
+            padding: 36px 16px;
+            border-right: 1px solid rgba(255,255,255,.05);
+            border-bottom: 1px solid rgba(255,255,255,.05);
+            min-height: 110px;
+            transition: background .3s ease;
+        }
+        .client-cell:hover { background: rgba(255,255,255,.025); }
+        .client-mark {
+            color: rgba(255,255,255,.5);
+            transition: color .3s ease;
+            white-space: nowrap;
+        }
+        .client-cell:hover .client-mark { color: rgba(255,255,255,.9); }
+        .cm-1 { font-family: Georgia, 'Times New Roman', serif; font-size: 22px; letter-spacing: .01em; font-weight: 400; }
+        .cm-2 { font-family: 'SF Pro Display', sans-serif; font-size: 14px; letter-spacing: .32em; font-weight: 700; text-transform: uppercase; }
+        .cm-3 { font-family: 'SF Pro Display', sans-serif; font-size: 18px; letter-spacing: -.02em; font-weight: 600; font-style: italic; }
+        .cm-4 { font-family: 'SF Pro Display', sans-serif; font-size: 13px; letter-spacing: .14em; font-weight: 500; text-transform: uppercase; }
+        .cm-5 { font-family: Georgia, serif; font-size: 19px; letter-spacing: -.01em; font-weight: 400; font-style: italic; }
+        .cm-6 { font-family: 'SF Pro Display', sans-serif; font-size: 15px; letter-spacing: .04em; font-weight: 700; }
+        .cm-dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #007BFF; margin: 0 2px 3px; vertical-align: middle; }
+        .cm-amp { color: rgba(255,255,255,.3); margin: 0 4px; font-weight: 300; }
+        @media (max-width: 900px) {
+            .clients-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .clients-grid { grid-template-columns: repeat(2, 1fr); }
+            .client-cell { padding: 28px 12px; min-height: 92px; }
+        }
+
     </style>
 </head>
 <body>
@@ -971,22 +1218,22 @@
 
         <!-- Outgoing: fades + drifts up as you scroll -->
         <div class="h-out" id="h-out">
-            <div class="h-out-label">Ignitris</div>
-            <div class="h-out-line">paid acquisition</div>
-            <div class="h-out-line"><em>that compounds.</em></div>
+            <div class="h-out-line">Paid Acquisition</div>
+            <div class="h-out-line">That Compounds.</div>
         </div>
 
         <!-- Incoming: assembles line by line on scroll progress -->
         <div class="h-in" id="h-in">
-            <div class="h-in-line" id="in-l1">built on systems</div>
-            <div class="h-in-line" id="in-l2">your competitors</div>
-            <div class="h-in-line" id="in-l3"><em>can't replicate.</em></div>
+            <div class="h-in-line" id="in-l1">Built on Systems</div>
+            <div class="h-in-line" id="in-l2">Your Competitors</div>
+            <div class="h-in-line" id="in-l3"><span style="color:#007BFF">Can't Replicate.</span></div>
+            <div class="h-in-cta" id="in-cta">
+                <a href="#contact" class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Work with us</a>
+                <a href="#cases" class="btn-ghost">See the work ↓</a>
+            </div>
         </div>
 
-        <!-- Subtext — fades in after statement locks -->
-        <div class="h-lock-copy">
-            <div class="h-lock-sub" id="h-lock-sub">No retainers. No guesswork.<br>Just paid that compounds.</div>
-        </div>
+
 
     </div>
 </div>
@@ -1021,14 +1268,27 @@
             <span class="ticker-item">31% SQL rate</span>
             <span class="ticker-dot">·</span>
         </div>
-        <div class="ticker-label">documented results, 2023–2025</div>
     </div>
 
+    <!-- ■■ CLIENT WALL ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->
+    <section class="clients-strip reveal">
+        <div class="clients-inner">
+            <div class="clients-label">Selected Clients</div>
+            <div class="clients-grid">
+                <div class="client-cell"><span class="client-mark cm-1">Halden</span></div>
+                <div class="client-cell"><span class="client-mark cm-2">NORTHSHORE</span></div>
+                <div class="client-cell"><span class="client-mark cm-3">forge<span class="cm-amp">/</span>fern</span></div>
+                <div class="client-cell"><span class="client-mark cm-4">LUMEN<span class="cm-dot"></span>HEALTH</span></div>
+                <div class="client-cell"><span class="client-mark cm-5">Briarwood &amp; Co.</span></div>
+                <div class="client-cell"><span class="client-mark cm-6">FIELDER</span></div>
+            </div>
+        </div>
+    </section>
 
     <div class="cases-header reveal">
         <div class="cases-header-left">
-            <div class="cases-section-label">Case studies</div>
-            <div class="cases-section-title">documented results.</div>
+            <div class="cases-section-title">Case Studies.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:16px;line-height:1.55;max-width:460px;">Five engagements. DTC and B2B. Numbers are real, names anonymized at client request.</div>
         </div>
         <div class="cases-tab-row">
             <button class="tab-btn active" onclick="switchTab('consumer', this)">Consumer</button>
@@ -1043,7 +1303,7 @@
             <div class="case reveal">
                 <div class="case-top">
                     <div>
-                        <div class="case-index">01 — DTC Beauty</div>
+                        <div class="case-index">01 - DTC Beauty</div>
                         <div class="case-hero">
                             <div class="case-hero-num">5.8x</div>
                             <div class="case-hero-meta">
@@ -1056,20 +1316,36 @@
                     <div class="plats"><span class="plat" data-p="meta"><svg viewBox="1000 1000 1516 1010" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#1877F2" d="M2079.9949,1000c-123.3911,0-219.8478,92.936-307.164,210.9931C1652.8424,1058.2153,1552.4949,1000,1432.4089,1000c-244.8276,0-432.4138,318.6207-432.4138,655.8621,0,211.0344,102.0956,344.1379,273.1035,344.1379,123.0805,0,211.6-58.0259,368.9655-333.1034,0,0,65.5973-115.8413,110.7249-195.6386q23.72,38.2978,49.9647,82.5351l73.7931,124.1379C2020.294,1918.4789,2100.3854,2000,2245.5123,2000c166.5959,0,259.31-134.9233,259.31-350.3448C2504.8227,1296.5517,2313.0069,1000,2079.9949,1000Zm-557.9308,592.4138c-127.5862,200-171.7242,244.8276-242.7587,244.8276-73.1034,0-116.5517-64.1784-116.5517-178.6207,0-244.8276,122.069-495.1724,267.5862-495.1724,78.8013,0,144.6539,45.51,245.5224,189.9131C1580.0831,1500.2723,1522.0641,1592.4138,1522.0641,1592.4138Zm481.5283-25.178-88.23-147.1481q-35.8152-58.2482-68.8384-107.23c79.52-122.7353,145.1135-183.8919,223.1261-183.8919,162.0691,0,291.7243,238.6207,291.7243,531.7241,0,111.7242-36.5935,176.5518-112.4139,176.5518C2176.29,1837.2414,2141.5738,1789.2474,2003.5924,1567.2358Z"/></svg></span><span class="plat" data-p="google"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></span></div>
                 </div>
                 <div class="metrics">
-                    <div class="m"><div class="m-lbl">ROAS</div><div class="m-val">5.8x</div><div class="m-was">was 1.4x</div></div>
-                    <div class="m"><div class="m-lbl">CPA</div><div class="m-val">$18</div><div class="m-was">was $64 &nbsp;·&nbsp; ↓72%</div></div>
-                    <div class="m"><div class="m-lbl">Monthly spend</div><div class="m-val">$22K</div><div class="m-lift up">scaled from $8K</div></div>
-                    <div class="m"><div class="m-lbl">Revenue, 90 days</div><div class="m-val">$127K</div><div class="m-lift">attributed</div></div>
+                    <div class="m">
+                        <div class="m-lbl">ROAS</div>
+                        <div class="m-ba"><span class="m-before">1.4x</span><span class="m-arrow">→</span><span class="m-val">5.8x</span></div>
+                        <div class="m-delta up">+314%</div>
+                    </div>
+                    <div class="m">
+                        <div class="m-lbl">CPA</div>
+                        <div class="m-ba"><span class="m-before">$64</span><span class="m-arrow">→</span><span class="m-val">$18</span></div>
+                        <div class="m-delta down">↓ 72%</div>
+                    </div>
+                    <div class="m">
+                        <div class="m-lbl">Monthly Spend</div>
+                        <div class="m-ba"><span class="m-before">$8K</span><span class="m-arrow">→</span><span class="m-val">$22K</span></div>
+                        <div class="m-delta up">Scaled 2.75x</div>
+                    </div>
+                    <div class="m">
+                        <div class="m-lbl">Revenue, 90 Days</div>
+                        <div class="m-val">$127K</div>
+                        <div class="m-lift">attributed</div>
+                    </div>
                 </div>
                 <div class="chart-row">
-                    <div class="chart-cell"><div class="chart-lbl">ROAS — 12 weeks</div><div class="chart-wrap"><canvas id="c1a"></canvas></div></div>
-                    <div class="chart-cell"><div class="chart-lbl">CPA decline</div><div class="chart-wrap"><canvas id="c1b"></canvas></div></div>
+                    <div class="chart-cell"><div class="chart-lbl">ROAS - 12 Weeks</div><div class="chart-wrap"><canvas id="c1a"></canvas></div></div>
+                    <div class="chart-cell"><div class="chart-lbl">CPA Decline</div><div class="chart-wrap"><canvas id="c1b"></canvas></div></div>
                 </div>
                 <div class="case-quote">
                     <div class="q-mark">"</div>
                     <div>
-                        <div class="q-text">we'd burned through two agencies before this. nothing came close to what they built in the first 45 days — the creative testing alone changed how we think about paid.</div>
-                        <div class="q-attr">— Founder, DTC apparel brand</div>
+                        <div class="q-text">we'd burned through two agencies before this. nothing came close to what they built in the first 45 days - the creative testing alone changed how we think about paid.</div>
+                <div class="q-attr">— Founder, DTC apparel brand</div>
                     </div>
                 </div>
             </div>
@@ -1079,7 +1355,7 @@
             <div class="case reveal rv2">
                 <div class="case-top">
                     <div>
-                        <div class="case-index">02 — Consumer Wellness</div>
+                        <div class="case-index">02 - Consumer Wellness</div>
                         <div class="case-hero">
                             <div class="case-hero-num">70%</div>
                             <div class="case-hero-meta">
@@ -1087,14 +1363,26 @@
                                 <div class="case-hero-from">1.9x → 4.3x ROAS &nbsp;·&nbsp; 60 days</div>
                             </div>
                         </div>
-                        <div class="case-body">Introduced a 15-variant-per-week UGC testing system and rebuilt the Shopping feed with clean attribution. CPA dropped 70% — then spend scaled from $15K to $40K/mo.</div>
+                        <div class="case-body">Introduced a 15-variant-per-week UGC testing system and rebuilt the Shopping feed with clean attribution. CPA dropped 70% - then spend scaled from $15K to $40K/mo.</div>
                     </div>
                     <div class="plats"><span class="plat" data-p="meta"><svg viewBox="1000 1000 1516 1010" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#1877F2" d="M2079.9949,1000c-123.3911,0-219.8478,92.936-307.164,210.9931C1652.8424,1058.2153,1552.4949,1000,1432.4089,1000c-244.8276,0-432.4138,318.6207-432.4138,655.8621,0,211.0344,102.0956,344.1379,273.1035,344.1379,123.0805,0,211.6-58.0259,368.9655-333.1034,0,0,65.5973-115.8413,110.7249-195.6386q23.72,38.2978,49.9647,82.5351l73.7931,124.1379C2020.294,1918.4789,2100.3854,2000,2245.5123,2000c166.5959,0,259.31-134.9233,259.31-350.3448C2504.8227,1296.5517,2313.0069,1000,2079.9949,1000Zm-557.9308,592.4138c-127.5862,200-171.7242,244.8276-242.7587,244.8276-73.1034,0-116.5517-64.1784-116.5517-178.6207,0-244.8276,122.069-495.1724,267.5862-495.1724,78.8013,0,144.6539,45.51,245.5224,189.9131C1580.0831,1500.2723,1522.0641,1592.4138,1522.0641,1592.4138Zm481.5283-25.178-88.23-147.1481q-35.8152-58.2482-68.8384-107.23c79.52-122.7353,145.1135-183.8919,223.1261-183.8919,162.0691,0,291.7243,238.6207,291.7243,531.7241,0,111.7242-36.5935,176.5518-112.4139,176.5518C2176.29,1837.2414,2141.5738,1789.2474,2003.5924,1567.2358Z"/></svg></span><span class="plat" data-p="google"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></span></div>
                 </div>
                 <div class="metrics" style="grid-template-columns: 1fr 1fr 1fr 1.1fr;">
-                    <div class="m"><div class="m-lbl">ROAS</div><div class="m-val">4.3x</div><div class="m-was">was 1.9x</div></div>
-                    <div class="m"><div class="m-lbl">Monthly spend</div><div class="m-val">$40K</div><div class="m-lift up">scaled from $15K</div></div>
-                    <div class="m"><div class="m-lbl">Revenue, 60 days</div><div class="m-val">$172K</div><div class="m-lift">attributed</div></div>
+                    <div class="m">
+                        <div class="m-lbl">ROAS</div>
+                        <div class="m-ba"><span class="m-before">1.9x</span><span class="m-arrow">→</span><span class="m-val">4.3x</span></div>
+                        <div class="m-delta up">+126%</div>
+                    </div>
+                    <div class="m">
+                        <div class="m-lbl">Monthly Spend</div>
+                        <div class="m-ba"><span class="m-before">$15K</span><span class="m-arrow">→</span><span class="m-val">$40K</span></div>
+                        <div class="m-delta up">Scaled 2.7x</div>
+                    </div>
+                    <div class="m">
+                        <div class="m-lbl">Revenue, 60 Days</div>
+                        <div class="m-val">$172K</div>
+                        <div class="m-lift">attributed</div>
+                    </div>
                     <div class="m-featured">
                         <div class="m-lbl">CPA reduction</div>
                         <div class="m-val" style="font-size:40px;">70%</div>
@@ -1102,13 +1390,13 @@
                     </div>
                 </div>
                 <div class="chart-row">
-                    <div class="chart-cell"><div class="chart-lbl">ROAS — 8 weeks</div><div class="chart-wrap"><canvas id="c2a"></canvas></div></div>
-                    <div class="chart-cell"><div class="chart-lbl">CPA — 8 weeks</div><div class="chart-wrap"><canvas id="c2b"></canvas></div></div>
+                    <div class="chart-cell"><div class="chart-lbl">ROAS - 8 Weeks</div><div class="chart-wrap"><canvas id="c2a"></canvas></div></div>
+                    <div class="chart-cell"><div class="chart-lbl">CPA - 8 Weeks</div><div class="chart-wrap"><canvas id="c2b"></canvas></div></div>
                 </div>
                 <div class="case-quote">
                     <div class="q-mark">"</div>
                     <div>
-                        <div class="q-text">the creative testing framework they built is something we still use a year later. they didn't just run ads — they taught us a system.</div>
+                        <div class="q-text">the creative testing framework they built is something we still use a year later. they didn't just run ads - they taught us a system.</div>
                         <div class="q-attr">— CMO, health & supplement brand</div>
                     </div>
                 </div>
@@ -1119,7 +1407,7 @@
             <div class="case reveal rv3">
                 <div class="case-top">
                     <div>
-                        <div class="case-index">03 — Consumer App</div>
+                        <div class="case-index">03 - Consumer App</div>
                         <div class="case-hero">
                             <div class="case-hero-num">$1.40</div>
                             <div class="case-hero-meta">
@@ -1127,18 +1415,34 @@
                                 <div class="case-hero-from">from $6.20 &nbsp;·&nbsp; ↓77% &nbsp;·&nbsp; 45 days</div>
                             </div>
                         </div>
-                        <div class="case-body">Built the full paid stack from scratch — offer hierarchy, TikTok-native creative, and audience layering. Hit lowest-ever CPI in week 3, doubled budget in week 6 with efficiency holding. ROAS climbed from 2.1x to 6.2x over the run.</div>
+                        <div class="case-body">Built the full paid stack from scratch - offer hierarchy, TikTok-native creative, and audience layering. Hit lowest-ever CPI in week 3, doubled budget in week 6 with efficiency holding. ROAS climbed from 2.1x to 6.2x over the run.</div>
                     </div>
                     <div class="plats"><span class="plat" data-p="meta"><svg viewBox="1000 1000 1516 1010" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#1877F2" d="M2079.9949,1000c-123.3911,0-219.8478,92.936-307.164,210.9931C1652.8424,1058.2153,1552.4949,1000,1432.4089,1000c-244.8276,0-432.4138,318.6207-432.4138,655.8621,0,211.0344,102.0956,344.1379,273.1035,344.1379,123.0805,0,211.6-58.0259,368.9655-333.1034,0,0,65.5973-115.8413,110.7249-195.6386q23.72,38.2978,49.9647,82.5351l73.7931,124.1379C2020.294,1918.4789,2100.3854,2000,2245.5123,2000c166.5959,0,259.31-134.9233,259.31-350.3448C2504.8227,1296.5517,2313.0069,1000,2079.9949,1000Zm-557.9308,592.4138c-127.5862,200-171.7242,244.8276-242.7587,244.8276-73.1034,0-116.5517-64.1784-116.5517-178.6207,0-244.8276,122.069-495.1724,267.5862-495.1724,78.8013,0,144.6539,45.51,245.5224,189.9131C1580.0831,1500.2723,1522.0641,1592.4138,1522.0641,1592.4138Zm481.5283-25.178-88.23-147.1481q-35.8152-58.2482-68.8384-107.23c79.52-122.7353,145.1135-183.8919,223.1261-183.8919,162.0691,0,291.7243,238.6207,291.7243,531.7241,0,111.7242-36.5935,176.5518-112.4139,176.5518C2176.29,1837.2414,2141.5738,1789.2474,2003.5924,1567.2358Z"/></svg></span><span class="plat" data-p="tiktok"><svg viewBox="210 0 560 610" xmlns="http://www.w3.org/2000/svg"><path fill="#EE1D52" d="M665.3,120.1C624.7,93.6,600.1,48.5,600.1,0h-103l-0.2,412.7c-1.8,47.7-42,85-89.7,83.1c-47.7-1.8-85-42-83.1-89.7c1.8-46.5,40-83.2,86.5-83.2c8.7,0,17.3,1.4,25.5,4V221.7c-8.5-1.2-17-1.8-25.5-1.9c-104.5,0-189.5,85-189.5,189.5c0.2,104.6,84.9,189.4,189.6,189.5c104.5,0,189.5-85,189.5-189.5V200.1c41.7,30,91.8,46.2,143.2,46.1v-103C715.6,143.3,688.5,135.2,665.3,120.1z" transform="translate(-10,10)"/><path fill="#69C9D0" d="M665.3,120.1C624.7,93.6,600.1,48.5,600.1,0h-103l-0.2,412.7c-1.8,47.7-42,85-89.7,83.1c-47.7-1.8-85-42-83.1-89.7c1.8-46.5,40-83.2,86.5-83.2c8.7,0,17.3,1.4,25.5,4V221.7c-8.5-1.2-17-1.8-25.5-1.9c-104.5,0-189.5,85-189.5,189.5c0.2,104.6,84.9,189.4,189.6,189.5c104.5,0,189.5-85,189.5-189.5V200.1c41.7,30,91.8,46.2,143.2,46.1v-103C715.6,143.3,688.5,135.2,665.3,120.1z" transform="translate(10,-10)"/><path fill="white" d="M665.3,120.1C624.7,93.6,600.1,48.5,600.1,0h-103l-0.2,412.7c-1.8,47.7-42,85-89.7,83.1c-47.7-1.8-85-42-83.1-89.7c1.8-46.5,40-83.2,86.5-83.2c8.7,0,17.3,1.4,25.5,4V221.7c-8.5-1.2-17-1.8-25.5-1.9c-104.5,0-189.5,85-189.5,189.5c0.2,104.6,84.9,189.4,189.6,189.5c104.5,0,189.5-85,189.5-189.5V200.1c41.7,30,91.8,46.2,143.2,46.1v-103C715.6,143.3,688.5,135.2,665.3,120.1z"/></svg></span></div>
                 </div>
                 <div class="metrics" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
-                    <div class="m"><div class="m-lbl">ROAS</div><div class="m-val">6.2x</div><div class="m-was">was 2.1x</div></div>
-                    <div class="m"><div class="m-lbl">Cost per install</div><div class="m-val">$1.40</div><div class="m-was">was $6.20 &nbsp;·&nbsp; ↓77%</div></div>
-                    <div class="m"><div class="m-lbl">Monthly spend</div><div class="m-val">$18K</div><div class="m-lift up">scaled from $5K</div></div>
-                    <div class="m"><div class="m-lbl">Revenue, 45 days</div><div class="m-val">$111K</div><div class="m-lift">attributed</div></div>
+                    <div class="m">
+                        <div class="m-lbl">ROAS</div>
+                        <div class="m-ba"><span class="m-before">2.1x</span><span class="m-arrow">→</span><span class="m-val">6.2x</span></div>
+                        <div class="m-delta up">+195%</div>
+                    </div>
+                    <div class="m">
+                        <div class="m-lbl">Cost Per Install</div>
+                        <div class="m-ba"><span class="m-before">$6.20</span><span class="m-arrow">→</span><span class="m-val">$1.40</span></div>
+                        <div class="m-delta down">↓ 77%</div>
+                    </div>
+                    <div class="m">
+                        <div class="m-lbl">Monthly Spend</div>
+                        <div class="m-ba"><span class="m-before">$5K</span><span class="m-arrow">→</span><span class="m-val">$18K</span></div>
+                        <div class="m-delta up">Scaled 3.6x</div>
+                    </div>
+                    <div class="m">
+                        <div class="m-lbl">Revenue, 45 Days</div>
+                        <div class="m-val">$111K</div>
+                        <div class="m-lift">attributed</div>
+                    </div>
                 </div>
                 <div class="chart-row full">
-                    <div class="chart-cell"><div class="chart-lbl">Cost per install — 6 weeks (from $6.20 to $1.40)</div><div class="chart-wrap tall"><canvas id="c3b"></canvas></div></div>
+                    <div class="chart-cell"><div class="chart-lbl">Cost Per Install - 6 Weeks</div><div class="chart-wrap tall"><canvas id="c3b"></canvas></div></div>
                 </div>
                 <div class="case-quote">
                     <div class="q-mark">"</div>
@@ -1156,7 +1460,7 @@
             <div class="case reveal">
                 <div class="case-top">
                     <div>
-                        <div class="case-index">01 — B2B SaaS</div>
+                        <div class="case-index">01 - B2B SaaS</div>
                         <div class="case-hero">
                             <div class="case-hero-num">$380K</div>
                             <div class="case-hero-meta">
@@ -1164,23 +1468,39 @@
                                 <div class="case-hero-from">from $0 &nbsp;·&nbsp; 75 days</div>
                             </div>
                         </div>
-                        <div class="case-body">Built a LinkedIn + Meta funnel from zero — job-title targeting layered with firmographic signals, stage-matched creative, and HubSpot-synced nurture. $380K in qualified pipeline in 75 days.</div>
+                        <div class="case-body">Built a LinkedIn + Meta funnel from zero - job-title targeting layered with firmographic signals, stage-matched creative, and HubSpot-synced nurture. $380K in qualified pipeline in 75 days.</div>
                     </div>
                     <div class="plats"><span class="plat" data-p="linkedin"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="3.5" fill="#0A66C2"/><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z" fill="white"/></svg></span><span class="plat" data-p="meta"><svg viewBox="1000 1000 1516 1010" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#1877F2" d="M2079.9949,1000c-123.3911,0-219.8478,92.936-307.164,210.9931C1652.8424,1058.2153,1552.4949,1000,1432.4089,1000c-244.8276,0-432.4138,318.6207-432.4138,655.8621,0,211.0344,102.0956,344.1379,273.1035,344.1379,123.0805,0,211.6-58.0259,368.9655-333.1034,0,0,65.5973-115.8413,110.7249-195.6386q23.72,38.2978,49.9647,82.5351l73.7931,124.1379C2020.294,1918.4789,2100.3854,2000,2245.5123,2000c166.5959,0,259.31-134.9233,259.31-350.3448C2504.8227,1296.5517,2313.0069,1000,2079.9949,1000Zm-557.9308,592.4138c-127.5862,200-171.7242,244.8276-242.7587,244.8276-73.1034,0-116.5517-64.1784-116.5517-178.6207,0-244.8276,122.069-495.1724,267.5862-495.1724,78.8013,0,144.6539,45.51,245.5224,189.9131C1580.0831,1500.2723,1522.0641,1592.4138,1522.0641,1592.4138Zm481.5283-25.178-88.23-147.1481q-35.8152-58.2482-68.8384-107.23c79.52-122.7353,145.1135-183.8919,223.1261-183.8919,162.0691,0,291.7243,238.6207,291.7243,531.7241,0,111.7242-36.5935,176.5518-112.4139,176.5518C2176.29,1837.2414,2141.5738,1789.2474,2003.5924,1567.2358Z"/></svg></span></div>
                 </div>
                 <div class="metrics">
-                    <div class="m"><div class="m-lbl">Pipeline generated</div><div class="m-val">$380K</div><div class="m-lift up">in 75 days</div></div>
-                    <div class="m"><div class="m-lbl">Cost per lead</div><div class="m-val">$42</div><div class="m-was">was $210 &nbsp;·&nbsp; ↓80%</div></div>
-                    <div class="m"><div class="m-lbl">Demo qualified rate</div><div class="m-val">38%</div><div class="m-was">was 11%</div></div>
-                    <div class="m"><div class="m-lbl">Monthly spend</div><div class="m-val">$14K</div><div class="m-lift up">scaled from $3K</div></div>
+                    <div class="m">
+                        <div class="m-lbl">Pipeline Generated</div>
+                        <div class="m-val">$380K</div>
+                        <div class="m-delta up">in 75 days</div>
+                    </div>
+                    <div class="m">
+                        <div class="m-lbl">Cost Per Lead</div>
+                        <div class="m-ba"><span class="m-before">$210</span><span class="m-arrow">→</span><span class="m-val">$42</span></div>
+                        <div class="m-delta down">↓ 80%</div>
+                    </div>
+                    <div class="m">
+                        <div class="m-lbl">Demo Qualified Rate</div>
+                        <div class="m-ba"><span class="m-before">11%</span><span class="m-arrow">→</span><span class="m-val">38%</span></div>
+                        <div class="m-delta up">+245%</div>
+                    </div>
+                    <div class="m">
+                        <div class="m-lbl">Monthly Spend</div>
+                        <div class="m-ba"><span class="m-before">$3K</span><span class="m-arrow">→</span><span class="m-val">$14K</span></div>
+                        <div class="m-delta up">Scaled 4.7x</div>
+                    </div>
                 </div>
                 <div class="chart-row full">
-                    <div class="chart-cell"><div class="chart-lbl">Attributed pipeline — 10 weeks (spend vs. revenue)</div><div class="chart-wrap tall"><canvas id="b1a"></canvas></div></div>
+                    <div class="chart-cell"><div class="chart-lbl">Attributed Pipeline - 10 Weeks</div><div class="chart-wrap tall"><canvas id="b1a"></canvas></div></div>
                 </div>
                 <div class="case-quote">
                     <div class="q-mark">"</div>
                     <div>
-                        <div class="q-text">for the first time, paid was generating pipeline we could actually close — not just form fills. the quality of lead changed everything.</div>
+                        <div class="q-text">for the first time, paid was generating pipeline we could actually close - not just form fills. the quality of lead changed everything.</div>
                         <div class="q-attr">— VP Marketing, mid-market SaaS</div>
                     </div>
                 </div>
@@ -1191,7 +1511,7 @@
             <div class="case reveal rv2">
                 <div class="case-top">
                     <div>
-                        <div class="case-index">02 — B2B Fintech</div>
+                        <div class="case-index">02 - B2B Fintech</div>
                         <div class="case-hero">
                             <div class="case-hero-num">31%</div>
                             <div class="case-hero-meta">
@@ -1199,7 +1519,7 @@
                                 <div class="case-hero-from">from 8% &nbsp;·&nbsp; CPL down 64% &nbsp;·&nbsp; 8 weeks</div>
                             </div>
                         </div>
-                        <div class="case-body">Rebuilt targeting around CFO-specific firmographic signals and rewrote every creative for that buyer's ROI lens. Same $20K budget — SQL rate went from 8% to 31%.</div>
+                        <div class="case-body">Rebuilt targeting around CFO-specific firmographic signals and rewrote every creative for that buyer's ROI lens. Same $20K budget - SQL rate went from 8% to 31%.</div>
                     </div>
                     <div class="plats"><span class="plat" data-p="linkedin"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="3.5" fill="#0A66C2"/><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z" fill="white"/></svg></span><span class="plat" data-p="google"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></span></div>
                 </div>
@@ -1226,8 +1546,8 @@
                     <div class="m"><div class="m-lbl">Monthly spend</div><div class="m-val">$20K</div><div class="m-was">same budget, 3x return</div></div>
                 </div>
                 <div class="chart-row">
-                    <div class="chart-cell"><div class="chart-lbl">SQL rate — 8 weeks</div><div class="chart-wrap"><canvas id="b2a"></canvas></div></div>
-                    <div class="chart-cell"><div class="chart-lbl">CPL decline — 8 weeks</div><div class="chart-wrap"><canvas id="b2b"></canvas></div></div>
+                    <div class="chart-cell"><div class="chart-lbl">SQL Rate - 8 Weeks</div><div class="chart-wrap"><canvas id="b2a"></canvas></div></div>
+                    <div class="chart-cell"><div class="chart-lbl">CPL Decline - 8 Weeks</div><div class="chart-wrap"><canvas id="b2b"></canvas></div></div>
                 </div>
                 <div class="case-quote">
                     <div class="q-mark">"</div>
@@ -1246,11 +1566,11 @@
         <div class="science-inner">
             <div class="science-title-row">
                 <div>
-                    <div class="science-label">The methodology</div>
-                    <div class="science-title">the creative system other agencies don't build — and why it compounds.</div>
+                    <div class="science-label">The Methodology</div>
+                    <div class="science-title">The system that compounds.</div>
                 </div>
                 <div class="science-intro">
-                    most agencies run ads. we engineer creative systems. every piece of creative has a written hypothesis, a test structure, and a scaling plan before it launches. the result: a compounding advantage that gets harder to beat the longer we run.
+                    Most agencies run ads. We engineer creative systems. Every piece of creative has a written hypothesis, a test structure, and a scaling plan before it launches. The result: a compounding advantage that gets harder to beat the longer we run.
                 </div>
             </div>
             <div class="science-rows">
@@ -1258,107 +1578,92 @@
                     <div class="science-row-border"></div>
                     <div class="science-row-num">01</div>
                     <div class="science-row-title">Hypothesis-driven creative</div>
-                    <div class="science-row-body">every ad starts with a written hypothesis: target persona, psychological trigger, success metric. example: "wellness buyers aged 35–50 respond to authority positioning (doctor endorsement) → success = sub-$30 CPA." we test with purpose, not guesses.</div>
+                    <div class="science-row-body">Every ad starts with a written hypothesis: target persona, psychological trigger, success metric. We test with purpose, not guesses.</div>
                 </div>
                 <div class="science-row reveal" data-num="02">
                     <div class="science-row-border"></div>
                     <div class="science-row-num">02</div>
                     <div class="science-row-title">Intent-signal audience layering</div>
-                    <div class="science-row-body">we build audiences around behaviors and intent signals, not demographics. this means ads hit people when they're already considering a purchase — not just matching a profile. example: retarget cart abandoners who viewed pricing 2x in 7 days with an urgency-based offer.</div>
+                    <div class="science-row-body">We build audiences around behaviors and intent signals, not demographics. Ads hit people when they're already in-market, not just matching a profile.</div>
                 </div>
                 <div class="science-row reveal" data-num="03">
                     <div class="science-row-border"></div>
                     <div class="science-row-num">03</div>
                     <div class="science-row-title">Offer engineering before scale</div>
-                    <div class="science-row-body">the ad is rarely the problem — the offer is. we test offer structures (discount vs. free shipping vs. bundle), risk reversals (money-back guarantee positioning), and urgency mechanics before scaling spend. a 2x better offer beats a 2x bigger budget every time.</div>
+                    <div class="science-row-body">The ad is rarely the problem — the offer is. We test offer structures, risk reversals, and urgency mechanics before scaling spend. A better offer beats a bigger budget every time.</div>
                 </div>
                 <div class="science-row reveal" data-num="04">
                     <div class="science-row-border"></div>
                     <div class="science-row-num">04</div>
                     <div class="science-row-title">High-velocity testing cadence</div>
-                    <div class="science-row-body">we run 12–20 new creative variants per week across most accounts. faster test cycles = find winners sooner, kill losers before they drain budget, scale with data instead of guesswork. most agencies test 3–5 variants per month. we do that in 2 days.</div>
+                    <div class="science-row-body">We run 12-20 new creative variants per week across most accounts. Faster cycles mean finding winners sooner and killing losers before they drain budget. Most agencies test 3-5 per month. We do that in 2 days.</div>
+                </div>
+                <div class="science-row reveal" data-num="05">
+                    <div class="science-row-border"></div>
+                    <div class="science-row-num">05</div>
+                    <div class="science-row-title">Proprietary tooling, built in-house</div>
+                    <div class="science-row-body">We built internal software that most agencies don't have — automated creative performance analysis, attribution signal mapping, and spend-efficiency scoring across accounts. Built from scratch for this workflow. It's not something you can buy, and it shortens every test cycle.</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <hr class="glass-line">
-    <div class="platforms-strip reveal">
-        <div class="logo-wall-inner">
-            <div class="logo-wall-label">Platforms we run</div>
-            <div class="logo-wall-row">
 
-                <!-- Meta — exact infinity loop from brand asset -->
-                <div class="logo-tile">
-                    <svg viewBox="1000 1000 1516 1010" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="metaG" x1="1865.507" y1="1532.9408" x2="1449.0802" y2="987.2772" gradientUnits="userSpaceOnUse">
-                                <stop offset="13.36%" stop-color="#0869e1"/>
-                                <stop offset="87.27%" stop-color="#0064e0"/>
-                            </linearGradient>
-                        </defs>
-                        <path fill="url(#metaG)" d="M2079.9949,1000c-123.3911,0-219.8478,92.936-307.164,210.9931C1652.8424,1058.2153,1552.4949,1000,1432.4089,1000c-244.8276,0-432.4138,318.6207-432.4138,655.8621,0,211.0344,102.0956,344.1379,273.1035,344.1379,123.0805,0,211.6-58.0259,368.9655-333.1034,0,0,65.5973-115.8413,110.7249-195.6386q23.72,38.2978,49.9647,82.5351l73.7931,124.1379C2020.294,1918.4789,2100.3854,2000,2245.5123,2000c166.5959,0,259.31-134.9233,259.31-350.3448C2504.8227,1296.5517,2313.0069,1000,2079.9949,1000Zm-557.9308,592.4138c-127.5862,200-171.7242,244.8276-242.7587,244.8276-73.1034,0-116.5517-64.1784-116.5517-178.6207,0-244.8276,122.069-495.1724,267.5862-495.1724,78.8013,0,144.6539,45.51,245.5224,189.9131C1580.0831,1500.2723,1522.0641,1592.4138,1522.0641,1592.4138Zm481.5283-25.178-88.23-147.1481q-35.8152-58.2482-68.8384-107.23c79.52-122.7353,145.1135-183.8919,223.1261-183.8919,162.0691,0,291.7243,238.6207,291.7243,531.7241,0,111.7242-36.5935,176.5518-112.4139,176.5518C2176.29,1837.2414,2141.5738,1789.2474,2003.5924,1567.2358Z"/>
-                        <path fill="url(#metaG)" d="M1915.3624,1420.0874C1724.0786,1108.9884,1596.7216,1000,1432.4089,1000l-2.069,163.4483c107.5862,0,191.0345,84.8276,372.4138,390.3448l11.0568,18.6Z"/>
-                    </svg>
-                    <span class="logo-tile-name">Meta</span>
-                </div>
+    <!-- FAQ -->
+    <section class="faq-section reveal">
+        <div class="faq-inner">
+            <div class="faq-label">Common Questions</div>
 
-                <!-- Google — official 4-colour G -->
-                <div class="logo-tile">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
-                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                    </svg>
-                    <span class="logo-tile-name">Google</span>
-                </div>
-
-                <!-- TikTok — exact note path from brand asset -->
-                <div class="logo-tile">
-                    <svg viewBox="210 0 560 610" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#EE1D52" d="M665.3,120.1C624.7,93.6,600.1,48.5,600.1,0h-103l-0.2,412.7c-1.8,47.7-42,85-89.7,83.1c-47.7-1.8-85-42-83.1-89.7c1.8-46.5,40-83.2,86.5-83.2c8.7,0,17.3,1.4,25.5,4V221.7c-8.5-1.2-17-1.8-25.5-1.9c-104.5,0-189.5,85-189.5,189.5c0.2,104.6,84.9,189.4,189.6,189.5c104.5,0,189.5-85,189.5-189.5V200.1c41.7,30,91.8,46.2,143.2,46.1v-103C715.6,143.3,688.5,135.2,665.3,120.1z" transform="translate(-10,10)"/>
-                        <path fill="#69C9D0" d="M665.3,120.1C624.7,93.6,600.1,48.5,600.1,0h-103l-0.2,412.7c-1.8,47.7-42,85-89.7,83.1c-47.7-1.8-85-42-83.1-89.7c1.8-46.5,40-83.2,86.5-83.2c8.7,0,17.3,1.4,25.5,4V221.7c-8.5-1.2-17-1.8-25.5-1.9c-104.5,0-189.5,85-189.5,189.5c0.2,104.6,84.9,189.4,189.6,189.5c104.5,0,189.5-85,189.5-189.5V200.1c41.7,30,91.8,46.2,143.2,46.1v-103C715.6,143.3,688.5,135.2,665.3,120.1z" transform="translate(10,-10)"/>
-                        <path fill="#FFFFFF" d="M665.3,120.1C624.7,93.6,600.1,48.5,600.1,0h-103l-0.2,412.7c-1.8,47.7-42,85-89.7,83.1c-47.7-1.8-85-42-83.1-89.7c1.8-46.5,40-83.2,86.5-83.2c8.7,0,17.3,1.4,25.5,4V221.7c-8.5-1.2-17-1.8-25.5-1.9c-104.5,0-189.5,85-189.5,189.5c0.2,104.6,84.9,189.4,189.6,189.5c104.5,0,189.5-85,189.5-189.5V200.1c41.7,30,91.8,46.2,143.2,46.1v-103C715.6,143.3,688.5,135.2,665.3,120.1z"/>
-                    </svg>
-                    <span class="logo-tile-name">TikTok</span>
-                </div>
-
-                <!-- LinkedIn — blue rounded square with "in" -->
-                <div class="logo-tile">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="24" height="24" rx="3.5" fill="#0A66C2"/>
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z" fill="white"/>
-                    </svg>
-                    <span class="logo-tile-name">LinkedIn</span>
-                </div>
-
-                <!-- Northbeam — exact icon mark from brand asset -->
-                <div class="logo-tile">
-                    <svg viewBox="0 0 61 37" fill="white" xmlns="http://www.w3.org/2000/svg">
-                        <path clip-rule="evenodd" fill-rule="evenodd" d="M60.1613 0.712891H56.017L45.3846 22.0078L41.5457 18.1309L50.2285 0.737789L50.1752 0.712891H46.0309L38.7438 15.3067L35.5832 12.1162L41.2652 0.737789L41.2084 0.712891H37.0641L29.4361 15.9932L24.404 10.914H22.0815L19.8442 15.3601L15.4371 10.914H13.1146L0 37H4.21885L14.9115 15.7407L18.058 18.917L8.96328 37H13.1821L20.8564 21.7411L24.681 25.6039L18.9493 37H23.1682L30.4979 22.424L35.0718 27.0372H37.0996L39.7666 21.6984L45.0614 27.0408H47.0892L60.2181 0.741346L60.1613 0.712891ZM25.7555 22.0067L22.6445 18.8661L24.2213 15.7324L27.3251 18.8625L25.7555 22.0067ZM32.2852 18.8661L35.396 22.0067L36.9657 18.8625L33.8619 15.7324L32.2852 18.8661Z"/>
-                    </svg>
-                    <span class="logo-tile-name">Northbeam</span>
-                </div>
-
-                <!-- Triple Whale — exact tail paths from brand asset -->
-                <div class="logo-tile">
-                    <svg viewBox="0 0 80.5 60.1" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#0C70F2" d="M55.2,58.4c0.1,0.9-0.6,1.7-1.6,1.7H30.2c-0.9,0-1.6-0.7-1.6-1.6V25.7c0-0.8-0.6-1.5-1.5-1.7c-4.9-0.8-20.8-4.7-27-21.9C-0.3,1.1,0.5,0,1.5,0h17.8C34,0.6,45,10,49.5,22.8l0,0C53.2,33.4,54.8,52.6,55.2,58.4z"/>
-                        <path fill="#0C70F2" d="M80.4,1.9c-5.8,16.7-17.7,20.5-24.6,22c-0.7,0.1-1.4-0.3-1.6-1C52.1,15,49,10.8,45,7.1c-0.7-0.6-0.6-1.7,0.1-2.2C49.8,1.9,55.5,0,62.7,0v0h16.4C80.1,0,80.8,1,80.4,1.9z"/>
-                    </svg>
-                    <span class="logo-tile-name">Triple Whale</span>
-                </div>
-
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    Do you require a retainer or long-term contract?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner">No retainers, no minimum commitments. We work on a month-to-month basis. Our incentive is to perform — not to lock you in. Most clients stay because results compound over time, not because they have to.</div></div>
             </div>
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    How long until we see results?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner">Most accounts see meaningful movement within the first 3 to 4 weeks. The first 2 weeks are diagnostic — we rebuild creative and audience architecture. Week 3 onward is when efficiency starts shifting. Full compounding typically kicks in at the 60-day mark.</div></div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    What ad spend level do you work best with?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner">We work best with brands spending between $5K and $150K per month on paid. Below $5K there isn't enough volume to test meaningfully. Above $150K we're selective — those engagements are scoped individually.</div></div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    Which platforms do you run?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner">Meta, Google, TikTok, and LinkedIn. We don't spread thin across every platform — we pick the two or three that match your audience and go deep on those. Attribution is set up through Northbeam or Triple Whale depending on your stack.</div></div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    Do you handle creative production?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner">Yes. Creative is central to the system — not an add-on. We write briefs, direct UGC shoots, and produce static and motion assets in-house. Every piece of creative has a written hypothesis before it goes live.</div></div>
+            </div>
+
         </div>
-    </div>
+    </section>
 
     <section class="contact" id="contact">
         <div class="contact-inner">
-            <div class="contact-label">Get in touch</div>
-            <h2 class="contact-title">let's see what you're leaving on the table.</h2>
-            <p class="contact-sub">we work with a small number of brands at a time. if you're spending on paid and not owning the channel, let's find out why.</p>
+            <div class="contact-label">Get in Touch</div>
+            <h2 class="contact-title">Let's find out what's holding your numbers back.</h2>
+            <p class="contact-sub">Small intake. Best fit: DTC or B2B, $5K+/mo, willing to test fast.</p>
+            <p class="contact-sub" style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.2);">Built and run by <a href="https://mysitenate.vercel.app" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,.35);text-decoration:underline;text-underline-offset:3px;">Nate</a>, founder of Ignitris.</p>
+            <p class="contact-sub" style="margin-top:6px;font-size:12px;color:rgba(255,255,255,.38);">Built by engineers from Cornell, Dartmouth, and Harvard.</p>
             <div class="contact-form-wrap">
                 <form class="contact-form" id="contact-form" novalidate>
                     <div class="form-row">
@@ -1403,17 +1708,20 @@
     <footer>
         <div class="footer-inner">
             <div class="footer-top reveal">
-                <div class="footer-pre">Ready to stop leaving money on the table?</div>
+                <div class="footer-pre">Ready to Stop Leaving Money on the Table?</div>
                 <a href="mailto:hello@useignitris.com" class="footer-email">hello@useignitris.com</a>
             </div>
             <div class="footer-bottom">
                 <span class="footer-copy">© 2026 Ignitris</span>
-                <span class="footer-tag">Paid acquisition that compounds.</span>
+                <span class="footer-tag">Paid Acquisition That Compounds.</span>
             </div>
         </div>
     </footer>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.20/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
 <script>
     function switchTab(id, btn) {
@@ -1422,83 +1730,129 @@
         document.getElementById('cases-' + id).classList.add('visible');
         btn.classList.add('active');
         if (id === 'b2b') renderB2B();
+        if (id === 'dtc') renderDTC();
     }
 
     Chart.defaults.color = 'rgba(255,255,255,0.25)';
     Chart.defaults.font.family = "'SF Pro Display',-apple-system,sans-serif";
     Chart.defaults.font.size = 10;
 
-    /* Dark theme grid + tick styles */
     const G  = { color:'rgba(255,255,255,0.06)', borderColor:'transparent' };
     const TK = { color:'rgba(255,255,255,0.25)', padding:4 };
     const TT = {
-        backgroundColor:'rgba(10,14,20,0.92)',
-        titleColor:'rgba(255,255,255,.85)', bodyColor:'rgba(255,255,255,.5)',
+        backgroundColor:'rgba(8,10,14,0.96)',
+        titleColor:'rgba(255,255,255,.85)',
+        bodyColor:'rgba(255,255,255,.5)',
         padding:10, cornerRadius:3,
         borderColor:'rgba(255,255,255,.1)', borderWidth:1,
-        callbacks: {
-            labelPointStyle: () => ({ pointStyle: 'circle', rotation: 0 })
+        displayColors:false,
+    };
+
+    /* Clean crosshair - just a subtle dashed line, no point explosion */
+    const crosshairPlugin = {
+        id: 'crosshair',
+        afterDraw(chart) {
+            if (chart._crosshairX == null) return;
+            const { ctx, chartArea: { top, bottom } } = chart;
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(chart._crosshairX, top);
+            ctx.lineTo(chart._crosshairX, bottom);
+            ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([3, 4]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.restore();
+        },
+        afterEvent(chart, args) {
+            const e = args.event;
+            chart._crosshairX = (e.type === 'mousemove') ? e.x : null;
+            args.changed = true;
         }
     };
-
-    /* Blue dot on tooltip */
-    const pointDot = {
-        usePointStyle: true,
-        pointStyle: 'circle',
-        boxWidth: 6, boxHeight: 6
-    };
+    Chart.register(crosshairPlugin);
 
     const line = (id, labels, data, color) => {
-        const c = color || '#0279FD';
-        /* Build a semi-transparent fill from the hex/rgba color */
-        const fill = c.startsWith('#')
-            ? c + '1a'   /* hex + ~10% alpha — visible on dark bg */
-            : c.replace(/[\d.]+\)$/, '0.10)');
+        const c = color || '#007BFF';
         return new Chart(document.getElementById(id), {
-            type:'line',
-            data:{ labels, datasets:[{
+            type: 'line',
+            data: { labels, datasets: [{
                 data,
                 borderColor: c,
-                backgroundColor: fill,
-                fill:true, tension:.45,
-                pointRadius:0, pointHoverRadius:5,
-                pointBackgroundColor: c,
-                pointBorderColor:'#fff', pointBorderWidth:1.5, borderWidth:2.5
-            }] },
-            options:{ responsive:true, maintainAspectRatio:false,
-                plugins:{ legend:{ display:false }, tooltip:{ ...TT, callbacks:{
-                    labelColor: () => ({ borderColor:'transparent', backgroundColor: c, borderRadius:50 })
-                } } },
-                scales:{
-                    x:{ grid:{ display:false }, ticks:TK, border:{ display:false } },
-                    y:{ grid:G, ticks:TK, border:{ display:false } }
-                } }
+                backgroundColor: c + '18',
+                fill: true,
+                tension: 0.42,
+                pointRadius: 0,
+                pointHoverRadius: 0,
+                borderWidth: 2,
+                pointHitRadius: 0,
+            }]},
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        ...TT,
+                        callbacks: {
+                            title: (items) => labels[items[0].dataIndex],
+                            label: (item) => ' ' + item.formattedValue,
+                        }
+                    }
+                },
+                scales: {
+                    x: { grid: { display: false }, ticks: TK, border: { display: false } },
+                    y: { grid: G, ticks: TK, border: { display: false } }
+                },
+                animation: { duration: 600, easing: 'easeOutQuart' },
+            }
         });
     };
 
     const bar = (id, labels, spend, rev) => new Chart(document.getElementById(id), {
-        type:'bar',
-        data:{ labels, datasets:[
-            { label:'Spend', data:spend, backgroundColor:'rgba(10,22,40,.07)', borderRadius:2, barPercentage:.75 },
-            { label:'Revenue', data:rev, backgroundColor:'rgba(2,121,253,.65)', borderRadius:2, barPercentage:.75 }
+        type: 'bar',
+        data: { labels, datasets: [
+            { label: 'Spend', data: spend, backgroundColor: 'rgba(255,255,255,.07)', borderRadius: 2, barPercentage: .65, categoryPercentage: .75 },
+            { label: 'Revenue', data: rev, backgroundColor: 'rgba(2,121,253,.65)', borderRadius: 2, barPercentage: .65, categoryPercentage: .75 }
         ]},
-        options:{ responsive:true, maintainAspectRatio:false,
-            plugins:{ legend:{ display:true, labels:{ color:'rgba(10,22,40,.35)', boxWidth:6, boxHeight:6, font:{size:9} } }, tooltip:TT },
-            scales:{ x:{grid:G,ticks:TK,border:{display:false}}, y:{grid:G,ticks:TK,border:{display:false}} } }
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+                legend: { display: true, labels: { color: 'rgba(255,255,255,.3)', boxWidth: 8, boxHeight: 8, font: { size: 9 }, usePointStyle: true, pointStyle: 'circle' } },
+                tooltip: { ...TT, displayColors: true }
+            },
+            scales: {
+                x: { grid: { display: false }, ticks: TK, border: { display: false } },
+                y: { grid: G, ticks: TK, border: { display: false } }
+            },
+            animation: { duration: 600, easing: 'easeOutQuart' },
+        }
     });
 
     const w12 = ['W1','W2','W3','W4','W5','W6','W7','W8','W9','W10','W11','W12'];
     const w8  = ['W1','W2','W3','W4','W5','W6','W7','W8'];
     const w6  = ['W1','W2','W3','W4','W5','W6'];
 
-    // More realistic data with some plateaus and variance
-    line('c1a', w12, [1.4,1.5,1.8,2.1,2.6,3.1,3.4,3.9,4.3,4.8,5.2,5.8]);
-    line('c1b', w12, [64,61,57,52,46,41,36,31,28,24,21,18]);
-
-    line('c2a', w8, [1.9,2.1,2.4,2.8,3.2,3.6,4.0,4.3]);
-    line('c2b', w8, [86,79,72,64,54,44,35,26]);
-
-    line('c3b', w6, [6.20,5.30,4.10,2.90,2.10,1.40]);
+    let dtcRendered = false;
+    function renderDTC() {
+        if (dtcRendered) return;
+        dtcRendered = true;
+        line('c1a', w12, [1.4,1.5,1.8,2.1,2.6,3.1,3.4,3.9,4.3,4.8,5.2,5.8]);
+        line('c1b', w12, [64,61,57,52,46,41,36,31,28,24,21,18]);
+        line('c2a', w8, [1.9,2.1,2.4,2.8,3.2,3.6,4.0,4.3]);
+        line('c2b', w8, [86,79,72,64,54,44,35,26]);
+        line('c3b', w6, [6.20,5.30,4.10,2.90,2.10,1.40]);
+    }
+    const dtcSection = document.getElementById('cases-dtc');
+    if (dtcSection) {
+        new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting) renderDTC();
+        }, { threshold: 0.05 }).observe(dtcSection);
+    }
 
     let b2bRendered = false;
     function renderB2B() {
@@ -1525,7 +1879,7 @@
     (function() {
         if (typeof Lenis === 'undefined') return;
         var lenis = new Lenis({
-            lerp: 0.08,          /* smoothness — lower = more butter, higher = snappier */
+            lerp: 0.13,          /* smoothness - lower = more butter, higher = snappier */
             smoothWheel: true,
             smoothTouch: false,  /* keep native momentum on mobile/touch */
         });
@@ -1569,13 +1923,20 @@
             hOut.style.transform = 'translateY(' + (outP * -90) + 'px)';
             hOut.style.opacity   = 1 - outP;
 
-            /* Incoming lines — staggered */
+            /* Incoming lines - staggered */
             applyLine(inL1, remap(p, 0.15, 0.40, 0, 1));
             applyLine(inL2, remap(p, 0.28, 0.53, 0, 1));
             applyLine(inL3, remap(p, 0.41, 0.66, 0, 1));
 
             /* Lock-phase subtext */
             if (hLockSub) hLockSub.style.opacity = remap(p, 0.62, 0.82, 0, 1);
+
+            /* Show hero CTA once incoming lines are locked */
+            var heroCta = document.getElementById('in-cta');
+            if (heroCta) {
+                if (p > 0.65) heroCta.classList.add('visible');
+                else heroCta.classList.remove('visible');
+            }
 
             /* Nav always dark on black hero; tighten at 80px */
             if (nav) {
@@ -1608,6 +1969,15 @@
         }
     })();
 
+
+    /* ── FAQ toggle ── */
+    function toggleFaq(btn) {
+        var item = btn.parentElement;
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(function(el) { el.classList.remove('open'); });
+        if (!isOpen) item.classList.add('open');
+    }
+
     /* ── Contact form ── */
     (function() {
         var form    = document.getElementById('contact-form');
@@ -1630,62 +2000,75 @@
         });
     })();
 
-    /* stat counter removed — replaced by ticker */
+    /* stat counter removed - replaced by ticker */
     </script>
 
     <script>
-    /* ── Cinematic scroll reveals ── */
+    /* ── Scroll reveals — bidirectional (in on scroll down, out on scroll up) ── */
     (function () {
-        /* 1. Basic .reveal (case cards, stats block, contact) */
+
+        /* 1. Basic .reveal — adds 'in' when entering, removes when leaving */
         const revObs = new IntersectionObserver((entries) => {
             entries.forEach(e => {
-                if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); }
+                if (e.isIntersecting) {
+                    e.target.classList.add('in');
+                } else {
+                    e.target.classList.remove('in');
+                }
             });
         }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
         document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
 
-        /* 2. Staggered grid items — stat, metric, science-row, logo-tile, chart-cell */
-        const STAGGER_DELAY = 72; /* ms between each child */
+        /* 2. Staggered grid items — bidirectional */
+        const STAGGER_DELAY = 72;
         const groups = [
-            { parent: '.stats',          items: '.stat'                    },
-            { parent: '.metrics',        items: '.m, .m-featured'          },
-            { parent: '.science-rows',   items: '.science-row'             },
-            { parent: '.logo-wall-row',  items: '.logo-tile'               },
-            { parent: '.chart-row',      items: '.chart-cell'              },
+            { parent: '.stats',        items: '.stat'           },
+            { parent: '.metrics',      items: '.m, .m-featured' },
+            { parent: '.science-rows', items: '.science-row'    },
+            { parent: '.chart-row',    items: '.chart-cell'     },
         ];
 
         groups.forEach(({ parent, items }) => {
             document.querySelectorAll(parent).forEach(container => {
                 const children = Array.from(container.querySelectorAll(items));
-                /* Mark as stagger items + set per-child delay via CSS var */
                 children.forEach((el, i) => {
                     el.classList.add('s-item');
                     el.style.setProperty('--sd', (i * STAGGER_DELAY) + 'ms');
                 });
 
                 const obs = new IntersectionObserver((entries) => {
-                    if (!entries[0].isIntersecting) return;
-                    children.forEach(el => el.classList.add('s-in'));
-                    obs.disconnect();
-                }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+                    if (entries[0].isIntersecting) {
+                        children.forEach(el => el.classList.add('s-in'));
+                    } else {
+                        children.forEach(el => el.classList.remove('s-in'));
+                    }
+                }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
                 obs.observe(container);
             });
         });
 
-        /* 3. Case rule wipe */
+        /* 3. Case rule wipe — bidirectional */
         document.querySelectorAll('.case-rule-line').forEach(function(el) {
             var obs = new IntersectionObserver(function(entries) {
-                if (entries[0].isIntersecting) { el.classList.add('wiped'); obs.disconnect(); }
-            }, { threshold: 0.5 });
+                if (entries[0].isIntersecting) {
+                    el.classList.add('wiped');
+                } else {
+                    el.classList.remove('wiped');
+                }
+            }, { threshold: 0.3 });
             obs.observe(el);
         });
 
-        /* 4. Science row border draw + active row tracking */
+        /* 4. Science row border draw — bidirectional + active tracking */
         var scienceRows = Array.from(document.querySelectorAll('.science-row'));
         scienceRows.forEach(function(row) {
             var obs = new IntersectionObserver(function(entries) {
-                if (entries[0].isIntersecting) { row.classList.add('border-drawn'); obs.disconnect(); }
-            }, { threshold: 0.25 });
+                if (entries[0].isIntersecting) {
+                    row.classList.add('border-drawn');
+                } else {
+                    row.classList.remove('border-drawn');
+                }
+            }, { threshold: 0.2 });
             obs.observe(row);
         });
         if (scienceRows.length) {
@@ -1705,41 +2088,55 @@
             }, { passive: true });
         }
 
-        /* 5. Contact sequential reveal */
+        /* 5. Contact sequential reveal — bidirectional */
         var contactInner = document.querySelector('.contact-inner');
         if (contactInner) {
             contactInner.classList.add('form-reveal');
             var cObs = new IntersectionObserver(function(entries) {
-                if (entries[0].isIntersecting) { contactInner.classList.add('form-in'); cObs.disconnect(); }
-            }, { threshold: 0.12 });
+                if (entries[0].isIntersecting) {
+                    contactInner.classList.add('form-in');
+                } else {
+                    contactInner.classList.remove('form-in');
+                }
+            }, { threshold: 0.08 });
             cObs.observe(contactInner);
         }
 
-        /* 6. Metric value count-up — fires when the metrics grid enters view */
+        /* 6. Metric count-up — reruns each time element enters view */
         document.querySelectorAll('.metrics').forEach(container => {
             const vals = Array.from(container.querySelectorAll('.m-val, .m-ba-before'));
+            const originals = vals.map(el => el.textContent.trim());
             const obs = new IntersectionObserver((entries) => {
-                if (!entries[0].isIntersecting) return;
-                obs.disconnect();
-                vals.forEach((el, i) => {
-                    const raw = el.textContent.trim();
-                    const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
-                    if (!num || isNaN(num)) return;
-                    const prefix = raw.match(/^[^0-9]*/)[0];
-                    const suffix = raw.match(/[^0-9.]+$/)?.[0] || '';
-                    const isDecimal = raw.includes('.');
-                    const dur = 1100, delay = i * 60;
-                    setTimeout(() => {
-                        const t0 = performance.now();
-                        (function step(now) {
-                            const p = Math.min((now - t0) / dur, 1);
-                            const ease = 1 - Math.pow(1 - p, 3);
-                            el.textContent = prefix + (isDecimal ? (num * ease).toFixed(1) : Math.round(num * ease)) + suffix;
-                            if (p < 1) requestAnimationFrame(step);
-                        })(performance.now());
-                    }, delay);
-                });
-            }, { threshold: 0.2 });
+                if (entries[0].isIntersecting) {
+                    vals.forEach((el, i) => {
+                        const raw = originals[i];
+                        const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
+                        if (!num || isNaN(num)) return;
+                        const prefix = raw.match(/^[^0-9]*/)[0];
+                        const suffix = raw.match(/[^0-9.]+$/)?.[0] || '';
+                        const isDecimal = raw.includes('.');
+                        const dur = 1000, delay = i * 60;
+                        setTimeout(() => {
+                            const t0 = performance.now();
+                            (function step(now) {
+                                const p = Math.min((now - t0) / dur, 1);
+                                const ease = 1 - Math.pow(1 - p, 3);
+                                el.textContent = prefix + (isDecimal ? (num * ease).toFixed(1) : Math.round(num * ease)) + suffix;
+                                if (p < 1) requestAnimationFrame(step);
+                            })(performance.now());
+                        }, delay);
+                    });
+                } else {
+                    /* Reset to 0 so count-up replays on re-entry */
+                    vals.forEach((el, i) => {
+                        const raw = originals[i];
+                        const prefix = raw.match(/^[^0-9]*/)[0];
+                        const suffix = raw.match(/[^0-9.]+$/)?.[0] || '';
+                        const isDecimal = raw.includes('.');
+                        el.textContent = prefix + (isDecimal ? '0.0' : '0') + suffix;
+                    });
+                }
+            }, { threshold: 0.15 });
             obs.observe(container);
         });
     })();
