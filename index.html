@@ -375,12 +375,18 @@
                 transform 0.7s  var(--sd, 0s) cubic-bezier(0.16,1,0.3,1),
                 filter    0.5s  var(--sd, 0s) ease;
         }
-        /* Metric cells inside cases pop in fast */
+        /* Metric cells — blur fade, smooth, no jitter */
         .case .s-item {
-            filter: none !important;
-            transform: translateY(6px) !important;
-            transition: opacity .15s ease var(--sd, 0s),
-                        transform .15s ease var(--sd, 0s) !important;
+            filter: blur(4px) !important;
+            transform: translateY(10px) translateZ(0) !important;
+            will-change: opacity, transform, filter;
+            transition: opacity   .55s cubic-bezier(.22,1,.36,1) var(--sd, 0s),
+                        transform .55s cubic-bezier(.22,1,.36,1) var(--sd, 0s),
+                        filter    .45s ease                       var(--sd, 0s) !important;
+        }
+        .case .s-item.s-in {
+            filter: blur(0px) !important;
+            transform: translateY(0) translateZ(0) !important;
         }
         .s-item.s-in {
             opacity: 1; transform: none; filter: none;
@@ -569,7 +575,7 @@
             color: rgba(255,255,255,.15);
         }
         .m-val {
-            font-size: 28px; font-weight: 400; letter-spacing: -.03em;
+            font-size: 22px; font-weight: 400; letter-spacing: -.03em;
             color: #fff; line-height: 1;
         }
         /* Delta badge */
@@ -1627,6 +1633,7 @@
         }
         .hero-form-overlay.active {
             pointer-events: auto;
+            opacity: 1;
         }
         .hero-form-bg {
             position: absolute;
@@ -1726,7 +1733,7 @@
     </a>
     <div class="nav-spacer"></div>
     <div class="nav-right">
-        <a href="#contact" class="btn-nav-cta">Work with us</a>
+        <a href="#contact" class="btn-nav-cta" onclick="var t=document.getElementById('contact');if(t){if(window.__lenis)window.__lenis.scrollTo(t,{duration:0.4,easing:function(x){return x}});else t.scrollIntoView({behavior:'smooth'});}return false;">Work with us</a>
     </div>
 </nav>
 
@@ -1746,7 +1753,7 @@
             <div class="h-in-line" id="in-l2">Your Competitors</div>
             <div class="h-in-line" id="in-l3"><span style="color:#007BFF">Can't Replicate.</span></div>
             <div class="h-in-cta" id="in-cta">
-                <a href="#contact" class="btn btn-hero">Work with us</a>
+                <a href="#contact" class="btn btn-hero" onclick="var t=document.getElementById('contact');if(t){if(window.__lenis)window.__lenis.scrollTo(t,{duration:0.4,easing:function(x){return x}});else t.scrollIntoView({behavior:'smooth'});}return false;">Work with us</a>
             </div>
         </div>
 
@@ -2581,7 +2588,7 @@
         document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
 
         /* 2. Staggered grid items — bidirectional */
-        const STAGGER_DELAY = 72;
+        const STAGGER_DELAY = 55;
         const groups = [
             { parent: '.stats',        items: '.stat'           },
             { parent: '.metrics',      items: '.m, .m-featured' },
@@ -2704,20 +2711,6 @@
     </script>
 
     <script>
-    // ── Hero form ──────────────────────────────────────────────────
-    (function(){
-        var overlay = document.getElementById('heroFormOverlay');
-        var closeBtn = document.getElementById('heroFormClose');
-        var bg = document.getElementById('heroFormBg');
-        function openForm(e){ e && e.preventDefault(); overlay.classList.add('active'); document.body.style.overflow='hidden'; }
-        function closeForm(){ overlay.classList.remove('active'); document.body.style.overflow=''; }
-        document.querySelectorAll('a[href="#contact"], .btn-nav-cta, .btn-hero').forEach(function(el){
-            el.addEventListener('click', openForm);
-        });
-        if(closeBtn) closeBtn.addEventListener('click', closeForm);
-        if(bg) bg.addEventListener('click', closeForm);
-        document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeForm(); });
-    })();
 
 
     // ── Lightbox ──────────────────────────────────────────────────
