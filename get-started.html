@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">    <title>Join Waitlist | Ignitris</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            background: #ffffff;
+            touch-action: manipulation;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #0A1628;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            animation: pageIn 0.08s ease forwards;
+        }
+
+        @keyframes pageIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        body.page-transitioning {
+            
+        }
+
+        @keyframes pageOut {
+            from { opacity: 1; }
+            to   { opacity: 0; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeOnly {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* Breakout success state */
+        .waitlist-confirmed {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+            opacity: 0;
+        }
+        .waitlist-confirmed.visible {
+            display: flex;
+            animation: fadeOnly 0.1s ease forwards;
+        }
+        .confirmed-line {
+            width: 40px;
+            height: 1px;
+            background: rgba(10, 22, 40, 0.12);
+            transform: scaleX(0);
+            transform-origin: center;
+        }
+        .confirmed-line.draw {
+            animation: drawLine 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+        }
+        @keyframes drawLine {
+            from { transform: scaleX(0); opacity: 0; }
+            to   { transform: scaleX(1); opacity: 1; }
+        }
+        .confirmed-label {
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 0.03em;
+            color: rgba(10, 22, 40, 0.85);
+            opacity: 0;
+        }
+        .confirmed-label.reveal {
+            animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .confirmed-sub {
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            color: rgba(10, 22, 40, 0.35);
+            opacity: 0;
+        }
+        .confirmed-sub.reveal {
+            animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-up {
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.5s; }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            height: 48px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            box-shadow: none;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: rgba(10, 22, 40, 0.9);
+            transition: opacity 0.2s;
+        }
+        .nav-logo:hover { opacity: 0.7; }
+        .nav-logo svg { height: 18px; width: auto; filter: none; }
+
+        .nav-actions { display: flex; align-items: center; gap: 12px; }
+
+        .btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: rgba(10, 22, 40, 0.85);
+            background: rgba(10, 22, 40, 0.04);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+        }
+        .btn::before, .btn::after {
+            content: ''; position: absolute; width: 6px; height: 6px;
+            border: 1px solid rgba(255,255,255,0.3); transition: all 0.3s ease;
+        }
+        .btn::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .btn::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+        .btn:hover::before, .btn:hover::after { border-color: rgba(255,255,255,0.6); width: 10px; height: 10px; }
+        .btn-ghost { border-color: transparent; background: transparent; color: rgba(255,255,255,0.7); }
+        .btn-ghost:hover { color: rgba(255,255,255,1); background: rgba(255,255,255,0.08); }
+
+        /* PAGE CENTER */
+        .page {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-module {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            width: 100%;
+            max-width: 440px;
+            padding: 0 24px;
+            text-align: center;
+        }
+
+        .form-eyebrow {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(10, 22, 40, 0.35);
+            margin-bottom: 18px;
+        }
+
+        /* Glass pill — same as homepage */
+        .waitlist-row {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            box-shadow: none;
+            border-radius: 100px;
+            padding: 5px 5px 5px 22px;
+            gap: 0;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .waitlist-row.shake {
+            animation: pillShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards !important;
+            border-color: rgba(255, 90, 90, 0.5) !important;
+        }
+
+        @keyframes pillShake {
+            0%, 100% { transform: translateX(0); }
+            15%      { transform: translateX(-7px); }
+            35%      { transform: translateX(7px); }
+            55%      { transform: translateX(-4px); }
+            75%      { transform: translateX(4px); }
+            90%      { transform: translateX(-2px); }
+        }
+
+        .waitlist-input {
+            flex: 1;
+            height: 38px;
+            padding: 0;
+            font-size: 13px;
+            font-weight: 300;
+            color: #0A1628;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: inherit;
+            -webkit-font-smoothing: antialiased;
+            min-width: 0;
+        }
+
+        .waitlist-input::placeholder {
+            color: rgba(10, 22, 40, 0.32);
+        }
+
+        .waitlist-btn {
+            display: inline-flex;
+            align-items: center;
+            height: 38px;
+            padding: 0 20px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(10, 22, 40, 0.85);
+            background: rgba(10, 22, 40, 0.06);
+            border: 1px solid rgba(10, 22, 40, 0.12);
+            border-radius: 100px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            -webkit-font-smoothing: antialiased;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            flex-shrink: 0;
+        }
+
+        .waitlist-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(10, 22, 40, 0.2);
+        }
+
+        .waitlist-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* iMessage dot loader */
+        @keyframes imessageDot {
+            0%, 60%, 100% { transform: translateY(0);   opacity: 0.35; }
+            30%            { transform: translateY(-4px); opacity: 1;    }
+        }
+        .dot-loader { display: inline-flex; align-items: center; gap: 3px; }
+        .dot-loader span {
+            display: inline-block; width: 4px; height: 4px;
+            border-radius: 50%; background: currentColor;
+            animation: imessageDot 0.9s infinite ease-in-out;
+        }
+        .dot-loader span:nth-child(1) { animation-delay: 0s; }
+        .dot-loader span:nth-child(2) { animation-delay: 0.15s; }
+        .dot-loader span:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Inline error below pill */
+        .waitlist-error-text {
+            font-size: 11px;
+            font-weight: 400;
+            color: rgba(180, 30, 30, 0.85);
+            padding: 10px 0 0;
+            letter-spacing: 0.01em;
+            opacity: 0;
+            animation: fadeUp 0.3s ease forwards;
+        }
+
+        /* Social proof + Reassurance — unified micro-text */
+        .waitlist-social-proof,
+        .waitlist-reassurance {
+            font-size: 11px;
+            font-weight: 400;
+            color: rgba(10, 22, 40, 0.35);
+            letter-spacing: 0.06em;
+            text-align: center;
+        }
+        .waitlist-social-proof { padding: 10px 0 0; }
+        .waitlist-reassurance  { padding: 5px 0 0; }
+
+        /* Exit intent bar */
+        .exit-bar {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 20px 12px 24px;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            border-radius: 100px;
+            box-shadow: 0 4px 24px rgba(10, 22, 40, 0.09);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
+            z-index: 999;
+        }
+        .exit-bar.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .exit-bar-text {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(10, 22, 40, 0.55);
+            letter-spacing: 0.01em;
+        }
+        .exit-bar-cta {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #0A1628;
+            background: rgba(10, 22, 40, 0.06);
+            border: 1px solid rgba(10, 22, 40, 0.12);
+            border-radius: 100px;
+            padding: 6px 14px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s ease;
+        }
+        .exit-bar-cta:hover { background: rgba(10, 22, 40, 0.12); }
+        .exit-bar-dismiss {
+            font-size: 16px;
+            color: rgba(10, 22, 40, 0.35);
+            cursor: pointer;
+            line-height: 1;
+            background: none;
+            border: none;
+            font-family: inherit;
+            padding: 0 0 0 4px;
+            transition: color 0.2s ease;
+        }
+        .exit-bar-dismiss:hover { color: rgba(10, 22, 40, 0.5); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="nav-logo">
+            <svg viewBox="0 0 8042 2511" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2103.12 2510.57C1996.16 2510.57 1902.57 2495.6 1822.35 2465.68C1742.89 2436.51 1679.48 2396.23 1632.11 2344.81C1584.74 2293.39 1555.32 2235.84 1543.86 2172.14L1541.57 2161.78H1821.2L1825.78 2170.99C1841.06 2206.29 1872.39 2235.45 1919.76 2258.48C1967.89 2282.27 2028.63 2294.16 2101.97 2294.16C2195.18 2294.16 2266.62 2271.14 2316.28 2225.1C2365.94 2179.05 2390.77 2117.28 2390.77 2039.77V1863.65H2385.04C2362.89 1907.39 2333.09 1944.99 2295.65 1976.46C2258.98 2007.92 2215.81 2032.48 2166.15 2050.13C2117.26 2067.78 2063.77 2076.6 2005.71 2076.6C1904.1 2076.6 1815.47 2051.66 1739.83 2001.78C1664.96 1951.9 1606.89 1881.3 1565.64 1789.98C1525.14 1697.89 1504.9 1588.53 1504.9 1461.91V1460.76C1504.9 1331.84 1525.53 1221.33 1566.78 1129.24C1608.8 1036.39 1667.63 964.637 1743.27 913.988C1818.91 863.339 1907.92 838.015 2010.29 838.015C2067.59 838.015 2120.31 847.991 2168.44 867.944C2216.58 887.129 2258.6 913.988 2294.51 948.521C2331.18 983.054 2360.98 1023.73 2383.9 1070.54H2390.77V863.339H2676.13V2048.98C2676.13 2141.06 2652.83 2221.64 2606.22 2290.71C2559.62 2360.54 2493.53 2414.64 2407.96 2453.01C2322.39 2491.38 2220.78 2510.57 2103.12 2510.57ZM2095.1 1855.59C2154.69 1855.59 2206.64 1839.86 2250.96 1808.4C2295.27 1776.16 2329.65 1730.89 2354.1 1672.57C2379.31 1614.24 2391.92 1545.94 2391.92 1467.67V1466.52C2391.92 1387.48 2379.31 1319.18 2354.1 1261.62C2328.89 1203.3 2294.12 1158.41 2249.81 1126.94C2205.5 1095.48 2153.93 1079.75 2095.1 1079.75C2033.98 1079.75 1980.88 1095.48 1935.8 1126.94C1890.72 1158.41 1855.96 1202.92 1831.51 1260.47C1807.07 1318.03 1794.84 1386.71 1794.84 1466.52V1467.67C1794.84 1547.48 1807.07 1616.54 1831.51 1674.87C1855.96 1732.42 1890.72 1776.93 1935.8 1808.4C1980.88 1839.86 2033.98 1855.59 2095.1 1855.59Z" fill="currentColor"/>
+                <path d="M2862.98 2083.51V863.339H3147.19V1054.42H3154.07C3185.39 988.426 3232 935.859 3293.88 896.721C3356.53 857.584 3433.7 838.015 3525.38 838.015C3659.08 838.015 3762.22 878.688 3834.8 960.032C3908.15 1041.38 3944.82 1152.65 3944.82 1293.85V2083.51H3659.46V1351.41C3659.46 1264.69 3639.22 1197.93 3598.72 1151.12C3558.23 1103.54 3497.49 1079.75 3416.51 1079.75C3362.26 1079.75 3314.89 1092.41 3274.4 1117.73C3233.91 1142.29 3202.58 1176.82 3180.43 1221.33C3158.27 1265.07 3147.19 1316.49 3147.19 1375.58V2083.51H2862.98Z" fill="currentColor"/>
+                <path d="M4135.11 2083.51V863.339H4420.47V2083.51H4135.11ZM4277.21 688.372C4232.9 688.372 4195.46 673.024 4164.9 642.328C4134.34 611.631 4119.06 574.796 4119.06 531.822C4119.06 488.08 4134.34 451.244 4164.9 421.316C4195.46 390.62 4232.9 375.271 4277.21 375.271C4322.29 375.271 4360.11 390.62 4390.67 421.316C4421.23 451.244 4436.51 488.08 4436.51 531.822C4436.51 574.796 4421.23 611.631 4390.67 642.328C4360.11 673.024 4322.29 688.372 4277.21 688.372Z" fill="currentColor"/>
+                <path d="M5066.87 2107.68C4940.81 2107.68 4846.83 2080.06 4784.95 2024.8C4723.83 1969.55 4693.27 1879 4693.27 1753.14V1084.35H4521.36V863.339H4693.27V553.693H4983.21V863.339H5208.97V1084.35H4983.21V1730.12C4983.21 1789.21 4996.2 1830.27 5022.17 1853.29C5048.91 1875.54 5087.88 1886.67 5139.07 1886.67C5153.58 1886.67 5166.19 1886.29 5176.89 1885.52C5188.35 1883.98 5199.04 1882.83 5208.97 1882.07V2097.32C5192.17 2099.62 5171.54 2101.93 5147.09 2104.23C5123.4 2106.53 5096.66 2107.68 5066.87 2107.68Z" fill="currentColor"/>
+                <path d="M5358 2083.51V863.339H5642.22V1073.99H5649.09C5667.43 1000.32 5700.66 942.766 5748.8 901.326C5797.69 859.119 5857.29 838.015 5927.58 838.015C5945.15 838.015 5961.96 839.166 5978 841.468C5994.04 843.771 6007.41 846.457 6018.11 849.526V1108.52C6006.65 1103.92 5990.22 1100.08 5968.83 1097.01C5948.2 1093.94 5925.66 1092.41 5901.22 1092.41C5847.74 1092.41 5801.51 1103.54 5762.55 1125.79C5723.58 1147.28 5693.79 1179.13 5673.16 1221.33C5652.53 1263.54 5642.22 1314.96 5642.22 1375.58V2083.51H5358Z" fill="currentColor"/>
+                <path d="M6125.88 2083.51V863.339H6411.24V2083.51H6125.88ZM6267.99 688.372C6223.68 688.372 6186.24 673.024 6155.68 642.328C6125.12 611.631 6109.84 574.796 6109.84 531.822C6109.84 488.08 6125.12 451.244 6155.68 421.316C6186.24 390.62 6223.68 375.271 6267.99 375.271C6313.07 375.271 6350.88 390.62 6381.45 421.316C6412.01 451.244 6427.29 488.08 6427.29 531.822C6427.29 574.796 6412.01 611.631 6381.45 642.328C6350.88 673.024 6313.07 688.372 6267.99 688.372Z" fill="currentColor"/>
+                <path d="M7081.71 2107.68C6975.51 2107.68 6884.59 2091.95 6808.96 2060.49C6734.08 2029.02 6675.25 1984.9 6632.47 1928.11C6590.45 1870.56 6564.85 1804.17 6555.69 1728.97L6554.54 1718.61H6835.32L6837.61 1728.97C6848.3 1781.92 6873.52 1822.98 6913.24 1852.14C6953.74 1881.3 7010.27 1895.88 7082.86 1895.88C7129.46 1895.88 7169.19 1890.12 7202.04 1878.61C7234.89 1867.1 7260.11 1850.22 7277.68 1827.96C7296.02 1805.71 7305.18 1779.62 7305.18 1749.69V1748.54C7305.18 1712.47 7292.96 1683.31 7268.51 1661.05C7244.06 1638.03 7200.13 1619.23 7136.72 1604.65L6935.02 1559.76C6857.85 1542.11 6793.29 1517.93 6741.34 1487.24C6689.39 1456.54 6650.42 1418.56 6624.45 1373.28C6598.47 1327.23 6585.48 1273.9 6585.48 1213.27V1212.12C6585.48 1137.69 6605.73 1072.46 6646.22 1016.44C6686.71 960.416 6743.63 916.674 6816.98 885.21C6890.32 853.747 6975.51 838.015 7072.54 838.015C7173.39 838.015 7259.72 854.898 7331.54 888.664C7403.36 922.429 7458.75 967.706 7497.71 1024.49C7537.44 1081.28 7558.84 1144.98 7561.89 1215.58L7563.04 1228.24H7297.16L7296.02 1219.03C7289.9 1169.92 7267.75 1129.63 7229.55 1098.16C7191.35 1065.93 7139.01 1049.82 7072.54 1049.82C7030.52 1049.82 6993.85 1055.96 6962.52 1068.24C6931.96 1080.51 6908.28 1097.78 6891.47 1120.04C6875.43 1142.29 6867.4 1168.38 6867.4 1198.31V1199.46C6867.4 1222.48 6873.13 1243.2 6884.59 1261.62C6896.05 1280.04 6914.39 1296.15 6939.6 1309.97C6964.82 1323.01 6998.43 1334.52 7040.45 1344.5L7242.15 1389.39C7368.21 1417.79 7457.99 1458.46 7511.47 1511.41C7564.95 1563.59 7591.69 1633.81 7591.69 1722.06V1723.21C7591.69 1799.95 7569.91 1867.49 7526.37 1925.81C7482.82 1983.36 7422.46 2028.26 7345.29 2060.49C7268.89 2091.95 7181.03 2107.68 7081.71 2107.68Z" fill="currentColor"/>
+                <path d="M852.788 0L828.043 114.951C1013.63 149.126 1013.63 133.592 1053.84 167.767C1103.93 210.338 1084.77 314.822 1072.4 375.922L806.391 1749.13C763.088 2003.88 645.551 1985.24 484.711 2003.88L459.967 2121.94H1418.82L1443.57 2010.1C1275.3 1992.7 1155.91 1988.35 1174.47 1848.54L1452.84 363.495C1493.05 164.66 1542.54 130.485 1774.52 118.058L1799.27 0H852.788Z" fill="currentColor"/>
+            </svg>
+        </a>
+        <div class="nav-actions">
+            <a href="/careers" class="btn btn-ghost">Careers</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <div class="form-module">
+
+            <p class="form-eyebrow animate-up delay-1">Early access</p>
+
+            <div class="waitlist animate-up delay-2" style="width:100%;">
+                <div class="waitlist-row" id="waitlist-row">
+                    <input
+                        type="text"
+                        class="waitlist-input"
+                        id="waitlist-email"
+                        placeholder="tim@useignitris.com"
+                        autocomplete="email"
+                        spellcheck="false"
+                        inputmode="email"
+                    >
+                    <button class="waitlist-btn" id="waitlist-submit" type="button">Join &rarr;</button>
+                </div>
+                <p class="waitlist-social-proof animate-up delay-3" id="social-proof">join 100+ teams on the waitlist</p>
+                <p class="waitlist-reassurance animate-up delay-3">work email only &nbsp;·&nbsp; no spam</p>
+                <div class="waitlist-confirmed" id="waitlist-confirmed">
+                    <span class="confirmed-line" id="confirmed-line"></span>
+                    <p class="confirmed-label" id="confirmed-label">you're in.</p>
+                    <p class="confirmed-sub" id="confirmed-sub">we'll reach out before launch.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Exit intent bar -->
+    <div class="exit-bar" id="exit-bar">
+        <span class="exit-bar-text">early access is limited.</span>
+        <button class="exit-bar-cta" id="exit-bar-cta">join the waitlist</button>
+        <button class="exit-bar-dismiss" id="exit-bar-dismiss" aria-label="Dismiss">×</button>
+    </div>
+
+    <script>
+        // Page transitions
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="/"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    
+                    window.location.href = href;
+                });
+            });
+        });
+
+        const emailInput = document.getElementById('waitlist-email');
+        const submitBtn  = document.getElementById('waitlist-submit');
+
+        const row        = document.getElementById('waitlist-row');
+
+        const BLOCKED_DOMAINS = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com'];
+
+        function shakePill(msg) {
+            row.classList.remove('shake');
+            void row.offsetWidth;
+            row.classList.add('shake');
+            // Remove any existing error
+            const existing = document.getElementById('waitlist-inline-error');
+            if (existing) existing.remove();
+            const err = document.createElement('p');
+            err.id = 'waitlist-inline-error';
+            err.className = 'waitlist-error-text';
+            err.textContent = msg;
+            row.parentElement.appendChild(err);
+            setTimeout(() => { row.classList.remove('shake'); }, 500);
+            setTimeout(() => err.remove(), 3500);
+        }
+
+        submitBtn.addEventListener('click', async function() {
+            const email  = emailInput.value.trim();
+            const domain = email.split('@')[1]?.toLowerCase();
+
+            if (!email) {
+                shakePill('Please enter your work email.');
+                emailInput.focus();
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                shakePill('Please enter a valid email address.');
+                emailInput.focus();
+                return;
+            }
+            if (BLOCKED_DOMAINS.includes(domain)) {
+                shakePill('Please use a work email.');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="dot-loader"><span></span><span></span><span></span></span>';
+            const existing = document.getElementById('waitlist-inline-error');
+            if (existing) existing.remove();
+
+            try {
+                const res = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                if (res.ok) {
+                    const eyebrow     = document.querySelector('.form-eyebrow');
+                    const socialProof = document.getElementById('social-proof');
+                    const reassurance = document.querySelector('.waitlist-reassurance');
+                    const confirmed   = document.getElementById('waitlist-confirmed');
+                    const line        = document.getElementById('confirmed-line');
+                    const label       = document.getElementById('confirmed-label');
+                    const sub         = document.getElementById('confirmed-sub');
+
+                    // Fade out pill, eyebrow, and sub-text together
+                    [row, eyebrow, socialProof, reassurance].forEach(el => {
+                        if (!el) return;
+                        el.style.transition = 'opacity 0.2s ease';
+                        el.style.opacity = '0';
+                    });
+
+                    setTimeout(() => {
+                        [row, eyebrow, socialProof, reassurance].forEach(el => { if (el) el.style.display = 'none'; });
+                        confirmed.classList.add('visible');
+                        setTimeout(() => line.classList.add('draw'), 30);
+                        setTimeout(() => label.classList.add('reveal'), 220);
+                        setTimeout(() => sub.classList.add('reveal'), 380);
+                    }, 220);
+                } else {
+                    throw new Error('failed');
+                }
+            } catch (err) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Join &rarr;';
+                shakePill('Something went wrong. Please try again.');
+            }
+        });
+
+        emailInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') submitBtn.click();
+        });
+
+        // --- Live waitlist count ---
+        (async function() {
+            try {
+                const res  = await fetch('/api/count');
+                const data = await res.json();
+                const el   = document.getElementById('social-proof');
+                if (el && data.count) {
+                    el.textContent = 'join ' + data.count + '+ teams on the waitlist';
+                }
+            } catch (_) {}
+        })();
+
+        // --- Exit intent ---
+        const exitBar     = document.getElementById('exit-bar');
+        const exitCta     = document.getElementById('exit-bar-cta');
+        const exitDismiss = document.getElementById('exit-bar-dismiss');
+        let exitShown     = false;
+
+        function showExitBar() {
+            if (exitShown) return;
+            exitShown = true;
+            exitBar.classList.add('visible');
+        }
+
+        document.addEventListener('mouseleave', function(e) {
+            if (e.clientY <= 8) showExitBar();
+        });
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') showExitBar();
+        });
+
+        exitCta.addEventListener('click', function() {
+            exitBar.classList.remove('visible');
+            emailInput.focus();
+        });
+
+        exitDismiss.addEventListener('click', function() {
+            exitBar.classList.remove('visible');
+        });
+    </script>
+
+</body>
+</html>

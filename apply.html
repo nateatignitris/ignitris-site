@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">    <title>Apply | Ignitris</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #0A1628;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            animation: pageIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                filter: blur(10px);
+                transform: scale(0.98);
+            }
+            to {
+                opacity: 1;
+                filter: blur(0);
+                transform: scale(1);
+            }
+        }
+
+        body.page-transitioning {
+            animation: pageOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes pageOut {
+            from {
+                opacity: 1;
+                filter: blur(0);
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                filter: blur(10px);
+                transform: scale(1.02);
+            }
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            height: 48px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            box-shadow: none;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: rgba(10, 22, 40, 0.9);
+            transition: opacity 0.2s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .nav-logo:hover { opacity: 0.7; }
+
+        .nav-logo svg {
+            height: 18px;
+            width: auto;
+            display: block;
+
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: rgba(10, 22, 40, 0.85);
+            background: rgba(10, 22, 40, 0.04);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .btn::before, .btn::after {
+            content: ''; position: absolute; width: 6px; height: 6px;
+            border: 1px solid rgba(10, 22, 40, 0.18); transition: all 0.3s ease;
+        }
+        .btn::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .btn::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .btn:hover {
+            background: rgba(10, 22, 40, 0.07);
+            border-color: rgba(10, 22, 40, 0.18);
+            transform: translateY(-1px);
+        }
+        .btn:hover::before, .btn:hover::after {
+            border-color: rgba(10, 22, 40, 0.5);
+            width: 10px;
+            height: 10px;
+        }
+
+        .application-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 140px 40px 100px;
+        }
+
+        .form-header {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .form-label-header {
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .form-header h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        .form-header p {
+            font-size: 15px;
+            color: rgba(10, 22, 40, 0.5);
+            line-height: 1.6;
+        }
+
+        .application-form {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .form-section {
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .form-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            letter-spacing: 0.02em;
+            color: rgba(10, 22, 40, 0.55);
+            margin-bottom: 10px;
+        }
+
+        .form-label.required::after {
+            content: ' *';
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 14px 18px;
+            font-family: inherit;
+            font-size: 15px;
+            color: #0A1628;
+            background: rgba(10, 22, 40, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            background: rgba(10, 22, 40, 0.04);
+            border-color: rgba(10, 22, 40, 0.18);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 20px;
+            padding-right: 45px;
+        }
+
+        .form-select:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(10, 22, 40, 0.28);
+        }
+
+        .form-select option {
+            background: #1a1a1a;
+            color: #0A1628;
+            padding: 12px;
+        }
+
+        .form-file {
+            width: 100%;
+            padding: 14px 18px;
+            font-family: inherit;
+            font-size: 15px;
+            color: #0A1628;
+            background: rgba(10, 22, 40, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-file:hover {
+            background: rgba(10, 22, 40, 0.04);
+            border-color: rgba(10, 22, 40, 0.28);
+        }
+
+        .file-hint {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 8px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .submit-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .submit-btn {
+            position: relative;
+            padding: 16px 48px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(10, 22, 40, 0.85);
+            background: rgba(10, 22, 40, 0.04);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .submit-btn::before, .submit-btn::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border: 1px solid rgba(10, 22, 40, 0.18);
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn::before {
+            top: -1px;
+            left: -1px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .submit-btn::after {
+            bottom: -1px;
+            right: -1px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .submit-btn:hover {
+            background: rgba(10, 22, 40, 0.07);
+            border-color: rgba(10, 22, 40, 0.18);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:hover::before, .submit-btn:hover::after {
+            border-color: rgba(10, 22, 40, 0.5);
+            width: 10px;
+            height: 10px;
+        }
+
+        footer {
+            padding: 60px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-socials {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            margin-bottom: 28px;
+        }
+
+        .footer-socials a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .footer-socials a:hover {
+            border-color: rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.06);
+        }
+
+        .footer-socials svg {
+            width: 15px;
+            height: 15px;
+            fill: currentColor;
+        }
+
+        .footer-copy {
+            color: rgba(255,255,255,0.18);
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .application-container {
+                padding: 120px 20px 80px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="nav-logo">
+            <svg viewBox="0 0 8042 2511" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2103.12 2510.57C1996.16 2510.57 1902.57 2495.6 1822.35 2465.68C1742.89 2436.51 1679.48 2396.23 1632.11 2344.81C1584.74 2293.39 1555.32 2235.84 1543.86 2172.14L1541.57 2161.78H1821.2L1825.78 2170.99C1841.06 2206.29 1872.39 2235.45 1919.76 2258.48C1967.89 2282.27 2028.63 2294.16 2101.97 2294.16C2195.18 2294.16 2266.62 2271.14 2316.28 2225.1C2365.94 2179.05 2390.77 2117.28 2390.77 2039.77V1863.65H2385.04C2362.89 1907.39 2333.09 1944.99 2295.65 1976.46C2258.98 2007.92 2215.81 2032.48 2166.15 2050.13C2117.26 2067.78 2063.77 2076.6 2005.71 2076.6C1904.1 2076.6 1815.47 2051.66 1739.83 2001.78C1664.96 1951.9 1606.89 1881.3 1565.64 1789.98C1525.14 1697.89 1504.9 1588.53 1504.9 1461.91V1460.76C1504.9 1331.84 1525.53 1221.33 1566.78 1129.24C1608.8 1036.39 1667.63 964.637 1743.27 913.988C1818.91 863.339 1907.92 838.015 2010.29 838.015C2067.59 838.015 2120.31 847.991 2168.44 867.944C2216.58 887.129 2258.6 913.988 2294.51 948.521C2331.18 983.054 2360.98 1023.73 2383.9 1070.54H2390.77V863.339H2676.13V2048.98C2676.13 2141.06 2652.83 2221.64 2606.22 2290.71C2559.62 2360.54 2493.53 2414.64 2407.96 2453.01C2322.39 2491.38 2220.78 2510.57 2103.12 2510.57ZM2095.1 1855.59C2154.69 1855.59 2206.64 1839.86 2250.96 1808.4C2295.27 1776.16 2329.65 1730.89 2354.1 1672.57C2379.31 1614.24 2391.92 1545.94 2391.92 1467.67V1466.52C2391.92 1387.48 2379.31 1319.18 2354.1 1261.62C2328.89 1203.3 2294.12 1158.41 2249.81 1126.94C2205.5 1095.48 2153.93 1079.75 2095.1 1079.75C2033.98 1079.75 1980.88 1095.48 1935.8 1126.94C1890.72 1158.41 1855.96 1202.92 1831.51 1260.47C1807.07 1318.03 1794.84 1386.71 1794.84 1466.52V1467.67C1794.84 1547.48 1807.07 1616.54 1831.51 1674.87C1855.96 1732.42 1890.72 1776.93 1935.8 1808.4C1980.88 1839.86 2033.98 1855.59 2095.1 1855.59Z" fill="currentColor"/>
+                <path d="M2862.98 2083.51V863.339H3147.19V1054.42H3154.07C3185.39 988.426 3232 935.859 3293.88 896.721C3356.53 857.584 3433.7 838.015 3525.38 838.015C3659.08 838.015 3762.22 878.688 3834.8 960.032C3908.15 1041.38 3944.82 1152.65 3944.82 1293.85V2083.51H3659.46V1351.41C3659.46 1264.69 3639.22 1197.93 3598.72 1151.12C3558.23 1103.54 3497.49 1079.75 3416.51 1079.75C3362.26 1079.75 3314.89 1092.41 3274.4 1117.73C3233.91 1142.29 3202.58 1176.82 3180.43 1221.33C3158.27 1265.07 3147.19 1316.49 3147.19 1375.58V2083.51H2862.98Z" fill="currentColor"/>
+                <path d="M4135.11 2083.51V863.339H4420.47V2083.51H4135.11ZM4277.21 688.372C4232.9 688.372 4195.46 673.024 4164.9 642.328C4134.34 611.631 4119.06 574.796 4119.06 531.822C4119.06 488.08 4134.34 451.244 4164.9 421.316C4195.46 390.62 4232.9 375.271 4277.21 375.271C4322.29 375.271 4360.11 390.62 4390.67 421.316C4421.23 451.244 4436.51 488.08 4436.51 531.822C4436.51 574.796 4421.23 611.631 4390.67 642.328C4360.11 673.024 4322.29 688.372 4277.21 688.372Z" fill="currentColor"/>
+                <path d="M5066.87 2107.68C4940.81 2107.68 4846.83 2080.06 4784.95 2024.8C4723.83 1969.55 4693.27 1879 4693.27 1753.14V1084.35H4521.36V863.339H4693.27V553.693H4983.21V863.339H5208.97V1084.35H4983.21V1730.12C4983.21 1789.21 4996.2 1830.27 5022.17 1853.29C5048.91 1875.54 5087.88 1886.67 5139.07 1886.67C5153.58 1886.67 5166.19 1886.29 5176.89 1885.52C5188.35 1883.98 5199.04 1882.83 5208.97 1882.07V2097.32C5192.17 2099.62 5171.54 2101.93 5147.09 2104.23C5123.4 2106.53 5096.66 2107.68 5066.87 2107.68Z" fill="currentColor"/>
+                <path d="M5358 2083.51V863.339H5642.22V1073.99H5649.09C5667.43 1000.32 5700.66 942.766 5748.8 901.326C5797.69 859.119 5857.29 838.015 5927.58 838.015C5945.15 838.015 5961.96 839.166 5978 841.468C5994.04 843.771 6007.41 846.457 6018.11 849.526V1108.52C6006.65 1103.92 5990.22 1100.08 5968.83 1097.01C5948.2 1093.94 5925.66 1092.41 5901.22 1092.41C5847.74 1092.41 5801.51 1103.54 5762.55 1125.79C5723.58 1147.28 5693.79 1179.13 5673.16 1221.33C5652.53 1263.54 5642.22 1314.96 5642.22 1375.58V2083.51H5358Z" fill="currentColor"/>
+                <path d="M6125.88 2083.51V863.339H6411.24V2083.51H6125.88ZM6267.99 688.372C6223.68 688.372 6186.24 673.024 6155.68 642.328C6125.12 611.631 6109.84 574.796 6109.84 531.822C6109.84 488.08 6125.12 451.244 6155.68 421.316C6186.24 390.62 6223.68 375.271 6267.99 375.271C6313.07 375.271 6350.88 390.62 6381.45 421.316C6412.01 451.244 6427.29 488.08 6427.29 531.822C6427.29 574.796 6412.01 611.631 6381.45 642.328C6350.88 673.024 6313.07 688.372 6267.99 688.372Z" fill="currentColor"/>
+                <path d="M7081.71 2107.68C6975.51 2107.68 6884.59 2091.95 6808.96 2060.49C6734.08 2029.02 6675.25 1984.9 6632.47 1928.11C6590.45 1870.56 6564.85 1804.17 6555.69 1728.97L6554.54 1718.61H6835.32L6837.61 1728.97C6848.3 1781.92 6873.52 1822.98 6913.24 1852.14C6953.74 1881.3 7010.27 1895.88 7082.86 1895.88C7129.46 1895.88 7169.19 1890.12 7202.04 1878.61C7234.89 1867.1 7260.11 1850.22 7277.68 1827.96C7296.02 1805.71 7305.18 1779.62 7305.18 1749.69V1748.54C7305.18 1712.47 7292.96 1683.31 7268.51 1661.05C7244.06 1638.03 7200.13 1619.23 7136.72 1604.65L6935.02 1559.76C6857.85 1542.11 6793.29 1517.93 6741.34 1487.24C6689.39 1456.54 6650.42 1418.56 6624.45 1373.28C6598.47 1327.23 6585.48 1273.9 6585.48 1213.27V1212.12C6585.48 1137.69 6605.73 1072.46 6646.22 1016.44C6686.71 960.416 6743.63 916.674 6816.98 885.21C6890.32 853.747 6975.51 838.015 7072.54 838.015C7173.39 838.015 7259.72 854.898 7331.54 888.664C7403.36 922.429 7458.75 967.706 7497.71 1024.49C7537.44 1081.28 7558.84 1144.98 7561.89 1215.58L7563.04 1228.24H7297.16L7296.02 1219.03C7289.9 1169.92 7267.75 1129.63 7229.55 1098.16C7191.35 1065.93 7139.01 1049.82 7072.54 1049.82C7030.52 1049.82 6993.85 1055.96 6962.52 1068.24C6931.96 1080.51 6908.28 1097.78 6891.47 1120.04C6875.43 1142.29 6867.4 1168.38 6867.4 1198.31V1199.46C6867.4 1222.48 6873.13 1243.2 6884.59 1261.62C6896.05 1280.04 6914.39 1296.15 6939.6 1309.97C6964.82 1323.01 6998.43 1334.52 7040.45 1344.5L7242.15 1389.39C7368.21 1417.79 7457.99 1458.46 7511.47 1511.41C7564.95 1563.59 7591.69 1633.81 7591.69 1722.06V1723.21C7591.69 1799.95 7569.91 1867.49 7526.37 1925.81C7482.82 1983.36 7422.46 2028.26 7345.29 2060.49C7268.89 2091.95 7181.03 2107.68 7081.71 2107.68Z" fill="currentColor"/>
+                <path d="M852.788 0L828.043 114.951C1013.63 149.126 1013.63 133.592 1053.84 167.767C1103.93 210.338 1084.77 314.822 1072.4 375.922L806.391 1749.13C763.088 2003.88 645.551 1985.24 484.711 2003.88L459.967 2121.94H1418.82L1443.57 2010.1C1275.3 1992.7 1155.91 1988.35 1174.47 1848.54L1452.84 363.495C1493.05 164.66 1542.54 130.485 1774.52 118.058L1799.27 0H852.788Z" fill="currentColor"/>
+            </svg>
+        </a>
+        <div class="nav-actions">
+            <a href="/careers" class="btn">Back to Careers</a>
+        </div>
+    </nav>
+
+    <div class="application-container">
+        <div class="form-header">
+            <div class="form-label-header">Application</div>
+            <h1>Join Our Team</h1>
+            <p>Fill out the form below and we'll review your application within a week.</p>
+        </div>
+
+        <form class="application-form" id="application-form">
+            <div class="form-section">
+                <h2 class="section-title">Personal Information</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label required">First Name</label>
+                        <input type="text" class="form-input" id="field-firstName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Last Name</label>
+                        <input type="text" class="form-input" id="field-lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label required">Email</label>
+                        <input type="email" class="form-input" id="field-email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" class="form-input" id="field-phone">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <input type="text" class="form-input" id="field-location" placeholder="City, State/Country">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">Experience</h2>
+
+                <div class="form-group">
+                    <label class="form-label required">Resume / CV</label>
+                    <input type="file" class="form-file" accept=".pdf,.doc,.docx" required>
+                    <p class="file-hint">PDF, DOC, or DOCX (Max 5MB)</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">LinkedIn Profile</label>
+                    <input type="url" class="form-input" id="field-linkedin" placeholder="https://linkedin.com/in/yourname">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Portfolio / Website</label>
+                    <input type="url" class="form-input" id="field-portfolio" placeholder="https://yourportfolio.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Cover Letter</label>
+                    <textarea class="form-textarea" id="field-coverLetter" placeholder="Tell us why you're a great fit for Ignitris..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">How did you hear about us?</label>
+                    <select class="form-select" id="field-source">
+                        <option value="">Select an option</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="referral">Referral</option>
+                        <option value="website">Company Website</option>
+                        <option value="job-board">Job Board</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="submit-section">
+                <button type="submit" class="submit-btn" id="submit-btn">Submit Application</button>
+                <p id="apply-success" style="display:none; margin-top:20px; font-size:14px; color:rgba(255,255,255,0.6); letter-spacing:0.01em;">Application received. We'll be in touch within a week.</p>
+                <p id="apply-error" style="display:none; margin-top:14px; font-size:12px; color:rgba(255,110,110,0.9); letter-spacing:0.01em;">Something went wrong. Please try again.</p>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <div class="footer-socials">
+            <a href="https://x.com/ignitris" target="_blank" rel="noopener" aria-label="X">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/company/ignitris/?viewAsMember=true" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/ignitris/" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            </a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Ignitris. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pre-fill role from URL param
+            const params = new URLSearchParams(window.location.search);
+            const role = params.get('role');
+            if (role) {
+                const header = document.querySelector('.form-header h1');
+                if (header) header.textContent = 'Apply: ' + role;
+            }
+
+            // Page transitions
+            const links = document.querySelectorAll('a[href^="/"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    document.body.classList.add('page-transitioning');
+                    setTimeout(() => { window.location.href = href; }, 400);
+                });
+            });
+
+            // Application form submission
+            const form      = document.getElementById('application-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const success   = document.getElementById('apply-success');
+            const error     = document.getElementById('apply-error');
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = '...';
+                error.style.display = 'none';
+
+                const params = new URLSearchParams(window.location.search);
+
+                const payload = {
+                    firstName:   document.getElementById('field-firstName').value.trim(),
+                    lastName:    document.getElementById('field-lastName').value.trim(),
+                    email:       document.getElementById('field-email').value.trim(),
+                    phone:       document.getElementById('field-phone').value.trim(),
+                    location:    document.getElementById('field-location').value.trim(),
+                    role:        params.get('role') || '',
+                    linkedin:    document.getElementById('field-linkedin').value.trim(),
+                    portfolio:   document.getElementById('field-portfolio').value.trim(),
+                    coverLetter: document.getElementById('field-coverLetter').value.trim(),
+                    source:      document.getElementById('field-source').value
+                };
+
+                try {
+                    const res = await fetch('/api/apply', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (res.ok) {
+                        form.style.display = 'none';
+                        success.style.display = 'block';
+                    } else {
+                        throw new Error('Failed');
+                    }
+                } catch (err) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Application';
+                    error.style.display = 'block';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
