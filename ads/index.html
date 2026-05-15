@@ -1451,7 +1451,7 @@
         /* ═══════════════════════════════════════════════════════════
            AD BLOOM — right-panel layout
 ═══════════════════════════════════════════════════════════ */
-.case         { overflow: visible !important; position: relative !important; }
+.case         { overflow: visible !important; position: relative !important; opacity: 1 !important; transform: none !important; filter: none !important; }
 .cases-wrap,
 .cases-group  { overflow: visible !important; }
 
@@ -1467,6 +1467,7 @@
 .ad-panel {
     flex: 0 0 280px;
     width: 280px;
+    min-height: 280px;
     position: relative;
     border-left: 1px solid rgba(255,255,255,.07);
     display: flex;
@@ -2760,7 +2761,7 @@
             cases.forEach(function(c) {
                 if (c.classList.contains('bloomed')) return; // already bloomed, keep it
                 var r = c.getBoundingClientRect();
-                if (r.top < vh * 0.88 && r.bottom > vh * 0.1) {
+                if (r.top < vh * 0.98 && r.bottom > 0) {
                     c.classList.add('bloomed');
                 }
             });
