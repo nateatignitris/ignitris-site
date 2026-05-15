@@ -1451,7 +1451,7 @@
         /* ═══════════════════════════════════════════════════════════
            AD BLOOM — right-panel layout
 ═══════════════════════════════════════════════════════════ */
-.case         { overflow: visible !important; position: relative !important; opacity: 1 !important; transform: none !important; filter: none !important; }
+.case         { overflow: visible !important; position: relative !important; }
 .cases-wrap,
 .cases-group  { overflow: visible !important; }
 
@@ -1467,7 +1467,6 @@
 .ad-panel {
     flex: 0 0 280px;
     width: 280px;
-    min-height: 280px;
     position: relative;
     border-left: 1px solid rgba(255,255,255,.07);
     display: flex;
@@ -2752,28 +2751,24 @@
         });
     })();
 
-    // ── Ad bloom — IntersectionObserver, blooms once, stays ────────
+    // ── Ad bloom — blooms once, stays forever ─────────────────────
     (function(){
         var cases = Array.from(document.querySelectorAll('.case'));
         if (!cases.length) return;
-        var io = new IntersectionObserver(function(entries){
-            entries.forEach(function(entry){
-                if(entry.isIntersecting){
-                    entry.target.classList.add('bloomed');
-                    io.unobserve(entry.target); // bloom once, never un-bloom
-                }
-            });
-        }, { threshold: 0.15 });
-        cases.forEach(function(c){ io.observe(c); });
-        // Also bloom anything already in view on load
-        setTimeout(function(){
-            cases.forEach(function(c){
+        function check() {
+            var vh = window.innerHeight;
+            cases.forEach(function(c) {
+                if (c.classList.contains('bloomed')) return; // already bloomed, keep it
                 var r = c.getBoundingClientRect();
-                if(r.top < window.innerHeight && r.bottom > 0){
+                if (r.top < vh * 0.88 && r.bottom > vh * 0.1) {
                     c.classList.add('bloomed');
                 }
             });
-        }, 300);
+        }
+        window.addEventListener('scroll', check, { passive: true });
+        window.addEventListener('resize', check, { passive: true });
+        setTimeout(check, 150);
+        setTimeout(check, 700);
     })();
     </script>
 
