@@ -2752,24 +2752,28 @@
         });
     })();
 
-    // ── Ad bloom — blooms once, stays forever ─────────────────────
+    // ── Ad bloom — IntersectionObserver, blooms once, stays ────────
     (function(){
         var cases = Array.from(document.querySelectorAll('.case'));
         if (!cases.length) return;
-        function check() {
-            var vh = window.innerHeight;
-            cases.forEach(function(c) {
-                if (c.classList.contains('bloomed')) return; // already bloomed, keep it
+        var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+                if(entry.isIntersecting){
+                    entry.target.classList.add('bloomed');
+                    io.unobserve(entry.target); // bloom once, never un-bloom
+                }
+            });
+        }, { threshold: 0.15 });
+        cases.forEach(function(c){ io.observe(c); });
+        // Also bloom anything already in view on load
+        setTimeout(function(){
+            cases.forEach(function(c){
                 var r = c.getBoundingClientRect();
-                if (r.top < vh * 0.98 && r.bottom > 0) {
+                if(r.top < window.innerHeight && r.bottom > 0){
                     c.classList.add('bloomed');
                 }
             });
-        }
-        window.addEventListener('scroll', check, { passive: true });
-        window.addEventListener('resize', check, { passive: true });
-        setTimeout(check, 150);
-        setTimeout(check, 700);
+        }, 300);
     })();
     </script>
 
