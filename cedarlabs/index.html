@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CedarLabs NMN — What's Really Happening Under Your Skin After 40</title>
+<meta name="description" content="Fine lines, dark spots, loss of firmness — they look like three different problems. But there's something happening under your skin that most women never hear about.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#ffffff;
+  --bg2:#f9f8f6;
+  --bg3:#f2f0ec;
+  --ink:#1a1a1a;
+  --dim:#5c5c5c;
+  --dimmer:#8e8e8e;
+  --accent:#6b4f36;
+  --accent-light:rgba(107,79,54,0.08);
+  --green:#2d8a4e;
+  --green-bg:rgba(45,138,78,0.06);
+  --line:rgba(0,0,0,0.08);
+  --line2:rgba(0,0,0,0.12);
+  --shadow:0 2px 16px rgba(0,0,0,0.06);
+  --radius:12px;
+  --sf:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",sans-serif;
+  --serif:"Georgia","Times New Roman",serif;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+html{background:var(--bg);color:var(--ink);font-family:var(--sf);-webkit-font-smoothing:antialiased;}
+body{background:var(--bg);margin:0;overflow-x:hidden;}
+
+.r{opacity:0;transform:translateY(20px);transition:opacity 0.7s var(--ease),transform 0.7s var(--ease);}
+.r.in{opacity:1;transform:none;}
+
+.page{max-width:680px;margin:0 auto;padding:0 24px;}
+
+/* hero */
+.hero{padding:80px 0 60px;text-align:center;}
+.hero-eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:24px;
+}
+.hero h1{
+  font-family:var(--serif);font-size:36px;font-weight:400;line-height:1.3;
+  color:var(--ink);margin-bottom:20px;letter-spacing:-0.01em;
+}
+.hero-sub{font-size:16px;color:var(--dim);line-height:1.7;max-width:520px;margin:0 auto;}
+
+/* divider */
+.divider{width:40px;height:1px;background:var(--line2);margin:0 auto;}
+
+/* section */
+.section{padding:56px 0;}
+.section p{font-size:16px;line-height:1.85;color:var(--dim);margin-bottom:20px;}
+.section p:last-child{margin-bottom:0;}
+.section p strong{color:var(--ink);font-weight:600;}
+.section p em{font-style:italic;color:var(--ink);}
+
+.quote-block{
+  border-left:2px solid var(--accent);
+  padding:20px 0 20px 28px;
+  margin:32px 0;
+  font-family:var(--serif);
+  font-size:18px;
+  line-height:1.65;
+  color:var(--ink);
+  font-style:italic;
+}
+
+/* timeline */
+.timeline{padding:48px 0;}
+.timeline-title{
+  font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:32px;text-align:center;
+}
+.tl-item{
+  display:flex;gap:24px;padding:28px 0;
+  border-top:1px solid var(--line);
+}
+.tl-item:last-child{border-bottom:1px solid var(--line);}
+.tl-marker{
+  flex-shrink:0;width:48px;height:48px;border-radius:50%;
+  background:var(--accent-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--accent);
+}
+.tl-body h3{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+.tl-body p{font-size:14px;color:var(--dim);line-height:1.7;margin:0;}
+
+/* callout card */
+.callout{
+  background:var(--bg2);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:36px 32px;
+  margin:40px 0;
+}
+.callout-title{
+  font-size:13px;font-weight:600;color:var(--accent);
+  letter-spacing:0.04em;text-transform:uppercase;margin-bottom:16px;
+}
+.callout p{font-size:15px;line-height:1.8;color:var(--dim);margin-bottom:12px;}
+.callout p:last-child{margin-bottom:0;}
+.callout p strong{color:var(--ink);}
+
+/* product highlight */
+.product{
+  background:var(--bg2);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:40px 32px;
+  text-align:center;
+  margin:48px 0;
+}
+.product-tag{
+  display:inline-block;
+  font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--green);background:var(--green-bg);
+  padding:5px 14px;border-radius:100px;margin-bottom:20px;
+}
+.product h3{font-size:22px;font-weight:600;color:var(--ink);margin-bottom:10px;}
+.product p{font-size:15px;color:var(--dim);line-height:1.7;max-width:480px;margin:0 auto;}
+
+/* closing */
+.closing{padding:48px 0 80px;text-align:center;}
+.closing p{font-size:15px;color:var(--dim);line-height:1.8;max-width:520px;margin:0 auto 16px;}
+.closing p:last-child{margin-bottom:0;}
+
+/* footer */
+footer{
+  text-align:center;padding:32px 24px;
+  border-top:1px solid var(--line);
+  font-size:12px;color:var(--dimmer);
+}
+
+@media(max-width:600px){
+  .hero{padding:56px 0 40px;}
+  .hero h1{font-size:26px;}
+  .hero-sub{font-size:15px;}
+  .section p{font-size:15px;}
+  .quote-block{font-size:16px;padding-left:20px;}
+  .tl-item{gap:16px;}
+  .tl-marker{width:40px;height:40px;font-size:11px;}
+  .callout{padding:28px 22px;}
+  .product{padding:32px 22px;}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="hero r">
+    <div class="hero-eyebrow">The Science of Skin After 40</div>
+    <h1>These fine lines? This loss of firmness? These dark spots?</h1>
+    <p class="hero-sub">They look like three different problems. But there's something happening under your skin that most women never hear about.</p>
+  </div>
+
+  <div class="divider r"></div>
+
+  <div class="section r">
+    <p>Women come into my office all the time and vent about the creams, the serums, the ice rollers they bought on Amazon that didn't change a single thing. Everything social media told them to buy, they bought. And when nothing changed, they felt lost.</p>
+    <p>And the part that makes me the most mad? They're getting this advice from women on social media who are clearly in their twenties.</p>
+
+    <div class="quote-block">
+      "Honey, our bodies aren't even the same anymore."
+    </div>
+
+    <p>Look, there's nothing wrong with natural aging. But as our bodies change, how we take care of them needs to change, too.</p>
+  </div>
+
+  <div class="divider r"></div>
+
+  <div class="section r">
+    <p>And that's when I introduce them to something called <strong>NAD+</strong>.</p>
+    <p>It's something our bodies naturally make that helps our cells function and repair themselves &mdash; which includes the skin cells in your face.</p>
+    <p>The issue is that <strong>NAD+ levels take a dramatic hit when we turn 40</strong>. So we're spending all this money on the outside without thinking about what's changing underneath.</p>
+    <p>And here's the hard part: after 40, we have no natural way of increasing our NAD+ levels. We can't get it from food, and there's no NAD+ supplement that delivers it either.</p>
+  </div>
+
+  <div class="callout r">
+    <div class="callout-title">The Precursor</div>
+    <p>But there is one thing you can take &mdash; the <strong>precursor to NAD+</strong>. It's called <strong>NMN</strong>.</p>
+    <p>NMN is what your body uses to make NAD+. The more NMN we take, the more our NAD+ levels can rise.</p>
+    <p>That's why it's worth looking beyond another cream and considering what you're doing from the inside, too.</p>
+  </div>
+
+  <div class="divider r"></div>
+
+  <div class="timeline r">
+    <div class="timeline-title">What to Expect</div>
+
+    <div class="tl-item">
+      <div class="tl-marker">Wk 1</div>
+      <div class="tl-body">
+        <h3>Levels Climb</h3>
+        <p>You won't notice much of a difference yet &mdash; this is your cells getting the support they've been missing.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-marker">Wk 4</div>
+      <div class="tl-body">
+        <h3>Visible Change</h3>
+        <p>Your NAD+ has been rising consistently, and you'll notice those stubborn wrinkles are finally smoothing out.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-marker">Mo 2</div>
+      <div class="tl-body">
+        <h3>Full Saturation</h3>
+        <p>That's when you look at your fine lines, the firmness around your cheeks, how even your complexion looks &mdash; and you judge for yourself whether it's making a difference.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section r">
+    <p>That's how you know. Not from three scoops and a prayer &mdash; from giving your cells what they need and watching what your skin does with it.</p>
+  </div>
+
+  <div class="divider r"></div>
+
+  <div class="product r">
+    <div class="product-tag">Recommended</div>
+    <h3>CedarLabs Pure NMN</h3>
+    <p>Before you buy NMN, check what's in it. You want <strong>pure NMN</strong> &mdash; not a blend where you can't tell how much NMN is in the scoop. CedarLabs is tested for purity, with no fillers or other ingredients blended in.</p>
+  </div>
+
+  <div class="closing r">
+    <p>And please, keep taking care of the basics. Your diet, your sleep, your sunscreen &mdash; they still matter.</p>
+    <p>This is something you can add to that routine. It doesn't have to replace everything you're already doing.</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>&copy; 2026 CedarLabs</p>
+</footer>
+
+<script>
+(function(){
+  const els=document.querySelectorAll('.r');
+  if(!els.length)return;
+  const io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){io.observe(el);});
+})();
+</script>
+</body>
+</html>
