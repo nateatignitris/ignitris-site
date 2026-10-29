@@ -5,7 +5,7 @@
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
   var money = function (n) { return '$' + n.toFixed(2); };
 
-  var PRODUCT = window.RD_PRODUCT || {};
+  var PRODUCT = window.RD_PRODUCT || { price: 0 };
   var FREE_SHIP = PRODUCT.freeShippingThreshold || 0;
 
   /* ---------- Toast ---------- */
@@ -26,20 +26,21 @@
   var dots = $$('[data-dot]');
   var current = 0;
 
-  function goTo(i, smooth) {
-    if (!track || !slides.length) return;
-    current = (i + slides.length) % slides.length;
-    track.scrollTo({ left: slides[current].offsetLeft, behavior: smooth === false ? 'auto' : 'smooth' });
-    sync();
-  }
   function sync() {
     thumbs.forEach(function (t, idx) {
       t.classList.toggle('is-active', idx === current);
-      t.setAttribute('aria-current', idx === current ? 'true' : 'false');
+      t.setAttribute('aria-pressed', idx === current ? 'true' : 'false');
     });
-    dots.forEach(function (d, idx) { d.classList.toggle('is-active', idx === current); });
-    var counter = $('[data-gallery-count]');
-    if (counter) counter.textContent = (current + 1) + ' / ' + slides.length;
+    dots.forEach(function (d, idx) {
+      d.classList.toggle('is-active', idx === current);
+      d.setAttribute('aria-pressed', idx === current ? 'true' : 'false');
+    });
+  }
+  function goTo(i, smooth) {
+    if (!track || !slides.length) return;
+    current = (i + slides.length) % slides.length;
+    track.scrollTo({ left: current * track.clientWidth, behavior: smooth === false ? 'auto' : 'smooth' });
+    sync();
   }
   thumbs.forEach(function (t, idx) { t.addEventListener('click', function () { goTo(idx); }); });
   dots.forEach(function (d, idx) { d.addEventListener('click', function () { goTo(idx); }); });
@@ -50,16 +51,72 @@
     track.addEventListener('scroll', function () {
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(function () {
-        var w = track.clientWidth || 1;
-        var idx = Math.round(track.scrollLeft / w);
-        if (idx !== current) { current = Math.max(0, Math.min(slides.length - 1, idx)); sync(); }
-      }, 60);
+        var idx = Math.round(track.scrollLeft / (track.clientWidth || 1));
+        idx = Math.max(0, Math.min(slides.length - 1, idx));
+        if (idx !== current) { current = idx; sync(); }
+      }, 80);
     }, { passive: true });
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+    });
     window.addEventListener('resize', function () { goTo(current, false); });
     sync();
   }
 
-  /* ---------- Zoom lightbox ---------- */
+  /* ---------- Layers: cart drawer, lightbox ---------- */
+  var overlay = $('#overlay');
+  var openStack = [];
+  var lastFocus = null;
+
+  function openLayer(el) {
+    if (!el || openStack.indexOf(el) !== -1) return;
+    if (!openStack.length) lastFocus = document.activeElement;
+    el.hidden = false;
+    void el.offsetWidth;
+    el.classList.add('is-open');
+    if (overlay && el.id !== 'lightbox') {
+      overlay.hidden = false;
+      void overlay.offsetWidth;
+      overlay.classList.add('is-open');
+    }
+    document.documentElement.classList.add('no-scroll');
+    openStack.push(el);
+    var f = $('[data-close]', el);
+    if (f) setTimeout(function () { f.focus(); }, 60);
+  }
+  function closeLayer(el) {
+    el = el || openStack[openStack.length - 1];
+    if (!el) return;
+    el.classList.remove('is-open');
+    openStack = openStack.filter(function (x) { return x !== el; });
+    setTimeout(function () { if (!el.classList.contains('is-open')) el.hidden = true; }, 320);
+    if (!openStack.length) {
+      if (overlay) {
+        overlay.classList.remove('is-open');
+        setTimeout(function () { if (!openStack.length) overlay.hidden = true; }, 320);
+      }
+      document.documentElement.classList.remove('no-scroll');
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+  }
+  if (overlay) overlay.addEventListener('click', function () { while (openStack.length) closeLayer(); });
+  $$('[data-close]').forEach(function (b) {
+    b.addEventListener('click', function () { closeLayer(b.closest('[data-layer]')); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && openStack.length) { closeLayer(); return; }
+    if (e.key !== 'Tab' || !openStack.length) return;
+    var layer = openStack[openStack.length - 1];
+    var focusables = $$('button, a[href], input, select, textarea', layer).filter(function (n) {
+      return !n.disabled && n.offsetParent !== null;
+    });
+    if (!focusables.length) return;
+    var first = focusables[0], last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
   var lightbox = $('#lightbox');
   var lightboxImg = lightbox ? $('img', lightbox) : null;
   $$('[data-zoom]').forEach(function (btn) {
@@ -70,138 +127,86 @@
       openLayer(lightbox);
     });
   });
-
-  /* ---------- Layers (drawer, lightbox, modal) ---------- */
-  var overlay = $('#overlay');
-  var openStack = [];
-  var lastFocus = null;
-  function openLayer(el) {
-    lastFocus = document.activeElement;
-    el.hidden = false;
-    requestAnimationFrame(function () { el.classList.add('is-open'); });
-    if (overlay) { overlay.hidden = false; requestAnimationFrame(function () { overlay.classList.add('is-open'); }); }
-    document.documentElement.classList.add('no-scroll');
-    openStack.push(el);
-    var f = $('[data-autofocus]', el) || $('button, a, input, textarea, select', el);
-    if (f) setTimeout(function () { f.focus(); }, 50);
-  }
-  function closeLayer(el) {
-    el = el || openStack[openStack.length - 1];
-    if (!el) return;
-    el.classList.remove('is-open');
-    openStack = openStack.filter(function (x) { return x !== el; });
-    setTimeout(function () { if (!el.classList.contains('is-open')) el.hidden = true; }, 300);
-    if (!openStack.length) {
-      if (overlay) { overlay.classList.remove('is-open'); setTimeout(function () { if (!openStack.length) overlay.hidden = true; }, 300); }
-      document.documentElement.classList.remove('no-scroll');
-      if (lastFocus && lastFocus.focus) lastFocus.focus();
-    }
-  }
-  if (overlay) overlay.addEventListener('click', function () { while (openStack.length) closeLayer(); });
-  $$('[data-close]').forEach(function (b) {
-    b.addEventListener('click', function () { closeLayer(b.closest('[data-layer]')); });
-  });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openStack.length) closeLayer(); });
+  if (lightbox) lightbox.addEventListener('click', function (e) { if (e.target === lightbox || e.target === lightboxImg) closeLayer(lightbox); });
 
   /* ---------- Quantity ---------- */
-  function bindQty(root) {
+  $$('[data-qty]').forEach(function (root) {
     var input = $('[data-qty-input]', root);
     if (!input) return;
-    $$('[data-qty-minus]', root).forEach(function (b) {
-      b.addEventListener('click', function () { input.value = Math.max(1, (parseInt(input.value, 10) || 1) - 1); });
-    });
-    $$('[data-qty-plus]', root).forEach(function (b) {
-      b.addEventListener('click', function () { input.value = Math.min(99, (parseInt(input.value, 10) || 1) + 1); });
-    });
-    input.addEventListener('change', function () {
-      var v = parseInt(input.value, 10);
-      input.value = isNaN(v) || v < 1 ? 1 : Math.min(99, v);
-    });
-  }
-  $$('[data-qty]').forEach(bindQty);
+    var clamp = function (v) { return isNaN(v) || v < 1 ? 1 : Math.min(99, v); };
+    $('[data-qty-minus]', root).addEventListener('click', function () { input.value = clamp((parseInt(input.value, 10) || 1) - 1); });
+    $('[data-qty-plus]', root).addEventListener('click', function () { input.value = clamp((parseInt(input.value, 10) || 1) + 1); });
+    input.addEventListener('change', function () { input.value = clamp(parseInt(input.value, 10)); });
+  });
 
-  /* ---------- Cart (visual only, kept for this tab) ---------- */
-  var cart = { qty: 0 };
-  try { cart.qty = parseInt(sessionStorage.getItem('rd-cart-qty'), 10) || 0; } catch (e) { cart.qty = 0; }
+  /* ---------- Cart (visual only) ---------- */
+  var cartQty = 0;
+  try { cartQty = parseInt(sessionStorage.getItem('rd-cart-qty'), 10) || 0; } catch (e) { cartQty = 0; }
   var drawer = $('#cart-drawer');
 
-  function saveCart() { try { sessionStorage.setItem('rd-cart-qty', String(cart.qty)); } catch (e) { /* storage unavailable */ } }
-
+  function setCart(q) {
+    cartQty = Math.max(0, Math.min(99, q));
+    try { sessionStorage.setItem('rd-cart-qty', String(cartQty)); } catch (e) { /* storage unavailable */ }
+    renderCart();
+  }
   function renderCart() {
-    $$('[data-cart-count]').forEach(function (el) {
-      el.textContent = cart.qty;
-      el.hidden = cart.qty === 0;
-    });
+    $$('[data-cart-count]').forEach(function (el) { el.textContent = cartQty; el.hidden = cartQty === 0; });
+    var cartBtn = $('[data-open-cart]');
+    if (cartBtn) cartBtn.setAttribute('aria-label', cartQty ? 'Open cart, ' + cartQty + (cartQty === 1 ? ' item' : ' items') : 'Open cart');
     if (!drawer) return;
-    var empty = $('[data-cart-empty]', drawer);
-    var filled = $('[data-cart-filled]', drawer);
-    empty.hidden = cart.qty > 0;
-    filled.hidden = cart.qty === 0;
+    $$('[data-cart-empty]', drawer).forEach(function (el) { el.hidden = cartQty > 0; });
+    $$('[data-cart-filled]', drawer).forEach(function (el) { el.hidden = cartQty === 0; });
     var title = $('[data-cart-title-count]', drawer);
-    if (title) title.textContent = cart.qty ? '(' + cart.qty + ')' : '';
-    if (!cart.qty) return;
-    var subtotal = cart.qty * PRODUCT.price;
-    $('[data-line-qty]', drawer).value = cart.qty;
+    if (title) title.textContent = cartQty ? '(' + cartQty + ')' : '';
+    if (!cartQty) return;
+    var subtotal = cartQty * PRODUCT.price;
+    $('[data-line-qty]', drawer).value = cartQty;
     $('[data-line-price]', drawer).textContent = money(subtotal);
     $('[data-subtotal]', drawer).textContent = money(subtotal);
     var bar = $('[data-ship-bar]', drawer);
     var msg = $('[data-ship-msg]', drawer);
     if (FREE_SHIP && bar && msg) {
-      var pct = Math.min(100, (subtotal / FREE_SHIP) * 100);
-      bar.style.width = pct + '%';
+      bar.style.width = Math.min(100, (subtotal / FREE_SHIP) * 100) + '%';
       msg.innerHTML = subtotal >= FREE_SHIP
         ? 'You’ve unlocked <strong>free shipping</strong>!'
-        : 'You’re <strong>' + money(FREE_SHIP - subtotal) + '</strong> away from free shipping';
-    }
-  }
-
-  function addToCart(qty, btn) {
-    cart.qty = Math.min(99, cart.qty + qty);
-    saveCart();
-    renderCart();
-    if (btn) {
-      btn.classList.add('is-loading');
-      btn.disabled = true;
-      setTimeout(function () {
-        btn.classList.remove('is-loading');
-        btn.disabled = false;
-        if (drawer) openLayer(drawer);
-      }, 450);
-    } else if (drawer) {
-      openLayer(drawer);
+        : 'You are <strong>' + money(FREE_SHIP - subtotal) + '</strong> away from free shipping';
     }
   }
 
   $$('[data-add-to-cart]').forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
+    btn.addEventListener('click', function () {
+      if (btn.classList.contains('is-loading')) return;
       var scope = btn.closest('[data-buy-scope]') || document;
       var input = $('[data-qty-input]', scope);
-      addToCart(input ? (parseInt(input.value, 10) || 1) : 1, btn);
+      var q = input ? (parseInt(input.value, 10) || 1) : 1;
+      btn.classList.add('is-loading');
+      btn.setAttribute('aria-busy', 'true');
+      setTimeout(function () {
+        btn.classList.remove('is-loading');
+        btn.removeAttribute('aria-busy');
+        setCart(cartQty + q);
+        openLayer(drawer);
+      }, 450);
     });
   });
-  $$('[data-open-cart]').forEach(function (b) { b.addEventListener('click', function () { if (drawer) openLayer(drawer); }); });
+  $$('[data-open-cart]').forEach(function (b) { b.addEventListener('click', function () { openLayer(drawer); }); });
 
   if (drawer) {
     var lineInput = $('[data-line-qty]', drawer);
-    $('[data-line-minus]', drawer).addEventListener('click', function () {
-      cart.qty = Math.max(0, cart.qty - 1); saveCart(); renderCart();
+    $('[data-line-minus]', drawer).addEventListener('click', function () { setCart(cartQty - 1); });
+    $('[data-line-plus]', drawer).addEventListener('click', function () { setCart(cartQty + 1); });
+    lineInput.addEventListener('change', function () { setCart(parseInt(lineInput.value, 10) || 0); });
+    $('[data-line-remove]', drawer).addEventListener('click', function () {
+      setCart(0);
+      var cont = $('[data-cart-empty] button', drawer);
+      if (cont) cont.focus();
     });
-    $('[data-line-plus]', drawer).addEventListener('click', function () {
-      cart.qty = Math.min(99, cart.qty + 1); saveCart(); renderCart();
-    });
-    lineInput.addEventListener('change', function () {
-      var v = parseInt(lineInput.value, 10);
-      cart.qty = isNaN(v) || v < 0 ? 0 : Math.min(99, v); saveCart(); renderCart();
-    });
-    $('[data-line-remove]', drawer).addEventListener('click', function () { cart.qty = 0; saveCart(); renderCart(); });
     $$('[data-checkout]', drawer).forEach(function (b) {
       b.addEventListener('click', function () {
+        if (b.classList.contains('is-loading')) return;
         b.classList.add('is-loading');
-        b.disabled = true;
         setTimeout(function () {
           b.classList.remove('is-loading');
-          b.disabled = false;
           toast('Checkout is disabled on this example site.');
         }, 700);
       });
@@ -213,7 +218,6 @@
   $$('[data-accordion]').forEach(function (acc) {
     var btn = $('[data-accordion-toggle]', acc);
     var panel = $('[data-accordion-panel]', acc);
-    if (!btn || !panel) return;
     btn.addEventListener('click', function () {
       var open = btn.getAttribute('aria-expanded') === 'true';
       btn.setAttribute('aria-expanded', open ? 'false' : 'true');
@@ -222,37 +226,16 @@
     });
   });
 
-  /* ---------- Sticky add-to-cart bar ---------- */
-  var sticky = $('#sticky-atc');
-  var mainAtc = $('[data-main-atc]');
-  if (sticky && mainAtc && 'IntersectionObserver' in window) {
-    var footer = $('.site-footer');
-    var atcGone = false, footerIn = false;
-    var update = function () {
-      var show = atcGone && !footerIn;
-      sticky.classList.toggle('is-visible', show);
-      sticky.setAttribute('aria-hidden', show ? 'false' : 'true');
-    };
-    new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { atcGone = !en.isIntersecting && en.boundingClientRect.top < 0; });
-      update();
-    }).observe(mainAtc);
-    if (footer) new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { footerIn = en.isIntersecting; });
-      update();
-    }).observe(footer);
-  }
-
-  /* ---------- Reviews ---------- */
-  var REVIEWS = (window.RD_REVIEWS || []).slice();
+  /* ---------- Reviews (Judge.me layout) ---------- */
+  var REVIEWS = (window.RD_REVIEWS || []).filter(function (r) { return r && r.body && r.rating; });
   var reviewsRoot = $('#reviews');
   var PAGE = 5;
   var shown = PAGE;
   var sortMode = 'recent';
   var starFilter = 0;
 
-  function starsHTML(n, cls) {
-    var out = '<span class="' + (cls || 'stars') + '" role="img" aria-label="' + n + ' out of 5 stars">';
+  function starsHTML(n, extra) {
+    var out = '<span class="stars' + (extra ? ' ' + extra : '') + '" role="img" aria-label="' + (Math.round(n * 10) / 10) + ' out of 5 stars">';
     for (var i = 1; i <= 5; i++) {
       var fill = Math.max(0, Math.min(1, n - (i - 1)));
       out += '<span class="star" style="--fill:' + Math.round(fill * 100) + '%"></span>';
@@ -266,12 +249,16 @@
   }
   function initials(name) {
     var parts = String(name || '?').trim().split(/\s+/);
-    return ((parts[0] || '?')[0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
+    return ((parts[0] || '?').charAt(0) + (parts.length > 1 ? parts[parts.length - 1].charAt(0) : '')).toUpperCase();
   }
-  function sorted() {
+  function average() {
+    if (!REVIEWS.length) return 0;
+    return REVIEWS.reduce(function (s, r) { return s + r.rating; }, 0) / REVIEWS.length;
+  }
+  function filtered() {
     var list = REVIEWS.filter(function (r) { return !starFilter || Math.round(r.rating) === starFilter; });
-    var key = function (r) { return r.sortDate || r.date || ''; };
-    if (sortMode === 'recent') list.sort(function (a, b) { return key(b) < key(a) ? -1 : key(b) > key(a) ? 1 : 0; });
+    var key = function (r) { return r.isoDate || ''; };
+    if (sortMode === 'recent') list.sort(function (a, b) { return key(a) < key(b) ? 1 : key(a) > key(b) ? -1 : 0; });
     if (sortMode === 'high') list.sort(function (a, b) { return b.rating - a.rating; });
     if (sortMode === 'low') list.sort(function (a, b) { return a.rating - b.rating; });
     if (sortMode === 'helpful') list.sort(function (a, b) { return (b.helpful || 0) - (a.helpful || 0); });
@@ -279,95 +266,99 @@
   }
 
   function renderSummary() {
-    if (!reviewsRoot) return;
-    var total = PRODUCT.ratingCount || REVIEWS.length;
-    var avg = PRODUCT.rating || (REVIEWS.reduce(function (s, r) { return s + r.rating; }, 0) / (REVIEWS.length || 1));
-    $$('[data-rating-avg]').forEach(function (el) { el.textContent = avg.toFixed(1); });
+    var total = REVIEWS.length;
+    var avg = average();
     $$('[data-rating-stars]').forEach(function (el) { el.innerHTML = starsHTML(avg); });
-    $$('[data-rating-count]').forEach(function (el) {
-      var fmt = el.getAttribute('data-rating-count');
-      el.textContent = fmt === 'paren' ? '(' + total + ')' : total + (total === 1 ? ' review' : ' reviews');
+    $$('[data-rating-label]').forEach(function (el) {
+      el.textContent = total ? total + (total === 1 ? ' Review' : ' Reviews') : 'No reviews yet';
     });
-    var hist = $('[data-histogram]', reviewsRoot);
-    if (hist) {
-      var dist = PRODUCT.ratingDistribution;
-      var rows = '';
-      for (var s = 5; s >= 1; s--) {
-        var pct = dist ? (dist[s] || 0) : (REVIEWS.length ? Math.round(REVIEWS.filter(function (r) { return Math.round(r.rating) === s; }).length / REVIEWS.length * 100) : 0);
-        rows += '<button type="button" class="hist-row' + (starFilter === s ? ' is-active' : '') + '" data-star-filter="' + s + '" aria-pressed="' + (starFilter === s) + '">' +
-          '<span class="hist-label">' + s + ' <span class="hist-star" aria-hidden="true"></span></span>' +
-          '<span class="hist-bar"><span style="width:' + pct + '%"></span></span>' +
-          '<span class="hist-pct">' + pct + '%</span></button>';
-      }
-      hist.innerHTML = rows;
-      $$('[data-star-filter]', hist).forEach(function (b) {
-        b.addEventListener('click', function () {
-          var v = parseInt(b.getAttribute('data-star-filter'), 10);
-          starFilter = starFilter === v ? 0 : v;
-          shown = PAGE;
-          renderSummary();
-          renderList();
-        });
-      });
+    if (!reviewsRoot) return;
+    $('[data-summary-stars]', reviewsRoot).innerHTML = starsHTML(avg, 'stars--lg');
+    $('[data-summary-score]', reviewsRoot).innerHTML = total
+      ? '<strong>' + avg.toFixed(2) + '</strong> out of 5'
+      : 'Be the first to write a review';
+    var based = $('[data-summary-based]', reviewsRoot);
+    based.textContent = total ? 'Based on ' + total + (total === 1 ? ' review' : ' reviews') : '';
+    based.hidden = !total;
+
+    var rows = '';
+    for (var s = 5; s >= 1; s--) {
+      var count = REVIEWS.filter(function (r) { return Math.round(r.rating) === s; }).length;
+      var pct = total ? Math.round(count / total * 100) : 0;
+      rows += '<button type="button" class="hist-row' + (starFilter === s ? ' is-active' : '') + '" data-star-filter="' + s + '"' +
+        (total ? ' aria-pressed="' + (starFilter === s) + '"' : ' disabled') +
+        ' aria-label="' + s + ' star reviews: ' + count + '">' +
+        '<span class="hist-label" aria-hidden="true">' + s + '<span class="hist-star"></span></span>' +
+        '<span class="hist-bar" aria-hidden="true"><span style="width:' + pct + '%"></span></span>' +
+        '<span class="hist-pct" aria-hidden="true">' + pct + '% (' + count + ')</span></button>';
     }
+    var hist = $('[data-histogram]', reviewsRoot);
+    hist.innerHTML = rows;
+    $$('[data-star-filter]', hist).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = parseInt(b.getAttribute('data-star-filter'), 10);
+        starFilter = starFilter === v ? 0 : v;
+        shown = PAGE;
+        renderSummary();
+        renderList();
+      });
+    });
   }
 
   function renderList() {
     if (!reviewsRoot) return;
     var listEl = $('[data-review-list]', reviewsRoot);
     var more = $('[data-review-more]', reviewsRoot);
-    var countEl = $('[data-review-showing]', reviewsRoot);
-    var list = sorted();
+    var toolbar = $('[data-reviews-toolbar]', reviewsRoot);
+    var showing = $('[data-review-showing]', reviewsRoot);
+    toolbar.hidden = !REVIEWS.length;
+    if (!REVIEWS.length) { listEl.innerHTML = ''; more.hidden = true; return; }
+    var list = filtered();
     if (!list.length) {
       listEl.innerHTML = '<p class="review-empty">No reviews match this filter.</p>';
-      if (more) more.hidden = true;
-      if (countEl) countEl.textContent = '';
+      more.hidden = true;
+      showing.textContent = '';
       return;
     }
-    listEl.innerHTML = list.slice(0, shown).map(function (r, i) {
-      var meta = (r.attributes || []).map(function (a) {
-        return '<li><span>' + esc(a[0]) + ':</span> ' + esc(a[1]) + '</li>';
-      }).join('');
+    listEl.innerHTML = list.slice(0, shown).map(function (r) {
       return '<article class="review-card">' +
         '<div class="review-author">' +
           '<span class="review-avatar" aria-hidden="true">' + esc(initials(r.author)) + '</span>' +
-          '<div><p class="review-name">' + esc(r.author) + '</p>' +
+          '<div><p class="review-name">' + esc(r.author || 'Customer') + '</p>' +
           (r.verified ? '<p class="review-verified"><span class="check" aria-hidden="true"></span>Verified Buyer</p>' : '') +
           '</div>' +
         '</div>' +
         '<div class="review-body">' +
-          '<div class="review-top">' + starsHTML(r.rating) + '<time class="review-date">' + esc(r.date) + '</time></div>' +
-          (r.title ? '<h4 class="review-title">' + esc(r.title) + '</h4>' : '') +
+          '<div class="review-top">' + starsHTML(r.rating) + (r.date ? '<time class="review-date"' + (r.isoDate ? ' datetime="' + esc(r.isoDate) + '"' : '') + '>' + esc(r.date) + '</time>' : '') + '</div>' +
+          (r.title ? '<h3 class="review-title">' + esc(r.title) + '</h3>' : '') +
           '<p class="review-text">' + esc(r.body) + '</p>' +
-          (meta ? '<ul class="review-attrs">' + meta + '</ul>' : '') +
           (r.source ? '<p class="review-source">' + esc(r.source) + '</p>' : '') +
           '<div class="review-helpful"><span>Was this review helpful?</span>' +
-            '<button type="button" class="vote" data-vote="up" data-idx="' + i + '" aria-label="Yes, helpful"><span class="thumb up" aria-hidden="true"></span><span class="vote-n">' + (r.helpful || 0) + '</span></button>' +
-            '<button type="button" class="vote" data-vote="down" data-idx="' + i + '" aria-label="No, not helpful"><span class="thumb down" aria-hidden="true"></span><span class="vote-n">' + (r.unhelpful || 0) + '</span></button>' +
+            '<button type="button" class="vote" aria-label="Yes, helpful"><span class="thumb" aria-hidden="true"></span><span class="vote-n">' + (r.helpful || 0) + '</span></button>' +
+            '<button type="button" class="vote" aria-label="No, not helpful"><span class="thumb down" aria-hidden="true"></span><span class="vote-n">' + (r.unhelpful || 0) + '</span></button>' +
           '</div>' +
         '</div>' +
       '</article>';
     }).join('');
-    $$('[data-vote]', listEl).forEach(function (b) {
+    $$('.vote', listEl).forEach(function (b) {
       b.addEventListener('click', function () {
-        if (b.classList.contains('is-voted')) return;
+        var group = b.parentNode;
+        if ($('.vote.is-voted', group)) return;
         b.classList.add('is-voted');
         var n = $('.vote-n', b);
         n.textContent = (parseInt(n.textContent, 10) || 0) + 1;
       });
     });
-    if (more) more.hidden = shown >= list.length;
-    if (countEl) countEl.textContent = 'Showing ' + Math.min(shown, list.length) + ' of ' + list.length;
+    more.hidden = shown >= list.length;
+    showing.textContent = 'Showing ' + Math.min(shown, list.length) + ' of ' + list.length + (list.length === 1 ? ' review' : ' reviews');
   }
 
   if (reviewsRoot) {
-    var sortSel = $('[data-review-sort]', reviewsRoot);
-    if (sortSel) sortSel.addEventListener('change', function () { sortMode = sortSel.value; shown = PAGE; renderList(); });
-    var moreBtn = $('[data-review-more]', reviewsRoot);
-    if (moreBtn) moreBtn.addEventListener('click', function () { shown += PAGE; renderList(); });
-    renderSummary();
-    renderList();
+    $('[data-review-sort]', reviewsRoot).addEventListener('change', function (e) { sortMode = e.target.value; shown = PAGE; renderList(); });
+    $('[data-review-more]', reviewsRoot).addEventListener('click', function () { shown += PAGE; renderList(); });
   }
+  renderSummary();
+  renderList();
 
   $$('[data-scroll-reviews]').forEach(function (a) {
     a.addEventListener('click', function (e) {
@@ -378,29 +369,43 @@
   });
 
   /* ---------- Write a review (visual only) ---------- */
-  var reviewModal = $('#review-modal');
-  $$('[data-write-review]').forEach(function (b) { b.addEventListener('click', function () { if (reviewModal) openLayer(reviewModal); }); });
-  if (reviewModal) {
+  var formWrap = $('#review-form');
+  var writeBtn = $('[data-write-review]');
+  function toggleForm(show) {
+    if (!formWrap) return;
+    formWrap.hidden = !show;
+    if (writeBtn) writeBtn.setAttribute('aria-expanded', show ? 'true' : 'false');
+    if (show) { var first = $('[data-pick-star]', formWrap); if (first) first.focus(); }
+  }
+  if (writeBtn) writeBtn.addEventListener('click', function () { toggleForm(formWrap.hidden); });
+  if (formWrap) {
     var pick = 0;
-    var starBtns = $$('[data-pick-star]', reviewModal);
-    starBtns.forEach(function (b) {
-      b.addEventListener('click', function () {
-        pick = parseInt(b.getAttribute('data-pick-star'), 10);
-        starBtns.forEach(function (x) { x.classList.toggle('is-on', parseInt(x.getAttribute('data-pick-star'), 10) <= pick); });
+    var starBtns = $$('[data-pick-star]', formWrap);
+    var paint = function () {
+      starBtns.forEach(function (x) {
+        var on = parseInt(x.getAttribute('data-pick-star'), 10) <= pick;
+        x.classList.toggle('is-on', on);
+        x.setAttribute('aria-pressed', on && parseInt(x.getAttribute('data-pick-star'), 10) === pick ? 'true' : 'false');
       });
+    };
+    starBtns.forEach(function (b) {
+      b.addEventListener('click', function () { pick = parseInt(b.getAttribute('data-pick-star'), 10); paint(); });
     });
-    var form = $('form', reviewModal);
+    var form = $('form', formWrap);
+    var err = $('[data-review-error]', form);
+    $('[data-cancel-review]', form).addEventListener('click', function () {
+      form.reset(); pick = 0; paint(); err.hidden = true; toggleForm(false);
+      if (writeBtn) writeBtn.focus();
+    });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var err = $('[data-review-error]', form);
       if (!pick) { err.textContent = 'Choose a star rating before submitting.'; err.hidden = false; return; }
-      if (!form.checkValidity()) { err.textContent = 'Fill in your name, email and review.'; err.hidden = false; return; }
+      if (!form.checkValidity()) { err.textContent = 'Fill in your review, name and a valid email.'; err.hidden = false; return; }
       err.hidden = true;
-      form.reset();
-      pick = 0;
-      starBtns.forEach(function (x) { x.classList.remove('is-on'); });
-      closeLayer(reviewModal);
-      toast('Thanks! Your review was submitted for moderation.');
+      form.reset(); pick = 0; paint();
+      toggleForm(false);
+      if (writeBtn) writeBtn.focus();
+      toast('Thank you! Your review has been submitted.');
     });
   }
 
@@ -410,16 +415,16 @@
       e.preventDefault();
       var input = $('input[type="email"]', form);
       var msg = $('[data-newsletter-msg]', form);
-      if (!input.value || !input.checkValidity()) {
+      msg.hidden = false;
+      if (!input.value.trim() || !input.checkValidity()) {
         msg.textContent = 'Enter a valid email address.';
         msg.className = 'newsletter-msg is-error';
-        msg.hidden = false;
+        input.focus();
         return;
       }
-      msg.textContent = 'Thanks for subscribing! Your 10% off code is on its way to ' + input.value + '.';
+      msg.textContent = 'Thanks for subscribing! Your 10% off code is on its way.';
       msg.className = 'newsletter-msg is-ok';
-      msg.hidden = false;
-      form.reset();
+      input.value = '';
     });
   });
 
