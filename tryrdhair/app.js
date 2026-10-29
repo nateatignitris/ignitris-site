@@ -113,6 +113,7 @@
     });
     if (!focusables.length) return;
     var first = focusables[0], last = focusables[focusables.length - 1];
+    if (!layer.contains(document.activeElement)) { e.preventDefault(); (e.shiftKey ? last : first).focus(); return; }
     if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
@@ -148,6 +149,10 @@
     cartQty = Math.max(0, Math.min(99, q));
     try { sessionStorage.setItem('rd-cart-qty', String(cartQty)); } catch (e) { /* storage unavailable */ }
     renderCart();
+    if (!cartQty && drawer && openStack.indexOf(drawer) !== -1) {
+      var cont = $('[data-cart-empty] button', drawer);
+      if (cont) cont.focus();
+    }
   }
   function renderCart() {
     $$('[data-cart-count]').forEach(function (el) { el.textContent = cartQty; el.hidden = cartQty === 0; });
@@ -196,11 +201,7 @@
     $('[data-line-minus]', drawer).addEventListener('click', function () { setCart(cartQty - 1); });
     $('[data-line-plus]', drawer).addEventListener('click', function () { setCart(cartQty + 1); });
     lineInput.addEventListener('change', function () { setCart(parseInt(lineInput.value, 10) || 0); });
-    $('[data-line-remove]', drawer).addEventListener('click', function () {
-      setCart(0);
-      var cont = $('[data-cart-empty] button', drawer);
-      if (cont) cont.focus();
-    });
+    $('[data-line-remove]', drawer).addEventListener('click', function () { setCart(0); });
     $$('[data-checkout]', drawer).forEach(function (b) {
       b.addEventListener('click', function () {
         if (b.classList.contains('is-loading')) return;
@@ -235,7 +236,8 @@
   var starFilter = 0;
 
   function starsHTML(n, extra) {
-    var out = '<span class="stars' + (extra ? ' ' + extra : '') + '" role="img" aria-label="' + (Math.round(n * 10) / 10) + ' out of 5 stars">';
+    var a11y = n > 0 ? ' role="img" aria-label="' + (Math.round(n * 10) / 10) + ' out of 5 stars"' : ' aria-hidden="true"';
+    var out = '<span class="stars' + (extra ? ' ' + extra : '') + '"' + a11y + '>';
     for (var i = 1; i <= 5; i++) {
       var fill = Math.max(0, Math.min(1, n - (i - 1)));
       out += '<span class="star" style="--fill:' + Math.round(fill * 100) + '%"></span>';
@@ -305,6 +307,13 @@
     });
   }
 
+  function voteBtn(r, dir) {
+    var up = dir === 'up';
+    var voted = r._myVote === dir;
+    return '<button type="button" class="vote' + (voted ? ' is-voted' : '') + '" data-vote="' + dir + '" aria-pressed="' + voted + '" aria-label="' + (up ? 'Yes, helpful' : 'No, not helpful') + '">' +
+      '<span class="thumb' + (up ? '' : ' down') + '" aria-hidden="true"></span><span class="vote-n">' + ((up ? r.helpful : r.unhelpful) || 0) + '</span></button>';
+  }
+
   function renderList() {
     if (!reviewsRoot) return;
     var listEl = $('[data-review-list]', reviewsRoot);
@@ -333,20 +342,22 @@
           (r.title ? '<h3 class="review-title">' + esc(r.title) + '</h3>' : '') +
           '<p class="review-text">' + esc(r.body) + '</p>' +
           (r.source ? '<p class="review-source">' + esc(r.source) + '</p>' : '') +
-          '<div class="review-helpful"><span>Was this review helpful?</span>' +
-            '<button type="button" class="vote" aria-label="Yes, helpful"><span class="thumb" aria-hidden="true"></span><span class="vote-n">' + (r.helpful || 0) + '</span></button>' +
-            '<button type="button" class="vote" aria-label="No, not helpful"><span class="thumb down" aria-hidden="true"></span><span class="vote-n">' + (r.unhelpful || 0) + '</span></button>' +
+          '<div class="review-helpful" data-i="' + REVIEWS.indexOf(r) + '"><span>Was this review helpful?</span>' +
+            voteBtn(r, 'up') + voteBtn(r, 'down') +
           '</div>' +
         '</div>' +
       '</article>';
     }).join('');
     $$('.vote', listEl).forEach(function (b) {
       b.addEventListener('click', function () {
-        var group = b.parentNode;
-        if ($('.vote.is-voted', group)) return;
+        var r = REVIEWS[parseInt(b.parentNode.getAttribute('data-i'), 10)];
+        if (!r || r._myVote) return;
+        var up = b.getAttribute('data-vote') === 'up';
+        r._myVote = up ? 'up' : 'down';
+        if (up) r.helpful = (r.helpful || 0) + 1; else r.unhelpful = (r.unhelpful || 0) + 1;
         b.classList.add('is-voted');
-        var n = $('.vote-n', b);
-        n.textContent = (parseInt(n.textContent, 10) || 0) + 1;
+        b.setAttribute('aria-pressed', 'true');
+        $('.vote-n', b).textContent = up ? r.helpful : r.unhelpful;
       });
     });
     more.hidden = shown >= list.length;
@@ -359,14 +370,6 @@
   }
   renderSummary();
   renderList();
-
-  $$('[data-scroll-reviews]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      if (!reviewsRoot) return;
-      e.preventDefault();
-      reviewsRoot.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
 
   /* ---------- Write a review (visual only) ---------- */
   var formWrap = $('#review-form');
@@ -393,19 +396,33 @@
     });
     var form = $('form', formWrap);
     var err = $('[data-review-error]', form);
+    var group = $('.pick-stars', form);
+    var fields = [$('#rv-body', form), $('#rv-name', form), $('#rv-email', form)];
+    var clearErr = function () {
+      err.hidden = true;
+      err.textContent = '';
+      [group].concat(fields).forEach(function (el) { el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); });
+    };
+    var showErr = function (msg, bad) {
+      err.hidden = false;
+      err.textContent = msg;
+      bad.forEach(function (el) { el.setAttribute('aria-invalid', 'true'); el.setAttribute('aria-describedby', 'review-error'); });
+      (bad[0] === group ? starBtns[0] : bad[0]).focus();
+    };
     $('[data-cancel-review]', form).addEventListener('click', function () {
-      form.reset(); pick = 0; paint(); err.hidden = true; toggleForm(false);
+      form.reset(); pick = 0; paint(); clearErr(); toggleForm(false);
       if (writeBtn) writeBtn.focus();
     });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!pick) { err.textContent = 'Choose a star rating before submitting.'; err.hidden = false; return; }
-      if (!form.checkValidity()) { err.textContent = 'Fill in your review, name and a valid email.'; err.hidden = false; return; }
-      err.hidden = true;
+      clearErr();
+      if (!pick) { showErr('Choose a star rating before submitting.', [group]); return; }
+      var bad = fields.filter(function (el) { return !el.value.trim() || !el.checkValidity(); });
+      if (bad.length) { showErr('Fill in your review, your name and a valid email.', bad); return; }
       form.reset(); pick = 0; paint();
       toggleForm(false);
       if (writeBtn) writeBtn.focus();
-      toast('Thank you! Your review has been submitted.');
+      toast('Review submission is disabled on this example site.');
     });
   }
 
@@ -422,7 +439,14 @@
         input.focus();
         return;
       }
-      msg.textContent = 'Thanks for subscribing! Your 10% off code is on its way.';
+      var consent = $('#nl-consent', form);
+      if (consent && !consent.checked) {
+        msg.textContent = 'Tick the box to agree to marketing emails.';
+        msg.className = 'newsletter-msg is-error';
+        consent.focus();
+        return;
+      }
+      msg.textContent = 'Sign-up is disabled on this example site, so no email or code will be sent.';
       msg.className = 'newsletter-msg is-ok';
       input.value = '';
     });
