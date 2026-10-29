@@ -1,0 +1,948 @@
+<title>RD Silk Gold Treatment</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Layout: minimal secure-checkout PDP — gallery left, info right, accordion below */
+  :root {
+    --bg: #FAFAF8;
+    --bg-alt: #F3F1ED;
+    --fg: #1A1A1A;
+    --fg-muted: #6B6560;
+    --fg-light: #9A948D;
+    --accent: #B8993E;
+    --accent-hover: #A3862F;
+    --border: #E4E0DA;
+    --border-light: #EDEAE5;
+    --surface: #FFFFFF;
+    --surface-warm: #F7F5F0;
+    --badge-bg: #EFF7EE;
+    --badge-fg: #3A7D34;
+    --serif: 'Cormorant Garamond', 'Georgia', serif;
+    --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141311;
+      --bg-alt: #1C1A17;
+      --fg: #E8E4DE;
+      --fg-muted: #A09A93;
+      --fg-light: #706B64;
+      --accent: #D4AE4B;
+      --accent-hover: #E0BD5E;
+      --border: #2E2B26;
+      --border-light: #242220;
+      --surface: #1E1C19;
+      --surface-warm: #1A1816;
+      --badge-bg: #1A2E19;
+      --badge-fg: #6BBF64;
+      --serif: 'Cormorant Garamond', 'Georgia', serif;
+      --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141311;
+    --bg-alt: #1C1A17;
+    --fg: #E8E4DE;
+    --fg-muted: #A09A93;
+    --fg-light: #706B64;
+    --accent: #D4AE4B;
+    --accent-hover: #E0BD5E;
+    --border: #2E2B26;
+    --border-light: #242220;
+    --surface: #1E1C19;
+    --surface-warm: #1A1816;
+    --badge-bg: #1A2E19;
+    --badge-fg: #6BBF64;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 0;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px);
+    z-index: 100;
+    background: var(--bg);
+  }
+
+  * { box-sizing: border-box; }
+
+  .page-wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  /* ─── Header ─── */
+  .header {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 50;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border-light);
+    padding: 14px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-brand {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--fg);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .header-secure {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--fg-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .header-secure svg {
+    width: 14px;
+    height: 14px;
+    color: var(--badge-fg);
+  }
+
+  /* ─── Product Section ─── */
+  .product-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    padding: 40px 0 56px;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .product-section {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 24px 0 40px;
+    }
+  }
+
+  /* Gallery */
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: sticky;
+    top: calc(env(safe-area-inset-top, 0px) + 60px);
+  }
+
+  @media (max-width: 768px) {
+    .gallery { position: static; }
+  }
+
+  .gallery-main {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: var(--bg-alt);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-in;
+    position: relative;
+  }
+
+  .gallery-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gallery-main-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: var(--fg-light);
+  }
+
+  .gallery-main-placeholder svg {
+    width: 48px;
+    height: 48px;
+    opacity: 0.4;
+  }
+
+  .gallery-main-placeholder span {
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .gallery-thumbs {
+    display: flex;
+    gap: 10px;
+  }
+
+  .gallery-thumb {
+    width: 72px;
+    height: 72px;
+    border-radius: 4px;
+    background: var(--bg-alt);
+    border: 2px solid transparent;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s;
+    flex-shrink: 0;
+  }
+
+  .gallery-thumb.active,
+  .gallery-thumb:hover {
+    border-color: var(--accent);
+  }
+
+  .gallery-thumb-inner {
+    font-size: 9px;
+    color: var(--fg-light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* Product Info */
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .product-brand {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    margin-bottom: 10px;
+  }
+
+  .product-title {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--fg);
+    margin-bottom: 8px;
+    text-wrap: balance;
+  }
+
+  .product-subtitle {
+    font-size: 14px;
+    color: var(--fg-muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .product-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+    color: var(--accent);
+  }
+
+  .stars svg { width: 14px; height: 14px; }
+
+  .rating-text {
+    font-size: 13px;
+    color: var(--fg-muted);
+  }
+
+  .product-price {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--fg);
+    margin-bottom: 6px;
+  }
+
+  .product-size {
+    font-size: 13px;
+    color: var(--fg-light);
+    margin-bottom: 24px;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border-light);
+    margin: 0 0 24px;
+  }
+
+  .product-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--fg-muted);
+    margin-bottom: 28px;
+  }
+
+  /* Quantity */
+  .qty-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .qty-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+
+  .qty-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .qty-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--fg);
+    font-size: 16px;
+    transition: background 0.15s;
+  }
+
+  .qty-btn:hover { background: var(--bg-alt); }
+
+  .qty-value {
+    width: 40px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--fg);
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    height: 36px;
+    line-height: 36px;
+  }
+
+  /* Add to Cart */
+  .add-to-cart {
+    width: 100%;
+    padding: 16px 24px;
+    background: var(--fg);
+    color: var(--bg);
+    border: none;
+    border-radius: 4px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    margin-bottom: 12px;
+  }
+
+  .add-to-cart:hover { opacity: 0.88; }
+  .add-to-cart:active { transform: scale(0.995); }
+
+  .add-to-cart:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .checkout-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--fg-light);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .checkout-note svg { width: 12px; height: 12px; }
+
+  /* Trust badges */
+  .trust-badges {
+    display: flex;
+    gap: 20px;
+    padding: 16px 0;
+    border-top: 1px solid var(--border-light);
+    margin-bottom: 0;
+  }
+
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    color: var(--fg-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .trust-badge svg {
+    width: 16px;
+    height: 16px;
+    color: var(--badge-fg);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 480px) {
+    .trust-badges { flex-wrap: wrap; gap: 12px 20px; }
+  }
+
+  /* ─── Accordion ─── */
+  .accordion-section {
+    border-top: 1px solid var(--border-light);
+    padding: 0;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .accordion-section:last-of-type {
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .accordion-toggle {
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg);
+    text-align: left;
+  }
+
+  .accordion-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+
+  .accordion-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    color: var(--fg-muted);
+  }
+
+  .accordion-section.open .accordion-icon {
+    transform: rotate(45deg);
+  }
+
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+  }
+
+  .accordion-section.open .accordion-body {
+    max-height: 600px;
+    padding-bottom: 24px;
+  }
+
+  .accordion-body-inner {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--fg-muted);
+  }
+
+  .accordion-body-inner ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .accordion-body-inner li {
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .accordion-body-inner li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .accordion-body-inner p {
+    margin-bottom: 12px;
+  }
+
+  .accordion-body-inner p:last-child { margin-bottom: 0; }
+
+  .ingredients-list {
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--fg-light);
+    font-style: italic;
+  }
+
+  /* ─── Video Section ─── */
+  .video-section {
+    max-width: 1120px;
+    margin: 56px auto;
+  }
+
+  .video-section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .video-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-alt);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--fg-light);
+    border: 1px dashed var(--border);
+  }
+
+  .video-placeholder svg { width: 48px; height: 48px; opacity: 0.35; }
+
+  .video-placeholder span {
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ─── Benefits Strip ─── */
+  .benefits-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 48px 0;
+    max-width: 1120px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border-light);
+  }
+
+  @media (max-width: 640px) {
+    .benefits-strip {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px 16px;
+      padding: 32px 0;
+    }
+  }
+
+  .benefit-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .benefit-icon {
+    width: 36px;
+    height: 36px;
+    color: var(--accent);
+  }
+
+  .benefit-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+
+  .benefit-desc {
+    font-size: 12px;
+    color: var(--fg-light);
+    line-height: 1.5;
+  }
+
+  /* ─── Footer ─── */
+  .footer {
+    border-top: 1px solid var(--border-light);
+    padding: 32px 0;
+    max-width: 1120px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--fg-light);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-link {
+    font-size: 12px;
+    color: var(--fg-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer-link:hover { color: var(--fg); }
+
+  /* ─── Added to cart toast ─── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--fg);
+    color: var(--bg);
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 200;
+    opacity: 0;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  /* Mobile price bar */
+  @media (max-width: 768px) {
+    .product-title { font-size: 26px; }
+    .product-price { font-size: 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
+
+<div class="page-wrap">
+  <!-- Header -->
+  <header class="header">
+    <a href="#" class="header-brand" aria-label="Home">FC Design</a>
+    <div class="header-secure">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Secure Checkout
+    </div>
+  </header>
+
+  <!-- Product Section -->
+  <section class="product-section">
+    <!-- Gallery -->
+    <div class="gallery">
+      <div class="gallery-main" id="mainImage" role="img" aria-label="Product image">
+        <div class="gallery-main-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Product Image</span>
+        </div>
+      </div>
+      <div class="gallery-thumbs">
+        <button class="gallery-thumb active" aria-label="Product front view">
+          <span class="gallery-thumb-inner">Front</span>
+        </button>
+        <button class="gallery-thumb" aria-label="Product back view">
+          <span class="gallery-thumb-inner">Back</span>
+        </button>
+        <button class="gallery-thumb" aria-label="Product texture">
+          <span class="gallery-thumb-inner">Texture</span>
+        </button>
+        <button class="gallery-thumb" aria-label="Product in use">
+          <span class="gallery-thumb-inner">In Use</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="product-info">
+      <div class="product-brand">FC Design</div>
+      <h1 class="product-title">RD Silk Gold Re-Set Hair Instant Softening Treatment</h1>
+      <p class="product-subtitle">Leave-in cream for damaged &amp; chemically treated hair</p>
+
+      <div class="product-rating">
+        <div class="stars" aria-label="4.5 out of 5 stars">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor" opacity="0.3"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+        </div>
+        <span class="rating-text">4.5 (128 reviews)</span>
+      </div>
+
+      <div class="product-price">$15.99</div>
+      <div class="product-size">180ml / 6 fl oz</div>
+
+      <div class="divider"></div>
+
+      <p class="product-desc">
+        A lightweight, non-greasy leave-in treatment infused with silk protein that absorbs quickly to soften, strengthen, and restore shine to damaged and chemically treated hair. Made in Korea.
+      </p>
+
+      <!-- Quantity -->
+      <div class="qty-row">
+        <span class="qty-label">Quantity</span>
+        <div class="qty-control">
+          <button class="qty-btn" id="qtyMinus" aria-label="Decrease quantity">&minus;</button>
+          <div class="qty-value" id="qtyValue">1</div>
+          <button class="qty-btn" id="qtyPlus" aria-label="Increase quantity">+</button>
+        </div>
+      </div>
+
+      <!-- Add to Cart -->
+      <button class="add-to-cart" id="addToCart">Add to Cart</button>
+
+      <div class="checkout-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Secure checkout &middot; SSL encrypted
+      </div>
+
+      <!-- Trust Badges -->
+      <div class="trust-badges">
+        <div class="trust-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Secure Payment</span>
+        </div>
+        <div class="trust-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <span>Free Shipping</span>
+        </div>
+        <div class="trust-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Made in Korea</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Accordion Details -->
+<div class="accordion-section open">
+  <button class="accordion-toggle" aria-expanded="true">
+    Description
+    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+  <div class="accordion-body">
+    <div class="accordion-body-inner">
+      <p>RD Silk Gold Re-Set is an advanced leave-in hair treatment formulated with silk protein to instantly soften and revitalize damaged, dry, and chemically treated hair. Its lightweight, non-greasy formula absorbs quickly without weighing hair down.</p>
+      <ul>
+        <li>Silk protein penetrates deep to replenish nutrients in damaged hair</li>
+        <li>Forms a moisture barrier on the hair surface for lasting hydration</li>
+        <li>Adds elasticity and natural shine to thin, fragile hair</li>
+        <li>Non-greasy formula absorbs quickly — no residue or buildup</li>
+        <li>Apply before heat styling for added protection and hydration</li>
+        <li>Suitable for all hair types, especially damaged and color-treated</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="accordion-section">
+  <button class="accordion-toggle" aria-expanded="false">
+    How to Use
+    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+  <div class="accordion-body">
+    <div class="accordion-body-inner">
+      <p><strong>Daily Leave-In Care</strong></p>
+      <p>After shampooing, towel-dry hair leaving slight moisture. Dispense a small amount into your palm, spread evenly through mid-lengths and ends. Do not rinse. Style as desired.</p>
+      <p><strong>Deep Treatment</strong></p>
+      <p>Moisten hair and scalp thoroughly. Apply product evenly from roots to tips. Leave on for 2–3 minutes, then rinse with lukewarm water for a deeper conditioning treatment.</p>
+      <p><strong>Heat Protection</strong></p>
+      <p>Apply a small amount to damp or dry hair before blow-drying, flat ironing, or curling for added heat protection and hydration.</p>
+    </div>
+  </div>
+</div>
+
+<div class="accordion-section">
+  <button class="accordion-toggle" aria-expanded="false">
+    Ingredients
+    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+  <div class="accordion-body">
+    <div class="accordion-body-inner">
+      <p class="ingredients-list">Water (Aqua), Cyclopentasiloxane, Dimethicone, Cetearyl Alcohol, Behentrimonium Chloride, Hydrolyzed Silk, Panthenol, Tocopheryl Acetate, Argania Spinosa Kernel Oil, Camellia Japonica Seed Oil, Macadamia Integrifolia Seed Oil, Cetrimonium Chloride, Glycerin, Isopropyl Alcohol, Fragrance (Parfum), Phenoxyethanol, Methylparaben, Propylparaben.</p>
+    </div>
+  </div>
+</div>
+
+<div class="accordion-section">
+  <button class="accordion-toggle" aria-expanded="false">
+    Shipping &amp; Returns
+    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+  <div class="accordion-body">
+    <div class="accordion-body-inner">
+      <p><strong>Free Standard Shipping</strong> on all US orders. Estimated delivery in 3–5 business days.</p>
+      <p><strong>Express Shipping</strong> available at checkout for an additional fee. Estimated 1–2 business days.</p>
+      <p><strong>Returns:</strong> If you're not satisfied, return the product within 30 days for a full refund. Items must be unused and in original packaging.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Video Section -->
+<div class="video-section">
+  <div class="video-section-label">See It in Action</div>
+  <div class="video-placeholder">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    <span>Video Placeholder</span>
+  </div>
+</div>
+
+<!-- Benefits Strip -->
+<div class="benefits-strip">
+  <div class="benefit-item">
+    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+    </svg>
+    <span class="benefit-label">Silk Protein</span>
+    <span class="benefit-desc">Deep nourishment from within</span>
+  </div>
+  <div class="benefit-item">
+    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/>
+    </svg>
+    <span class="benefit-label">Quick Absorb</span>
+    <span class="benefit-desc">No greasy residue</span>
+  </div>
+  <div class="benefit-item">
+    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+    <span class="benefit-label">All Hair Types</span>
+    <span class="benefit-desc">Especially color-treated</span>
+  </div>
+  <div class="benefit-item">
+    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+    <span class="benefit-label">Made in Korea</span>
+    <span class="benefit-desc">K-Beauty formulation</span>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <span class="footer-copy">&copy; 2026 FC Design. All rights reserved.</span>
+  <nav class="footer-links">
+    <a href="#" class="footer-link">Privacy Policy</a>
+    <a href="#" class="footer-link">Terms of Service</a>
+    <a href="#" class="footer-link">Contact</a>
+  </nav>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast">Added to cart</div>
+
+<script>
+  // Quantity controls
+  const qtyValue = document.getElementById('qtyValue');
+  const qtyMinus = document.getElementById('qtyMinus');
+  const qtyPlus = document.getElementById('qtyPlus');
+  let qty = 1;
+
+  qtyMinus.addEventListener('click', () => {
+    if (qty > 1) { qty--; qtyValue.textContent = qty; }
+  });
+
+  qtyPlus.addEventListener('click', () => {
+    if (qty < 10) { qty++; qtyValue.textContent = qty; }
+  });
+
+  // Add to cart toast
+  const addToCart = document.getElementById('addToCart');
+  const toast = document.getElementById('toast');
+  let toastTimeout;
+
+  addToCart.addEventListener('click', () => {
+    clearTimeout(toastTimeout);
+    toast.classList.add('show');
+    toastTimeout = setTimeout(() => toast.classList.remove('show'), 2500);
+  });
+
+  // Accordion
+  document.querySelectorAll('.accordion-toggle').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const section = toggle.parentElement;
+      const isOpen = section.classList.contains('open');
+      section.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+
+  // Gallery thumbs
+  document.querySelectorAll('.gallery-thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    });
+  });
+</script>
